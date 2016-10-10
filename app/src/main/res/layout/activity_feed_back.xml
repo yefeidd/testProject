@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/register_content_color"
+    tools:context=".uiclass.activity.FeedBackActivity">
+    <include layout="@layout/layout_toolbar"/>
+
+    <EditText
+        android:id="@+id/et_feedback"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:lineSpacingMultiplier="1.3"
+        android:layout_marginTop="@dimen/base16dp"
+        android:padding="@dimen/base16dp"
+        android:minLines="5"
+        android:gravity="top"
+        android:hint="@string/input_feedback"
+        style="@style/Txt14Grey" />
+</LinearLayout>

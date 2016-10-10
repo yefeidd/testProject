@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/base12dp"
+    android:paddingRight="@dimen/base12dp"
+    android:paddingTop="@dimen/base8dp"
+    android:paddingBottom="@dimen/base8dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/Txt14Black"
+        android:text="2016-06-08 13:30"
+        android:drawablePadding="@dimen/base8dp"
+        android:drawableRight="@mipmap/icon_buy_in"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/base4dp"
+        >
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/deal_price"/>
+
+        <TextView
+            android:id="@+id/tv_deal_price"
+            style="@style/Txt14Black"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/deal_price"
+            android:gravity="left"
+            />
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/deal_num"/>
+
+        <TextView
+            android:id="@+id/tv_deal_num"
+            style="@style/Txt14Black"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/deal_num"
+            android:gravity="left"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/base4dp"
+        >
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/deal_amount"/>
+
+        <TextView
+            android:id="@+id/tv_deal_amount"
+            style="@style/Txt14Black"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/deal_amount"
+            android:gravity="left"
+            />
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/exchange_fee"/>
+
+        <TextView
+            android:id="@+id/tv_exchange_fee"
+            style="@style/Txt14Black"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/exchange_fee"
+            android:gravity="left"
+            />
+    </LinearLayout>
+
+</LinearLayout>

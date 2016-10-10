@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/base16dp"
+    android:paddingBottom="@dimen/base8dp"
+    android:paddingLeft="@dimen/base16dp"
+    android:paddingRight="@dimen/base16dp"
+    android:layout_marginLeft="@dimen/base5dp"
+    android:layout_marginRight="@dimen/base5dp"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_art_title"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:text="aaa"
+        android:singleLine="true"
+        android:ellipsize="end"/>
+
+    <TextView
+        android:id="@+id/tv_art_info"
+        android:layout_width="match_parent"
+        style="@style/Txt13Grey"
+        android:layout_marginTop="@dimen/base6dp"
+        android:text="bbb"
+        android:singleLine="true"
+        android:ellipsize="end"/>
+
+    <TextView
+        android:id="@+id/tv_art_time"
+        android:layout_width="match_parent"
+        style="@style/Txt12Grey"
+        android:gravity="right"
+        android:text="vcc"
+        android:singleLine="true"
+        android:ellipsize="end"/>
+</LinearLayout>

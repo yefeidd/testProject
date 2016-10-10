@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/base20dp"
+    android:paddingRight="@dimen/base20dp"
+    android:paddingTop="@dimen/base19dp">
+
+    <TextView
+        style="@style/Txt13Black"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:gravity="center"
+        android:text="排名"
+        android:textSize="14sp" />
+
+    <TextView
+        style="@style/Txt13Black"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="名称"
+        android:textSize="14sp" />
+
+    <TextView
+        style="@style/Txt13Black"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="代码"
+        android:textSize="14sp" />
+
+    <TextView
+        style="@style/Txt13Black"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="价格"
+        android:textSize="14sp" />
+
+    <TextView
+        style="@style/Txt13Black"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="涨幅"
+        android:textSize="14sp" />
+
+
+</LinearLayout>

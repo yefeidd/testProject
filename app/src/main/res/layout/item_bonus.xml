@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tv_year"
+        style="@style/Txt14Grey"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_weight="1.3"
+        android:paddingBottom="@dimen/base8dp"
+        android:paddingLeft="@dimen/base15dp"
+        android:paddingRight="@dimen/base15dp"
+        android:paddingTop="@dimen/base8dp"
+        />
+
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:background="@color/grey_divider"/>
+
+    <TextView
+        android:id="@+id/tv_remark"
+        style="@style/Txt14Grey"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:paddingBottom="@dimen/base8dp"
+        android:paddingLeft="@dimen/base15dp"
+        android:paddingRight="@dimen/base15dp"
+        android:paddingTop="@dimen/base8dp"
+        />
+
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:background="@color/grey_divider"/>
+
+    <TextView
+        android:id="@+id/tv_date"
+        style="@style/Txt14Grey"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:paddingBottom="@dimen/base8dp"
+        android:paddingLeft="@dimen/base15dp"
+        android:paddingRight="@dimen/base15dp"
+        android:paddingTop="@dimen/base8dp"
+        />
+
+</LinearLayout>

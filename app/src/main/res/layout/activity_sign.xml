@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/register_content_color"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="@dimen/base12dp"
+                >
+
+                <TextView
+                    android:id="@+id/tv_serial_sign"
+                    style="@style/MarketTitleTxt15Grey"
+                    android:gravity="center"
+                    android:layout_centerVertical="true"
+                    />
+
+                <ImageButton
+                    android:id="@+id/btn_sign"
+                    android:layout_height="@dimen/base75dp"
+                    android:layout_width="@dimen/base75dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@mipmap/ic_sign"
+                    style="@style/Txt16White"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_total_sign"
+                    style="@style/MarketTitleTxt15Grey"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/grey_line"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:text="2015年6月"
+                android:padding="@dimen/base10dp"
+                android:background="@color/white"
+                android:gravity="center"
+                style="@style/Txt16Black" />
+
+            <cn.zn.com.zn_android.uiclass.NoScrollGridView
+                android:id="@+id/gv_calender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/register_content_color"
+                android:layout_marginTop="@dimen/base12dp"
+                android:scrollbars="none"
+                android:numColumns="7"
+                android:verticalSpacing="0.8dp"
+                android:horizontalSpacing="0.8dp"
+                android:layout_marginLeft="@dimen/base30dp"
+                android:layout_marginRight="@dimen/base30dp"/>
+
+            <TextView
+                style="@style/Txt16Black"
+                android:layout_marginLeft="@dimen/base12dp"
+                android:layout_marginTop="@dimen/base12dp"
+                android:text="@string/sign_tips"/>
+
+            <TextView
+                android:id="@+id/tv_day_sign"
+                style="@style/Txt14Black"
+                android:layout_marginLeft="@dimen/base12dp"
+                android:layout_marginTop="@dimen/base8dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_day7"
+                style="@style/Txt14Black"
+                android:layout_marginLeft="@dimen/base12dp"
+                android:layout_marginTop="@dimen/base4dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_day15"
+                style="@style/Txt14Black"
+                android:layout_marginLeft="@dimen/base12dp"
+                android:layout_marginTop="@dimen/base4dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_day30"
+                style="@style/Txt14Black"
+                android:layout_marginLeft="@dimen/base12dp"
+                android:layout_marginTop="@dimen/base4dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_month_more"
+                style="@style/Txt14Black"
+                android:layout_marginLeft="@dimen/base12dp"
+                android:layout_marginTop="@dimen/base4dp"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

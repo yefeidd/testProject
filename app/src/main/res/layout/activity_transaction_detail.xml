@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/register_content_color"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar"/>
+
+    <cn.zn.com.zn_android.uiclass.xlistview.XListView
+        android:id="@+id/xlv_transaction_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:headerDividersEnabled="false"
+        android:divider="@color/register_content_color"
+        android:dividerHeight="@dimen/base4dp"
+        />
+
+</LinearLayout>

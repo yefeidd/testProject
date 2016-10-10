@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/base20dp"
+    android:paddingRight="@dimen/base20dp"
+    android:paddingTop="@dimen/base19dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_rank"
+            style="@style/White13"
+            android:background="@color/text_red"
+            android:gravity="center"
+            android:paddingLeft="@dimen/base6dp"
+            android:paddingRight="@dimen/base6dp"
+            android:text="1"
+            android:textSize="14sp" />
+    </LinearLayout>
+    <!--<TextView-->
+    <!--style="@style/ContestGray13"-->
+    <!--android:background="@color/bar_bg_gray"-->
+    <!--android:paddingLeft="@dimen/base4dp"-->
+    <!--android:paddingRight="@dimen/base4dp"-->
+    <!--android:text="1" />-->
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/ContestGray13"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="选手1"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_profit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="600120"
+        android:textColor="@color/text_red"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_total"
+        style="@style/ContestGray13"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="80.01"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_action"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="-0.14%"
+        android:textColor="@color/text_red"
+        android:textSize="14sp" />
+
+
+</LinearLayout>

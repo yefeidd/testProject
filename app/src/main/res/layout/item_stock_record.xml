@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/base10dp"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_name_code"
+        style="@style/Txt14Blue"
+        android:text="安徽水利（600502）"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/base4dp"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        >
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/profit_loss"/>
+
+        <TextView
+            android:id="@+id/tv_profit_loss"
+            style="@style/Txt14AppColor"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/profit_loss"
+            android:gravity="left"
+            />
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/gains"/>
+
+        <TextView
+            android:id="@+id/tv_gains"
+            style="@style/Txt14AppColor"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/gains"
+            android:gravity="left"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/base4dp"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        >
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/buy_in_amount"/>
+
+        <TextView
+            android:id="@+id/tv_buy_in_amount"
+            style="@style/Txt14Black"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/buy_in_amount"
+            android:gravity="left"
+            />
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/sell_out_amount"/>
+
+        <TextView
+            android:id="@+id/tv_sell_out_amount"
+            style="@style/Txt14Black"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/sell_out_amount"
+            android:gravity="left"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/base10dp"
+        android:background="@color/register_content_color"/>
+
+    <TextView
+        android:id="@+id/tv_transaction_detail"
+        android:layout_width="wrap_content"
+        style="@style/Txt14Grey"
+        android:paddingTop="@dimen/base4dp"
+        android:paddingBottom="@dimen/base4dp"
+        android:paddingLeft="@dimen/base28dp"
+        android:paddingRight="@dimen/base28dp"
+        android:layout_marginTop="@dimen/base8dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/transaction_detail"
+        android:background="@drawable/sp_rect_grey_border"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="@dimen/base8dp"
+        android:background="@color/register_content_color"/>
+
+</LinearLayout>

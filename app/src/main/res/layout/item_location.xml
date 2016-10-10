@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_location"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/Txt14Grey"
+    android:text="111"
+    android:padding="@dimen/base16dp"
+    >
+
+</TextView>

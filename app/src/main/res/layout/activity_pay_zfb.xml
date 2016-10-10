@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".uiclass.activity.PayZFBActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_zfb_account"
+        style="@style/Txt13Black"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/base8dp"
+        android:padding="@dimen/base16dp"
+        android:text="@string/pay_zfb_account" />
+
+    <TextView
+        android:id="@+id/tv_bank_card"
+        style="@style/Txt13Black"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/base8dp"
+        android:paddingBottom="@dimen/base16dp"
+        android:paddingLeft="@dimen/base16dp"
+        android:paddingRight="@dimen/base16dp"
+        android:text="@string/pay_zfb_name" />
+
+    <TextView
+        style="@style/Txt12AppColor"
+        android:layout_width="match_parent"
+        android:paddingBottom="@dimen/base8dp"
+        android:paddingLeft="@dimen/base16dp"
+        android:paddingRight="@dimen/base16dp"
+        android:text="@string/bank_warning" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line" />
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_zfb_mobile"-->
+    <!--android:layout_width="match_parent"-->
+    <!--style="@style/Txt14Black"-->
+    <!--android:padding="@dimen/base16dp"-->
+    <!--android:text="@string/pay_zfb_mobile"/>-->
+
+    <TextView
+        android:id="@+id/tv_zfb_tel"
+        style="@style/Txt13Black"
+        android:layout_width="match_parent"
+        android:padding="@dimen/base16dp"
+        android:text="@string/pay_zfb_tel" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line" />
+
+    <TextView
+        style="@style/Txt12Grey"
+        android:layout_width="match_parent"
+        android:lineSpacingMultiplier="1.5"
+        android:paddingBottom="@dimen/base16dp"
+        android:paddingLeft="@dimen/base16dp"
+        android:paddingRight="@dimen/base16dp"
+        android:paddingTop="@dimen/base8dp"
+        android:text="@string/pay_zfb_tips" />
+
+    <ImageView
+        android:layout_width="@dimen/base200dp"
+        android:layout_height="@dimen/base200dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/payzfb"/>
+</LinearLayout>

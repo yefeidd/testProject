@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/register_content_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        style="@style/Txt14Grey"
+        android:singleLine="true"
+        android:hint="@string/hint_buy_stock"
+        android:drawablePadding="@dimen/base12dp"
+        android:drawableLeft="@drawable/iv_search_gray"
+        android:paddingLeft="@dimen/base10dp"
+        android:paddingRight="@dimen/base10dp"
+        android:paddingTop="@dimen/base6dp"
+        android:paddingBottom="@dimen/base6dp"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:layout_marginTop="@dimen/base5dp"
+        android:layout_marginBottom="@dimen/base5dp"
+        android:background="@drawable/sp_rect_coner_white"/>
+
+    <TextView
+        android:id="@+id/tv_self_choose"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:paddingTop="@dimen/base8dp"
+        android:background="@drawable/border_bottom_line"
+        android:text="@string/self_choose"/>
+
+    <cn.zn.com.zn_android.uiclass.xlistview.XListView
+        android:id="@+id/xlv_self_stock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:scrollbars="none"
+        android:dividerHeight="0.5dp"
+        android:divider="@color/register_content_color"
+        android:background="@color/white"/>
+</LinearLayout>

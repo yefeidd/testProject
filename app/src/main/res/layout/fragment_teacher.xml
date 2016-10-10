@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <cn.zn.com.zn_android.uiclass.xlistview.XListView
+        android:id="@+id/lv_live"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/grey_line"
+        android:dividerHeight="0.5dp"
+        android:headerDividersEnabled="true"
+        android:background="@color/white"
+        android:scrollbars="none" />
+
+    <!--<cn.zn.com.zn_android.uiclass.customerview.InterceptSwpRefLayout-->
+        <!--android:id="@+id/srl_teachers"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/register_content_color"-->
+        <!--android:orientation="vertical">-->
+
+
+        <!---->
+    <!--</cn.zn.com.zn_android.uiclass.customerview.InterceptSwpRefLayout>-->
+</LinearLayout>

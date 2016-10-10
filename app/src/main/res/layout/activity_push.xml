@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar"/>
+
+    <LinearLayout
+        android:id="@+id/ll_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_bottom_line"
+        android:padding="@dimen/base10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt14Black"
+            android:text="@string/alert_push"/>
+        <CheckBox
+            android:id="@+id/cb_alert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/checkbox_push"
+            android:background="@android:color/transparent"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_bottom_line"
+        android:padding="@dimen/base10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt14Black"
+            android:text="@string/news_push"
+            android:layout_height="wrap_content" />
+        <CheckBox
+            android:id="@+id/cb_news"
+            android:layout_width="wrap_content"
+            android:background="@android:color/transparent"
+            android:button="@drawable/checkbox_push"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

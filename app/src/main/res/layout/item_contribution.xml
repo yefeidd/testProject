@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/base15dp"
+    android:paddingLeft="@dimen/base20dp"
+    android:paddingRight="@dimen/base20dp"
+    android:paddingTop="@dimen/base15dp">
+
+    <TextView
+        android:id="@+id/tv_icon"
+        android:layout_width="@dimen/base20dp"
+        android:layout_height="@dimen/base18dp"
+        android:background="@drawable/contribution_else"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        style="@style/Txt15Black"
+        android:paddingLeft="@dimen/base10dp"
+        android:text="身经百战的大力士" />
+
+    <TextView
+        android:id="@+id/tv_contribution"
+        style="@style/Txt15Red"
+        android:paddingLeft="@dimen/base15dp"
+        android:text="(12451354)" />
+</LinearLayout>

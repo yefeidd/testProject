@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0EFF5"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/sp_rect_bottom_corner_white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/base16dp"
+        android:text="消息记录" />
+
+    <cn.zn.com.zn_android.uiclass.xlistview.XListView
+        android:id="@+id/lv_history"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/base10dp"
+        android:layout_weight="12"
+        android:background="@drawable/bg_btn_white_blue_with_corner"
+        android:divider="@null"
+        android:paddingBottom="@dimen/base10dp"
+        android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
+        android:scrollbarTrackVertical="@drawable/scrollbar_vertical_track"
+        android:scrollbars="none" />
+</LinearLayout>

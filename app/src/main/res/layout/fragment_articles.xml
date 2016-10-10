@@ -1,0 +1,16 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".uiclass.fragment.ArticlesFragment">
+
+    <cn.zn.com.zn_android.uiclass.xlistview.XListView
+        android:id="@+id/lv_article"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:footerDividersEnabled="true"
+        android:headerDividersEnabled="false"
+        android:divider="@color/grey_line"
+        android:dividerHeight="0.5dp"/>
+
+</FrameLayout>

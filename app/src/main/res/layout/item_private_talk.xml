@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/base16dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/base10dp"
+        android:layout_marginRight="@dimen/base10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Txt14Grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/base6dp"
+            android:paddingTop="@dimen/base5dp"
+            android:text="云韩非非【小白】"
+            android:textColor="@color/grey_text_color" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/Txt14Grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  10:30"
+            android:textColor="@color/grey_text_color" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:textSize="14sp"
+        android:textColor="#A000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base10dp"
+        android:layout_marginRight="@dimen/base10dp"
+        android:layout_marginTop="@dimen/base3dp"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/base3dp"
+        android:paddingLeft="@dimen/base6dp"
+        android:paddingTop="@dimen/base2dp"
+        android:text="我应该投注哪一个？" />
+</LinearLayout>

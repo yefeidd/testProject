@@ -1,0 +1,129 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+    defaultConfig {
+        applicationId "cn.zn.com.zn_android"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 6
+        versionName "2.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //允许多dex打包，可以突破65535的限制+
+        multiDexEnabled true;
+    }
+    //执行lint检查，有任何错误或者警告提示，都会终止构建，我们可以将其关掉。
+    lintOptions {
+        abortOnError false;
+    }
+
+    // 签名配置
+    signingConfigs {
+        release {
+            keyPassword 'rongniu'
+            storeFile file('E:/APP/98cfw.jks')
+            storePassword 'rongniu'
+            keyAlias '98cfw'
+        }
+        debug {
+            keyPassword 'rongniu'
+            storeFile file('E:/APP/98cfw.jks')
+            storePassword 'rongniu'
+            keyAlias '98cfw'
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            //是否混淆
+            minifyEnabled true
+            //混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // Zippalign
+            zipAlignEnabled true
+            // 移除无用资源文件
+            shrinkResources true
+            //不显示log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+        }
+
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            signingConfig signingConfigs.release
+        }
+//        debug {
+//            //开启代码混淆
+//            minifyEnabled true
+//            // 移除无用的resource文件
+//            shrinkResources true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+//            buildConfigField "boolean", "LOG_DEBUG", "true"
+//        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}.apk")
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+    repositories {
+        maven {
+            url 'http://repo1.maven.org/maven2'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+
+    }
+
+    dependencies {
+//        classpath 'me.tatarka:gradle-retrolambda:2.5.0'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    testCompile 'junit:junit:4.12'
+    compile project(path: ':MPChartLib')
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'io.reactivex:rxjava:1.0.11'
+    compile 'io.reactivex:rxandroid:0.24.0'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.squareup.okhttp:okhttp:2.6.0'
+    compile 'com.qiniu:qiniu-android-sdk:7.1.+'
+    compile 'com.facebook.fresco:fresco:0.10.0'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.android.support:gridlayout-v7:24.2.1'
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'io.realm:realm-android:0.84.1'
+}

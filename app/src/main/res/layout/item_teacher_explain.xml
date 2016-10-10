@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/base76dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_explain"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base76dp"
+        android:background="@color/gray"
+        android:scaleType="fitXY"
+        app:fadeDuration="200"
+        app:placeholderImage="@color/bg_teacher_explain" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bg_teacher_explain"
+        android:padding="@dimen/base5dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="股票里的技术"
+            android:textColor="@color/font_value_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:text="阅读"
+            android:textColor="@color/text_red"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginLeft="@dimen/base28dp"
+            android:text="42155520人在看"
+            android:textColor="@color/bar_text_title_gray"
+            android:textSize="10sp" />
+    </RelativeLayout>
+</RelativeLayout>

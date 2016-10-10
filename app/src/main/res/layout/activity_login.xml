@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_login"
+    android:orientation="vertical"
+    tools:context=".uiclass.activity.LoginActivity">
+
+    <ImageButton
+        android:id="@+id/ib_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true"
+        android:onClick="onClick"
+        android:src="@mipmap/ic_back" />
+
+    <LinearLayout
+        android:id="@+id/ll_login_info"
+        android:layout_marginTop="@dimen/base165dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <cn.zn.com.zn_android.uiclass.customerview.ClearEditText
+            android:id="@+id/et_username"
+            style="@style/Txt14White"
+            android:layout_width="match_parent"
+            android:background="@drawable/edittext_default"
+            android:drawableLeft="@mipmap/ic_user"
+            android:drawablePadding="@dimen/activity_small_margin"
+            android:drawableRight="@mipmap/ic_delete_txt"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:hint="@string/name"
+            android:paddingBottom="@dimen/activity_small_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_small_margin"
+            android:singleLine="true"
+            android:textColorHint="@color/white" />
+
+        <cn.zn.com.zn_android.uiclass.customerview.ClearEditText
+            android:id="@+id/et_password"
+            style="@style/Txt14White"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/activity_small_margin"
+            android:background="@drawable/edittext_default"
+            android:drawableLeft="@mipmap/ic_pw"
+            android:drawablePadding="@dimen/activity_small_margin"
+            android:drawableRight="@mipmap/ic_delete_txt"
+            android:gravity="left|center_vertical"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:paddingBottom="@dimen/activity_small_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_small_margin"
+            android:textColorHint="@color/white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_small_margin">
+
+            <CheckBox
+                android:id="@+id/cb_remenber_pw"
+                style="@style/Txt12White"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/activity_mini_margin"
+                android:background="@android:color/transparent"
+                android:button="@drawable/remember_pass_checkbox"
+                android:checked="true"
+                android:padding="@dimen/activity_small_margin"
+                android:text="@string/remenber_password" />
+
+            <TextView
+                android:id="@+id/tv_find_pw"
+                style="@style/Txt12White"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingBottom="@dimen/activity_small_margin"
+                android:paddingTop="@dimen/activity_small_margin"
+                android:text="@string/find_password" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/base70dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@mipmap/im_login_logo" />
+
+    <Button
+        android:id="@+id/btn_login"
+        style="@style/Txt16White"
+        android:layout_below="@id/ll_login_info"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/sp_rect_coner_white"
+        android:onClick="onClick"
+        android:paddingLeft="@dimen/activity_big_margin"
+        android:paddingRight="@dimen/activity_big_margin"
+        android:text="@string/login"
+        android:textColor="@color/orange_dd3d20" />
+
+    <TextView
+        android:id="@+id/tv_register"
+        style="@style/Txt12White"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="@dimen/activity_large_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+
+    <RelativeLayout
+        android:visibility="visible"
+        android:id="@+id/rl_society_login"
+        android:layout_width="@dimen/base300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base50dp"
+        android:layout_below="@id/btn_login"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/tv_society_tips"
+            style="@style/Txt14White"
+            android:text="其他登录方式"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/base20dp"
+            />
+        <ImageButton
+            android:id="@+id/ibn_wx_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/ibn_qq_login"
+            android:layout_below="@id/tv_society_tips"
+            android:background="@mipmap/wx"
+            android:layout_marginRight="@dimen/base30dp"
+            android:text="wx" />
+
+        <ImageButton
+            android:id="@+id/ibn_qq_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_society_tips"
+            android:background="@mipmap/qq"
+            android:text="qq" />
+
+        <ImageButton
+            android:id="@+id/ibn_wb_login"
+            android:layout_marginLeft="@dimen/base30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_society_tips"
+            android:layout_toRightOf="@+id/ibn_qq_login"
+            android:background="@mipmap/wb"
+            android:text="wb" />
+    </RelativeLayout>
+
+</RelativeLayout>

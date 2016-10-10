@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/register_content_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingTop="@dimen/base8dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@id/sdv_avatar"
+            android:layout_width="@dimen/base55dp"
+            android:layout_height="@dimen/base55dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            app:actualImageScaleType="focusCrop"
+            app:placeholderImage="@mipmap/ic_default_avatars"
+            app:roundAsCircle="true"
+            app:roundedCornerRadius="@dimen/base4dp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/base8dp"
+            style="@style/Txt15Black" />
+
+        <TextView
+            android:id="@+id/tv_add_focus"
+            android:paddingTop="@dimen/base4dp"
+            android:paddingBottom="@dimen/base4dp"
+            android:paddingRight="@dimen/base12dp"
+            android:paddingLeft="@dimen/base12dp"
+            android:text="@string/add_focus"
+            android:background="@drawable/sp_rect_orange"
+            style="@style/Txt14White" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/base25dp"
+        android:paddingTop="@dimen/base4dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_self_select"
+            android:gravity="center_horizontal"
+            android:text="0\n自选"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt14BarGrey" />
+
+        <TextView
+            android:id="@+id/tv_focus"
+            style="@style/Txt14BarGrey"
+            android:gravity="center_horizontal"
+            android:text="0\n关注"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_popularity"
+            style="@style/Txt14BarGrey"
+            android:gravity="center_horizontal"
+            android:text="0\n人气"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingTop="@dimen/base8dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="@string/initial_capital"
+            style="@style/Txt14Black" />
+
+        <TextView
+            android:id="@+id/tv_initial_capital"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/base8dp"
+            style="@style/Txt14Black" />
+
+        <TextView
+            android:text="@string/total_profit_rate"
+            style="@style/Txt14Black" />
+
+        <TextView
+            android:id="@+id/tv_total_profit_rate"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/base8dp"
+            style="@style/Txt14Black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingTop="@dimen/base8dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="@string/average_profit"
+            style="@style/Txt14Black" />
+
+        <TextView
+            android:id="@+id/tv_average_profit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/base8dp"
+            style="@style/Txt14Black" />
+
+        <TextView
+            android:text="@string/join_time"
+            style="@style/Txt14Black" />
+
+        <TextView
+            android:id="@+id/tv_join_time"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/base8dp"
+            style="@style/Txt14Black" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_detail"
+        android:text="@string/oprate_detail"
+        android:layout_width="match_parent"
+        android:drawableRight="@mipmap/ic_arrow_r_grey"
+        android:layout_marginTop="@dimen/base8dp"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingTop="@dimen/base8dp"
+        android:paddingBottom="@dimen/base8dp"
+        style="@style/Txt15Black" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line"/>
+
+    <TextView
+        android:text="@string/records"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingTop="@dimen/base8dp"
+        android:paddingBottom="@dimen/base8dp"
+        style="@style/Txt15Black" />
+
+</LinearLayout>

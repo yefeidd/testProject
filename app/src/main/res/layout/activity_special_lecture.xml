@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <FrameLayout
+            android:id="@+id/fl_lecture"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base180dp"
+            android:background="#232323">
+
+            <cn.zn.com.zn_android.uiclass.customerview.AspectLayout
+                android:id="@+id/aspect_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base180dp"
+                android:layout_gravity="center">
+
+                <com.pili.pldroid.player.widget.VideoView
+                    android:id="@+id/video_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true" />
+
+            </cn.zn.com.zn_android.uiclass.customerview.AspectLayout>
+
+            <LinearLayout
+                android:id="@+id/buffering_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/buffering_progress"
+                    style="@android:style/Widget.ProgressBar.Large"
+                    android:layout_width="@dimen/base30dp"
+                    android:layout_height="@dimen/base30dp" />
+
+                <TextView
+                    android:id="@+id/buffering_msg"
+                    style="@style/Txt14White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:adjustViewBounds="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="0"
+                    android:scaleType="centerInside"
+                    android:singleLine="true"
+                    android:text="@string/loading" />
+
+
+            </LinearLayout>
+
+            <cn.zn.com.zn_android.uiclass.SmartLinearLayout
+                android:id="@+id/sll_menu_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/trans_black_bg"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/Txt12White"
+                    android:layout_width="0dp"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginBottom="@dimen/base4dp"
+                    android:layout_marginLeft="@dimen/base16dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/room_num" />
+
+                <ImageButton
+                    android:id="@+id/ib_full_screen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:background="@android:color/transparent"
+                    android:onClick="onClick"
+                    android:paddingBottom="@dimen/base16dp"
+                    android:paddingLeft="@dimen/base16dp"
+                    android:paddingRight="@dimen/base16dp"
+                    android:paddingTop="@dimen/base10dp"
+                    android:src="@mipmap/ic_full_screen" />
+            </cn.zn.com.zn_android.uiclass.SmartLinearLayout>
+
+            <cn.zn.com.zn_android.uiclass.SmartLinearLayout
+                android:id="@+id/sll_menu_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/ib_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|left"
+                    android:background="@android:color/transparent"
+                    android:onClick="onClick"
+                    android:paddingBottom="@dimen/base16dp"
+                    android:paddingLeft="@dimen/base16dp"
+                    android:paddingRight="@dimen/base16dp"
+                    android:paddingTop="@dimen/base10dp"
+                    android:src="@drawable/register_back" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/ib_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:onClick="onClick"
+                    android:paddingBottom="@dimen/base16dp"
+                    android:paddingLeft="@dimen/base16dp"
+                    android:paddingRight="@dimen/base16dp"
+                    android:paddingTop="@dimen/base10dp"
+                    android:src="@mipmap/ic_share" />
+            </cn.zn.com.zn_android.uiclass.SmartLinearLayout>
+
+        </FrameLayout>
+
+        <cn.zn.com.zn_android.uiclass.customerview.MarqueeText
+            android:id="@+id/tv_notice"
+            style="@style/Txt12AppColor"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/base18dp"
+            android:layout_below="@+id/fl_lecture"
+            android:background="@color/grey_trans"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
+            android:visibility="gone" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_notice"
+            android:background="@drawable/border_bottom_line"
+            app:tabSelectedTextColor="@color/app_bar_color"
+            app:tabTextAppearance="@style/NormalTabLayoutTextAppearance"
+            app:tabTextColor="@color/font_value_black" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_chat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tl_chat"
+            android:layout_above="@+id/sll_chat_input"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </LinearLayout>
+
+    <cn.zn.com.zn_android.uiclass.SmartLinearLayout
+        android:id="@+id/sll_chat_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+        <cn.zn.com.zn_android.uiclass.customerview.ChatInput
+            android:id="@+id/chat_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </cn.zn.com.zn_android.uiclass.SmartLinearLayout>
+
+</LinearLayout>

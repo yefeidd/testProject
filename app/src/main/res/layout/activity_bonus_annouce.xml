@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:padding="@dimen/base10dp"
+        android:lineSpacingMultiplier="1.3"
+        android:text="感谢小伙伴们的积极参与，现将50位获奖用户公布如下，请中奖的小伙伴赶快私信我们回复自己的手机号，以便我们安排充值"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/Txt16AppColor"
+        android:text="中奖名单"
+        android:padding="@dimen/base10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/Txt14Grey"
+        android:lineSpacingMultiplier="1.5"
+        android:paddingLeft="@dimen/base10dp"
+        android:paddingRight="@dimen/base10dp"
+        android:text="1111              2222                3333                4444                5555                6666              7777                8888"/>
+</LinearLayout>

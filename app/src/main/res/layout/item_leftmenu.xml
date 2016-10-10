@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:paddingTop="@dimen/activity_horizontal_margin"
+    android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/iv_menu_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/tv_menu_txt"
+        style="@style/Txt14White"
+        android:layout_marginLeft="@dimen/activity_small_margin"/>
+</LinearLayout>

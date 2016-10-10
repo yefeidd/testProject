@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@color/register_content_color"
+    tools:context=".uiclass.activity.PayYBActivity">
+    <include layout="@layout/layout_toolbar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/Txt16Black"
+        android:gravity="center"
+        android:padding="@dimen/base16dp"
+        android:text="@string/pay_yb_comp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/Txt20AppColor"
+        android:gravity="center"
+        android:text="@string/pay_yb_money"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base16dp"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/Txt14Grey"
+            android:text="@string/product"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/base8dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="right"
+            style="@style/Txt14Grey" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base16dp"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/Txt14Grey"
+            android:text="@string/order"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/base8dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:text="cfw"
+            style="@style/Txt14Grey" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sp_rect_grey_border_white"
+        android:layout_marginTop="@dimen/base20dp"
+        android:paddingLeft="@dimen/base16dp"
+        android:paddingRight="@dimen/base16dp"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/Txt16Black"
+            android:text="@string/card_num"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:padding="@dimen/base16dp"
+            style="@style/Txt14Grey"
+            android:background="@null"
+            android:layout_marginLeft="@dimen/base16dp"
+            android:hint="@string/input_card_num"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="@dimen/base200dp"
+        style="@style/Txt16White"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/base30dp"
+        android:text="@string/next_step"
+        android:background="@drawable/sp_rect_orange" />
+    
+    <TextView
+        style="@style/Txt14Black"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/base30dp"
+        android:text="@string/pay_yb_info"/>
+</LinearLayout>

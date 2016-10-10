@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".uiclass.activity.NoticeActivity">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <TextView
+        android:id="@+id/tv_notice"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:minHeight="@dimen/base300dp"
+        android:lineSpacingMultiplier="2"
+        android:padding="@dimen/base16dp"/>
+</LinearLayout>

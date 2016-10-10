@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/base40dp"
+    android:layout_below="@id/lay_toolbar"
+    android:background="#F0EFF5"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/tv_name_code"
+        style="@style/MarketTitleTxt14Grey"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/base26dp"
+        android:layout_marginStart="@dimen/base26dp"
+        android:text="@string/name_code" />
+
+    <TextView
+        android:id="@+id/tv_new_price"
+        style="@style/MarketTitleTxt14Grey"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/base95dp"
+        android:layout_marginStart="@dimen/base95dp"
+        android:layout_toEndOf="@id/tv_name_code"
+        android:layout_toRightOf="@id/tv_name_code"
+        android:text="@string/new_price" />
+
+    <ImageView
+        android:id="@+id/iv_new_price_tips"
+        android:layout_width="@dimen/base8dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/tv_new_price"
+        android:layout_marginEnd="@dimen/base22dp"
+        android:layout_marginRight="@dimen/base22dp"
+        android:contentDescription="@string/up_down_list"
+        android:visibility="invisible"
+        android:src="@drawable/down_arrows" />
+
+    <ImageView
+        android:id="@+id/iv_up_down_tips"
+        android:layout_width="@dimen/base8dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/base22dp"
+        android:layout_marginRight="@dimen/base22dp"
+        android:contentDescription="@string/up_down_list"
+        android:visibility="invisible"
+        android:src="@drawable/down_arrows" />
+
+    <TextView
+        android:id="@+id/tv_updown"
+        style="@style/MarketTitleTxt14Grey"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_toLeftOf="@id/iv_up_down_tips"
+        android:layout_toStartOf="@id/iv_up_down_tips"
+        android:text="@string/up_down_list" />
+
+</RelativeLayout>

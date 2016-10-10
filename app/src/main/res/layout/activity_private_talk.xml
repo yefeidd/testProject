@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar" />
+    <FrameLayout
+        android:id="@+id/lv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_refresh_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/base40dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="@dimen/base60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/base10dp"
+                android:src="@drawable/shape_center_line" />
+
+            <TextView
+                android:id="@+id/tv_refresh_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/shape_center_line"
+                android:drawableRight="@drawable/shape_center_line"
+                android:text="@string/not_net_refresh"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="@dimen/base60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/base10dp"
+                android:src="@drawable/shape_center_line" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/base10dp"
+            android:visibility="visible">
+
+            <cn.zn.com.zn_android.uiclass.customerview.InterceptSwpRefLayout
+                android:id="@+id/isr_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/base96dp">
+
+                <ListView
+                    android:id="@+id/lv_private_talk"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null"
+                    android:visibility="gone"
+                    android:paddingBottom="@dimen/base5dp" />
+            </cn.zn.com.zn_android.uiclass.customerview.InterceptSwpRefLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_btns"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base100dp"
+                android:layout_alignParentBottom="true">
+
+                <LinearLayout
+                    android:id="@+id/ll_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/base50dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/border_top_line"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/base10dp"
+                    android:paddingLeft="@dimen/base16dp"
+                    android:paddingRight="@dimen/base16dp"
+                    android:paddingTop="@dimen/base10dp">
+
+                    <EditText
+                        android:id="@+id/et_msg"
+                        style="@style/Txt14Black"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_corner_orange"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/base16dp"
+                        android:paddingRight="@dimen/base16dp" />
+
+                    <TextView
+                        android:id="@+id/tv_send"
+                        style="@style/Txt14White"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/base10dp"
+                        android:background="@drawable/sp_rect_corner_grey_light"
+                        android:paddingLeft="@dimen/base8dp"
+                        android:paddingRight="@dimen/base8dp"
+                        android:text="@string/send" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_second_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/ll_send"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/base10dp"
+                    android:paddingLeft="@dimen/base16dp"
+                    android:paddingRight="@dimen/base16dp">
+
+                    <ImageButton
+                        android:id="@+id/ib_clean"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:background="@drawable/clear"
+                        android:onClick="onClick" />
+
+                    <ImageButton
+                        android:id="@+id/ibn_talk_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/base16dp"
+                        android:layout_toRightOf="@+id/ib_clean"
+                        android:background="@drawable/record"
+                        android:onClick="onClick" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </FrameLayout>
+</LinearLayout>

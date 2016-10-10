@@ -1,0 +1,490 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.zn.com.zn_android">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <!--<uses-permission android:name="android.permission.READ_SMS" />-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- sdcard操作允许 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <application android:name=".manage.RnApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/WindTransAppTheme">
+        <!-- SERVICE -->
+        <service android:name="com.yintong.secure.service.PayService" />
+
+        <!-- 奥点云 -->
+        <service android:name="org.eclipse.paho.android.service.MqttService"></service>
+
+
+        <!-- LLYT SDK START -->
+        <activity
+            android:name="com.yintong.secure.activity.BaseActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- LLYT SDK END -->
+        <activity
+            android:name=".uiclass.activity.SplashActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyFullScreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".uiclass.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name=".uiclass.activity.GuideActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".uiclass.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.BoundLoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.PersonActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.ModifyNickActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.ModifyPWActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.SignatureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.LocationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.AboutUsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.RankingListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.ArticleListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.TeacherArticleListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.ArticleDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.TeacherLiveActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.ArticleSearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <!--引导页-->
+        <activity
+            android:name=".uiclass.activity.SpecialLectureActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeAnimStyle"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="video/*" />
+                <data android:mimeType="audio/*" />
+                <data android:scheme="http" />
+                <data android:scheme="file" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".uiclass.activity.PrivateTalkActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name=".uiclass.activity.HistoryPrivateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.MemberAreaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.VideoDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.VideosActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.CourseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.NoticeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.MyCollectionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.MyFocusActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.RechargeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.ChoosePayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.PayYBActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.PayYLActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.PayZFBActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.RegisterProActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.MyTacticsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.TacticsDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.TeacherDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.FeedBackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.EditOptionalStockActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.MarketSearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.UpDownRankingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.MarketDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.RefreshRateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.PushActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.AlertListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.AlertSettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.MyInvolvementActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.ActivityInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.StockIndicesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.HotConceptsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.NewsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.BigStockChatActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@style/MyFullScreenTheme" />
+        <activity
+            android:name=".uiclass.activity.BonusAnnounceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.NewsDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+        <activity
+            android:name=".uiclass.activity.GeniusRankingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.ImitateFryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.TransactionDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.BuySearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.StockRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.BuyInActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.EarningsRankingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.TaActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.SignActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.SignUpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.VoucherActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <activity
+            android:name=".uiclass.activity.OperatingDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+
+        <activity
+            android:name=".uiclass.activity.ContestNoticeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <!-- 微信支付 -->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindTransAppTheme" />
+
+        <!--支付宝支付-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" />
+
+        <service android:name=".service.RefreshDataService" />
+
+        <!--友盟分享，三方登陆-->
+        <!--友盟的activity-->
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault" />
+        <!--微信的三方activity-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--新浪分享-->
+        <activity
+            android:name=".sina.WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"></activity>
+
+        <service
+            android:name="com.sina.weibo.sdk.net.DownloadService"
+            android:exported="false"></service>
+
+        <!--QQ,Qzone-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1105579929" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 广播接受者 -->
+        <receiver android:name=".recevie.UpdataBroadcastRecevie">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- UMeng -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5718261367e58ecdb90024b0" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Channel ID" />
+        <!-- 多渠道打包的配置 -->
+        <!-- <meta-data -->
+        <!-- android:name="UMENG_CHANNEL" -->
+        <!-- android:value="${UMENG_CHANNEL_VALUE}" /> -->
+
+        <!-- X5浏览器-->
+        <meta-data
+            android:name="QBSDKAppKey"
+            android:value="zVsnFkIj5lo6rAWv8McHgOVK" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+
+</manifest>

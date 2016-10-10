@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base30dp"
+        android:visibility="gone"
+        android:background="#F0EFF5"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_all_title"
+            style="@style/MarketTitleTxt14Grey"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_marginLeft="@dimen/base20dp"
+            android:text="@string/all_stock" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_new_price"
+                style="@style/MarketTitleTxt14Grey"
+                android:text="@string/new_price" />
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_price_tips"-->
+                <!--android:layout_width="@dimen/base8dp"-->
+                <!--android:layout_height="@dimen/base18dp"-->
+                <!--android:layout_marginLeft="@dimen/base4dp"-->
+                <!--android:layout_marginStart="@dimen/base4dp"-->
+                <!--android:contentDescription="@string/new_price"-->
+                <!--android:visibility="invisible"-->
+                <!--android:src="@drawable/up_arrows" />-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_up_down"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                style="@style/MarketTitleTxt14Grey"
+                android:text="@string/up_down_list" />
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_up_down_tips"-->
+                <!--android:layout_width="@dimen/base8dp"-->
+                <!--android:layout_height="@dimen/base18dp"-->
+                <!--android:layout_marginLeft="@dimen/base4dp"-->
+                <!--android:layout_marginStart="@dimen/base4dp"-->
+                <!--android:contentDescription="@string/up_down_list"-->
+                <!--android:src="@drawable/up_arrows" />-->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_self_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_title"
+        android:background="@color/white">
+
+        <!--<cn.zn.com.zn_android.uiclass.xlistview.XListView-->
+        <!--android:id="@+id/xlv_self_select"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+        <!--<ImageView android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/self_select_add"-->
+        <!--android:layout_gravity="center"-->
+        <!--/>-->
+    </FrameLayout>
+
+
+</RelativeLayout>

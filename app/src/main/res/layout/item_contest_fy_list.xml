@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/base20dp"
+    android:paddingRight="@dimen/base20dp"
+    android:paddingTop="@dimen/base15dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_rank"
+            style="@style/White13"
+            android:background="@color/text_red"
+            android:gravity="center"
+            android:paddingLeft="@dimen/base6dp"
+            android:paddingRight="@dimen/base6dp"
+            android:text="1" />
+    </LinearLayout>
+    <!--<TextView-->
+    <!--style="@style/ContestGray13"-->
+    <!--android:background="@color/bar_bg_gray"-->
+    <!--android:paddingLeft="@dimen/base4dp"-->
+    <!--android:paddingRight="@dimen/base4dp"-->
+    <!--android:text="1" />-->
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/ContestGray13"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="选手1" />
+
+    <TextView
+        android:id="@+id/tv_profit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:gravity="center"
+        android:text="29.72%"
+        android:textColor="@color/text_red"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_total"
+        style="@style/ContestGray13"
+        android:layout_width="0dp"
+        android:layout_weight="4.5"
+        android:gravity="center"
+        android:text="25942.00" />
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3.5"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sp_rect_orange_yellow"
+            android:gravity="center"
+            android:paddingBottom="@dimen/base5dp"
+            android:paddingTop="@dimen/base5dp"
+            android:text="操作明细"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_attention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sp_rect_btn_red"
+            android:gravity="center"
+            android:paddingBottom="@dimen/base5dp"
+            android:paddingLeft="@dimen/base10dp"
+            android:paddingRight="@dimen/base10dp"
+            android:paddingTop="@dimen/base5dp"
+            android:text="+关注"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

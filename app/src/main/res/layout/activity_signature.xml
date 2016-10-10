@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".uiclass.activity.SignatureActivity">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <EditText
+        android:id="@+id/et_self_intru"
+        android:layout_width="match_parent"
+        style="@style/Txt14Grey"
+        android:maxLength="50"
+        android:gravity="left|top"
+        android:background="@drawable/sp_rect_coner_white"
+        android:padding="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"
+        android:layout_marginTop="@dimen/base16dp"
+        android:layout_marginBottom="@dimen/base8dp"
+        android:hint="@string/modify_intru_self"
+        android:minLines="5"/>
+
+    <TextView
+        android:id="@+id/tv_words_left"
+        android:layout_width="match_parent"
+        style="@style/Txt14Grey"
+        android:gravity="right"
+        android:paddingRight="@dimen/base16dp"
+        android:text="@string/modify_words_left"/>
+</LinearLayout>

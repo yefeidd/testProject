@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/base8dp"
+    android:paddingTop="@dimen/base10dp">
+
+    <TextView
+        android:id="@+id/tv_code"
+        style="@style/Txt15Black"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="代码" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/Txt15Black"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="名称" />
+
+    <TextView
+        android:id="@+id/tv_number"
+        style="@style/Txt15Black"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="股数" />
+
+    <TextView
+        android:id="@+id/tv_base_price"
+        style="@style/Txt15Black"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="成本价" />
+
+    <TextView
+        android:id="@+id/tv_position_cost"
+        style="@style/Txt15Black"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="持仓成本" />
+
+
+</LinearLayout>

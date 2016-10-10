@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/base180dp"
+    android:background="@drawable/sp_rect_coner_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/base18dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_private_msg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base75dp"
+            android:autoLink="all"
+            android:background="@drawable/bg_rounded_rectangle_line"
+            android:gravity="left|top"
+            android:padding="@dimen/base8dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_send_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base20dp"
+            android:background="@drawable/sp_rect_orange"
+            android:gravity="center"
+            android:paddingBottom="@dimen/base8dp"
+            android:paddingTop="@dimen/base8dp"
+            android:text="确  认"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_private_tip"
+            style="@style/Txt14Grey"
+            android:layout_marginTop="@dimen/base15dp"
+            android:text="注:  老师回答均是个人观点，股友应该慎重考虑!" />
+    </LinearLayout>
+
+</LinearLayout>

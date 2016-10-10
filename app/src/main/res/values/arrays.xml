@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="left_menu">
+        <item>充值</item>
+        <item>悄悄话</item>
+        <item>我的收藏</item>
+        <item>我的关注</item>
+        <item>我的策略</item>
+    </array>
+    <!--article-->
+    <string-array name="Article_list_tab_names">
+        <item>最新</item>
+        <item>最热</item>
+    </string-array>
+    <!--贡献榜-->
+    <string-array name="ranking_list_tab_names">
+        <item>贡献月榜</item>
+        <item>贡献总榜</item>
+    </string-array>
+
+
+    <string-array name="num">
+        <item>1</item>
+        <item>2 </item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <array name="wealth_tool">
+        <item>会员专区</item>
+        <item>录 播</item>
+        <item>贡献榜</item>
+        <item>课程表</item>
+        <item>公 告</item>
+    </array>
+
+    <array name="wealth_tool_room">
+        <item>会员专区</item>
+        <item>名家博文</item>
+        <item>录 播</item>
+        <item>贡献榜</item>
+        <item>简 介</item>
+        <item>公 告</item>
+    </array>
+
+    <string-array name="recharge_nums">
+        <item>100</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>3000</item>
+        <item>4000</item>
+        <item>5000</item>
+        <!--<item>8000</item>-->
+        <!--<item>10000</item>-->
+    </string-array>
+
+    <string-array name="choose_pay">
+        <item>支付宝</item>
+        <item>微信支付</item>
+        <item>网上银行（连连）</item>
+        <item>银行支付</item>
+    </string-array>
+
+    <string-array name="choose_pay_info">
+        <item>方便快捷</item>
+        <item>安全支付</item>
+        <item>快捷支付</item>
+        <item>安全支付</item>
+    </string-array>
+
+    <string-array name="gift_names">
+        <item>鲜花</item>
+        <item>掌声</item>
+        <item>香蕉</item>
+        <item>牛股</item>
+        <item>涨停板</item>
+        <item>沙发</item>
+        <item>股神</item>
+        <item>摩托</item>
+        <item>美女</item>
+        <item>财神爷</item>
+        <item>汽车</item>
+        <item>洋房</item>
+        <item>别墅</item>
+        <item>游轮</item>
+        <item>山庄</item>
+        <item>宫殿</item>
+    </string-array>
+
+    <integer-array name="gift_wealth">
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>8</item>
+        <item>8</item>
+        <item>8</item>
+        <item>18</item>
+        <item>28</item>
+        <item>58</item>
+        <item>58</item>
+        <item>188</item>
+        <item>288</item>
+        <item>588</item>
+        <item>688</item>
+        <item>788</item>
+        <item>888</item>
+    </integer-array>
+
+    <array name="titles">
+        <item>首页</item>
+        <item>首页</item>
+    </array>
+
+    <array name="cus_services">
+        <item>老师</item>
+        <item>管理员</item>
+    </array>
+    <!--详情首页的tab标题-->
+    <string-array name="market_tab_titles">
+        <item>自选</item>
+        <item>沪深</item>
+        <item>港股</item>
+        <!--<item>三板</item>-->
+    </string-array>
+
+    <array name="tab_name">
+        <item>首页</item>
+        <item>老师</item>
+        <item>行情</item>
+        <item>资讯</item>
+        <item>个人</item>
+        <item>论坛</item>
+    </array>
+
+    <array name="ss_classic">
+        <item>涨幅榜</item>
+        <item>跌幅榜</item>
+        <item>换手率榜</item>
+        <item>振幅榜</item>
+        <item>高价股榜</item>
+        <item>低价股榜</item>
+    </array>
+
+    <array name="hk_classic">
+        <item>主板涨幅榜</item>
+        <item>主板跌幅榜</item>
+        <item>主板成交额榜</item>
+        <item>创业板涨幅榜</item>
+        <item>创业板跌幅榜</item>
+        <item>创业板成交额榜</item>
+    </array>
+
+    <array name="share_name">
+        <item>微信</item>
+        <item>微信朋友圈</item>
+        <item>新浪</item>
+        <item>QQ</item>
+        <item>QQ空间</item>
+    </array>
+
+    <array name="week">
+        <item>日</item>
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+    </array>
+</resources>

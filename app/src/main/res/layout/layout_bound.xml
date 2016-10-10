@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/register_content_color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/RegisterStyle"
+        android:layout_marginTop="@dimen/base25dp">
+
+        <EditText
+            android:id="@+id/et_phone_num"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="@string/phone_num"
+            android:inputType="number"
+            android:paddingLeft="@dimen/base15dp"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/RegisterStyle"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_login_pwd"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="@string/person_pw"
+            android:inputType="textPassword"
+            android:paddingLeft="@dimen/base15dp"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+    <!--<item name="android:layout_width">match_parent</item>-->
+    <!--<item name="android:layout_height">@dimen/base40dp</item>-->
+    <!--<item name="android:layout_marginLeft">@dimen/base20dp</item>-->
+    <!--<item name="android:layout_marginRight">@dimen/base20dp</item>-->
+    <!--<item name="android:background">@drawable/sp_rect_coner_white</item>-->
+    <!--<item name="android:layout_marginTop">@dimen/base10dp</item>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base20dp"
+        android:layout_marginRight="@dimen/base20dp"
+        android:layout_marginTop="@dimen/base10dp"
+        android:background="@color/register_content_color">
+
+        <TextView
+            android:id="@+id/tv_forget_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/forget_pwd"
+            android:textColor="#4C4C4D" />
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/RegisterStyle"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base15dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base50dp"
+            android:background="@drawable/sp_rect_orange"
+            android:text="@string/bound"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+</LinearLayout>

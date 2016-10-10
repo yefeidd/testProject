@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/register_content_color"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingTop="@dimen/base8dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            style="@style/Txt14Grey"
+            android:text="@string/name_code"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt14Grey"
+            android:gravity="center"
+            android:text="@string/warning"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt14Grey"
+            android:gravity="center"
+            android:text="@string/drag"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt14Grey"
+            android:gravity="center"
+            android:text="@string/delete"
+            />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_optional_stock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+         />
+</LinearLayout>

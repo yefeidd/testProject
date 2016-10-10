@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".uiclass.activity.PayYLActivity">
+    <include layout="@layout/layout_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_bank"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:layout_marginTop="@dimen/base8dp"
+        android:padding="@dimen/base16dp"
+        android:text="@string/bank_name"/>
+
+    <TextView
+        android:id="@+id/tv_bank_card"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:paddingLeft="@dimen/base16dp"
+        android:paddingRight="@dimen/base16dp"
+        android:text="@string/bank_card_num"/>
+
+    <TextView
+        android:id="@+id/tv_bank_use_name"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:padding="@dimen/base16dp"
+        android:text="@string/bank_use_name"/>
+
+    <TextView
+        android:id="@+id/tv_buy_in"
+        android:layout_width="match_parent"
+        style="@style/Txt12AppColor"
+        android:background="@drawable/sp_rect_grey_border"
+        android:paddingLeft="@dimen/base16dp"
+        android:paddingRight="@dimen/base16dp"
+        android:paddingTop="@dimen/base10dp"
+        android:paddingBottom="@dimen/base10dp"
+        android:text="@string/bank_warning"
+         />
+
+    <TextView
+        style="@style/Txt16Grey"
+        android:padding="@dimen/base16dp"
+        android:text="@string/bank_imp_tips"/>
+
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="match_parent"
+        style="@style/Txt14Grey"
+        android:paddingLeft="@dimen/base16dp"
+        android:paddingRight="@dimen/base16dp"
+        android:lineSpacingMultiplier="1.3"
+        android:text="@string/bank_tips"/>
+</LinearLayout>

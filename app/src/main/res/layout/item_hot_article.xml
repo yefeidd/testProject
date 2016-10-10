@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/ll_hot_article_item"
+    android:paddingLeft="@dimen/base20dp"
+    android:paddingRight="@dimen/base20dp"
+    android:paddingTop="@dimen/base16dp">
+
+
+    <TextView
+        android:id="@+id/tv_rank"
+        style="@style/White13"
+        android:layout_gravity="center"
+        android:background="@color/text_red"
+        android:gravity="center"
+        android:paddingBottom="@dimen/base2dp"
+        android:paddingLeft="@dimen/base6dp"
+        android:paddingRight="@dimen/base6dp"
+        android:paddingTop="@dimen/base2dp"
+        android:text="1" />
+
+    <!--<TextView-->
+    <!--style="@style/ContestGray13"-->
+    <!--android:background="@color/bar_bg_gray"-->
+    <!--android:paddingLeft="@dimen/base6dp"-->
+    <!--android:paddingRight="@dimen/base6dp"-->
+    <!--android:paddingTop="@dimen/base2dp"-->
+    <!--android:paddingBottom="@dimen/base2dp"-->
+    <!--android:text="1" />-->
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/Txt14Black"
+        android:text="什么样子的热点才算超级热点"
+        android:paddingLeft="@dimen/base14dp"/>
+
+</LinearLayout>

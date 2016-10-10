@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/title"
+    android:layout_width="match_parent"
+    style="@style/Txt16Grey"
+    android:text="@string/up_list"
+    android:paddingLeft="@dimen/base10dp"
+    android:paddingRight="@dimen/base10dp"
+    android:paddingTop="@dimen/base8dp"
+    android:paddingBottom="@dimen/base8dp"
+    android:background="@color/register_content_color"
+    android:drawableRight="@drawable/right_arrows"
+    android:orientation="vertical">
+
+</TextView>

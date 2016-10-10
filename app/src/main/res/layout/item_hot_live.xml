@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_hot_tv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="horizontal"
+    android:padding="@dimen/base10dp">
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_head_avatars"
+        android:layout_width="@dimen/base60dp"
+        android:layout_height="@dimen/base60dp"
+        android:layout_gravity="center"
+        fresco:backgroundImage="@null"
+        android:background="@null"
+        fresco:placeholderImage="@mipmap/ic_avatars_r_angle" />
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/base15dp">
+
+        <TextView
+            android:id="@+id/tv_name_title"
+            style="@style/Txt15Black"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:ellipsize="end"
+            android:drawablePadding="@dimen/base6dp"
+            android:drawableRight="@drawable/hot"
+            android:singleLine="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_room_number"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:ellipsize="end"
+            style="@style/Txt14Black"
+            android:singleLine="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_operation"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:ellipsize="end"
+            style="@style/Txt13Grey"
+            android:singleLine="true"
+             />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4">
+
+        <TextView
+            android:id="@+id/tv_click"
+            style="@style/Txt13Grey"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/base3dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/hot_icon"
+            android:drawablePadding="@dimen/base2dp"
+             />
+
+
+        <TextView
+            android:id="@+id/tv_room_enter"
+            style="@style/Txt14White"
+            android:layout_width="@dimen/base58dp"
+            android:layout_height="@dimen/base30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/hot_live_enter"
+            android:text="@string/enter" />
+    </RelativeLayout>
+
+</LinearLayout>

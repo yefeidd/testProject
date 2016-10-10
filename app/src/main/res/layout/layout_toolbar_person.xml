@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/app_bar_color">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base50dp"
+        android:gravity="center_vertical"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+        <ImageView
+            android:id="@+id/iv_leftmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:paddingRight="@dimen/base25dp"
+            android:paddingLeft="@dimen/base8dp"
+            android:src="@drawable/register_back" />
+
+        <TextView
+            android:id="@+id/tv_theme"
+            style="@style/Txt20White"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/base25dp"
+            android:text="直播主题:  "
+            />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/Txt20White"
+            android:layout_centerVertical="true"
+            android:text="股神老周" />
+    </LinearLayout>
+
+</android.support.v7.widget.Toolbar>

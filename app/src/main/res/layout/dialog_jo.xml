@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/base16dp"
+    android:paddingBottom="@dimen/base4dp"
+    android:background="@drawable/bg_btn_white_blue_with_corner"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/mainFrame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/titleFrame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/base8dp"
+            android:paddingLeft="@dimen/base24dp"
+            android:paddingRight="@dimen/base24dp"
+            >
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/base16dp"
+                android:layout_marginRight="@dimen/base16dp"
+                android:scaleType="fitXY"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                style="@style/Txt14AppColor"
+                android:gravity="center"
+                android:textColor="@color/app_bar_color"
+                android:textSize="18sp"
+                tools:text="Title"/>
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/contentScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/base24dp"
+            android:layout_marginLeft="@dimen/base24dp"
+            android:layout_marginRight="@dimen/base24dp"
+            android:layout_marginTop="@dimen/base16dp"
+            android:clipToPadding="false"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/app_bar_color"
+                android:textSize="16sp"
+                tools:text="Content"/>
+
+        </ScrollView>
+
+
+        <ListView
+            android:id="@+id/list_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent"
+            android:scrollbarStyle="outsideOverlay"
+            android:visibility="gone"/>
+
+        <FrameLayout
+            android:id="@+id/customViewFrame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/base24dp"
+            android:layout_marginLeft="@dimen/base24dp"
+            android:layout_marginRight="@dimen/base24dp"
+            android:layout_marginTop="@dimen/base24dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonDefaultFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/base2dp"
+        android:layout_marginBottom="@dimen/base5dp"
+        android:background="@drawable/border_top_line">
+
+        <Button
+            android:id="@+id/btn_Negative"
+            style="@style/Jo_DialogButton"
+            android:text="@string/cancel"
+            android:textColor="@color/font_value"/>
+
+        <View
+            android:id="@+id/img_line1"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/base8dp"
+            android:layout_marginBottom="@dimen/base8dp"
+            android:background="@color/grey_line"/>
+
+        <Button
+            android:id="@+id/btn_Positive"
+            style="@style/Jo_DialogButton"
+            android:text="@string/confirm"
+            android:textColor="@color/app_bar_color"/>
+    </LinearLayout>
+
+
+</LinearLayout>

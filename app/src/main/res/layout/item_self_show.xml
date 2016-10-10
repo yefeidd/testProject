@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/base53dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/tv_hk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/HK_title_icon"
+        android:paddingBottom="@dimen/base1dp"
+        android:paddingLeft="@dimen/base3dp"
+        android:paddingRight="@dimen/base3dp"
+        android:paddingTop="@dimen/base1dp"
+        android:text="@string/HK"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/ll_name"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/base10dp"
+        android:layout_marginLeft="@dimen/base6dp"
+        android:layout_marginTop="@dimen/base11dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Txt15Black" />
+
+        <TextView
+            android:id="@+id/tv_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/market_code_color"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        style="@style/Txt15Black" />
+
+    <TextView
+        android:id="@+id/tv_up_down"
+        android:layout_width="0dp"
+        android:layout_weight="0.8"
+        android:layout_height="@dimen/base35dp"
+        android:layout_marginRight="@dimen/base8dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+    <!--android:background="@drawable/sp_rect_green"-->
+</LinearLayout>

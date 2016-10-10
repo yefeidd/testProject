@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_bottom_line"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/base13dp"
+    android:paddingLeft="@dimen/base20dp"
+    android:paddingRight="@dimen/base20dp"
+    android:paddingTop="@dimen/base16dp">
+
+    <!--注意限制长度，避免太长不能显示-->
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/Txt15Black"
+        android:text="关于会员资费调整" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        style="@style/Txt14ContestGrey"
+        android:layout_alignParentRight="true"
+        android:text="2016-08-28" />
+
+
+</RelativeLayout>

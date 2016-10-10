@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:fitsSystemWindows="true"
+    tools:context=".uiclass.activity.MemberAreaActivity">
+    <include layout="@layout/layout_toolbar"/>
+
+    <ProgressBar
+        android:id="@+id/pb_web_load"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:progressDrawable="@drawable/color_progressbar"
+        android:max="100"
+        android:layout_height="3dp" />
+
+    <cn.zn.com.zn_android.uiclass.x5webview.X5WebView
+        android:id="@+id/wv_vip_area"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="@dimen/base16dp" />
+
+    <Button
+        android:id="@+id/btn_join"
+        android:layout_width="match_parent"
+        style="@style/Txt16White"
+        android:text="@string/join_now"
+        android:layout_margin="@dimen/base16dp"
+        android:background="@drawable/sp_rect_orange"
+        android:onClick="onClick"
+        android:visibility="gone"
+        />
+</LinearLayout>

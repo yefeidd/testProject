@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/base14dp"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_head"
+        style="@style/Txt14Blue"
+        android:text="金地集团  （600383）"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/base4dp"
+        >
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/current_price"/>
+
+        <TextView
+            android:id="@+id/tv_current_price"
+            style="@style/Txt14AppColor"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/current_price"
+            android:gravity="left"
+            />
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/gains"/>
+
+        <TextView
+            android:id="@+id/tv_gains"
+            style="@style/Txt14AppColor"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/gains"
+            android:gravity="left"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/base4dp"
+        >
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/last_market_value"/>
+
+        <TextView
+            android:id="@+id/tv_last_market_value"
+            style="@style/Txt14Black"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/last_market_value"
+            android:gravity="left"
+            />
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/avarage_cost"/>
+
+        <TextView
+            android:id="@+id/tv_avarage_cost"
+            style="@style/Txt14AppColor"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/avarage_cost"
+            android:gravity="left"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/base4dp"
+        >
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/position_num"/>
+
+        <TextView
+            android:id="@+id/tv_position_num"
+            style="@style/Txt14Black"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/position_num"
+            android:gravity="left"
+            />
+
+        <TextView
+            style="@style/Txt14Grey"
+            android:layout_weight="1.2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/sell_num"/>
+
+        <TextView
+            android:id="@+id/tv_sell_num"
+            style="@style/Txt14Black"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/sell_num"
+            android:gravity="left"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/base8dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_transaction_detail"
+            style="@style/Txt14Grey"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/base4dp"
+            android:background="@drawable/sp_rect_grey_border_white"
+            android:text="@string/transaction_detail"/>
+
+        <TextView
+            android:id="@+id/tv_buy_in"
+            style="@style/Txt14Grey"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="@string/buy_in"
+            android:gravity="center"
+            android:padding="@dimen/base4dp"
+            android:background="@drawable/sp_rect_grey_border_white"
+            />
+
+        <TextView
+            android:id="@+id/tv_sell_out"
+            style="@style/Txt14Grey"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/base4dp"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:background="@drawable/sp_rect_grey_border_white"
+            android:text="@string/sell_out"/>
+    </LinearLayout>
+
+</LinearLayout>

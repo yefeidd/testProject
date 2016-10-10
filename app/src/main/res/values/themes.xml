@@ -1,0 +1,171 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+    -->
+    <!--  <item name="windowActionModeOverlay">true</item> -->
+    <style name="AppBaseThemeCompat" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/app_bar_color</item>
+        <item name="colorPrimary">@color/app_bar_color</item>
+        <item name="colorPrimaryDark">@color/app_bar_color</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:alertDialogTheme">@style/MaterrialDialog</item>
+    </style>
+
+    <style name="AppTheme" parent="AppBaseThemeCompat"></style>
+
+    <style name="WindTransAppTheme" parent="AppThemeAnimStyle">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:colorPrimaryDark">@android:color/transparent</item>
+    </style>
+
+    <style name="AppSplashTheme" parent="AppBaseThemeCompat">
+        <!--<item name="android:windowBackground">@drawable/default_splash</item>-->
+    </style>
+
+    <style name="AppThemeAnimStyle" parent="AppBaseThemeCompat">
+        <item name="android:windowAnimationStyle">@style/AnimActivity</item>
+    </style>
+
+    <style name="AppThemeScaleAnimStyle" parent="AppBaseThemeCompat">
+        <item name="android:windowAnimationStyle">@style/AnimActivity_Scale</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="AppThemeWeChatScaleAnimStyle" parent="AppBaseThemeCompat">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimActivity_Scale_Wechat</item>
+    </style>
+
+    <style name="AppThemeNoneAnimStyle" parent="AppBaseThemeCompat">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="AppThemeRevealAnimStyle" parent="AppThemeAnimStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="AnimActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_exit</item>
+        <item name="android:activityCloseExitAnimation">@anim/back_exit</item>
+    </style>
+
+    <!--，第一个表示新的activity创建进入效果，第2个表示activity还没有finish()下退出效果，第3个表示上一个activity返回进入效果，第4个表示的是activity finish()之后退出效果...-->
+    <style name="AnimActivity_Scale" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/scale_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/scale_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/scale_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/scale_exit</item>
+    </style>
+
+    <style name="AnimActivity_Scale_Wechat" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/scale_wechat_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/scale_wechat_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/scale_wechat_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/scale_wechat_exit</item>
+    </style>
+
+    <style name="GeryToolBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/bar_grey</item>
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/app_main</item>
+        <!-- Used for the title and text -->
+        <!--<item name="android:textColorPrimary">#FFFFFF</item>-->
+        <!-- Used for the background -->
+        <!--<item name="android:background">#4CAF50</item>-->
+
+        <!--<item name="android:windowTitleStyle">@style/MyTitleTextStyle</item>-->
+    </style>
+
+    <style name="MaterrialDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/app_main</item>
+        <item name="android:textColorPrimary">@color/gray</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Toolbar_TextAppearance">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Toolbar_TextAppearance_large">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Toolbar_TextAppearance_black">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/bar_black</item>
+    </style>
+
+    <style name="Toolbar_TextAppearance_black_large">
+        <item name="android:textSize">21sp</item>
+        <item name="android:textColor">@color/bar_black</item>
+    </style>
+
+    <style name="MyTitleTextStyle">
+        <item name="android:textColor">#FFEB3B</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
+    <style name="anim_expand" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_expand</item>
+        <item name="android:windowExitAnimation">@anim/anim_shrink</item>
+    </style>
+
+    <!-- 评论pop -->
+    <style name="anim_up_down" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_up</item>
+        <item name="android:windowExitAnimation">@anim/anim_down</item>
+    </style>
+
+    <!--<style name="Theme.Yo.Dialog_light" parent="android:Theme.Light">-->
+    <!--<item name="android:windowFrame">@null</item>-->
+    <!--<item name="android:windowBackground">@drawable/bg_dialog</item>-->
+    <!--<item name="android:windowIsFloating">true</item>-->
+    <!--<item name="android:windowContentOverlay">@null</item>-->
+    <!--<item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>-->
+    <!--</style>-->
+
+    <style name="MD_Light" parent="Theme.Yo.Dialog_light"></style>
+
+    <style name="MD_Dark" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="Theme.Yo.Dialog_light" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!-- 房产详情popWindow动画-->
+    <style name="pop_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_exit</item>
+    </style>
+    <!--v7包全屏-->
+    <style name="MyFullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+</resources>

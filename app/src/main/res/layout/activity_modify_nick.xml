@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/register_content_color"
+    tools:context=".uiclass.activity.ModifyNickActivity">
+    <include layout="@layout/layout_toolbar"/>
+
+    <EditText
+        android:id="@+id/et_nickname"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:maxLength="6"
+        android:singleLine="true"
+        android:background="@drawable/sp_rect_coner_white"
+        android:padding="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"
+        android:layout_marginTop="@dimen/base16dp"
+        android:layout_marginBottom="@dimen/base8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"
+        android:text="@string/modify_nick_warning"
+        style="@style/Txt14Grey" />
+</LinearLayout>

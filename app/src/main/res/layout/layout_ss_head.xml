@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_index_num"/>
+
+    <!-- 热门行业 -->
+    <TextView
+        android:id="@+id/tv_hot_industry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/register_content_color"
+        android:paddingLeft="@dimen/base10dp"
+        android:paddingRight="@dimen/base10dp"
+        android:paddingTop="@dimen/base8dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:drawableRight="@drawable/right_arrows"
+        android:text="@string/hot_industry"/>
+
+    <GridView
+        android:id="@+id/gv_hot_indus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/register_content_color"
+        android:verticalSpacing="1dp"
+        android:horizontalSpacing="1dp"
+        android:numColumns="3"
+        android:layout_margin="@dimen/base10dp"/>
+
+    <TextView
+        android:id="@+id/tv_hot_concept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/register_content_color"
+        android:paddingLeft="@dimen/base10dp"
+        android:paddingRight="@dimen/base10dp"
+        android:paddingTop="@dimen/base8dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:drawableRight="@drawable/right_arrows"
+        android:text="@string/hot_concept"/>
+
+    <GridView
+        android:id="@+id/gv_hot_concept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/register_content_color"
+        android:verticalSpacing="1dp"
+        android:horizontalSpacing="1dp"
+        android:numColumns="3"
+        android:layout_margin="@dimen/base10dp"/>
+
+</LinearLayout>

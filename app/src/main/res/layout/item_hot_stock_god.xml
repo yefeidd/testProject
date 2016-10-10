@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/base20dp"
+    android:paddingRight="@dimen/base20dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_door"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/base15dp"
+        android:paddingTop="@dimen/base15dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/iv_head_avatars"
+            android:layout_width="@dimen/base45dp"
+            android:layout_height="@dimen/base45dp"
+            android:layout_gravity="center"
+            android:background="@null"
+            fresco:backgroundImage="@null"
+            fresco:placeholderImage="@mipmap/ic_avatars_r_angle" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/base10dp"
+            android:layout_marginStart="@dimen/base10dp"
+            android:layout_toEndOf="@id/iv_head_avatars"
+            android:layout_toRightOf="@id/iv_head_avatars"
+            android:paddingTop="@dimen/base2dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/Txt15Black"
+                android:text="唐华斑竹" />
+
+            <TextView
+                android:id="@+id/tv_0"
+                style="@style/Txt13ContestGrey"
+                android:layout_below="@id/tv_name"
+                android:text="买入时间" />
+
+            <TextView
+                android:id="@+id/tv_but_time"
+                style="@style/Txt13ContestGrey"
+                android:layout_below="@id/tv_name"
+                android:layout_marginLeft="@dimen/base10dp"
+                android:layout_marginStart="@dimen/base10dp"
+                android:layout_toEndOf="@id/tv_0"
+                android:layout_toRightOf="@id/tv_0"
+                android:text="06-05-11  16:08" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_head_avatars"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/base8dp">
+
+            <TextView
+                android:id="@id/tv_1"
+                style="@style/Txt13ContestGrey"
+                android:text="本月收益率" />
+
+            <TextView
+                android:id="@+id/tv_month_yield"
+                style="@style/Txt13ContestGrey"
+                android:paddingLeft="@dimen/base5dp"
+                android:text="-1.12%" />
+
+            <TextView
+                style="@style/Txt13ContestGrey"
+                android:paddingLeft="@dimen/base25dp"
+                android:text="本周收益率" />
+
+            <TextView
+                android:id="@+id/tv_week_yield"
+                style="@style/Txt13ContestGrey"
+                android:paddingLeft="@dimen/base5dp"
+                android:text="-1.12%" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="@dimen/base8dp"
+        android:paddingTop="@dimen/base22dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/base20dp"
+                    android:layout_marginRight="@dimen/base20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Txt12BarGrey"
+                        android:text="总收益" />
+
+
+                    <TextView
+                        android:id="@+id/tv_yield"
+                        style="@style/Txt12BarRed"
+                        android:text="89.67%" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@id/tv_3"
+                        style="@style/Txt12BarGrey"
+                        android:text="胜率" />
+
+                    <TextView
+                        android:id="@+id/tv_win_rate"
+                        style="@style/Txt12BarRed"
+                        android:text="100%" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_focus"
+                android:layout_width="@dimen/base70dp"
+                android:layout_height="@dimen/base32dp"
+                android:layout_marginTop="@dimen/base5dp"
+                android:background="@drawable/sp_rect_btn_red"
+                android:text="+关注"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

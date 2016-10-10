@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingBottom="@dimen/base20dp"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Txt14Grey"
+        android:padding="@dimen/base10dp"
+        android:text="@string/corporate_brief_introduce" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <TextView
+                style="@style/Txt14Grey"
+                android:layout_column="0"
+                android:background="@drawable/sp_rect_grey_border"
+                android:paddingBottom="@dimen/base8dp"
+                android:paddingLeft="@dimen/base15dp"
+                android:paddingRight="@dimen/base15dp"
+                android:paddingTop="@dimen/base8dp"
+                android:text="@string/corporate_name" />
+
+            <TextView
+                android:id="@+id/tv_comp_name"
+                style="@style/Txt14Grey"
+                android:layout_width="match_parent"
+                android:layout_column="1"
+                android:background="@drawable/border_top_bottom_right_line"
+                android:paddingBottom="@dimen/base8dp"
+                android:paddingLeft="@dimen/base15dp"
+                android:paddingTop="@dimen/base8dp"
+                />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style="@style/Txt14Grey"
+                android:layout_column="0"
+                android:background="@drawable/border_bottom_left_right_line"
+                android:paddingBottom="@dimen/base8dp"
+                android:paddingLeft="@dimen/base15dp"
+                android:paddingRight="@dimen/base15dp"
+                android:paddingTop="@dimen/base8dp"
+                android:text="@string/belong_industry" />
+
+            <TextView
+                android:id="@+id/tv_industry"
+                style="@style/Txt14Grey"
+                android:layout_width="match_parent"
+                android:layout_column="1"
+                android:background="@drawable/border_bottom_right_line"
+                android:paddingBottom="@dimen/base8dp"
+                android:paddingLeft="@dimen/base15dp"
+                android:paddingTop="@dimen/base8dp"
+                />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style="@style/Txt14Grey"
+                android:layout_column="0"
+                android:background="@drawable/border_bottom_left_right_line"
+                android:paddingBottom="@dimen/base8dp"
+                android:paddingLeft="@dimen/base15dp"
+                android:paddingRight="@dimen/base15dp"
+                android:paddingTop="@dimen/base8dp"
+                android:text="@string/launch_date" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/Txt14Grey"
+                android:layout_width="match_parent"
+                android:layout_column="1"
+                android:background="@drawable/border_bottom_right_line"
+                android:paddingBottom="@dimen/base8dp"
+                android:paddingLeft="@dimen/base15dp"
+                android:paddingTop="@dimen/base8dp"
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_price">
+
+            <TextView
+                style="@style/Txt14Grey"
+                android:layout_column="0"
+                android:background="@drawable/border_bottom_left_right_line"
+                android:paddingBottom="@dimen/base8dp"
+                android:paddingLeft="@dimen/base15dp"
+                android:paddingRight="@dimen/base15dp"
+                android:paddingTop="@dimen/base8dp"
+                android:text="@string/offering_price" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                style="@style/Txt14Grey"
+                android:layout_width="match_parent"
+                android:layout_column="1"
+                android:background="@drawable/border_bottom_right_line"
+                android:paddingBottom="@dimen/base8dp"
+                android:paddingLeft="@dimen/base15dp"
+                android:paddingTop="@dimen/base8dp"
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_num">
+
+            <TextView
+                style="@style/Txt14Grey"
+                android:layout_column="0"
+                android:background="@drawable/border_bottom_left_right_line"
+                android:paddingBottom="@dimen/base8dp"
+                android:paddingLeft="@dimen/base15dp"
+                android:paddingRight="@dimen/base15dp"
+                android:paddingTop="@dimen/base8dp"
+                android:text="@string/offering_num" />
+
+            <TextView
+                android:id="@+id/tv_num"
+                style="@style/Txt14Grey"
+                android:layout_width="match_parent"
+                android:layout_column="1"
+                android:background="@drawable/border_bottom_right_line"
+                android:paddingBottom="@dimen/base8dp"
+                android:paddingLeft="@dimen/base15dp"
+                android:paddingTop="@dimen/base8dp"
+                />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        style="@style/Txt14Grey"
+        android:padding="@dimen/base10dp"
+        android:text="@string/divident_distribution"/>
+
+    <cn.zn.com.zn_android.uiclass.ScrollListView
+        android:id="@+id/slv_bonus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="@android:color/transparent"
+        android:background="@drawable/sp_rect_grey_border"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:dividerHeight="0.5dp"
+        android:divider="@color/grey_divider"/>
+</LinearLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".uiclass.activity.SettingActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <Button
+        android:id="@+id/btn_about_us"
+        style="@style/Txt14Black"
+        android:layout_width="match_parent"
+        android:background="@drawable/dialog_border_bottom_line"
+        android:drawableRight="@mipmap/ic_arrow_r_grey"
+        android:gravity="left"
+        android:onClick="onClick"
+        android:padding="@dimen/base16dp"
+        android:text="@string/about_us" />
+
+    <Button
+        android:id="@+id/btn_feedback"
+        style="@style/Txt14Black"
+        android:layout_width="match_parent"
+        android:background="@drawable/dialog_border_bottom_line"
+        android:drawableRight="@mipmap/ic_arrow_r_grey"
+        android:gravity="left"
+        android:onClick="onClick"
+        android:padding="@dimen/base16dp"
+        android:text="@string/about_feedback" />
+
+    <Button
+        android:id="@+id/btn_update"
+        style="@style/Txt14Black"
+        android:layout_width="match_parent"
+        android:background="@drawable/dialog_border_bottom_line"
+        android:drawableRight="@mipmap/ic_arrow_r_grey"
+        android:gravity="left"
+        android:onClick="onClick"
+        android:padding="@dimen/base16dp"
+        android:text="@string/about_update" />
+
+    <Button
+        android:id="@+id/btn_clear"
+        style="@style/Txt14Black"
+        android:layout_width="match_parent"
+        android:background="@drawable/dialog_border_bottom_line"
+        android:drawableRight="@mipmap/ic_arrow_r_grey"
+        android:gravity="left"
+        android:onClick="onClick"
+        android:padding="@dimen/base16dp"
+        android:text="@string/about_clear" />
+
+    <Button
+        android:id="@+id/btn_refresh_rate"
+        style="@style/Txt14Black"
+        android:layout_width="match_parent"
+        android:background="@drawable/dialog_border_bottom_line"
+        android:drawableRight="@mipmap/ic_arrow_r_grey"
+        android:gravity="left"
+        android:onClick="onClick"
+        android:padding="@dimen/base16dp"
+        android:text="@string/about_refresh_rate" />
+
+    <Button
+        android:id="@+id/btn_push"
+        style="@style/Txt14Black"
+        android:layout_width="match_parent"
+        android:background="@drawable/dialog_border_bottom_line"
+        android:drawableRight="@mipmap/ic_arrow_r_grey"
+        android:gravity="left"
+        android:onClick="onClick"
+        android:padding="@dimen/base16dp"
+        android:text="@string/about_push" />
+
+    <Button
+        android:id="@+id/btn_favourable_comment"
+        style="@style/Txt14Black"
+        android:layout_width="match_parent"
+        android:background="@drawable/dialog_border_bottom_line"
+        android:drawableRight="@mipmap/ic_arrow_r_grey"
+        android:gravity="left"
+        android:onClick="onClick"
+        android:padding="@dimen/base16dp"
+        android:text="@string/about_favourable_comment" />
+
+    <TextView
+        android:id="@+id/tv_exit"
+        style="@style/Txt16White"
+        android:layout_width="@dimen/base250dp"
+        android:layout_height="@dimen/base50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/base35dp"
+        android:background="@drawable/sp_rect_orange"
+        android:text="@string/exit_login" />
+</LinearLayout>

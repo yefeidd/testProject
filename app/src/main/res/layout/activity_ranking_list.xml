@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_toolbar" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--
+        android design library提供的TabLayout控件
+        tabIndicatorColor：菜单下方移动的横线的颜色
+        tabSelectedTextColor ：菜单被选中之后的颜色
+        tabTextColor : 菜单正常的颜色
+        app:tabTextAppearance : 添加样式，这里加了样式主要是为了在文字前面加一个图所用，就是把textAllCaps设置成false
+    -->
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="@color/tab_selected"
+            app:tabSelectedTextColor="@color/tab_selected"
+            app:tabTextColor="@color/black"
+            app:tabPadding="@dimen/base5dp"
+            app:tabTextAppearance="@style/NormalTabLayoutTextAppearance"
+            app:tabBackground="@color/white"
+            />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_ranking_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        </android.support.v4.view.ViewPager>
+    </LinearLayout>
+</LinearLayout>

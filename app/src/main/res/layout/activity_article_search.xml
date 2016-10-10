@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/register_content_color"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sp_rect_coner_white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/base5dp"
+        android:paddingLeft="@dimen/base10dp"
+        android:paddingTop="@dimen/base10dp">
+
+        <EditText
+            android:id="@+id/et_keywords"
+            android:layout_width="0dp"
+            style="@style/Txt14Grey"
+            android:layout_weight="4"
+            android:background="@null"
+            android:hint="@string/search_hint"
+            android:padding="@dimen/base5dp"
+            android:textColorHint="@color/grey_light"
+            android:singleLine="true"
+             />
+
+        <View
+            android:layout_width="@dimen/base1dp"
+            android:layout_height="match_parent"
+            android:background="@color/grey_line" />
+
+        <ImageView
+            android:id="@+id/iv_article_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/base5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/iv_search_gray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/base10dp"
+        android:layout_weight="1"
+        android:background="@drawable/sp_rect_bottom_corner_white">
+
+        <cn.zn.com.zn_android.uiclass.xlistview.XListView
+            android:id="@+id/xlv_search_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>

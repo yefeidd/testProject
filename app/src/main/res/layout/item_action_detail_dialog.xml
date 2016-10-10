@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/base10dp"
+    android:paddingTop="@dimen/base3dp">
+
+    <TextView
+        android:id="@+id/tv_code"
+        style="@style/Txt15Black"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="300021" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/Txt15Black"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="冠福股份" />
+
+    <TextView
+        android:id="@+id/tv_number"
+        style="@style/Txt15Black"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="10700" />
+
+    <TextView
+        android:id="@+id/tv_base_price"
+        style="@style/Txt15Black"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="22.01" />
+
+    <TextView
+        android:id="@+id/tv_position_cost"
+        style="@style/Txt15Black"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="235507" />
+
+
+</LinearLayout>

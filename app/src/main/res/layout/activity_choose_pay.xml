@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".uiclass.activity.ChoosePayActivity">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <ListView
+        android:id="@+id/lv_choose_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:dividerHeight="0.5dp"
+        android:divider="@color/grey_line"
+        />
+
+    <Button
+        android:id="@+id/btn_pay_now"
+        android:layout_width="@dimen/base300dp"
+        style="@style/Txt14White"
+        android:text="@string/pay_now"
+        android:layout_marginTop="@dimen/base20dp"
+        android:onClick="onClick"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/sp_rect_orange"/>
+</LinearLayout>

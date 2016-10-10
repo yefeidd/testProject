@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/register_content_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_person"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom_line"
+                android:paddingBottom="@dimen/base12dp"
+                android:paddingLeft="@dimen/base12dp"
+                android:paddingRight="@dimen/base12dp"
+                android:paddingTop="@dimen/base12dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@id/sdv_avatar"
+                    android:layout_width="@dimen/base55dp"
+                    android:layout_height="@dimen/base55dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    app:actualImageScaleType="focusCrop"
+                    app:placeholderImage="@mipmap/ic_default_avatars"
+                    app:roundAsCircle="false"
+                    app:roundedCornerRadius="@dimen/base4dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/base12dp"
+                    android:layout_toRightOf="@id/sdv_avatar"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_nick"
+                        style="@style/Txt16Black"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="@string/no_login" />
+
+                    <TextView
+                        android:id="@+id/tv_wealth"
+                        style="@style/Txt14Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/base8dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="普通会员" />
+
+                    <TextView
+                        android:id="@+id/tv_fen"
+                        style="@style/Txt14Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/base8dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/btn_recharge"
+                    style="@style/Txt14White"
+                    android:layout_width="@dimen/base70dp"
+                    android:layout_height="@dimen/base28dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/sp_rect_orange"
+                    android:onClick="onClick"
+                    android:text="@string/recharge" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/base4dp"
+                android:paddingTop="@dimen/base4dp">
+
+                <TextView
+                    android:id="@+id/tv_foucus"
+                    style="@style/Txt14Black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/base8dp"
+                    android:text="@string/foucus_num" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/base4dp"
+                    android:background="@color/grey_line" />
+
+                <TextView
+                    android:id="@+id/tv_past"
+                    style="@style/Txt14Black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/base8dp"
+                    android:text="@string/past" />
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/base4dp"
+                    android:background="@color/grey_line" />
+
+                <TextView
+                    android:id="@+id/tv_collect"
+                    style="@style/Txt14Black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/base8dp"
+                    android:text="@string/collect_num" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_msg"
+                style="@style/Txt14Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base5dp"
+                android:background="@color/white"
+                android:drawableLeft="@mipmap/ic_person_msg"
+                android:drawablePadding="@dimen/base10dp"
+                android:drawableRight="@drawable/right_arrows"
+                android:gravity="left|center_vertical"
+                android:padding="@dimen/base12dp"
+                android:text="@string/private_talk" />
+
+            <TextView
+                android:id="@+id/btn_alert"
+                style="@style/Txt14Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base5dp"
+                android:background="@color/white"
+                android:drawableLeft="@mipmap/ic_person_alert"
+                android:drawablePadding="@dimen/base12dp"
+                android:drawableRight="@drawable/right_arrows"
+                android:gravity="left|center_vertical"
+                android:padding="@dimen/base10dp"
+                android:text="@string/alert"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/btn_analog"
+                style="@style/Txt14Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base5dp"
+                android:background="@color/white"
+                android:drawableLeft="@mipmap/ic_past"
+                android:drawablePadding="@dimen/base12dp"
+                android:drawableRight="@drawable/right_arrows"
+                android:gravity="left|center_vertical"
+                android:padding="@dimen/base10dp"
+                android:text="@string/analog" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/base5dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/btn_tastic"
+                    style="@style/Txt14Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_bottom_line"
+                    android:drawableLeft="@mipmap/ic_person_tastic"
+                    android:drawablePadding="@dimen/base10dp"
+                    android:drawableRight="@drawable/right_arrows"
+                    android:gravity="left|center_vertical"
+                    android:padding="@dimen/base12dp"
+                    android:text="@string/my_tactics" />
+
+                <TextView
+                    android:id="@+id/btn_game"
+                    style="@style/Txt14Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_bottom_line"
+                    android:drawableLeft="@mipmap/ic_my_game"
+                    android:drawablePadding="@dimen/base10dp"
+                    android:drawableRight="@drawable/right_arrows"
+                    android:gravity="left|center_vertical"
+                    android:padding="@dimen/base12dp"
+                    android:text="@string/my_game" />
+
+                <TextView
+                    android:id="@+id/btn_activitis"
+                    style="@style/Txt14Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_bottom_line"
+                    android:drawableLeft="@mipmap/ic_person_activity"
+                    android:drawablePadding="@dimen/base10dp"
+                    android:drawableRight="@drawable/right_arrows"
+                    android:gravity="left|center_vertical"
+                    android:padding="@dimen/base12dp"
+                    android:text="@string/my_activitis"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/btn_diagnosed"
+                    style="@style/Txt14Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_bottom_line"
+                    android:drawableLeft="@mipmap/ic_diagnosed"
+                    android:drawablePadding="@dimen/base10dp"
+                    android:drawableRight="@drawable/right_arrows"
+                    android:gravity="left|center_vertical"
+                    android:padding="@dimen/base12dp"
+                    android:text="@string/diagnosed" />
+
+                <TextView
+                    android:id="@+id/btn_sysmsg"
+                    style="@style/Txt14Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_bottom_line"
+                    android:drawableLeft="@mipmap/ic_person_sysmsg"
+                    android:drawablePadding="@dimen/base10dp"
+                    android:drawableRight="@drawable/right_arrows"
+                    android:gravity="left|center_vertical"
+                    android:padding="@dimen/base12dp"
+                    android:text="@string/sys_msg"
+                    android:visibility="gone" />
+
+
+                <!--<TextView-->
+                <!--android:id="@+id/btn_test"-->
+                <!--style="@style/Txt14Black"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/border_bottom_line"-->
+                <!--android:drawableLeft="@mipmap/ic_person_sysmsg"-->
+                <!--android:drawablePadding="@dimen/base10dp"-->
+                <!--android:drawableRight="@drawable/right_arrows"-->
+                <!--android:gravity="left|center_vertical"-->
+                <!--android:onClick="onClick"-->
+                <!--android:padding="@dimen/base12dp"-->
+                <!--android:text="模拟大赛" />-->
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

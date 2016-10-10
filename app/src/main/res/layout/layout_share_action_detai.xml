@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/base234dp"
+    android:layout_margin="@dimen/base15dp"
+    android:background="@drawable/sp_rect_coner_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base46dp"
+        android:background="@drawable/border_bottom_line"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/base29dp">
+
+        <TextView
+            style="@style/Txt15Black"
+            android:text="通过分享，可查看" />
+
+        <TextView
+            style="@style/Txt15Redd83d21"
+            android:text="操作明细"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <cn.zn.com.zn_android.uiclass.NoScrollGridView
+        android:id="@+id/ngv_share_btn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:numColumns="4" />
+</LinearLayout>

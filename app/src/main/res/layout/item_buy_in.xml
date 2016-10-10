@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_buy_sell"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    >
+
+    <TextView
+        android:id="@+id/tv_mark"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        style="@style/Txt12Grey" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:layout_centerHorizontal="true"
+        style="@style/Txt12Green" />
+
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:gravity="right"
+        android:layout_alignParentRight="true"
+        style="@style/Txt12Grey" />
+
+</LinearLayout>

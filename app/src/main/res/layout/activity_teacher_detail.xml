@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:background="@color/register_content_color"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".uiclass.activity.TeacherDetailActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/base16dp"
+                android:paddingTop="@dimen/base16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/sp_rect_grey_border_white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/base10dp"
+                    android:paddingLeft="@dimen/base90dp"
+                    android:paddingRight="@dimen/base16dp"
+                    android:paddingTop="@dimen/base10dp">
+
+                    <TextView
+                        android:id="@+id/tv_teacher_name"
+                        style="@style/Txt14Black"
+                        android:ellipsize="end"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:id="@+id/tv_teacher_fans"
+                        style="@style/Txt12Black"
+                        android:layout_marginTop="@dimen/base4dp"
+                        android:ellipsize="end"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sdv_teacher_img"
+                    android:layout_width="@dimen/base70dp"
+                    android:layout_height="@dimen/base70dp"
+                    android:layout_marginLeft="@dimen/base14dp"
+                    android:scaleType="centerCrop"
+                    fresco:placeholderImage="@mipmap/ic_default_avatars"
+                    app:fadeDuration="200"
+                    app:roundAsCircle="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sp_rect_grey_border_white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/base10dp"
+                android:paddingLeft="@dimen/base16dp"
+                android:paddingRight="@dimen/base16dp"
+                android:paddingTop="@dimen/base10dp">
+
+                <TextView
+                    style="@style/Txt14Black"
+                    android:layout_width="@dimen/base65dp"
+                    android:text="@string/teacher_room_num" />
+
+                <TextView
+                    android:id="@+id/tv_teacher_num"
+                    style="@style/Txt12Black"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:ellipsize="end"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom_line"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/base10dp"
+                android:paddingLeft="@dimen/base16dp"
+                android:paddingRight="@dimen/base16dp"
+                android:paddingTop="@dimen/base10dp">
+
+                <TextView
+                    style="@style/Txt14Black"
+                    android:layout_width="@dimen/base65dp"
+                    android:text="@string/teacher_style" />
+
+                <TextView
+                    android:id="@+id/tv_teacher_style"
+                    style="@style/Txt12Black"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:ellipsize="end"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom_line"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/base10dp"
+                android:paddingLeft="@dimen/base16dp"
+                android:paddingRight="@dimen/base16dp"
+                android:paddingTop="@dimen/base10dp">
+
+                <TextView
+                    style="@style/Txt14Black"
+                    android:layout_width="@dimen/base65dp"
+                    android:text="@string/teacher_sign" />
+
+                <TextView
+                    android:id="@+id/tv_teacher_sign"
+                    style="@style/Txt12Black"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:ellipsize="end"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_bottom_line"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/base10dp"
+                android:paddingLeft="@dimen/base16dp"
+                android:paddingRight="@dimen/base16dp"
+                android:paddingTop="@dimen/base10dp">
+
+                <TextView
+                    style="@style/Txt14Black"
+                    android:layout_width="@dimen/base65dp"
+                    android:text="@string/teacher_intro" />
+
+                <TextView
+                    android:id="@+id/tv_teacher_intro"
+                    style="@style/Txt12Black"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:ellipsize="end"
+                    android:lineSpacingMultiplier="1.2"
+                    android:maxLines="6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_gift"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/base16dp"
+                android:background="@drawable/sp_rect_grey_border_white"
+                android:orientation="vertical"
+                android:padding="@dimen/base16dp">
+
+                <TextView
+                    style="@style/Txt18Black"
+                    android:text="@string/teacher_show_gift" />
+
+                <cn.zn.com.zn_android.uiclass.NoScrollGridView
+                    android:id="@+id/gv_teacher_gifts"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:numColumns="4"
+                    android:verticalSpacing="@dimen/base16dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base28dp"
+        android:background="@color/btn_bg_red"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp">
+
+        <TextView
+            android:id="@+id/tv_0"
+            style="@style/Txt15White"
+            android:layout_centerVertical="true"
+            android:text="盈亏：" />
+
+        <TextView
+            android:id="@+id/tv_profit_and_loss"
+            style="@style/Txt15White"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_0"
+            android:text="111716" />
+
+        <TextView
+            android:id="@+id/tv_1"
+            style="@style/Txt15White"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/base30dp"
+            android:layout_toRightOf="@id/tv_profit_and_loss"
+            android:text="参考市值：" />
+
+        <TextView
+            style="@style/Txt15White"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_1"
+            android:text="346631" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/close" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/slv_action_detail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base230dp"
+        android:background="@color/white"
+        android:divider="@null" />
+
+</LinearLayout>

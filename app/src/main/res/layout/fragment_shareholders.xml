@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/base20dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title1"
+        style="@style/Txt14Grey"
+        android:padding="@dimen/base10dp"
+        android:text="@string/capital_structure" />
+
+    <LinearLayout
+        android:id="@+id/ll_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt14Grey"
+            android:gravity="center"
+            android:background="@drawable/sp_rect_grey_border"
+            android:paddingTop="@dimen/base8dp"
+            android:paddingBottom="@dimen/base8dp"
+            android:text="@string/general_capital"/>
+
+        <TextView
+            android:id="@+id/tv_total_sh"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt14Grey"
+            android:background="@drawable/border_top_bottom_right_line"
+            android:gravity="center"
+            android:paddingTop="@dimen/base8dp"
+            android:paddingBottom="@dimen/base8dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt14Grey"
+            android:gravity="center"
+            android:background="@drawable/border_bottom_left_right_line"
+            android:paddingTop="@dimen/base8dp"
+            android:paddingBottom="@dimen/base8dp"
+            android:text="@string/tradable_a_shares"/>
+
+        <TextView
+            android:id="@+id/tv_nonrest_float"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt14Grey"
+            android:background="@drawable/border_bottom_right_line"
+            android:gravity="center"
+            android:paddingTop="@dimen/base8dp"
+            android:paddingBottom="@dimen/base8dp"
+            />
+    </LinearLayout>
+
+    <TextView
+        style="@style/Txt14Grey"
+        android:padding="@dimen/base10dp"
+        android:text="@string/tradable_shareholders"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sp_rect_grey_border"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/Txt14Grey"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:paddingBottom="@dimen/base8dp"
+                android:paddingLeft="@dimen/base15dp"
+                android:paddingRight="@dimen/base15dp"
+                android:paddingTop="@dimen/base8dp"
+                android:text="股东"
+                />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/grey_divider"/>
+
+            <TextView
+                style="@style/Txt14Grey"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="持股数量"
+                />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/grey_divider"/>
+
+            <TextView
+                android:id="@+id/tv_title_pct"
+                style="@style/Txt14Grey"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/data"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/grey_divider"/>
+
+        <cn.zn.com.zn_android.uiclass.ScrollListView
+            android:id="@+id/slv_ten_sh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:listSelector="@android:color/transparent"
+            android:dividerHeight="0.5dp"
+            android:divider="@color/grey_divider"/>
+    </LinearLayout>
+
+
+</LinearLayout>

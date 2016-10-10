@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_toolbar" />
+
+        <RelativeLayout
+            android:id="@+id/rl_head"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base70dp"
+            android:paddingBottom="@dimen/base10dp"
+            android:paddingLeft="@dimen/base16dp"
+            android:paddingRight="@dimen/base16dp"
+            android:paddingTop="@dimen/base10dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_head"
+                android:layout_width="@dimen/base50dp"
+                android:layout_height="@dimen/base50dp"
+                android:layout_gravity="center"
+                app:roundedCornerRadius="@dimen/base10dp"
+                fresco:placeholderImage="@mipmap/ic_default_avatars" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base8dp"
+                android:layout_toRightOf="@id/sdv_head"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_room_name"
+                    style="@style/Txt15Black"
+                    android:text="股神老周  (123456)" />
+
+                <TextView
+                    android:id="@+id/tv_fans"
+                    style="@style/Txt15Black"
+                    android:layout_alignParentBottom="true"
+                    android:text="粉丝:  22835" />
+
+                <TextView
+                    android:id="@+id/tv_hot"
+                    style="@style/Txt15Black"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/base10dp"
+                    android:layout_toRightOf="@id/tv_fans"
+                    android:text="人气:  35678" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <CheckBox
+                    android:id="@+id/cb_follow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/base10dp"
+                    android:background="@drawable/teacher_follow_selector"
+                    android:button="@null"
+                    android:clickable="false" />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <cn.zn.com.zn_android.uiclass.customerview.MarqueeText
+            android:id="@+id/tv_notice"
+            style="@style/Txt12AppColor"
+            text="fasfasfdasd"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base18dp"
+            android:layout_below="@+id/fl_lecture"
+            android:background="@color/grey_trans"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:singleLine="true"
+            android:visibility="visible" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_notice"
+            android:background="@drawable/border_bottom_line"
+            app:tabSelectedTextColor="@color/app_bar_color"
+            app:tabTextAppearance="@style/NormalTabLayoutTextAppearance"
+            app:tabTextColor="@color/font_value_black" />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tl_chat"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</LinearLayout>

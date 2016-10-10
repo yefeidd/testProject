@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:padding="@dimen/base8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/Txt13Black"
+            android:paddingLeft="@dimen/base6dp"
+            android:text="乐视网"/>
+        <TextView
+            android:id="@+id/tv_code"
+            style="@style/Txt13Grey"
+            android:layout_width="@dimen/base50dp"
+            android:layout_below="@id/tv_name"
+            android:gravity="center"
+            android:paddingLeft="@dimen/base4dp"
+            android:paddingTop="@dimen/base2dp"
+            android:text="300104"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/base30dp"
+            android:layout_toRightOf="@id/tv_name">
+            <TextView
+                android:id="@+id/tv_price"
+                style="@style/Txt13AppColor"
+                android:layout_centerHorizontal="true"
+                android:text="49.78"/>
+
+            <TextView
+                android:id="@+id/tv_up_down"
+                style="@style/Txt13AppColor"
+                android:layout_below="@id/tv_price"
+                android:text="+0.70"/>
+
+            <TextView
+                android:id="@+id/tv_up_down_rate"
+                style="@style/Txt13AppColor"
+                android:layout_below="@id/tv_price"
+                android:layout_marginLeft="@dimen/base12dp"
+                android:layout_toRightOf="@id/tv_up_down"
+                android:text="+1.43%"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_1"
+            style="@style/Txt13Grey"
+            android:layout_toRightOf="@id/rl_price"
+            android:layout_marginLeft="@dimen/base30dp"
+            android:text="@string/today_open"/>
+        <TextView
+            android:id="@+id/tv_today_open"
+            style="@style/Txt13Black"
+            android:layout_toRightOf="@id/tv_1"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="49.48"/>
+
+        <TextView
+            android:id="@+id/tv_2"
+            style="@style/Txt13Grey"
+            android:layout_below="@id/tv_1"
+            android:layout_alignLeft="@id/tv_1"
+            android:paddingTop="@dimen/base2dp"
+            android:text="@string/heighest"/>
+        <TextView
+            android:id="@+id/tv_heighest"
+            style="@style/Txt13Black"
+            android:layout_marginTop="@dimen/base2dp"
+            android:layout_alignLeft="@id/tv_today_open"
+            android:layout_below="@id/tv_today_open"
+            android:text="50.12"/>
+
+        <TextView
+            android:id="@+id/tv_3"
+            style="@style/Txt13Grey"
+            android:layout_toRightOf="@id/tv_today_open"
+            android:layout_marginLeft="@dimen/base30dp"
+            android:text="@string/close_deal"/>
+        <TextView
+            android:id="@+id/tv_close_deal"
+            style="@style/Txt13Black"
+            android:layout_toRightOf="@id/tv_3"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="20.8万"/>
+
+        <TextView
+            android:id="@+id/tv_4"
+            style="@style/Txt13Grey"
+            android:layout_below="@id/tv_3"
+            android:layout_alignLeft="@id/tv_3"
+            android:paddingTop="@dimen/base2dp"
+            android:text="@string/lowest"/>
+        <TextView
+            android:id="@+id/tv_lowest"
+            style="@style/Txt13Black"
+            android:layout_marginTop="@dimen/base2dp"
+            android:layout_alignLeft="@id/tv_close_deal"
+            android:layout_below="@id/tv_close_deal"
+            android:text="49.02"/>
+
+        <TextView
+            android:id="@+id/tv_5"
+            style="@style/Txt13Grey"
+            android:layout_toRightOf="@id/tv_close_deal"
+            android:layout_marginLeft="@dimen/base30dp"
+            android:text="@string/change_hand"/>
+        <TextView
+            android:id="@+id/tv_change_hand"
+            style="@style/Txt13Black"
+            android:layout_toRightOf="@id/tv_5"
+            android:layout_marginLeft="@dimen/base4dp"
+            android:text="1.66%"/>
+
+        <TextView
+            android:id="@+id/tv_6"
+            style="@style/Txt13Grey"
+            android:layout_below="@id/tv_5"
+            android:layout_alignLeft="@id/tv_5"
+            android:paddingTop="@dimen/base2dp"
+            android:text="@string/swing"/>
+        <TextView
+            android:id="@+id/tv_swing"
+            style="@style/Txt13Black"
+            android:layout_marginTop="@dimen/base2dp"
+            android:layout_alignLeft="@id/tv_change_hand"
+            android:layout_below="@id/tv_change_hand"
+            android:text="2.24%"/>
+
+        <ImageButton
+            android:id="@+id/ib_close"
+            android:layout_width="@dimen/base25dp"
+            android:layout_height="@dimen/base25dp"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close"
+            android:onClick="onClick"/>
+    </RelativeLayout>
+
+    <!--选择器-->
+    <RadioGroup
+        android:id="@+id/rg_chart_choice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base8dp"
+        android:layout_marginRight="@dimen/base8dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_chart_0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chart_select"
+            android:button="@null"
+            android:gravity="center"
+            android:checked="true"
+            android:paddingBottom="@dimen/base10dp"
+            android:paddingTop="@dimen/base10dp"
+            android:text="@string/time_share"
+            android:textColor="@color/market_tittle_gray_color"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_chart_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chart_select"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingBottom="@dimen/base10dp"
+            android:paddingTop="@dimen/base10dp"
+            android:text="@string/day_k"
+            android:textColor="@color/market_tittle_gray_color"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_chart_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chart_select"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingBottom="@dimen/base10dp"
+            android:paddingTop="@dimen/base10dp"
+            android:text="@string/week_k"
+            android:textColor="@color/market_tittle_gray_color"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/rb_chart_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chart_select"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingBottom="@dimen/base10dp"
+            android:paddingTop="@dimen/base10dp"
+            android:text="@string/month_k"
+            android:textColor="@color/market_tittle_gray_color"
+            android:textSize="12sp" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fl_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

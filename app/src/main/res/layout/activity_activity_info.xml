@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/register_content_color"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:padding="@dimen/base10dp"
+        android:gravity="center"
+        android:text="【发帖有奖】晒出你的过年照片，送电影票拉！"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/Txt12Grey"
+        android:paddingLeft="@dimen/base10dp"
+        android:paddingBottom="@dimen/base10dp"
+        android:text="2016-03-10 12:30"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#aabdbdbd"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        style="@style/Txt14Black"
+        android:padding="@dimen/base10dp"
+        android:lineSpacingMultiplier="1.5"
+        android:text="一、比赛时间\n2016年5月10日——2016年6月10日\n二、活动细则\n1、每位用户以每日竞猜一次为准，如有多次，将以第一个为准；\n2/6月11日公布获奖名单并统一发奖。\n\n本次活动最终解释权归98财富网所有"
+        />
+
+    <Button
+        android:id="@+id/btn_join"
+        android:layout_width="match_parent"
+        style="@style/Txt16White"
+        android:text="@string/join"
+        android:layout_margin="@dimen/base10dp"
+        android:background="@drawable/sp_rect_orange"/>
+</LinearLayout>

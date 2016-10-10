@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/layout_market_detail_head"/>
+
+    <RadioGroup
+        android:id="@+id/rg_simple_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base8dp"
+        android:layout_marginRight="@dimen/base8dp"
+        android:layout_marginStart="@dimen/base8dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_brief"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chart_select"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingBottom="@dimen/base10dp"
+            android:paddingTop="@dimen/base10dp"
+            android:text="@string/stocks_rose"
+            android:checked="true"
+            android:textColor="@color/market_tittle_gray_color"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/rb_finance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chart_select"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingBottom="@dimen/base10dp"
+            android:paddingTop="@dimen/base10dp"
+            android:text="@string/stocks_decline"
+            android:textColor="@color/market_tittle_gray_color"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/rb_shareholders"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_chart_select"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingBottom="@dimen/base10dp"
+            android:paddingTop="@dimen/base10dp"
+            android:text="@string/stocks_turnover_rate"
+            android:textColor="@color/market_tittle_gray_color"
+            android:textSize="14sp" />
+
+    </RadioGroup>
+
+    <cn.zn.com.zn_android.uiclass.ScrollListView
+        android:id="@+id/lv_stock_indices"
+        android:paddingLeft="@dimen/base8dp"
+        android:paddingRight="@dimen/base8dp"
+        android:scrollbars="none"
+        android:divider="@color/register_content_color"
+        android:dividerHeight="0.5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

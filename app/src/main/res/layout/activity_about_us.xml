@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".uiclass.activity.AboutUsActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_about"
+        style="@style/Txt14Black"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/base10dp"
+        android:background="@drawable/border_bottom_line"
+        android:lineSpacingMultiplier="1.5"
+        android:paddingBottom="@dimen/base10dp"
+        android:paddingLeft="@dimen/base16dp"
+        android:paddingRight="@dimen/base16dp"
+        android:paddingTop="@dimen/base10dp"
+        android:text="@string/about_us_txt" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        style="@style/Txt14Black"
+        android:layout_width="match_parent"
+        android:background="@drawable/border_bottom_line"
+        android:paddingBottom="@dimen/base10dp"
+        android:paddingLeft="@dimen/base16dp"
+        android:paddingRight="@dimen/base16dp"
+        android:paddingTop="@dimen/base10dp" />
+
+    <TextView
+        android:id="@+id/tv_official"
+        style="@style/Txt14Black"
+        android:layout_width="match_parent"
+        android:padding="@dimen/base16dp"
+        android:text="@string/about_us_official" />
+
+    <ImageView
+        android:layout_width="@dimen/base150dp"
+        android:layout_height="@dimen/base150dp"
+        android:layout_marginTop="@dimen/base20dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/wx_qr_code"/>
+
+    <TextView
+        style="@style/Txt15Black"
+        android:layout_marginTop="@dimen/base4dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.3"
+        android:text="@string/scan_wx_qr_code"/>
+</LinearLayout>

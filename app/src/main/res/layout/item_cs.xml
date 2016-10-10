@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_cs"
+    style="@style/Txt13Black"
+    android:padding="@dimen/base8dp"
+    android:text="111"
+    android:drawablePadding="@dimen/base8dp"
+    android:drawableLeft="@mipmap/ic_qq">
+
+</TextView>

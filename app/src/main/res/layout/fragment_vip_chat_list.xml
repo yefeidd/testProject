@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_is_not_vip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/join_us" />
+
+            <TextView
+                style="@style/Txt12Black"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="@dimen/base5dp"
+                android:text="@string/tips_1" />
+
+            <TextView
+                android:id="@+id/tv_tip_2"
+                style="@style/Txt12Black"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/tv_tip_3"
+                style="@style/Txt12Black"
+                android:layout_gravity="center_horizontal" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/base10dp"
+                android:background="@drawable/vip_intro" />
+
+            <TextView
+                android:id="@+id/tv_join_vip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base90dp"
+                android:layout_marginRight="@dimen/base90dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/sp_rect_orange"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base10dp"
+                android:paddingTop="@dimen/base10dp"
+                android:text="点此加入VIP会员"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/lv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/ll_is_vip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <cn.zn.com.zn_android.uiclass.x5webview.X5WebView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/wv_chat_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/base100dp"
+                android:orientation="vertical" />
+
+            <RelativeLayout
+                android:id="@+id/rl_btns"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base100dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/white">
+
+                <LinearLayout
+
+                    android:id="@+id/ll_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/base50dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/border_top_line"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/base10dp"
+                    android:paddingLeft="@dimen/base16dp"
+                    android:paddingRight="@dimen/base16dp"
+                    android:paddingTop="@dimen/base10dp">
+
+                    <EditText
+                        android:id="@+id/et_msg"
+                        style="@style/Txt14Black"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_corner_orange"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/base16dp"
+                        android:paddingRight="@dimen/base16dp" />
+
+                    <TextView
+                        android:id="@+id/tv_send"
+                        style="@style/Txt14White"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/base10dp"
+                        android:background="@drawable/sp_rect_corner_grey_light"
+                        android:paddingLeft="@dimen/base8dp"
+                        android:paddingRight="@dimen/base8dp"
+                        android:text="@string/send" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_second_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/ll_send"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/base10dp"
+                    android:paddingLeft="@dimen/base16dp"
+                    android:paddingRight="@dimen/base16dp">
+
+                    <ImageButton
+                        android:id="@+id/ib_private_talk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/base40dp"
+                        android:background="@drawable/private_talk"
+                        android:onClick="onClick" />
+
+                    <ImageButton
+                        android:id="@+id/ib_gift"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@mipmap/ic_gift"
+                        android:onClick="onClick" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </FrameLayout>
+</RelativeLayout>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#fff</color>
+    <color name="red">#f00</color>
+    <color name="app_bar_color">#d83d21</color>
+    <color name="leftmenu_bg">#de5b43</color>
+    <color name="vip_color">#c5968e</color>
+    <color name="app_main">#de5b43</color>
+    <color name="tab_unselected">#f09f91</color>
+    <color name="tab_selected">#d83d21</color>
+    <color name="orange_dd3d20">#dd3d20</color>
+    <color name="chat_bg">#faeae8</color>
+    <color name="chat_strock">#aaebd8d6</color>
+
+    <color name="grey_light">#bcbcbc</color>
+    <color name="grey_line">#c9c9c9</color>
+    <color name="grey_divider">#dfdfdf</color>
+    <color name="grey_bg">#eee</color>
+    <color name="bar_black">#373737</color>
+    <color name="bar_grey">#505050</color>
+    <color name="gray">#ff7f7f7f</color>
+    <color name="font_value">#ff888888</color>
+    <color name="font_value_black">#232323</color>
+    <!-- 所有黑色字的颜色-->
+    <color name="black">#000</color>
+    <color name="text_color">#ff434343</color>
+    <color name="light_notes_color">#ff999999</color>
+    <color name="text_tab">#707070</color>
+    <color name="grey_898989">#898989</color>
+    <color name="grey_f2f2f2">#f2f2f2</color>
+
+    <color name="link_color">#ff4abad7</color>
+    <color name="title_color">#fff</color>
+    <color name="register_content_color">#f0eff5</color>
+
+    <color name="grey_trans">#eea49d9c</color>
+    <color name="white_trans">#22ffffff</color>
+    <color name="grey_text_color">#9999</color>
+    <color name="teacher_color">#FAEAEA</color>
+    <color name="teacher_status">#CDA198</color>
+    <color name="article_bottom">#A4A4A4</color>
+    <color name="grey_subhead">#6666</color>
+    <color name="trans_black_bg">#d222</color>
+
+    <!--行情页面的颜色-->
+    <color name="green_down">#2ac685</color>
+    <color name="market_tittle_gray_color">#666</color>
+    <color name="market_code_color">#a4a4a4</color>
+    <color name="HK_title_icon">#F19A53</color>
+    <color name="gray_edf2f6">#edf2f6</color>
+    <color name="orange_e45137">#e45137</color>
+    <color name="market_detail_font_color">#999999</color>
+    <color name="bg_maket_footer">#F4F4F4</color>
+
+    <!--行情和K线图的颜色-->
+    <color name="minute_grayLine">#2D3945</color>
+    <color name="minute_blue">#00D0FC</color>
+    <color name="minute_yellow">#E7B448</color>
+    <color name="minute_black">#101419</color>
+    <color name="minute_jizhun">#7F9976</color>
+    <color name="minute_zhoutv">#22858D93</color>
+    <color name="marker_bg">#1C232E</color>
+    <color name="market_green">#29c885</color>
+    <color name="market_red">#D44545</color>
+    <color name="bg_k_chart_select_color">#22858D93</color>
+    <color name="trans_gray">#36000000</color>
+    <color name="chart_blue">#23c9b5</color>
+    <color name="chart_purple">#9e26a8</color>
+    <color name="chart_yellow">#ddc27b</color>
+    <color name="chart_blue_1">#00D0FC</color>
+    <color name="ta_grey">#333</color>
+
+    <!--模拟大赛相关的颜色-->
+    <color name="bar_bg_gray">#EAEAED</color>
+    <color name="bar_text_title_gray">#666666</color>
+    <color name="bar_text_black">#232323</color>
+    <color name="btn_bg_red">#f44535</color>
+    <color name="line_gray">#a8a8a8</color>
+    <color name="text_red">#d83d21</color>
+    <color name="text_green">#29c885</color>
+    <color name="text_gray">#a4a4a4</color>
+    <color name="btn_bg_yellow">#f39700</color>
+    <color name="bg_teacher_explain">#77EAEAED</color>
+
+    <!-- 模拟盘 -->
+    <color name="sell_out_blue">#42458a</color>
+    <color name="sell_buy_dialog_title">#d8eafe</color>
+
+    <color name="yellow_facc72">#facc72</color>
+    <color name="blue_0a78b8">#0a78b8</color>
+    <color name="blue_88cef7">#88cef7</color>
+
+</resources>

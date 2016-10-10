@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".uiclass.activity.TacticsDetailActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <ProgressBar
+        android:id="@+id/pb_web_load"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:max="100"
+        android:progressDrawable="@drawable/color_progressbar" />
+
+    <!--<FrameLayout-->
+    <!--android:id="@+id/fl_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1">-->
+
+    <cn.zn.com.zn_android.uiclass.x5webview.X5WebView
+        android:id="@+id/wv_tactics_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <!--</FrameLayout>-->
+
+    <TextView
+        style="@style/Txt12Grey"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"
+        android:layout_marginTop="@dimen/base4dp"
+        android:text="@string/tactics_tips" />
+
+    <Button
+        android:id="@+id/btn_buy"
+        style="@style/Txt14White"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/base16dp"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"
+        android:layout_marginTop="@dimen/base10dp"
+        android:background="@drawable/sp_rect_orange"
+        android:onClick="onClick"
+        android:text="@string/buy_now"
+        android:visibility="gone" />
+</LinearLayout>

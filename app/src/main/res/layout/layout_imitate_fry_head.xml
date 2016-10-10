@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/app_bar_color"
+        android:padding="8dp"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/base8dp"
+            android:paddingRight="@dimen/base8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Txt14White"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:text="@string/net_value"/>
+
+            <TextView
+                android:id="@+id/tv_net_value"
+                style="@style/Txt20White"
+                android:layout_marginLeft="@dimen/base12dp"
+                android:text="- -"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/base12dp"
+            android:paddingRight="@dimen/base8dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/Txt14White"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:text="@string/total_gains"/>
+
+                <TextView
+                    android:id="@+id/tv_total_gains"
+                    style="@style/Txt14White"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:gravity="top"
+                    android:text="- -"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/base4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/Txt14White"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:text="@string/rank"/>
+
+                <TextView
+                    android:id="@+id/tv_rank"
+                    style="@style/Txt14White"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:gravity="top"
+                    android:text="- -"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/base14dp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp"
+        android:background="@color/app_bar_color">
+
+        <TextView
+            style="@style/Txt14White"
+            android:layout_weight="1.4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/total_assets"/>
+
+        <TextView
+            android:id="@+id/tv_total_assets"
+            style="@style/Txt14White"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base12dp"
+            android:gravity="left"
+            android:text="- -"
+            />
+
+        <TextView
+            style="@style/Txt14White"
+            android:layout_weight="1.4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/expendable_fund"/>
+
+        <TextView
+            android:id="@+id/tv_expendable_fund"
+            style="@style/Txt14White"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base12dp"
+            android:gravity="left"
+            android:text="- -"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/base14dp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp"
+        android:background="@color/app_bar_color">
+
+        <TextView
+            style="@style/Txt14White"
+            android:layout_weight="1.4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/initial_capital"/>
+
+        <TextView
+            android:id="@+id/tv_initial_capital"
+            style="@style/Txt14White"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base12dp"
+            android:gravity="left"
+            android:text="- -"
+            />
+
+        <TextView
+            style="@style/Txt14White"
+            android:layout_weight="1.4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text="@string/day_beak"/>
+
+        <TextView
+            android:id="@+id/tv_day_beak"
+            style="@style/Txt14White"
+            android:layout_weight="1.8"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/base12dp"
+            android:gravity="left"
+            android:text="- -"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/base14dp"
+        android:paddingBottom="@dimen/base14dp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp"
+        android:background="@color/app_bar_color">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_buy_in"
+                style="@style/Txt14AppColor"
+                android:layout_width="@dimen/base110dp"
+                android:layout_height="@dimen/base35dp"
+                android:text="@string/buy_in"
+                android:background="@drawable/sp_rect_coner_white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_records"
+                style="@style/Txt14AppColor"
+                android:layout_width="@dimen/base110dp"
+                android:layout_height="@dimen/base35dp"
+                android:text="@string/records"
+                android:background="@drawable/sp_rect_coner_white"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base14dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/Txt13Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
+                    android:text="@string/month_gain_ratio"/>
+                <TextView
+                    android:id="@+id/tv_month_gain_ratio"
+                    style="@style/Txt14Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:text="- -"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base4dp"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/Txt13Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
+                    android:text="胜        率"/>
+                <TextView
+                    android:id="@+id/win_ratio"
+                    style="@style/Txt14Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:text="- -"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base4dp"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/Txt13Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
+                    android:text="@string/current_position"/>
+                <TextView
+                    android:id="@+id/tv_current_position"
+                    style="@style/Txt14Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:text="0.0%"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/base4dp"
+                android:layout_marginRight="@dimen/base8dp"
+                android:background="@color/grey_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base4dp"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/Txt13Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
+                    android:text="@string/avarage_stock_ownership"/>
+                <TextView
+                    android:id="@+id/tv_avarage_stock_ownership"
+                    style="@style/Txt14Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:text="0"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base4dp"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/Txt13Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
+                    android:text="@string/avarage_monthly"/>
+                <TextView
+                    android:id="@+id/tv_avarage_monthly"
+                    style="@style/Txt14Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1.2"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:text="0"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginRight="@dimen/base8dp"
+                android:layout_marginTop="@dimen/base4dp"
+                android:background="@color/grey_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base4dp"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/Txt13Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/initial_transaction"/>
+                <TextView
+                    android:id="@+id/tv_initial_transaction"
+                    style="@style/Txt12Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:text="2016-02-03"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/base4dp"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/Txt13Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/last_transaction"/>
+                <TextView
+                    android:id="@+id/tv_last_transaction"
+                    style="@style/Txt12Black"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/base8dp"
+                    android:text="2016-02-03"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <cn.zn.com.zn_android.uiclass.customerview.CanvasChartView
+            android:id="@+id/ccv_chat"
+            android:layout_width="0dp"
+            android:layout_weight="1.4"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/base8dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:background="@color/register_content_color"
+        android:paddingLeft="@dimen/base14dp"
+        android:paddingTop="@dimen/base8dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:text="@string/now_position"/>
+</LinearLayout>

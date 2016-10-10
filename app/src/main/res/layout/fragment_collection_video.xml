@@ -1,0 +1,16 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".uiclass.fragment.CollectionVideoFragment">
+
+    <GridView
+        android:id="@+id/gv_collect_videos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/base16dp"
+        android:paddingRight="@dimen/base16dp"
+        android:numColumns="3"
+        />
+
+</FrameLayout>

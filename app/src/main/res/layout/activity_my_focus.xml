@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".uiclass.activity.MyFocusActivity">
+    <include layout="@layout/layout_toolbar" />
+
+    <!--<android.support.design.widget.TabLayout-->
+        <!--android:id="@+id/tl_focus"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/white"-->
+        <!--app:tabSelectedTextColor="@color/app_bar_color"-->
+        <!--app:tabTextAppearance="@style/NormalTabLayoutTextAppearance"-->
+        <!--app:tabTextColor="@color/font_value_black"/>-->
+
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/vp_focus"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+
+    <fragment
+        android:id="@+id/fm_focus"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="cn.zn.com.zn_android.uiclass.fragment.FocusRoomFragment"/>
+</LinearLayout>

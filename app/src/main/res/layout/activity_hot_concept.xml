@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/register_content_color"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            style="@style/Txt13Black"
+            android:paddingLeft="@dimen/base16dp"
+            android:paddingTop="@dimen/base8dp"
+            android:paddingBottom="@dimen/base8dp"
+            android:paddingRight="@dimen/base12dp"
+            android:text="@string/industry_name"/>
+
+        <LinearLayout
+            android:id="@+id/ll_up_down"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+            <TextView
+                style="@style/Txt13Black"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/up_down_list"/>
+            <ImageView
+                android:id="@+id/iv_up_down"
+                android:layout_width="@dimen/base11dp"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/base4dp"
+                android:contentDescription="@string/up_down_list"
+                android:src="@drawable/up_arrows"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            style="@style/Txt13Black"
+            android:text="@string/led_rise_shares"/>
+    </LinearLayout>
+
+    <cn.zn.com.zn_android.uiclass.xlistview.XListView
+        android:id="@+id/xlv_hot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:footerDividersEnabled="false"
+        android:background="@color/white"
+        android:scrollbars="none"
+        android:divider="@color/register_content_color"
+        android:dividerHeight="0.5dp"
+        />
+</LinearLayout>

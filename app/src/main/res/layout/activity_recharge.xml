@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".uiclass.activity.RechargeActivity">
+    <include layout="@layout/layout_toolbar"/>
+
+    <TextView
+        style="@style/Txt14Black"
+        android:layout_marginTop="@dimen/base16dp"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:text="@string/choose_recharge"/>
+
+    <GridView
+        android:id="@+id/gv_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base16dp"
+        android:horizontalSpacing="@dimen/base16dp"
+        android:verticalSpacing="@dimen/base16dp"
+        android:paddingLeft="@dimen/base16dp"
+        android:paddingRight="@dimen/base16dp"
+        android:numColumns="3"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base16dp"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/et_wealth"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt12Black"
+            android:padding="@dimen/base16dp"
+            android:inputType="number"
+            android:background="@drawable/sp_rect_grey_border"
+            android:hint="@string/input_recharge"/>
+
+        <TextView
+            style="@style/Txt14Black"
+            android:text="@string/wealthy_currency"
+            android:layout_marginLeft="@dimen/base30dp"
+            android:layout_marginRight="@dimen/base40dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_recharge_now"
+        android:layout_width="match_parent"
+        style="@style/Txt14White"
+        android:background="@drawable/sp_rect_orange"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"
+        android:text="@string/recharge_now"
+        android:onClick="onClick"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/base16dp"
+        android:text="@string/recharge_tips"
+        android:lineSpacingMultiplier="1.3"
+        style="@style/Txt12Grey" />
+</LinearLayout>

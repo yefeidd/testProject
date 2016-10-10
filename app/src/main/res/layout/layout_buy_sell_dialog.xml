@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/base25dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        style="@style/Txt16Black"
+        android:padding="@dimen/base12dp"
+        android:gravity="center"
+        android:text="@string/mark_buy_in_confirm"
+        android:background="@color/sell_buy_dialog_title"/>
+
+    <TextView
+        android:id="@+id/tv_market"
+        android:layout_marginTop="@dimen/base18dp"
+        android:layout_marginLeft="@dimen/base22dp"
+        android:text="1.市场：A股模拟交易"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black" />
+
+    <TextView
+        android:id="@+id/tv_code"
+        android:layout_marginTop="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base22dp"
+        android:text="@string/buy_sell_code"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_marginTop="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base22dp"
+        android:text="@string/buy_sell_name"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_marginTop="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base22dp"
+        android:text="@string/buy_sell_price"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black" />
+
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_marginTop="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base22dp"
+        android:text="@string/buy_sell_num"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black" />
+
+    <TextView
+        android:layout_marginTop="@dimen/base15dp"
+        android:gravity="center"
+        android:text="@string/confirm_entrust"
+        android:layout_width="match_parent"
+        style="@style/Txt15Black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/base15dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_buy_in"
+            android:layout_width="@dimen/base112dp"
+            android:layout_height="@dimen/base28dp"
+            android:text="@string/buy_in"
+            style="@style/Txt14White"
+            android:background="@color/app_bar_color"/>
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="@dimen/base112dp"
+            android:layout_height="@dimen/base28dp"
+            android:text="取消"
+            style="@style/Txt14White"
+            android:layout_marginLeft="@dimen/base20dp"
+            android:background="@color/grey_light"/>
+
+    </LinearLayout>
+
+</LinearLayout>

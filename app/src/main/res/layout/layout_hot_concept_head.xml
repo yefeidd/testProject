@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_hot_concept_head"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/base10dp"
+    android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_up_down"
+            android:layout_width="wrap_content"
+            style="@style/Txt20AppColor"
+            android:layout_marginLeft="@dimen/base40dp"
+            android:paddingTop="@dimen/base8dp"
+            android:paddingBottom="@dimen/base8dp"
+            android:text="+0.32%"/>
+
+        <TextView
+            android:id="@+id/tv_liquadate"
+            style="@style/Txt14Grey"
+            android:layout_marginRight="@dimen/base40dp"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="@dimen/base12dp"
+            android:paddingRight="@dimen/base12dp"
+            android:text="8"/>
+
+        <TextView
+            android:id="@+id/tv_down"
+            style="@style/Txt14Grey"
+            android:paddingLeft="@dimen/base12dp"
+            android:paddingRight="@dimen/base12dp"
+            android:layout_toLeftOf="@id/tv_liquadate"
+            android:text="18"/>
+
+        <TextView
+            android:id="@+id/tv_up"
+            style="@style/Txt14Grey"
+            android:paddingLeft="@dimen/base12dp"
+            android:paddingRight="@dimen/base12dp"
+            android:layout_toLeftOf="@+id/tv_down"
+            android:text="18"/>
+
+        <TextView
+            android:id="@+id/tv_pc"
+            style="@style/Txt13Grey"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/base40dp"
+            android:layout_below="@+id/tv_up"
+            android:layout_alignLeft="@+id/tv_liquadate"
+            android:layout_alignParentRight="true"
+            android:paddingTop="@dimen/base4dp"
+            android:text="@string/liquadate"/>
+
+        <TextView
+            android:id="@+id/tv_liquadate_txt"
+            style="@style/Txt13Grey"
+            android:layout_below="@+id/tv_up"
+            android:gravity="center"
+            android:layout_alignLeft="@+id/tv_down"
+            android:layout_toLeftOf="@id/tv_pc"
+            android:paddingTop="@dimen/base4dp"
+            android:text="@string/down"/>
+
+        <TextView
+            android:id="@+id/tv_up_txt"
+            style="@style/Txt13Grey"
+            android:layout_below="@+id/tv_up"
+            android:gravity="center"
+            android:layout_alignLeft="@+id/tv_up"
+            android:layout_toLeftOf="@+id/tv_liquadate_txt"
+            android:paddingTop="@dimen/base4dp"
+            android:text="@string/up"/>
+
+    </RelativeLayout>
+    
+</LinearLayout>

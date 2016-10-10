@@ -1,0 +1,86 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+        tools:context="cn.zn.com.zn_android.uiclass.fragment.ContestDynamicFragment">
+
+    <RadioGroup
+
+        android:id="@+id/rg_checked"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/base5dp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp"
+        android:paddingTop="@dimen/base16dp">
+
+        <RadioButton
+            android:id="@+id/rb_01"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_contest_state_left"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="@dimen/base8dp"
+            android:text="全部比赛"
+            android:textColor="@drawable/text_contest_state_color"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/rb_02"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:background="@drawable/bg_contest_state_center"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="@dimen/base8dp"
+            android:text="排行榜"
+            android:textColor="@drawable/text_contest_state_color" />
+
+        <RadioButton
+            android:id="@+id/rb_03"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:background="@drawable/bg_contest_state_right"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="@dimen/base8dp"
+            android:text="公告"
+            android:textColor="@drawable/text_contest_state_color" />
+    </RadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <cn.zn.com.zn_android.uiclass.xlistview.XListView
+            android:id="@+id/xlv_all_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:visibility="visible" />
+
+        <cn.zn.com.zn_android.uiclass.xlistview.XListView
+            android:id="@+id/xlv_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:visibility="gone" />
+
+        <cn.zn.com.zn_android.uiclass.xlistview.XListView
+            android:id="@+id/xlv_notice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:visibility="gone" />
+    </RelativeLayout>
+</LinearLayout>

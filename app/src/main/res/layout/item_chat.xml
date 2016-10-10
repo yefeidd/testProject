@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="4dp"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_avatar"
+            android:layout_width="@dimen/base40dp"
+            android:layout_height="@dimen/base40dp"
+            android:scaleType="centerCrop"
+            app:fadeDuration="200"
+            android:layout_marginTop="@dimen/base2dp"
+            app:placeholderImage="@mipmap/ic_default_avatars"
+            app:roundAsCircle="true"/>
+
+        <TextView
+            android:id="@+id/tv_role"
+            style="@style/Txt10White"
+            android:background="@drawable/bg_chat_role"
+            android:layout_marginRight="@dimen/base4dp"
+            android:layout_alignRight="@+id/sdv_avatar"
+            android:layout_alignBottom="@+id/sdv_avatar"
+            android:paddingLeft="@dimen/base3dp"
+            android:paddingRight="@dimen/base3dp"
+            android:paddingTop="@dimen/base2dp"
+            android:paddingBottom="@dimen/base2dp"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_context"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp">
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/Gray12"
+            android:text="name"
+            android:layout_alignParentLeft="true"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_toLeftOf="@+id/tv_time"
+            />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/Gray12"
+            android:layout_alignParentRight="true"
+            android:text="2016-06-02 13:00"
+            />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            style="@style/Black13"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="@dimen/base4dp"
+            android:padding="@dimen/base4dp"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_gift"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base8dp"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/tv_gift_time"
+            style="@style/Gray12"
+            android:layout_alignParentRight="true"
+            android:text="20:00"
+            />
+
+        <TextView
+            android:id="@+id/tv_gift"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:layout_toLeftOf="@+id/tv_gift_time"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

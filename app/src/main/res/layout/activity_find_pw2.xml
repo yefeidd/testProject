@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/register_content_color"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar"/>
+
+    <EditText
+        android:id="@+id/et_new_pw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_large_margin"
+        android:layout_marginBottom="@dimen/activity_small_margin"
+        android:inputType="textPassword"
+        android:maxLength="16"
+        android:background="@drawable/sp_rect_coner_white"
+        android:hint="@string/new_pw"
+        android:textSize="14sp"
+        android:textColor="@color/font_value"
+        android:textColorHint="@color/font_value"
+        android:padding="@dimen/activity_horizontal_margin"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/Txt14White"
+        android:textColor="@color/font_value"
+        android:gravity="left"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:text="@string/pw_tip"/>
+
+    <EditText
+        android:id="@+id/et_confirm_pw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:inputType="textPassword"
+        android:maxLength="16"
+        android:background="@drawable/sp_rect_coner_white"
+        android:hint="@string/confirm_new_pw"
+        android:textSize="14sp"
+        android:textColor="@color/font_value"
+        android:textColorHint="@color/font_value"
+        android:padding="@dimen/activity_horizontal_margin"/>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="@style/Txt16White"
+        android:layout_width="match_parent"
+        android:text="@string/confirm"
+        android:layout_marginTop="@dimen/activity_large_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:background="@drawable/sp_rect_orange"
+        android:onClick="onClick"/>
+</LinearLayout>

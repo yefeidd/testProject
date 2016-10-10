@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_load_more"
+    style="@style/Txt14ContestGrey"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/base15dp"
+    android:paddingTop="@dimen/base15dp"
+    android:text="查看更多" />

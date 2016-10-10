@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/base15dp"
+    android:paddingLeft="@dimen/base15dp"
+    android:paddingRight="@dimen/base15dp"
+    android:paddingBottom="@dimen/base25dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/base10dp"
+        android:background="@drawable/bg_btn_white_blue_with_corner"
+        android:orientation="vertical"
+        android:padding="@dimen/base5dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base40dp"
+            android:background="@drawable/border_bottom_line"
+            android:gravity="center"
+            android:text="标题"
+            android:textColor="#a4a4a4"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base40dp"
+            android:background="@null"
+            android:gravity="center"
+            android:text="我是自定义的dailog"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/lv_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn_white_blue_with_corner"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:padding="@dimen/base12dp"
+        android:text="取消"
+        android:textColor="@color/orange_dd3d20" />
+
+</LinearLayout>

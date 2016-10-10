@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey_bg"
+    android:orientation="vertical">
+
+    <!-- 广告滚动 -->
+    <FrameLayout
+        android:id="@+id/rl_ad"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base150dp">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            >
+
+            <cn.zn.com.zn_android.uiclass.customerview.vpindicator.CirclePageIndicator
+                android:id="@+id/dot_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="@dimen/activity_small_margin"
+                app:fillColor="@color/app_main"
+                app:pageColor="@color/white"
+                app:strokeWidth="0dp">
+
+            </cn.zn.com.zn_android.uiclass.customerview.vpindicator.CirclePageIndicator>
+        </FrameLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/base12dp"
+        >
+
+        <TextView
+            android:id="@+id/btn_course"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@null"
+            android:drawablePadding="@dimen/base5dp"
+            android:drawableTop="@drawable/btn_anlog"
+            android:text="@string/analog" />
+
+        <TextView
+            android:id="@+id/btn_school"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:drawablePadding="@dimen/base5dp"
+            android:drawableTop="@drawable/btn_stock_school"
+            android:text="@string/school" />
+
+        <TextView
+            android:id="@+id/btn_article"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@null"
+            android:drawablePadding="@dimen/base5dp"
+            android:drawableTop="@drawable/btn_article"
+            android:text="@string/article" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/base12dp"
+        android:paddingBottom="@dimen/base12dp"
+        >
+
+        <TextView
+            android:id="@+id/btn_popular_expert"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@null"
+            android:drawablePadding="@dimen/base5dp"
+            android:drawableTop="@drawable/btn_popular_expert"
+            android:text="@string/popular_expert" />
+
+        <TextView
+            android:id="@+id/btn_earn_most"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:drawablePadding="@dimen/base5dp"
+            android:drawableTop="@drawable/btn_earn_most"
+            android:text="@string/earn_most_expert" />
+
+        <TextView
+            android:id="@+id/btn_short_term"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@null"
+            android:drawablePadding="@dimen/base5dp"
+            android:drawableTop="@drawable/btn_short_term"
+            android:text="@string/short_term_expert" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:layout_marginTop="@dimen/base5dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="@dimen/activity_small_margin"
+        android:text="@string/dynamic_expert"
+         />
+
+</LinearLayout>

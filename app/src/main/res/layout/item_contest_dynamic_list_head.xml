@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+ >
+
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bar_text_title_gray"
+        android:text="模拟大赛总排行榜"
+        android:textSize="15sp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp"
+        android:background="@drawable/border_bottom_line"
+        android:paddingBottom="@dimen/base10dp"
+        android:paddingTop="@dimen/base15dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp"
+        android:paddingTop="@dimen/base12dp">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:text="排名"
+        android:textColor="@color/bar_text_title_gray"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/ContestGray13"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="选手"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_profit"
+        style="@style/ContestGray13"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="总盈率"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_total"
+        style="@style/ContestGray13"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="总资产"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_action"
+        style="@style/ContestGray13"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="仓位"
+        android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

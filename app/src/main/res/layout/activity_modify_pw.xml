@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@color/register_content_color"
+    tools:context=".uiclass.activity.ModifyPWActivity">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <EditText
+        android:id="@+id/et_pw_now"
+        style="@style/Txt14Grey"
+        android:hint="@string/modify_pw_now"
+        android:layout_width="match_parent"
+        android:background="@drawable/sp_rect_coner_white"
+        android:maxLength="16"
+        android:inputType="textPassword"
+        android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
+        android:padding="@dimen/base8dp"
+        android:layout_marginTop="@dimen/base16dp"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"/>
+
+    <EditText
+        android:id="@+id/et_pw_new"
+        style="@style/Txt14Grey"
+        android:hint="@string/new_pw"
+        android:layout_width="match_parent"
+        android:background="@drawable/sp_rect_coner_white"
+        android:maxLength="16"
+        android:inputType="textPassword"
+        android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
+        android:padding="@dimen/base8dp"
+        android:layout_marginTop="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"/>
+
+    <EditText
+        android:id="@+id/et_pw_new_confirm"
+        style="@style/Txt14Grey"
+        android:hint="@string/confirm_new_pw"
+        android:layout_width="match_parent"
+        android:background="@drawable/sp_rect_coner_white"
+        android:maxLength="16"
+        android:inputType="textPassword"
+        android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ"
+        android:padding="@dimen/base8dp"
+        android:layout_marginTop="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"/>
+
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_width="match_parent"
+        style="@style/Txt14White"
+        android:text="@string/confirm"
+        android:background="@drawable/sp_rect_orange"
+        android:layout_marginTop="@dimen/base32dp"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_marginRight="@dimen/base16dp"
+        android:onClick="onClick"/>
+</LinearLayout>

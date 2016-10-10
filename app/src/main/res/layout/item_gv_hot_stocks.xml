@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@android:id/title"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/tv_up_down"
+        android:layout_width="match_parent"
+        style="@style/Txt16AppColor"
+        android:layout_below="@android:id/title"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/base2dp"
+        />
+
+    <TextView
+        android:id="@id/tv_name"
+        android:layout_width="match_parent"
+        style="@style/Txt12Grey"
+        android:layout_below="@id/tv_up_down"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/base2dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="match_parent"
+        style="@style/Txt13Grey"
+        android:layout_below="@id/tv_name"
+        android:gravity="left"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginTop="@dimen/base2dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_rate"
+        android:layout_width="match_parent"
+        style="@style/Txt13Grey"
+        android:layout_below="@id/tv_name"
+        android:gravity="right"
+        android:layout_marginRight="@dimen/base10dp"
+        android:layout_marginTop="@dimen/base2dp"
+        />
+
+</RelativeLayout>

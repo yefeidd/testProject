@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingLeft="@dimen/base20dp"
+    android:paddingRight="@dimen/base20dp"
+    android:paddingTop="@dimen/base14dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_rank"
+            style="@style/White13"
+            android:background="@color/text_red"
+            android:gravity="center"
+            android:paddingLeft="@dimen/base6dp"
+            android:paddingRight="@dimen/base6dp"
+            android:text="1" />
+    </LinearLayout>
+    <!--<TextView-->
+    <!--style="@style/ContestGray13"-->
+    <!--android:background="@color/bar_bg_gray"-->
+    <!--android:paddingLeft="@dimen/base4dp"-->
+    <!--android:paddingRight="@dimen/base4dp"-->
+    <!--android:text="1" />-->
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/ContestGray13"
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="这才叫炒股..." />
+
+    <TextView
+        android:id="@+id/tv_profit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="1234.05%"
+        android:textColor="@color/text_red"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_total"
+        style="@style/ContestGray13"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="5635630" />
+
+    <TextView
+        android:id="@+id/tv_action"
+        style="@style/ContestGray13"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="99.61%"
+        android:textSize="13sp" />
+
+
+</LinearLayout>

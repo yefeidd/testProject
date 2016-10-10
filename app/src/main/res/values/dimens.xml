@@ -1,0 +1,22 @@
+<resources>
+    <!-- Default screen margins, zf_rate the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">@dimen/base16dp</dimen>
+    <dimen name="activity_vertical_margin">@dimen/base16dp</dimen>
+    <dimen name="activity_small_margin">@dimen/base5dp</dimen>
+    <dimen name="activity_mini_margin">@dimen/base4dp</dimen>
+    <dimen name="activity_large_margin">@dimen/base32dp</dimen>
+    <dimen name="activity_big_margin">@dimen/base64dp</dimen>
+    <dimen name="text_margin">@dimen/base16dp</dimen>
+
+    <!-- xlistview -->
+    <dimen name="header_height">@dimen/base60dp</dimen>
+    <dimen name="footer_height">@dimen/base90dp</dimen>
+    <dimen name="footer_padding">@dimen/base10dp</dimen>
+    <dimen name="xlistview_progress_size">@dimen/base20dp</dimen>
+
+    <!--  item-listView-->
+    <dimen name="item_padding_top">@dimen/base18dp</dimen>
+    <dimen name="item_padding_bottom">@dimen/base8dp</dimen>
+    <dimen name="item_padding_left">@dimen/base15dp</dimen>
+    <dimen name="item_padding_right">@dimen/base15dp</dimen>
+</resources>

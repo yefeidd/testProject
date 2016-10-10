@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/base12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@id/sdv_avatar"
+        android:layout_width="@dimen/base40dp"
+        android:layout_height="@dimen/base40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        app:actualImageScaleType="focusCrop"
+        app:placeholderImage="@mipmap/ic_default_avatars"
+        app:roundAsCircle="true"
+        app:roundedCornerRadius="@dimen/base4dp" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_marginLeft="@dimen/base8dp"
+        android:layout_toRightOf="@+id/sdv_avatar"
+        android:text="哈哈哈"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black" />
+
+    <TextView
+        android:id="@+id/tv_day"
+        android:layout_marginLeft="@dimen/base8dp"
+        android:layout_below="@+id/tv_name"
+        android:layout_toRightOf="@+id/sdv_avatar"
+        android:text="2016-04-28"
+        android:layout_width="match_parent"
+        style="@style/Txt14Grey" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_marginTop="@dimen/base4dp"
+        android:layout_below="@+id/sdv_avatar"
+        android:text="08-28 10:26"
+        android:layout_width="wrap_content"
+        style="@style/Txt14Black" />
+
+    <TextView
+        android:id="@+id/tv_sell_buy"
+        android:layout_marginTop="@dimen/base4dp"
+        android:layout_marginLeft="@dimen/base8dp"
+        android:layout_toRightOf="@+id/tv_time"
+        android:layout_below="@+id/sdv_avatar"
+        android:text="卖出"
+        android:layout_width="wrap_content"
+        style="@style/Txt14Green" />
+
+    <TextView
+        android:id="@+id/tv_operate"
+        android:layout_marginTop="@dimen/base2dp"
+        android:layout_below="@+id/tv_stock_name"
+        android:text="成交价7.82元、份额占比100%、获利3.68%"
+        android:layout_width="wrap_content"
+        style="@style/Txt14Black" />
+
+    <TextView
+        android:id="@+id/tv_buy_in"
+        style="@style/Txt12AppColor"
+        android:text="@string/buy_in"
+        android:paddingLeft="@dimen/base8dp"
+        android:paddingRight="@dimen/base8dp"
+        android:paddingTop="@dimen/base4dp"
+        android:layout_marginTop="@dimen/base10dp"
+        android:paddingBottom="@dimen/base4dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_day"
+        android:background="@drawable/sp_rect_corner_app_border"/>
+
+    <TextView
+        android:id="@+id/tv_stock_name"
+        android:text="铜峰电子（600237）"
+        android:layout_width="wrap_content"
+        style="@style/Txt14Blue"
+        android:layout_alignBaseline="@+id/tv_sell_buy"
+        android:layout_alignBottom="@+id/tv_sell_buy"
+        android:layout_toRightOf="@+id/tv_sell_buy"
+        android:layout_toEndOf="@+id/tv_sell_buy" />
+
+</RelativeLayout>
