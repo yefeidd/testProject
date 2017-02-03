@@ -40,6 +40,26 @@ public class ViewHolderFactory {
                 return new GeniusRankingViewHolder(view);
             case "VoucherViewHolder":
                 return new VoucherViewHolder(view);
+            case "EntrustViewHolder":
+                return new EntrustViewHolder(view);
+            case "OnlineTeacherGVHolder":
+                return new OnlineTeacherGVHolder(view);
+            case "ExcellentAnswerHolder":
+                return new ExcellentAnswerHolder(view);
+            case "OnlineTeacherRankingHolder":
+                return new OnlineTeacherRankingHolder(view);
+            case "PreAnswerHolder":
+                return new PreAnswerHolder(view);
+            case "FinishAnswerHolder":
+                return new FinishAnswerHolder(view);
+            case "MyQuestionHolder":
+                return new MyQuestionHolder(view);
+            case "OrderAllHolder":
+                return new OrderAllHolder(view);
+            case "BillListHolder":
+                return new BillListHolder(view);
+            case "BillHolder":
+                return new BillHolder(view);
             default:
                 return null;
 

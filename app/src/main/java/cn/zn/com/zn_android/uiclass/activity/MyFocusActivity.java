@@ -1,18 +1,13 @@
 package cn.zn.com.zn_android.uiclass.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.adapter.JoFragmentPagerAdapter;
-import cn.zn.com.zn_android.uiclass.fragment.FocusPersonFragment;
-import cn.zn.com.zn_android.uiclass.fragment.FocusRoomFragment;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import cn.zn.com.zn_android.R;
 
 public class MyFocusActivity extends BaseActivity {
 

@@ -4,7 +4,6 @@ package cn.zn.com.zn_android.model.bean;
  * Created by Jolly on 2016/9/18 0018.
  */
 public class DynamicExpertBean {
-
     /**
      * attentionType : 1
      * avatars :

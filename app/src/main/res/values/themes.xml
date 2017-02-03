@@ -168,4 +168,19 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowActionBar">false</item>
     </style>
+
+    <style name="FullScreenScaleTheme" parent="MyFullScreenTheme">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_exit</item>
+        <item name="android:activityCloseExitAnimation">@anim/back_exit</item>
+    </style>
+
+    <style name="CusTransparencyTheme" parent="AppBaseThemeCompat">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>

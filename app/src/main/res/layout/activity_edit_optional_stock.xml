@@ -28,6 +28,7 @@
             style="@style/Txt14Grey"
             android:gravity="center"
             android:text="@string/warning"
+            android:visibility="invisible"
             />
 
         <TextView

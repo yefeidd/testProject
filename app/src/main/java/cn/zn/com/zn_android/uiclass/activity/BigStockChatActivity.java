@@ -12,6 +12,14 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.YAxis;
+import com.umeng.analytics.MobclickAgent;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.Constants;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
@@ -24,14 +32,6 @@ import cn.zn.com.zn_android.uiclass.page.KLinePage;
 import cn.zn.com.zn_android.uiclass.page.MinutesPage;
 import cn.zn.com.zn_android.utils.ClassUtils;
 import cn.zn.com.zn_android.utils.UnitUtils;
-import com.github.mikephil.charting.components.YAxis;
-import com.umeng.analytics.MobclickAgent;
-
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -355,11 +355,11 @@ public class BigStockChatActivity extends AppCompatActivity implements View.OnCl
                     mTvPrice.setTextColor(getResources().getColor(R.color.market_green));
                     mTvUpDownRate.setTextColor(getResources().getColor(R.color.market_green));
                 }
-                mTvHeighest.setText(String.valueOf(kLineBean.high));
-                mTvLowest.setText(String.valueOf(kLineBean.low));
+                mTvHeighest.setText(UnitUtils.clacUnit(String.valueOf(kLineBean.high)));
+                mTvLowest.setText(UnitUtils.clacUnit(String.valueOf(kLineBean.low)));
                 String vol = UnitUtils.getVol(kLineBean.vol) + UnitUtils.getVolUnit1(kLineBean.vol);
                 mTvCloseDeal.setText(vol);
-                mTvTodayOpen.setText(String.valueOf(kLineBean.open));
+                mTvTodayOpen.setText(UnitUtils.clacUnit(String.valueOf(kLineBean.open)));
                 mTvChangeHand.setText("--");
                 mTvSwing.setText("--");
             } else {
@@ -418,8 +418,8 @@ public class BigStockChatActivity extends AppCompatActivity implements View.OnCl
             mTvUpDown.setText(marketDetailBean.getZf());
             mTvUpDownRate.setText(marketDetailBean.getZfl());
         }
-        mTvHeighest.setText(marketDetailBean.getHeightprice());
-        mTvLowest.setText(marketDetailBean.getLowPrice());
+        mTvHeighest.setText(UnitUtils.clacUnit(marketDetailBean.getHeightprice()));
+        mTvLowest.setText(UnitUtils.clacUnit(marketDetailBean.getLowPrice()));
         mTvCloseDeal.setText(marketDetailBean.getVolume());
         mTvTodayOpen.setText(marketDetailBean.getOpenprice());
         setViewRateData(mTvChangeHand, marketDetailBean.getTurnover_rate());

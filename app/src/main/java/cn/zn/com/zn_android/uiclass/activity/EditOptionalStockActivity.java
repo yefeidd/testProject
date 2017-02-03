@@ -15,10 +15,8 @@ import cn.zn.com.zn_android.adapter.EditOpStockAdapter;
 import cn.zn.com.zn_android.model.OptionalStockModel;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
 import cn.zn.com.zn_android.model.bean.OptionalStockBean;
-import cn.zn.com.zn_android.model.modelMole.MarketImp;
 import cn.zn.com.zn_android.presenter.OptionalStockPresenter;
 import cn.zn.com.zn_android.presenter.requestType.StockRequestType;
-import cn.zn.com.zn_android.uiclass.DividerItemDecoration;
 import cn.zn.com.zn_android.viewfeatures.OptionalStockView;
 import com.umeng.analytics.MobclickAgent;
 

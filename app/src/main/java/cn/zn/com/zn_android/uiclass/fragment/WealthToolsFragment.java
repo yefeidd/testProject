@@ -12,18 +12,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.model.bean.AnyEventType;
-import cn.zn.com.zn_android.uiclass.activity.CourseActivity;
-import cn.zn.com.zn_android.uiclass.activity.LoginActivity;
-import cn.zn.com.zn_android.uiclass.activity.MemberAreaActivity;
-import cn.zn.com.zn_android.uiclass.activity.NoticeActivity;
-import cn.zn.com.zn_android.uiclass.activity.RankingListActivity;
-import cn.zn.com.zn_android.uiclass.activity.TeacherArticleListActivity;
-import cn.zn.com.zn_android.uiclass.activity.TeacherDetailActivity;
-import cn.zn.com.zn_android.uiclass.activity.VideosActivity;
-import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -33,6 +21,19 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.model.bean.AnyEventType;
+import cn.zn.com.zn_android.uiclass.activity.CourseActivity;
+import cn.zn.com.zn_android.uiclass.activity.LoginActivity;
+import cn.zn.com.zn_android.uiclass.activity.MemberAreaActivity;
+import cn.zn.com.zn_android.uiclass.activity.NewestTacticsActivity;
+import cn.zn.com.zn_android.uiclass.activity.NoticeActivity;
+import cn.zn.com.zn_android.uiclass.activity.RankingListActivity;
+import cn.zn.com.zn_android.uiclass.activity.TeacherArticleListActivity;
+import cn.zn.com.zn_android.uiclass.activity.TeacherDetailActivity;
+import cn.zn.com.zn_android.uiclass.activity.VideosActivity;
+import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -51,7 +52,7 @@ public class WealthToolsFragment extends BaseFragment implements AdapterView.OnI
 
     private final int[] ICON_RES = {R.mipmap.ic_wealth_member_area2, R.mipmap.ic_wealth_videos2, R.mipmap.ic_wealth_rank2,
             R.mipmap.ic_wealth_course2, R.mipmap.ic_wealth_notice};
-    private final int[] ROOM_ICON_RES = {R.mipmap.ic_wealth_member_area2, R.mipmap.ic_wealth_article, R.mipmap.ic_wealth_videos2,
+    private final int[] ROOM_ICON_RES = {R.mipmap.ic_new_tactics, R.mipmap.ic_wealth_member_area2, R.mipmap.ic_wealth_article, R.mipmap.ic_wealth_videos2,
             R.mipmap.ic_wealth_rank2, R.mipmap.ic_wealth_notice2, R.mipmap.ic_wealth_notice};
 
     private static final String ARG_PARAM1 = "param1";
@@ -166,54 +167,73 @@ public class WealthToolsFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 0:
-                if (_mApplication.getUserInfo().getIsLogin() == Constants.IS_LOGIN) {
-                    startActivity(new Intent(getActivity(), MemberAreaActivity.class));
-                    EventBus.getDefault().postSticky(new AnyEventType(mParam1));
-                } else {
-                    startLoginDialog();
-                }
-                break;
-            case 1:
-                if (mParam1.equals("")) {
+        if (mParam1.equals("")) {
+            switch (position) { //特约讲堂财富工具
+                case 0:
+                    if (_mApplication.getUserInfo().getIsLogin() == Constants.IS_LOGIN) {
+                        startActivity(new Intent(getActivity(), MemberAreaActivity.class));
+                        EventBus.getDefault().postSticky(new AnyEventType(mParam1));
+                    } else {
+                        startLoginDialog();
+                    }
+                    break;
+                case 1:
                     startActivity(new Intent(getActivity(), VideosActivity.class));
-                } else {
-                    startActivity(new Intent(getActivity(), TeacherArticleListActivity.class));
-                    EventBus.getDefault().postSticky(new AnyEventType(mParam1));
-                }
-                break;
-            case 2:
-                if (mParam1.equals("")) {
+                    break;
+                case 2:
                     EventBus.getDefault().postSticky(new AnyEventType(mParam1));
                     startActivity(new Intent(getActivity(), RankingListActivity.class));
-                } else {
-                    startActivity(new Intent(getActivity(), VideosActivity.class));
-                }
-                break;
-            case 3:
-                if (mParam1.equals("")) {
+                    break;
+                case 3:
                     startActivity(new Intent(getActivity(), CourseActivity.class));
-                } else {
-                    EventBus.getDefault().postSticky(new AnyEventType(mParam1));
-                    startActivity(new Intent(getActivity(), RankingListActivity.class));
-                    EventBus.getDefault().postSticky(new AnyEventType(mParam1));
-                }
-                break;
-            case 4:
-                if (mParam1.equals("")) {
+                    break;
+                case 4:
                     startActivity(new Intent(getActivity(), NoticeActivity.class));
                     EventBus.getDefault().postSticky(new AnyEventType(""));
-                } else {
+                    break;
+                case 5:
+                    startActivity(new Intent(getActivity(), NoticeActivity.class));
+                    EventBus.getDefault().postSticky(new AnyEventType(mParam1));
+                    break;
+            }
+        } else {
+            switch (position) {  //老师房间财富工具
+                case 0:
+                    Intent intent = new Intent(getActivity(), NewestTacticsActivity.class);
+                    intent.putExtra("teacherId", mParam1);
+                    startActivity(intent);
+                    break;
+                case 1:
+                    if (_mApplication.getUserInfo().getIsLogin() == Constants.IS_LOGIN) {
+                        startActivity(new Intent(getActivity(), MemberAreaActivity.class));
+                        EventBus.getDefault().postSticky(new AnyEventType(mParam1));
+                    } else {
+                        startLoginDialog();
+                    }
+                    break;
+                case 2:
+                    startActivity(new Intent(getActivity(), TeacherArticleListActivity.class));
+                    EventBus.getDefault().postSticky(new AnyEventType(mParam1));
+                    break;
+                case 3:
+                    startActivity(new Intent(getActivity(), VideosActivity.class));
+                    break;
+                case 4:
+                    EventBus.getDefault().postSticky(new AnyEventType(mParam1));
+                    startActivity(new Intent(getActivity(), RankingListActivity.class));
+                    EventBus.getDefault().postSticky(new AnyEventType(mParam1));
+                    break;
+                case 5:
                     startActivity(new Intent(getActivity(), TeacherDetailActivity.class));
                     EventBus.getDefault().postSticky(new AnyEventType(mParam1));
-                }
-                break;
-            case 5:
-                startActivity(new Intent(getActivity(), NoticeActivity.class));
-                EventBus.getDefault().postSticky(new AnyEventType(mParam1));
-                break;
+                    break;
+                case 6:
+                    startActivity(new Intent(getActivity(), NoticeActivity.class));
+                    EventBus.getDefault().postSticky(new AnyEventType(mParam1));
+                    break;
+            }
         }
+
     }
 
     /**

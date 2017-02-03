@@ -7,6 +7,7 @@ package cn.zn.com.zn_android.model.bean;
 public class MessageBean {
     private String message;
 
+
     public String getMessage() {
         return message;
     }
@@ -15,4 +16,6 @@ public class MessageBean {
         this.message = message;
         return this;
     }
+
+
 }

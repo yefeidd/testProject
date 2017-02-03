@@ -153,6 +153,20 @@
 -keepattributes Exceptions
 
 
+#--------------RxJava混淆排除------------------
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+ long producerIndex;
+ long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+
+
 #----------------不混淆资源类--------------------
 -keepclassmembers class **.R$* {
     public static <fields>;
@@ -181,6 +195,7 @@
  -keep class org.apache.http.**{*;}
  -keep class java.net.**{*;}
  -keep public class com.tencent.smtt.webkit.**
+
 #---------------奥点云----------------------
 -keep class com.aodianyun.dms.android.DMS
 -keep class org.eclipse.paho.android.service.**{*;}
@@ -388,3 +403,6 @@
 -keep class com.tencent.mm.sdk.** {
    *;
 }
+
+# okhttp 3.0
+ -keep class okhttp3.internal.**{*;}

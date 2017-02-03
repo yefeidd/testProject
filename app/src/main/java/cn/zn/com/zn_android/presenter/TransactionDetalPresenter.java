@@ -7,7 +7,6 @@ import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.presenter.requestType.SimulativeBoardType;
 import cn.zn.com.zn_android.viewfeatures.TransactionDetailView;
 
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -31,7 +30,7 @@ public class TransactionDetalPresenter extends BasePresenter<TransactionDetailVi
      * @param code_id
      */
     public void queryHold(String sessionId, String code_id) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().queryHold(sessionId, code_id))
+        _apiManager.getService().queryHold(sessionId, code_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -40,6 +39,16 @@ public class TransactionDetalPresenter extends BasePresenter<TransactionDetailVi
                     Log.e(TAG, "queryHold: " + throwable);
                     detailView.onError(SimulativeBoardType.QUERY_HOLD, throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().queryHold(sessionId, code_id))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    detailView.onSuccess(SimulativeBoardType.QUERY_HOLD, retValue.getData());
+//                }, throwable -> {
+//                    Log.e(TAG, "queryHold: " + throwable);
+//                    detailView.onError(SimulativeBoardType.QUERY_HOLD, throwable);
+//                });
     }
 
     /**
@@ -48,7 +57,7 @@ public class TransactionDetalPresenter extends BasePresenter<TransactionDetailVi
      * @param code_id
      */
     public void queryHoldList(String sessionId, String code_id, int page, int pageSize) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().queryHoldList(sessionId, code_id, page, pageSize))
+        _apiManager.getService().queryHoldList(sessionId, code_id, page, pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -57,6 +66,16 @@ public class TransactionDetalPresenter extends BasePresenter<TransactionDetailVi
                     Log.e(TAG, "queryHoldList: " + throwable);
                     detailView.onError(SimulativeBoardType.QUERY_HOLD_LIST, throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().queryHoldList(sessionId, code_id, page, pageSize))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    detailView.onSuccess(SimulativeBoardType.QUERY_HOLD_LIST, retValue.getData());
+//                }, throwable -> {
+//                    Log.e(TAG, "queryHoldList: " + throwable);
+//                    detailView.onError(SimulativeBoardType.QUERY_HOLD_LIST, throwable);
+//                });
     }
 
     /**
@@ -66,7 +85,7 @@ public class TransactionDetalPresenter extends BasePresenter<TransactionDetailVi
      * @return
      */
     public void queryChangeList(String sessionId, String code_id) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().queryChangeList(sessionId, code_id))
+        _apiManager.getService().queryChangeList(sessionId, code_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -75,6 +94,16 @@ public class TransactionDetalPresenter extends BasePresenter<TransactionDetailVi
                     Log.e(TAG, "queryChangeList: " + throwable);
                     detailView.onError(SimulativeBoardType.QUERY_CHANGE_LIST, throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().queryChangeList(sessionId, code_id))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    detailView.onSuccess(SimulativeBoardType.QUERY_CHANGE_LIST, retValue.getData());
+//                }, throwable -> {
+//                    Log.e(TAG, "queryChangeList: " + throwable);
+//                    detailView.onError(SimulativeBoardType.QUERY_CHANGE_LIST, throwable);
+//                });
     }
 
     /**
@@ -84,7 +113,7 @@ public class TransactionDetalPresenter extends BasePresenter<TransactionDetailVi
      * @return
      */
     public void queryChangeCodeList(String sessionId, String code_id, int page, int page_size) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().queryChangeCodeList(sessionId, code_id, page, page_size))
+        _apiManager.getService().queryChangeCodeList(sessionId, code_id, page, page_size)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -93,6 +122,16 @@ public class TransactionDetalPresenter extends BasePresenter<TransactionDetailVi
                     Log.e(TAG, "queryChangeCodeList: " + throwable);
                     detailView.onError(SimulativeBoardType.QUERY_CHANGE_CODE_LIST, throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().queryChangeCodeList(sessionId, code_id, page, page_size))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    detailView.onSuccess(SimulativeBoardType.QUERY_CHANGE_CODE_LIST, retValue.getData());
+//                }, throwable -> {
+//                    Log.e(TAG, "queryChangeCodeList: " + throwable);
+//                    detailView.onError(SimulativeBoardType.QUERY_CHANGE_CODE_LIST, throwable);
+//                });
     }
 
 }

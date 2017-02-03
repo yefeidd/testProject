@@ -30,7 +30,7 @@
             android:id="@+id/tv_chg"
             style="@style/Txt14AppColor"
             android:layout_width="0dp"
-            android:layout_weight="1.5" />
+            android:layout_weight="1.8" />
 
     </LinearLayout>
 
@@ -54,7 +54,7 @@
             style="@style/Txt14Grey"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="盈       亏" />
+            android:text="浮动盈亏" />
 
         <TextView
             android:id="@+id/tv_pl"

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/base8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_ranking"
+            android:layout_width="@dimen/base30dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/base12dp"
+            android:text="1"
+            android:textSize="15sp"
+            android:textStyle="italic|bold"
+            android:textColor="@color/yellow_efb11d" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/base8dp"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@id/sdv_avatar"
+                android:layout_width="@dimen/base42dp"
+                android:layout_height="@dimen/base42dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                app:actualImageScaleType="focusCrop"
+                app:placeholderImage="@mipmap/ic_default_avatars"
+                app:roundAsCircle="true" />
+
+            <ImageView
+                android:id="@+id/iv_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/base4dp"
+                android:layout_marginBottom="@dimen/base4dp"
+                android:src="@drawable/ic_teacher_star3"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/base6dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                style="@style/Txt15Black"
+                android:text="股圣老周"/>
+
+            <TextView
+                android:id="@+id/tv_detail"
+                android:layout_width="match_parent"
+                style="@style/Txt13Grey"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/base4dp"
+                android:text="股圣老周简介"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingRight="@dimen/base12dp"
+            android:paddingBottom="@dimen/base8dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_type"
+                style="@style/Txt14Black"
+                android:text="@string/favourable_comment"
+                />
+
+            <TextView
+                android:id="@+id/tv_score"
+                style="@style/Txt13AppColor"
+                android:layout_marginTop="@dimen/base6dp"
+                android:text="4.9"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line"/>
+
+</LinearLayout>

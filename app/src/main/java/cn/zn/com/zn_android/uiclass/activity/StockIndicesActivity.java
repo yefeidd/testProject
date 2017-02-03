@@ -118,7 +118,7 @@ public class StockIndicesActivity extends BaseMVPActivity<StockIndicesView, Stoc
     private MinutesPage minutesPage;
     private KLinePage dayKLinePage, weekKLinePage, MonthLinePage;
     private String title;
-    private boolean isOpenStatus = false;
+//    private boolean isOpenStatus = false;
     private String constiStoIndex = "1";
     private String marketType;
     private SelfSelectAdapter adapter;
@@ -151,8 +151,14 @@ public class StockIndicesActivity extends BaseMVPActivity<StockIndicesView, Stoc
             String action = intent.getAction();
             if (action.equals(RefreshDataService.TAG)) {
 //                Log.d("mark", TAG + "网络状态已经改变\n" + intent.getStringExtra("mark"));
-                mTvSubtitle.setText(DateUtils.stockStatus() + "  " +
-                        DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+//                mTvSubtitle.setText(DateUtils.stockStatus() + "  " +
+//                        DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+                if (marketType == "SZ" || marketType == "SZCZ" || marketType == "CY") {
+                    mTvSubtitle.setVisibility(View.VISIBLE);
+                    mTvSubtitle.setText(DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+                } else {
+                    mTvSubtitle.setVisibility(View.GONE);
+                }
                 queryData();
             }
         }
@@ -219,11 +225,17 @@ public class StockIndicesActivity extends BaseMVPActivity<StockIndicesView, Stoc
     protected void initView() {
         sharepresenter = new PresentScorePresenter(this);
         mToolbarTitle.setText(title);
-        if (DateUtils.stockStatus().equals("交易中")) {
-            isOpenStatus = true;
+//        if (DateUtils.stockStatus().equals("交易中")) {
+//            isOpenStatus = true;
+//        }
+//        mTvSubtitle.setText(DateUtils.stockStatus() + "  " +
+//                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+        if (marketType == "SZ" || marketType == "SZCZ" || marketType == "CY") {
+            mTvSubtitle.setVisibility(View.VISIBLE);
+            mTvSubtitle.setText(DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+        } else {
+            mTvSubtitle.setVisibility(View.GONE);
         }
-        mTvSubtitle.setText(DateUtils.stockStatus() + "  " +
-                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
         View content = LayoutInflater.from(this).inflate(R.layout.layout_stock_indices_content, null);
         minSBtn = (RadioButton) content.findViewById(R.id.rb_chart_0);
         dayKBtn = (RadioButton) content.findViewById(R.id.rb_chart_1);
@@ -593,28 +605,28 @@ public class StockIndicesActivity extends BaseMVPActivity<StockIndicesView, Stoc
         mTvCurPrice.setText(bean.getLastIndex());
         Log.d(TAG, "updateDetailUi: " + bean.getLastIndex());
         if (bean.getChangeRate().startsWith("-")) {
-            if (isOpenStatus) {
+//            if (isOpenStatus) {
                 mTvCurPrice.setTextColor(getResources().getColor(R.color.green_down));
                 mTvUpDownPrice.setTextColor(getResources().getColor(R.color.green_down));
                 mTvUpDownRatio.setTextColor(getResources().getColor(R.color.green_down));
-            } else {
-                mTvCurPrice.setTextColor(getResources().getColor(R.color.font_value_black));
-                mTvUpDownPrice.setTextColor(getResources().getColor(R.color.font_value_black));
-                mTvUpDownRatio.setTextColor(getResources().getColor(R.color.font_value_black));
-            }
+//            } else {
+//                mTvCurPrice.setTextColor(getResources().getColor(R.color.font_value_black));
+//                mTvUpDownPrice.setTextColor(getResources().getColor(R.color.font_value_black));
+//                mTvUpDownRatio.setTextColor(getResources().getColor(R.color.font_value_black));
+//            }
 
             mTvUpDownPrice.setText(bean.getChange());
             mTvUpDownRatio.setText(bean.getChangeRate() + "%");
         } else {
-            if (isOpenStatus) {
+//            if (isOpenStatus) {
                 mTvCurPrice.setTextColor(getResources().getColor(R.color.app_bar_color));
                 mTvUpDownPrice.setTextColor(getResources().getColor(R.color.app_bar_color));
                 mTvUpDownRatio.setTextColor(getResources().getColor(R.color.app_bar_color));
-            } else {
-                mTvCurPrice.setTextColor(getResources().getColor(R.color.font_value_black));
-                mTvUpDownPrice.setTextColor(getResources().getColor(R.color.font_value_black));
-                mTvUpDownRatio.setTextColor(getResources().getColor(R.color.font_value_black));
-            }
+//            } else {
+//                mTvCurPrice.setTextColor(getResources().getColor(R.color.font_value_black));
+//                mTvUpDownPrice.setTextColor(getResources().getColor(R.color.font_value_black));
+//                mTvUpDownRatio.setTextColor(getResources().getColor(R.color.font_value_black));
+//            }
 
             mTvUpDownPrice.setText("+" + bean.getChange());
             mTvUpDownRatio.setText("+" + bean.getChangeRate() + "%");

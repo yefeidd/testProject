@@ -18,25 +18,42 @@
         <RelativeLayout
             android:id="@+id/rl_head"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/base70dp"
+            android:layout_height="@dimen/base80dp"
             android:paddingBottom="@dimen/base10dp"
             android:paddingLeft="@dimen/base16dp"
             android:paddingRight="@dimen/base16dp"
             android:paddingTop="@dimen/base10dp">
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/sdv_head"
-                android:layout_width="@dimen/base50dp"
-                android:layout_height="@dimen/base50dp"
-                android:layout_gravity="center"
-                app:roundedCornerRadius="@dimen/base10dp"
-                fresco:placeholderImage="@mipmap/ic_default_avatars" />
+            <LinearLayout
+                android:id="@+id/ll_head_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sdv_head"
+                    android:layout_width="@dimen/base45dp"
+                    android:layout_height="@dimen/base45dp"
+                    android:layout_gravity="center"
+                    app:roundedCornerRadius="@dimen/base10dp"
+                    fresco:placeholderImage="@mipmap/ic_default_avatars" />
+
+                <ImageView
+                    android:id="@+id/iv_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/base4dp"
+                    android:src="@drawable/ic_teacher_star1"
+                    />
+
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/base8dp"
-                android:layout_toRightOf="@id/sdv_head"
+                android:layout_toRightOf="@id/ll_head_img"
                 android:orientation="vertical">
 
                 <TextView

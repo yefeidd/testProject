@@ -6,10 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.List;
+
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.model.ListviewItemModel;
-
-import java.util.List;
 
 /**
  * Created by zjs on 2016/9/12 0012.
@@ -35,6 +35,14 @@ public class ListViewAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
+    /**
+     * 更新数据但是不刷新
+     * @param objects
+     * @param index
+     */
+    public void setDataList(List<? extends ListviewItemModel> objects,int index) {
+        this.dataList = objects;
+    }
 
     @Override
     public int getCount() {
@@ -64,7 +72,7 @@ public class ListViewAdapter extends BaseAdapter {
         }
 
         final ListviewItemModel listviewItemModel = dataList.get(position);
-        listviewItemModel.showItem(viewHolder, mContext);
+        listviewItemModel.showItem(viewHolder, mContext,position);
 
         return view;
     }

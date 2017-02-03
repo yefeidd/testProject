@@ -2,13 +2,15 @@ package cn.zn.com.zn_android.utils;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.support.annotation.ColorInt;
+import android.support.annotation.RequiresApi;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.widget.TextView;
-
-import cn.zn.com.zn_android.uiclass.gif.AnimatedGifDrawable;
-import cn.zn.com.zn_android.uiclass.gif.AnimatedImageSpan;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +24,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import cn.zn.com.zn_android.uiclass.gif.AnimatedGifDrawable;
+import cn.zn.com.zn_android.uiclass.gif.AnimatedImageSpan;
 
 public class StringUtil implements Serializable {
 
@@ -1111,9 +1116,42 @@ public class StringUtil implements Serializable {
     }
 
     /**
+     * 给一个字符串某些位置设置不同的颜色
+     *
+     * @param str   源字符串(String对象)
+     * @param start 设置颜色的开始位置
+     * @param end   设置颜色的结束位置
+     * @param color 设置的字体的颜色
+     * @return 返回一个SpannableString对象，可以直接设置到textview中
+     */
+    public static SpannableString setForeColorSpan(String str, int start, int end, @ColorInt int color) {
+        SpannableString spanString = new SpannableString(str);
+        ForegroundColorSpan span = new ForegroundColorSpan(color);
+        spanString.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spanString;
+    }
+
+
+    /**
+     * 给一个字符串某些位置设置不同的颜色
+     *
+     * @param str   源字符串(SpannableString对象)
+     * @param start 设置颜色的开始位置
+     * @param end   设置颜色的结束位置
+     * @param color 设置的字体的颜色
+     * @return 返回一个SpannableString对象，可以直接设置到textview中
+     */
+    public static SpannableString setForeColorSpan(SpannableString str, int start, int end, @ColorInt int color) {
+        ForegroundColorSpan span = new ForegroundColorSpan(color);
+        str.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return str;
+    }
+
+    /**
      * @param c
      * @return
      */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static boolean isNickNameLegal(char c) {
         Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
 
@@ -1164,5 +1202,46 @@ public class StringUtil implements Serializable {
         return oriStr;
     }
 
+    /**
+     * 截取字符串中匹配正则部分的字符串
+     *
+     * @param oriStr 原始字符串
+     * @param regexp 正则
+     * @return
+     */
+    public static String findStringByRE(String oriStr, String regexp) {
+        String resultStr = "";
+        Pattern pattern = Pattern.compile(regexp);
+        Matcher matcher = pattern.matcher(oriStr);
+        while (matcher.find()) {
+            resultStr = matcher.group();
+        }
+        return resultStr;
+    }
+
+    /**
+     * 按规定长度，格式，将太长的字符串截取
+     *
+     * @param sourcesStr 源字符串
+     * @param format     截取后后面跟的字符串(如 省略号)
+     * @param maxNum     能显示的最大长度
+     * @return
+     */
+    public static String cutOUtStr(String sourcesStr, String format, int maxNum) {
+        String resultStr = "";
+        if (sourcesStr.length() >= maxNum) {
+            resultStr = sourcesStr.substring(0, maxNum);
+            resultStr = resultStr + format;
+        }
+        return resultStr;
+    }
+
+    public static boolean isRegularStr(String reg, String str) {
+        if (str.matches(reg)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

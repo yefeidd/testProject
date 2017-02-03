@@ -11,7 +11,7 @@ import cn.zn.com.zn_android.adapter.viewHolder.BaseViewHolder;
  */
 public class GeniusRankingModel extends ListviewItemModel {
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
 
     }
 }

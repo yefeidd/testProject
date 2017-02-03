@@ -3,6 +3,9 @@ package cn.zn.com.zn_android.model.chartBean;
 import android.app.Activity;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.Constants;
@@ -11,11 +14,6 @@ import cn.zn.com.zn_android.model.bean.MessageBean;
 import cn.zn.com.zn_android.model.entity.ReturnListValue;
 import cn.zn.com.zn_android.presenter.ChartParse;
 import cn.zn.com.zn_android.utils.ToastUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -46,76 +44,140 @@ public class HsWeekKModel implements ChartDataMole {
     @Override
     public void requestData() {
         if (6 == tic_code.length()) {
-            AppObservable.bindActivity(mActivity, apiManager.getService().queryHsWeekQuota(tic_code, start_time, end_time))
+            apiManager.getService().queryHsWeekQuota(tic_code, start_time, end_time)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::resultHsWeekKMsg, Throwable -> {
                         Throwable.printStackTrace();
                         chartParse.calcWeekKLineData(kDatas);
                     });
+
+//            AppObservable.bindActivity(mActivity, apiManager.getService().queryHsWeekQuota(tic_code, start_time, end_time))
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(this::resultHsWeekKMsg, Throwable -> {
+//                        Throwable.printStackTrace();
+//                        chartParse.calcWeekKLineData(kDatas);
+//                    });
         } else if (5 == tic_code.length()) {
-            AppObservable.bindActivity(mActivity, apiManager.getService().queryGGWeekQuota(tic_code, start_time, end_time))
+            apiManager.getService().queryGGWeekQuota(tic_code, start_time, end_time)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(this::resultHsWeekKMsg, Throwable -> {
                         Throwable.printStackTrace();
                         chartParse.calcWeekKLineData(kDatas);
                     });
+
+//            AppObservable.bindActivity(mActivity, apiManager.getService().queryGGWeekQuota(tic_code, start_time, end_time))
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(this::resultHsWeekKMsg, Throwable -> {
+//                        Throwable.printStackTrace();
+//                        chartParse.calcWeekKLineData(kDatas);
+//                    });
         } else {
             switch (tic_code) {
                 case "SZ":
-                    AppObservable.bindActivity(mActivity, apiManager.getService().querySZWeekQuota(start_time, end_time))
+                    apiManager.getService().querySZWeekQuota(start_time, end_time)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::resultHsWeekKMsg, Throwable -> {
                                 Throwable.printStackTrace();
                                 chartParse.calcWeekKLineData(kDatas);
                             });
+
+//                    AppObservable.bindActivity(mActivity, apiManager.getService().querySZWeekQuota(start_time, end_time))
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(this::resultHsWeekKMsg, Throwable -> {
+//                                Throwable.printStackTrace();
+//                                chartParse.calcWeekKLineData(kDatas);
+//                            });
                     break;
                 case "SZCZ":
-                    AppObservable.bindActivity(mActivity, apiManager.getService().querySZCZWeekQuota(start_time, end_time))
+                    apiManager.getService().querySZCZWeekQuota(start_time, end_time)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::resultHsWeekKMsg, Throwable -> {
                                 Throwable.printStackTrace();
                                 chartParse.calcWeekKLineData(kDatas);
                             });
+
+//                    AppObservable.bindActivity(mActivity, apiManager.getService().querySZCZWeekQuota(start_time, end_time))
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(this::resultHsWeekKMsg, Throwable -> {
+//                                Throwable.printStackTrace();
+//                                chartParse.calcWeekKLineData(kDatas);
+//                            });
                     break;
                 case "CY":
-                    AppObservable.bindActivity(mActivity, apiManager.getService().queryCYWeekQuota(start_time, end_time))
+                    apiManager.getService().queryCYWeekQuota(start_time, end_time)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::resultHsWeekKMsg, Throwable -> {
                                 Throwable.printStackTrace();
                                 chartParse.calcWeekKLineData(kDatas);
                             });
+
+//                    AppObservable.bindActivity(mActivity, apiManager.getService().queryCYWeekQuota(start_time, end_time))
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(this::resultHsWeekKMsg, Throwable -> {
+//                                Throwable.printStackTrace();
+//                                chartParse.calcWeekKLineData(kDatas);
+//                            });
                     break;
                 case "HS":
-                    AppObservable.bindActivity(mActivity, apiManager.getService().queryHSWeekQuota(start_time, end_time))
+                    apiManager.getService().queryHSWeekQuota(start_time, end_time)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::resultHsWeekKMsg, Throwable -> {
                                 Throwable.printStackTrace();
                                 chartParse.calcWeekKLineData(kDatas);
                             });
+
+//                    AppObservable.bindActivity(mActivity, apiManager.getService().queryHSWeekQuota(start_time, end_time))
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(this::resultHsWeekKMsg, Throwable -> {
+//                                Throwable.printStackTrace();
+//                                chartParse.calcWeekKLineData(kDatas);
+//                            });
                     break;
                 case "GQ":
-                    AppObservable.bindActivity(mActivity, apiManager.getService().queryGQWeekQuota(start_time, end_time))
+                    apiManager.getService().queryGQWeekQuota(start_time, end_time)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::resultHsWeekKMsg, Throwable -> {
                                 Throwable.printStackTrace();
                                 chartParse.calcWeekKLineData(kDatas);
                             });
+
+//                    AppObservable.bindActivity(mActivity, apiManager.getService().queryGQWeekQuota(start_time, end_time))
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(this::resultHsWeekKMsg, Throwable -> {
+//                                Throwable.printStackTrace();
+//                                chartParse.calcWeekKLineData(kDatas);
+//                            });
                     break;
                 case "HC":
-                    AppObservable.bindActivity(mActivity, apiManager.getService().queryHCWeekQuota(start_time, end_time))
+                    apiManager.getService().queryHCWeekQuota(start_time, end_time)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::resultHsWeekKMsg, Throwable -> {
                                 Throwable.printStackTrace();
                                 chartParse.calcWeekKLineData(kDatas);
                             });
+
+//                    AppObservable.bindActivity(mActivity, apiManager.getService().queryHCWeekQuota(start_time, end_time))
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(this::resultHsWeekKMsg, Throwable -> {
+//                                Throwable.printStackTrace();
+//                                chartParse.calcWeekKLineData(kDatas);
+//                            });
                     break;
             }
         }

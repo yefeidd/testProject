@@ -17,17 +17,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.model.bean.MessageBean;
-import cn.zn.com.zn_android.model.entity.ReturnValue;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.uiclass.customerview.CusDownUpDialog;
-import cn.zn.com.zn_android.uiclass.customerview.widget.NumericWheelAdapter;
-import cn.zn.com.zn_android.uiclass.customerview.widget.OnWheelScrollListener;
-import cn.zn.com.zn_android.uiclass.customerview.widget.WheelView;
-import cn.zn.com.zn_android.utils.StorageUtil;
-import cn.zn.com.zn_android.utils.StringUtil;
-import cn.zn.com.zn_android.utils.ToastUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
@@ -41,11 +30,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.Bind;
-import rx.android.app.AppObservable;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.model.bean.MessageBean;
+import cn.zn.com.zn_android.model.entity.ReturnValue;
+import cn.zn.com.zn_android.uiclass.customerview.CusDownUpDialog;
+import cn.zn.com.zn_android.uiclass.customerview.widget.NumericWheelAdapter;
+import cn.zn.com.zn_android.uiclass.customerview.widget.OnWheelScrollListener;
+import cn.zn.com.zn_android.uiclass.customerview.widget.WheelView;
+import cn.zn.com.zn_android.utils.StorageUtil;
+import cn.zn.com.zn_android.utils.StringUtil;
+import cn.zn.com.zn_android.utils.ToastUtil;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -285,16 +282,21 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void getQNToken() {
-        AppObservable.bindActivity(this, _apiManager.getService().getUpLoadToken(""))
+        _apiManager.getService().getUpLoadToken("")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::uploadImg, throwable -> {
                     Log.e(TAG, "getQNToken: 异常");
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().getUpLoadToken(""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::uploadImg, throwable -> {
+//                    Log.e(TAG, "getQNToken: 异常");
+//                });
     }
 
     private void uploadImg(ReturnValue<MessageBean> returnValue) {
-        Map<String, String> map = new HashMap<>();
 //        map.put("returnUrl", )
         String token = returnValue.getData().getMessage();
         UploadManager uploadManager = new UploadManager();
@@ -585,14 +587,22 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
      * 修改头像
      */
     public void modifyAvatars() {
-        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberAvatars(_mApplication.getUserInfo().getSessionID(),
-                headIconName))
+        _apiManager.getService().modifyMemberAvatars(_mApplication.getUserInfo().getSessionID(),
+                headIconName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::modifyMemberAvatars, throwable -> {
                     Log.i(TAG, "modifyMemberAvatars: 异常");
                     ToastUtil.showShort(this, getString(R.string.modify_fail));
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberAvatars(_mApplication.getUserInfo().getSessionID(),
+//                headIconName))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::modifyMemberAvatars, throwable -> {
+//                    Log.i(TAG, "modifyMemberAvatars: 异常");
+//                    ToastUtil.showShort(this, getString(R.string.modify_fail));
+//                });
 
     }
 
@@ -614,14 +624,21 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
      * 修改生日
      */
     public void modifyBirthday() {
-        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberBirthday(_mApplication.getUserInfo().getSessionID(),
-                dateStr))
+        _apiManager.getService().modifyMemberBirthday(_mApplication.getUserInfo().getSessionID(), dateStr)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::modifyMemberBirthday, throwable -> {
                     Log.i(TAG, "modifyMemberBirthday: 异常");
                     ToastUtil.showShort(this, getString(R.string.modify_fail));
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberBirthday(_mApplication.getUserInfo().getSessionID(),
+//                dateStr))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::modifyMemberBirthday, throwable -> {
+//                    Log.i(TAG, "modifyMemberBirthday: 异常");
+//                    ToastUtil.showShort(this, getString(R.string.modify_fail));
+//                });
 
     }
 
@@ -645,14 +662,21 @@ public class PersonActivity extends BaseActivity implements View.OnClickListener
      * 修改性别
      */
     public void modifySex() {
-        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberSex(_mApplication.getUserInfo().getSessionID(),
-                sex + ""))
+        _apiManager.getService().modifyMemberSex(_mApplication.getUserInfo().getSessionID(), sex + "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::modifyMemberSex, throwable -> {
                     Log.i(TAG, "modifyMemberSex: 异常");
                     ToastUtil.showShort(this, getString(R.string.modify_fail));
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberSex(_mApplication.getUserInfo().getSessionID(),
+//                sex + ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::modifyMemberSex, throwable -> {
+//                    Log.i(TAG, "modifyMemberSex: 异常");
+//                    ToastUtil.showShort(this, getString(R.string.modify_fail));
+//                });
     }
 
     private void modifyMemberSex(ReturnValue<MessageBean> returnValue) {

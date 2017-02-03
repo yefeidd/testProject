@@ -17,7 +17,6 @@ import cn.zn.com.zn_android.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -102,14 +101,23 @@ public class ModifyPWActivity extends BaseActivity implements View.OnClickListen
             return;
         }
 
-        AppObservable.bindActivity(this, _apiManager.getService().modifyPW(_mApplication.getUserInfo().getSessionID(),
-                mEtPwNow.getText().toString().trim(), mEtPwNew.getText().toString().trim(), mEtPwNewConfirm.getText().toString().trim()))
+        _apiManager.getService().modifyPW(_mApplication.getUserInfo().getSessionID(),
+                mEtPwNow.getText().toString().trim(), mEtPwNew.getText().toString().trim(),
+                mEtPwNewConfirm.getText().toString().trim())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::modifyResult, throwable -> {
                     Log.i(TAG, "modifyPW: 异常");
                     ToastUtil.showShort(this, getString(R.string.modify_fail));
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().modifyPW(_mApplication.getUserInfo().getSessionID(),
+//                mEtPwNow.getText().toString().trim(), mEtPwNew.getText().toString().trim(), mEtPwNewConfirm.getText().toString().trim()))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::modifyResult, throwable -> {
+//                    Log.i(TAG, "modifyPW: 异常");
+//                    ToastUtil.showShort(this, getString(R.string.modify_fail));
+//                });
     }
 
     /**

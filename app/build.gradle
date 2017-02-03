@@ -6,10 +6,10 @@ android {
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "cn.zn.com.zn_android"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 24
-        versionCode 6
-        versionName "2.0"
+        versionCode 10
+        versionName "2.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //允许多dex打包，可以突破65535的限制+
         multiDexEnabled true;
@@ -50,18 +50,93 @@ android {
         }
 
         debug {
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-            signingConfig signingConfigs.release
-        }
-//        debug {
-//            //开启代码混淆
+////            //开启代码混淆
 //            minifyEnabled true
-//            // 移除无用的resource文件
-//            shrinkResources true
+////混淆文件
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.release
+////            // 移除无用的resource文件
+//            shrinkResources true
 //            buildConfigField "boolean", "LOG_DEBUG", "true"
-//        }
+//            versionNameSuffix "-debug"
+//            signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
+            //是否混淆
+            minifyEnabled true
+            //混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // Zippalign
+            zipAlignEnabled true
+            // 移除无用资源文件
+            shrinkResources true
+            //不显示log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+        }
+    }
+
+    repositories {
+        maven {
+            url 'http://repo1.maven.org/maven2'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['src/main/resources']
+            aidl.srcDirs = ['src/main/aidl']
+            renderscript.srcDirs = ['src/maom']
+            res.srcDirs = ['src/main/res']
+            assets.srcDirs = ['src/main/assets']
+            jniLibs.srcDir 'src/main/jniLibs'
+        }
+
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>// For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...// This moves them out of them default location under src/<type>/... which would// conflict with src/ being used by the main source set.// Adding new build types or product flavors should be accompanied// by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+
+    task nativeLibsToJar(type: Zip, description: "create a jar archive of the native libs") {
+        destinationDir file("$projectDir/libs")
+        baseName "Native_Libs2"
+        extension "jar"
+        from fileTree(dir: "src/main/jniLibs", include: "**/*.so")
+        into "lib"
+    }
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn(nativeLibsToJar)
+    }
+
+    //批量打包
+    productFlavors {
+        zhengniu {}
+        yingyongbao {}
+        baidu {}
+        _360 {}
+        oppo {}
+        vivo {}
+        huawei {}
+        wandoujia {}
+        xiaomi {}
+        meizu {}
+        yingyongbaovip {}
+        baiduvip1 {}
+        _360vip {}
+        oppovip {}
+        baiduvip2 {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
 
     applicationVariants.all { variant ->
@@ -73,21 +148,6 @@ android {
             }
         }
     }
-    repositories {
-        maven {
-            url 'http://repo1.maven.org/maven2'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
 }
 
 buildscript {
@@ -97,7 +157,6 @@ buildscript {
     }
 
     dependencies {
-//        classpath 'me.tatarka:gradle-retrolambda:2.5.0'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
     }
 }
@@ -111,13 +170,13 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(path: ':MPChartLib')
     compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'io.reactivex:rxjava:1.0.11'
-    compile 'io.reactivex:rxandroid:0.24.0'
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'com.squareup.okhttp:okhttp:2.6.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.qiniu:qiniu-android-sdk:7.1.+'
     compile 'com.facebook.fresco:fresco:0.10.0'
     compile 'com.android.support:recyclerview-v7:24.2.1'
@@ -126,4 +185,5 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'io.realm:realm-android:0.84.1'
+    compile 'me.relex:photodraweeview:1.1.2'
 }

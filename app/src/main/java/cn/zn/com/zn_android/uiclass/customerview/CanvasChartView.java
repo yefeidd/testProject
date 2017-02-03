@@ -140,11 +140,6 @@ public class CanvasChartView extends View {
             canvas.drawLine(xStart, yLength - i * yStep + yStart, xLength, yLength - i * yStep + yStart, axisPaint);  //刻度
         }
 
-//        // 画X轴刻度
-//        for (int i = 1; i < data.size(); i ++) {
-//            canvas.drawLine(xStart + xStep * i, yLength + yStart - 5, xStart + xStep * i, yLength + yStart, axisPaint);
-//        }
-
         // 画开始结束时间
         canvas.drawText(startTime, xStart, yLength + yStart * 2 + TXT_SIZE, axisPaint);
         canvas.drawText(endTime, xLength - (axisPaint.measureText(endTime)),

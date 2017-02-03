@@ -15,125 +15,138 @@
         android:max="100"
         android:layout_height="3dp" />
 
-    <cn.zn.com.zn_android.uiclass.customerview.InterceptSwpRefLayout
-        android:id="@+id/isr_refresh"
+    <!--<cn.zn.com.zn_android.uiclass.customerview.InterceptSwpRefLayout-->
+        <!--android:id="@+id/isr_refresh"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<ScrollView-->
+            <!--android:id="@+id/sv_art_detail"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_title"-->
+                    <!--style="@style/Txt18Black"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:maxLines="2"-->
+                    <!--android:paddingBottom="@dimen/base10dp"-->
+                    <!--android:paddingTop="@dimen/base16dp"-->
+                    <!--android:text="股票-专家在线点评"-->
+                    <!--android:textSize="18sp" />-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignBottom="@id/tv_title"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:paddingBottom="@dimen/base8dp"-->
+                    <!--android:paddingLeft="@dimen/base18dp"-->
+                    <!--android:paddingRight="@dimen/base18dp"-->
+                    <!--android:paddingTop="@dimen/base8dp">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_time"-->
+                        <!--style="@style/Txt12Grey"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="2"-->
+                        <!--android:text="2016-03-10" />-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_click"-->
+                        <!--style="@style/Txt12Grey"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_gravity="left"-->
+                        <!--android:layout_weight="3"-->
+                        <!--android:paddingLeft="@dimen/base5dp"-->
+                        <!--android:text="阅：363728" />-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_nickname"-->
+                        <!--style="@style/Txt12Grey"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="4"-->
+                        <!--android:gravity="right"-->
+                        <!--android:text="我是一只股神" />-->
+                <!--</LinearLayout>-->
+
+
+                <!--<FrameLayout-->
+                    <!--android:id="@+id/lv_chat"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1">-->
+
+                    <!--<cn.zn.com.zn_android.uiclass.NoScrollWebView-->
+                        <!--android:id="@+id/wv_detail"-->
+                        <!--android:focusable="false"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent" />-->
+                <!--</FrameLayout>-->
+
+                <!--<LinearLayout-->
+
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="bottom"-->
+                    <!--android:background="@color/white"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--<RelativeLayout-->
+                        <!--android:id="@+id/rl_collect"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="@android:color/transparent"-->
+                        <!--android:gravity="center"-->
+                        <!--android:padding="@dimen/base10dp">-->
+
+                        <!--<CheckBox-->
+                            <!--android:id="@+id/cb_collect"-->
+                            <!--android:layout_width="@dimen/base80dp"-->
+                            <!--android:layout_height="@dimen/base27dp"-->
+                            <!--android:background="@drawable/checkbox_collect_selector"-->
+                            <!--android:button="@null"-->
+                            <!--android:clickable="false" />-->
+                    <!--</RelativeLayout>-->
+
+
+                    <!--<RelativeLayout-->
+                        <!--android:id="@+id/rl_like"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="@android:color/transparent"-->
+                        <!--android:gravity="center"-->
+                        <!--android:padding="@dimen/base10dp">-->
+
+                        <!--<CheckBox-->
+                            <!--android:id="@+id/cb_like"-->
+                            <!--android:layout_width="@dimen/base80dp"-->
+                            <!--android:layout_height="@dimen/base27dp"-->
+                            <!--android:background="@drawable/checkbox_like_selector"-->
+                            <!--android:button="@null"-->
+                            <!--android:clickable="false" />-->
+                    <!--</RelativeLayout>-->
+                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+        <!--</ScrollView>-->
+    <!--</cn.zn.com.zn_android.uiclass.customerview.InterceptSwpRefLayout>-->
+    <FrameLayout
+        android:id="@+id/lv_chat"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <ScrollView
-            android:id="@+id/sv_art_detail"
+        <cn.zn.com.zn_android.uiclass.x5webview.X5WebView
+            android:id="@+id/wv_detail"
+            android:focusable="false"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_title"
-                    style="@style/Txt18Black"
-                    android:layout_gravity="center_horizontal"
-                    android:maxLines="2"
-                    android:paddingBottom="@dimen/base10dp"
-                    android:paddingTop="@dimen/base16dp"
-                    android:text="股票-专家在线点评"
-                    android:textSize="18sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/tv_title"
-                    android:orientation="horizontal"
-                    android:paddingBottom="@dimen/base8dp"
-                    android:paddingLeft="@dimen/base18dp"
-                    android:paddingRight="@dimen/base18dp"
-                    android:paddingTop="@dimen/base8dp">
-
-                    <TextView
-                        android:id="@+id/tv_time"
-                        style="@style/Txt12Grey"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:text="2016-03-10" />
-
-                    <TextView
-                        android:id="@+id/tv_click"
-                        style="@style/Txt12Grey"
-                        android:layout_width="0dp"
-                        android:layout_gravity="left"
-                        android:layout_weight="3"
-                        android:paddingLeft="@dimen/base5dp"
-                        android:text="阅：363728" />
-
-                    <TextView
-                        android:id="@+id/tv_nickname"
-                        style="@style/Txt12Grey"
-                        android:layout_width="0dp"
-                        android:layout_weight="4"
-                        android:gravity="right"
-                        android:text="我是一只股神" />
-                </LinearLayout>
-
-
-                <FrameLayout
-                    android:id="@+id/lv_chat"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <cn.zn.com.zn_android.uiclass.NoScrollWebView
-                        android:id="@+id/wv_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </FrameLayout>
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:id="@+id/rl_collect"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:padding="@dimen/base10dp">
-
-                        <CheckBox
-                            android:id="@+id/cb_collect"
-                            android:layout_width="@dimen/base80dp"
-                            android:layout_height="@dimen/base27dp"
-                            android:background="@drawable/checkbox_collect_selector"
-                            android:button="@null"
-                            android:clickable="false" />
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:id="@+id/rl_like"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:padding="@dimen/base10dp">
-
-                        <CheckBox
-                            android:id="@+id/cb_like"
-                            android:layout_width="@dimen/base80dp"
-                            android:layout_height="@dimen/base27dp"
-                            android:background="@drawable/checkbox_like_selector"
-                            android:button="@null"
-                            android:clickable="false" />
-                    </RelativeLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
-    </cn.zn.com.zn_android.uiclass.customerview.InterceptSwpRefLayout>
+            android:layout_height="match_parent" />
+    </FrameLayout>
 </LinearLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/register_content_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/base50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_result"
+            style="@style/Txt18AppColor"
+            android:text="@string/pay_result_success_tip"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/base10dp"
+            android:drawableLeft="@mipmap/ic_pay_success"/>
+    </LinearLayout>
+
+    <TextView
+        style="@style/MarketTitleTxt14Grey"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/base15dp"
+        android:text="@string/pay_result_success_warning"
+        android:id="@+id/tv_success_tip" />
+
+    <TextView
+        android:id="@+id/tv_fail_tip"
+        style="@style/MarketTitleTxt14Grey"
+        android:text="@string/pay_result_fail_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/base15dp"
+        android:paddingBottom="@dimen/base35dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        android:padding="@dimen/base12dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ib_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@mipmap/ic_order_return"/>
+
+        <ImageButton
+            android:id="@+id/ib_repay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/base25dp"
+            android:background="@android:color/transparent"
+            android:src="@mipmap/ic_order_repay"/>
+
+    </LinearLayout>
+
+</LinearLayout>

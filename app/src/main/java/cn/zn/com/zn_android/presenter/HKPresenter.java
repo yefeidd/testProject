@@ -8,7 +8,6 @@ import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.presenter.requestType.IndexRequestType;
 import cn.zn.com.zn_android.viewfeatures.HKView;
 
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -29,7 +28,7 @@ public class HKPresenter extends BasePresenter<HKView> {
     }
 
     public void queryHsIndex() {
-        AppObservable.bindActivity(_activity, _apiManager.getService().queryHsIndex(""))
+        _apiManager.getService().queryHsIndex("")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(returnValue -> {
@@ -40,10 +39,22 @@ public class HKPresenter extends BasePresenter<HKView> {
                     Log.e(TAG, "queryShIndex: ", throwable);
                     hkView.onError(IndexRequestType.HS_INDEX, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryHsIndex(""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(returnValue -> {
+//                    if (null != returnValue) {
+//                        hkView.onSuccess(IndexRequestType.HS_INDEX, returnValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "queryShIndex: ", throwable);
+//                    hkView.onError(IndexRequestType.HS_INDEX, throwable);
+//                });
     }
 
     public void queryGqIndex() {
-        AppObservable.bindActivity(_activity, _apiManager.getService().queryGqIndex(""))
+        _apiManager.getService().queryGqIndex("")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(returnValue -> {
@@ -54,10 +65,22 @@ public class HKPresenter extends BasePresenter<HKView> {
                     Log.e(TAG, "queryShIndex: ", throwable);
                     hkView.onError(IndexRequestType.GQ_INDEX, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryGqIndex(""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(returnValue -> {
+//                    if (null != returnValue) {
+//                        hkView.onSuccess(IndexRequestType.GQ_INDEX, returnValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "queryShIndex: ", throwable);
+//                    hkView.onError(IndexRequestType.GQ_INDEX, throwable);
+//                });
     }
 
     public void queryHcIndex() {
-        AppObservable.bindActivity(_activity, _apiManager.getService().queryHcIndex(""))
+        _apiManager.getService().queryHcIndex("")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(returnValue -> {
@@ -68,10 +91,22 @@ public class HKPresenter extends BasePresenter<HKView> {
                     Log.e(TAG, "queryShIndex: ", throwable);
                     hkView.onError(IndexRequestType.HC_INDEX, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryHcIndex(""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(returnValue -> {
+//                    if (null != returnValue) {
+//                        hkView.onSuccess(IndexRequestType.HC_INDEX, returnValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "queryShIndex: ", throwable);
+//                    hkView.onError(IndexRequestType.HC_INDEX, throwable);
+//                });
     }
 
     public void queryHK() {
-        AppObservable.bindActivity(_activity, _apiManager.getService().queryHK(""))
+        _apiManager.getService().queryHK("")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(returnValue -> {
@@ -82,5 +117,17 @@ public class HKPresenter extends BasePresenter<HKView> {
                     Log.e(TAG, "queryHK: ", throwable);
                     hkView.onError(IndexRequestType.HK_LIST, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryHK(""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(returnValue -> {
+//                    if (null != returnValue) {
+//                        hkView.onSuccess(IndexRequestType.HK_LIST, returnValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "queryHK: ", throwable);
+//                    hkView.onError(IndexRequestType.HK_LIST, throwable);
+//                });
     }
 }

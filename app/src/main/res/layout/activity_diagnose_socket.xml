@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_diagnose_socket"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="cn.zn.com.zn_android.uiclass.activity.DiagnoseSocketActivity">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <RadioGroup
+        android:id="@+id/rg_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base50dp"
+        android:background="@drawable/border_bottom_line"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_pre_answer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radiobutton_contest_slender"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="抢答诊股"
+            android:textColor="@color/font_value_black"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/rb_wait_answer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radiobutton_contest_slender"
+            android:button="@null"
+            android:gravity="center"
+            android:text="待回答"
+            android:textColor="@color/font_value_black"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/rb_finish_answer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radiobutton_contest_slender"
+            android:button="@null"
+            android:gravity="center"
+            android:text="已回答"
+            android:textColor="@color/font_value_black"
+            android:textSize="15sp" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

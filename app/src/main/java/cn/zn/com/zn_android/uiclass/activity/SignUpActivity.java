@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,18 +26,27 @@ import com.tencent.smtt.sdk.WebViewClient;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 
+import java.util.List;
+
 import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.manage.Constants_api;
+import cn.zn.com.zn_android.manage.CookieManger;
+import cn.zn.com.zn_android.manage.PersistentCookieStore;
+import cn.zn.com.zn_android.manage.RnApplication;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
 import cn.zn.com.zn_android.presenter.PresentScorePresenter;
 import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import cn.zn.com.zn_android.uiclass.x5webview.X5WebView;
 import de.greenrobot.event.EventBus;
+import okhttp3.Cookie;
+import okhttp3.HttpUrl;
 
 /**
  * Created by zjs on 2016/9/27 0027.
@@ -96,8 +106,8 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void onResume() {
-        super.onResume();
         initWebData();
+        super.onResume();
         MobclickAgent.onPageStart(TAG); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
         MobclickAgent.onResume(this);          //统计时长
     }
@@ -230,7 +240,14 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         Config.dialog = dialog;
     }
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            this.finish();
+            return true;
+        }
+        return false;
+    }
     /**
      * 分享的动作
      *
@@ -280,22 +297,37 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
      * @param url
      */
     private void syncCookie(String url) {
+        CookieManger cookieManger = new CookieManger(RnApplication.getInstance());
+        PersistentCookieStore cookieStore = cookieManger.getCookieStore();
+        List<Cookie> cookies = cookieStore.get(HttpUrl.parse(Constants_api.BASE_URL));
         try {
-            CookieSyncManager.createInstance(mWvSignUp.getContext());
+            CookieSyncManager.createInstance(this);
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.setAcceptCookie(true);
             cookieManager.removeSessionCookie();// 移除
             cookieManager.removeAllCookie();
-            StringBuilder sbCookie = new StringBuilder();
-            sbCookie.append(_mApplication.getUserInfo().getSessionID());
-            sbCookie.append(String.format(";domain=%s", ""));
-            sbCookie.append(String.format(";path=%s", ""));
-            String cookieValue = sbCookie.toString();
+//            StringBuilder sbCookie = new StringBuilder();
+//            sbCookie.append(_mApplication.getUserInfo().getSessionID());
+//            Log.e(TAG, "syncCookie: " + _mApplication.getUserInfo().getSessionID());
+////            ToastUtil.showLong(this, _mApplication.getUserInfo().getSessionID());
+//            sbCookie.append(String.format(";domain=%s", ""));
+//            sbCookie.append(String.format(";path=%s", ""));
+//            String cookieValue = sbCookie.toString();
+            String cookieValue = CookieManger.formatCookie(cookies);
             cookieManager.setCookie(url, cookieValue);
             CookieSyncManager.getInstance().sync();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 重写activityResult
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

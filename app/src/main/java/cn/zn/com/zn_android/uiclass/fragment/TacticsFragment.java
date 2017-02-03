@@ -11,9 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.Iterator;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.TacticsAdapter;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
@@ -24,12 +32,7 @@ import cn.zn.com.zn_android.uiclass.activity.SpecialLectureActivity;
 import cn.zn.com.zn_android.uiclass.activity.TacticsDetailActivity;
 import cn.zn.com.zn_android.uiclass.activity.TeacherLiveActivity;
 import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
-import com.umeng.analytics.MobclickAgent;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -57,6 +60,8 @@ public class TacticsFragment extends BaseFragment implements AdapterView.OnItemC
     ListView mLvMyTactics;
     @Bind(android.R.id.empty)
     TextView mEmpty;
+    @Bind(R.id.ll_empty)
+    LinearLayout mLlEmpty;
 
     private TacticsAdapter mAdapter;
     private JoDialog dialog;
@@ -107,12 +112,13 @@ public class TacticsFragment extends BaseFragment implements AdapterView.OnItemC
                 .setBgRes(Color.TRANSPARENT)
                 .show(false);
 
-        if (mParam1.equals("")) {
+        if (mParam1 == null || mParam1.equals("")) {
             queryUserTacticsList();
         } else {
             queryRoomTacticsList();
         }
-        mLvMyTactics.setEmptyView(mEmpty);
+        mEmpty.setText(String.format(getString(R.string.no_data), "策略"));
+        mLvMyTactics.setEmptyView(mLlEmpty);
     }
 
     @Override
@@ -211,30 +217,57 @@ public class TacticsFragment extends BaseFragment implements AdapterView.OnItemC
     }
 
     private void queryUserTacticsList() {
-        AppObservable.bindFragment(this, _apiManager.getService().queryUserTacticsList(_mApplication.getUserInfo().getSessionID(), ""))
+        _apiManager.getService().queryUserTacticsList(_mApplication.getUserInfo().getSessionID(), "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultUserTactics, throwable -> {
                     dialog.dismiss();
                     Log.e(TAG, "queryUserTacticsList: ", throwable);
                 });
+
+//        AppObservable.bindFragment(this, _apiManager.getService().queryUserTacticsList(_mApplication.getUserInfo().getSessionID(), ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultUserTactics, throwable -> {
+//                    dialog.dismiss();
+//                    Log.e(TAG, "queryUserTacticsList: ", throwable);
+//                });
     }
 
     private void resultUserTactics(ReturnListValue<TacticsBean> returnListValue) {
         dialog.dismiss();
         Log.i(TAG, "resultUserTactics: ");
-        mAdapter = new TacticsAdapter(getActivity(), returnListValue.getData());
+        List<TacticsBean> list = returnListValue.getData();
+        Iterator<TacticsBean> iter = list.iterator();
+        while (iter.hasNext()) {
+            TacticsBean bean = iter.next();
+            if (bean.getTid().equals("9898")) {
+                iter.remove();
+            }
+        }
+        mAdapter = new TacticsAdapter(getActivity(), list);
         mLvMyTactics.setAdapter(mAdapter);
     }
 
+    /**
+     * 查询老师的策略列表
+     */
     private void queryRoomTacticsList() {
-        AppObservable.bindFragment(this, _apiManager.getService().queryRoomTacticsList(mParam1))
+        _apiManager.getService().queryRoomTacticsList(mParam1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultUserTactics, throwable -> {
                     dialog.dismiss();
                     Log.e(TAG, "queryRoomTacticsList: ", throwable);
                 });
+
+//        AppObservable.bindFragment(this, _apiManager.getService().queryRoomTacticsList(mParam1))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultUserTactics, throwable -> {
+//                    dialog.dismiss();
+//                    Log.e(TAG, "queryRoomTacticsList: ", throwable);
+//                });
     }
 
 }

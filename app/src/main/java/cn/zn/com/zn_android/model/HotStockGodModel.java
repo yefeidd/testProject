@@ -8,7 +8,6 @@ import android.util.Log;
 
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.viewHolder.BaseViewHolder;
-import cn.zn.com.zn_android.adapter.viewHolder.DynamicExpertViewHolder;
 import cn.zn.com.zn_android.adapter.viewHolder.HotStockGodViewHolder;
 import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.RnApplication;
@@ -17,9 +16,7 @@ import cn.zn.com.zn_android.model.bean.DynamicExpertBean;
 import cn.zn.com.zn_android.uiclass.activity.LoginActivity;
 import cn.zn.com.zn_android.uiclass.activity.TaActivity;
 import cn.zn.com.zn_android.utils.ToastUtil;
-
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -39,7 +36,7 @@ public class HotStockGodModel extends ListviewItemModel {
 
 
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
         HotStockGodViewHolder hotStockGodViewHolder = (HotStockGodViewHolder) viewHolder;
         hotStockGodViewHolder.mIvHeadAvatars.setImageURI(Uri.parse(bean.getAvatars()));
         hotStockGodViewHolder.mTvName.setText(bean.getNickname());
@@ -49,7 +46,7 @@ public class HotStockGodModel extends ListviewItemModel {
         hotStockGodViewHolder.mTvWinRate.setText(bean.getWin_rate() + "%");
         hotStockGodViewHolder.mTvYield.setText(bean.getProfit() + "%");
         hotStockGodViewHolder.mRlDoor.setOnClickListener(v -> {
-            EventBus.getDefault().postSticky(new AnyEventType(bean.getUser_id()));
+            EventBus.getDefault().postSticky(new AnyEventType().setStockCode(bean.getUser_id()));
             mContext.startActivity(new Intent(mContext, TaActivity.class));
         });
         hotStockGodViewHolder.mBtnFocus.setOnClickListener(v -> {
@@ -77,33 +74,67 @@ public class HotStockGodModel extends ListviewItemModel {
     private String TAG = "HotStockGodModel";
 
     public void attentionOther(String userId, HotStockGodViewHolder holder) {
-        AppObservable.bindActivity(mContext, ApiManager.getInstance().getService().attentionOther(
-                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+        ApiManager.getInstance().getService().attentionOther(
+                RnApplication.getInstance().getUserInfo().getSessionID(), userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
                     if (null != retValue) {
                         ToastUtil.showShort(mContext, retValue.getData().getMessage());
-                        holder.mBtnFocus.setText(mContext.getString(R.string.finish_focus));
+                        if (retValue.getData().getMessage().contains("成功")) {
+                            holder.mBtnFocus.setText(mContext.getString(R.string.finish_focus));
+                        }
                     }
                 }, throwable -> {
                     Log.e(TAG, "attentionOther: ", throwable);
                 });
+
+//        AppObservable.bindActivity(mContext, ApiManager.getInstance().getService().attentionOther(
+//                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        ToastUtil.showShort(mContext, retValue.getData().getMessage());
+//                        if (retValue.getData().getMessage().contains("成功")) {
+//                            holder.mBtnFocus.setText(mContext.getString(R.string.finish_focus));
+//                        }
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "attentionOther: ", throwable);
+//                });
     }
 
     public void unsetConcern(String userId, HotStockGodViewHolder holder) {
-        AppObservable.bindActivity(mContext, ApiManager.getInstance().getService().unsetConcern(
-                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+        ApiManager.getInstance().getService().unsetConcern(
+                RnApplication.getInstance().getUserInfo().getSessionID(), userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
                     if (null != retValue) {
                         ToastUtil.showShort(mContext, retValue.getData().getMessage());
-                        holder.mBtnFocus.setText(mContext.getString(R.string.add_focus));
+                        if (retValue.getData().getMessage().contains("成功")) {
+                            holder.mBtnFocus.setText(mContext.getString(R.string.add_focus));
+                        }
                     }
                 }, throwable -> {
                     Log.e(TAG, "attentionOther: ", throwable);
                 });
+
+//        AppObservable.bindActivity(mContext, ApiManager.getInstance().getService().unsetConcern(
+//                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        ToastUtil.showShort(mContext, retValue.getData().getMessage());
+//                        if (retValue.getData().getMessage().contains("成功")) {
+//                            holder.mBtnFocus.setText(mContext.getString(R.string.add_focus));
+//                        }
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "attentionOther: ", throwable);
+//                });
     }
 
 }

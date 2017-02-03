@@ -17,7 +17,6 @@ import cn.zn.com.zn_android.utils.UIUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -71,13 +70,21 @@ public class FeedBackActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void feedBack() {
-        AppObservable.bindActivity(this, _apiManager.getService().feedback(_mApplication.getUserInfo().getSessionID(), mEtFeedback.getText().toString()))
+        _apiManager.getService().feedback(_mApplication.getUserInfo().getSessionID(), mEtFeedback.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultFeedback, throwable -> {
                     Log.e(TAG, "feedBack: ", throwable);
                     ToastUtil.showShort(this, "提交失败，请稍后重试");
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().feedback(_mApplication.getUserInfo().getSessionID(), mEtFeedback.getText().toString()))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultFeedback, throwable -> {
+//                    Log.e(TAG, "feedBack: ", throwable);
+//                    ToastUtil.showShort(this, "提交失败，请稍后重试");
+//                });
     }
 
     private void resultFeedback(ReturnValue<MessageBean> returnValue) {

@@ -12,18 +12,12 @@ import android.view.View;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.viewHolder.BaseViewHolder;
 import cn.zn.com.zn_android.adapter.viewHolder.DynamicExpertViewHolder;
-import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.RnApplication;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
 import cn.zn.com.zn_android.model.bean.DynamicExpertBean;
 import cn.zn.com.zn_android.uiclass.activity.LoginActivity;
 import cn.zn.com.zn_android.uiclass.activity.TaActivity;
-import cn.zn.com.zn_android.utils.ToastUtil;
-
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Jolly on 2016/9/18 0018.
@@ -32,39 +26,62 @@ public class DynamicExpertModel extends ListviewItemModel {
     private static final String TAG = "DynamicExpertModel";
     private DynamicExpertBean bean;
     private Activity mContext;
+    private int position1 = 0;
+    private boolean isShortTerm = false; // 是否首页短线牛人
 
-    public void setmListner(FocusChangeListner mListner) {
-        this.mListner = mListner;
+    public void setShortTerm(boolean shortTerm) {
+        isShortTerm = shortTerm;
+    }
+
+    public DynamicExpertBean getBean() {
+        return bean;
     }
 
     private FocusChangeListner mListner;
 
     public interface FocusChangeListner {
-        void focusChange();
+        void focusChange(boolean focus, String userId, int position1);
     }
 
-    public DynamicExpertModel(Activity context, DynamicExpertBean bean) {
+    public DynamicExpertModel(Activity context, DynamicExpertBean bean, int position, FocusChangeListner mListner) {
         this.bean = bean;
         this.mContext = context;
+        this.position1 = position;
+        this.mListner = mListner;
     }
 
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
         DynamicExpertViewHolder holder = (DynamicExpertViewHolder) viewHolder;
         holder.mTvName.setText(bean.getNickname());
         holder.mTvTime.setText(String.format(mContext.getString(R.string.buy_in_time),
                 bean.getFirst_time()));
 
-        String profit = String.format(mContext.getString(R.string.sum_profit), bean.getProfit()) + "%";
-        SpannableString ssProfit = new SpannableString(profit);
-        if (bean.getProfit().startsWith("-")) {
-            ssProfit.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.green_down)),
-                    3, ssProfit.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if (!isShortTerm) {
+            String profit = String.format(mContext.getString(R.string.sum_profit), bean.getProfit()) + "%";
+            SpannableString ssProfit = new SpannableString(profit);
+            if (bean.getProfit().startsWith("-")) {
+                ssProfit.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.green_down)),
+                        3, ssProfit.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else {
+                ssProfit.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.app_bar_color)),
+                        3, ssProfit.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            holder.mTvSumProfit.setText(ssProfit);
+            holder.mTvWeekProfit.setText(String.format(mContext.getString(R.string.week_profit), bean.getWeek_income()) + "%");
         } else {
-            ssProfit.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.app_bar_color)),
-                    3, ssProfit.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+            String profit = String.format(mContext.getString(R.string.week_profit1), bean.getWeek_income()) + "%";
+            SpannableString ssProfit = new SpannableString(profit);
+            if (bean.getWeek_income().startsWith("-")) {
+                ssProfit.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.green_down)),
+                        3, ssProfit.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else {
+                ssProfit.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.app_bar_color)),
+                        3, ssProfit.length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            holder.mTvSumProfit.setText(ssProfit);
+            holder.mTvWeekProfit.setText(String.format(mContext.getString(R.string.sum_profit1), bean.getProfit()) + "%");
         }
-        holder.mTvSumProfit.setText(ssProfit);
 
         String winRate = String.format(mContext.getString(R.string.win_rate), bean.getWin_rate()) + "%";
         SpannableString ssWinRate = new SpannableString(winRate);
@@ -78,13 +95,12 @@ public class DynamicExpertModel extends ListviewItemModel {
         holder.mTvWinRate.setText(ssWinRate);
 
         holder.mTvMonthProfit.setText(String.format(mContext.getString(R.string.month_profit), bean.getMon_income()) + "%");
-        holder.mTvWeekProfit.setText(String.format(mContext.getString(R.string.week_profit), bean.getWeek_income()) + "%");
         holder.mSdvAvatar.setImageURI(Uri.parse(bean.getAvatars()));
 
         holder.mRlDynamic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new AnyEventType(bean.getUser_id()));
+                EventBus.getDefault().postSticky(new AnyEventType().setStockCode(bean.getUser_id()));
                 mContext.startActivity(new Intent(mContext, TaActivity.class));
             }
         });
@@ -93,9 +109,11 @@ public class DynamicExpertModel extends ListviewItemModel {
             public void onClick(View v) {
                 if (RnApplication.getInstance().getUserInfo().getIsLogin() == 1) {
                     if (holder.mTvAddFocus.getText().equals(mContext.getString(R.string.add_focus))) {
-                        attentionOther(bean.getUser_id(), holder);
+//                        attentionOther(bean.getUser_id(), holder);
+                        mListner.focusChange(true, bean.getUser_id(), position1);
                     } else {
-                        unsetConcern(bean.getUser_id(), holder);
+//                        unsetConcern(bean.getUser_id(), holder);
+                        mListner.focusChange(false, bean.getUser_id(), position1);
                     }
                 } else {
 //                    EventBus.getDefault().postSticky(new AnyEventType(bean));
@@ -105,43 +123,16 @@ public class DynamicExpertModel extends ListviewItemModel {
         });
 
         if (null != bean.getAttentionType()) {
-            if (bean.getAttentionType().equals("1")) {
+            if (bean.getAttentionType().equals("1") || bean.getAttentionType().equals("2")) {
                 holder.mTvAddFocus.setText(mContext.getString(R.string.finish_focus));
             } else {
                 holder.mTvAddFocus.setText(mContext.getString(R.string.add_focus));
             }
+        } else {
+            holder.mTvAddFocus.setText(mContext.getString(R.string.add_focus));
         }
+        Log.d(TAG, "showItem: " + bean.getAttentionType());
     }
 
-
-    public void attentionOther(String userId, DynamicExpertViewHolder holder) {
-        AppObservable.bindActivity(mContext, ApiManager.getInstance().getService().attentionOther(
-                        RnApplication.getInstance().getUserInfo().getSessionID(), userId))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(retValue -> {
-                    if (null != retValue) {
-                        ToastUtil.showShort(mContext, retValue.getData().getMessage());
-                        holder.mTvAddFocus.setText(mContext.getString(R.string.finish_focus));
-                    }
-                }, throwable -> {
-                    Log.e(TAG, "attentionOther: ", throwable);
-                });
-    }
-
-    public void unsetConcern(String userId, DynamicExpertViewHolder holder) {
-        AppObservable.bindActivity(mContext, ApiManager.getInstance().getService().unsetConcern(
-                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(retValue -> {
-                    if (null != retValue) {
-                        ToastUtil.showShort(mContext, retValue.getData().getMessage());
-                        holder.mTvAddFocus.setText(mContext.getString(R.string.add_focus));
-                    }
-                }, throwable -> {
-                    Log.e(TAG, "unsetConcern: ", throwable);
-                });
-    }
 
 }

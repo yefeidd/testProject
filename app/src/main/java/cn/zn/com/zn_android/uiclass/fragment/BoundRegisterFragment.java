@@ -12,7 +12,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.concurrent.TimeUnit;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.Constants;
 import cn.zn.com.zn_android.model.bean.MessageBean;
@@ -20,23 +27,10 @@ import cn.zn.com.zn_android.model.entity.ReturnValue;
 import cn.zn.com.zn_android.uiclass.activity.MainActivity;
 import cn.zn.com.zn_android.uiclass.activity.RegisterProActivity;
 import cn.zn.com.zn_android.utils.AppUtil;
-import cn.zn.com.zn_android.utils.NetUtil;
 import cn.zn.com.zn_android.utils.StringUtil;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Header;
-import retrofit.client.Response;
 import rx.Observable;
 import rx.Subscription;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -145,13 +139,22 @@ public class BoundRegisterFragment extends BaseFragment implements View.OnClickL
             return;
         }
         isStartCountDown = true;
-        AppObservable.bindFragment(this, _apiManager.getService().sendResCode(mEtPhoneNum.getText().toString()))
+
+        _apiManager.getService().sendResCode(mEtPhoneNum.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::sendResCodeResult, throwable -> {
                     Log.e(TAG, getString(R.string.msg_regist_fail));
                     ToastUtil.showShort(_mApplication, getString(R.string.msg_regist_fail));
                 });
+
+//        AppObservable.bindFragment(this, _apiManager.getService().sendResCode(mEtPhoneNum.getText().toString()))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::sendResCodeResult, throwable -> {
+//                    Log.e(TAG, getString(R.string.msg_regist_fail));
+//                    ToastUtil.showShort(_mApplication, getString(R.string.msg_regist_fail));
+//                });
     }
 
     /**
@@ -176,7 +179,7 @@ public class BoundRegisterFragment extends BaseFragment implements View.OnClickL
     /**
      * 打开计时器
      */
-    private void startCountDown() {
+    public void startCountDown() {
         mBtnCode.setEnabled(false);
         mBtnCode.setText("60");
         mBtnCode.setBackgroundResource(R.drawable.sp_rect_corner_grey_light);
@@ -258,13 +261,21 @@ public class BoundRegisterFragment extends BaseFragment implements View.OnClickL
 //        nickName.append(NICKNAME).append(format.format(System.currentTimeMillis()));
 //        nickName.append(laterNickName);
 
-        AppObservable.bindFragment(this, _apiManager.getService().bindRegister(type, ucode, mMobileNumber, mPassword, registerCode, Constants.ANDROID))
+        _apiManager.getService().bindRegister(type, ucode, mMobileNumber, mPassword, registerCode,
+                Constants.ANDROID, _mApplication.getChannel())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::sendResInfoResult, throwable -> {
                     Log.e(TAG, getString(R.string.register_fail));
                     ToastUtil.showShort(_mApplication, getString(R.string.register_fail));
                 });
+//        AppObservable.bindFragment(this, _apiManager.getService().bindRegister(type, ucode, mMobileNumber, mPassword, registerCode, Constants.ANDROID, _mApplication.getChannel()))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::sendResInfoResult, throwable -> {
+//                    Log.e(TAG, getString(R.string.register_fail));
+//                    ToastUtil.showShort(_mApplication, getString(R.string.register_fail));
+//                });
 
     }
 
@@ -276,41 +287,28 @@ public class BoundRegisterFragment extends BaseFragment implements View.OnClickL
             if (result.getMsg().equals(Constants.SUCCESS)) {
                 ToastUtil.showShort(getActivity(), getString(R.string.register_success));
                 /* 登录 */
-//                AppObservable.bindActivity(this, _apiManager.getService().login(mMobileNumber, mPassword, "2"))
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(this::loginResult, throwable -> {
-//                            Log.e(TAG, "登录异常");
-//                        });
-                Callback<ReturnValue<MessageBean>> callback = new Callback<ReturnValue<MessageBean>>() {
-                    @Override
-                    public void success(ReturnValue<MessageBean> returnValue, Response response) {
-                        List<Header> headerList = response.getHeaders();
-                        for (Header header : headerList) {
-                            Log.d(TAG, header.getName() + " " + header.getValue());
-                            if (header.getName().equals(Constants.SET_COOKIE)) {
-                                Log.i("Set-Cookie", "success: " + header.getValue());
-                                _mApplication.getUserInfo().setSessionID(header.getValue());
+                _apiManager.getService().login(mMobileNumber, mPassword, "2")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(returnValue -> {
+                            if (returnValue != null) {
+                                if (returnValue.getMsg().equals(Constants.SUCCESS)) {
+                                    // 登录成功，保存数据
+                                    _spfHelper.saveData(Constants.SPF_KEY_PHONE, mMobileNumber);
+                                    _mApplication.getUserInfo().setPhone(mPassword); // 手机号
+                                    _mApplication.getUserInfo().setIsLogin(1);
+                                    _mApplication.getUserInfo().setIsTeacher(returnValue.getData().getIs_teacher());
+                                    _spfHelper.saveData(Constants.SPF_KEY_PWD, mPassword);
+                                    _mApplication.getUserInfo().setPassword(mPassword);
+                                    startActivity(new Intent(_mApplication, MainActivity.class));
+                                } else {
+                                    ToastUtil.showShort(_mApplication, returnValue.getData().getMessage());
+                                }
                             }
-                        }
-                        if (returnValue.getMsg().equals(Constants.SUCCESS)) {
-                            // 登录成功，保存数据
-                            _mApplication.getUserInfo().setPhone(mMobileNumber); // 手机号
-                            _mApplication.getUserInfo().setIsLogin(1);
-                            startActivity(new Intent(getActivity(), MainActivity.class));
-                        } else {
-                            ToastUtil.showShort(getActivity(), returnValue.getData().getMessage());
-                        }
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.e(TAG, "sendResInfoResult: 异常");
-                        NetUtil.errorTip(error.getKind());
-                    }
-                };
-
-                _apiManager.getService().login(mMobileNumber, mPassword, "2", callback);
+                        }, throwable -> {
+                            Log.e(TAG, "sendResInfoResult: 异常");
+                            ToastUtil.show(_mActivity, throwable.toString(), Toast.LENGTH_SHORT);
+                        });
             } else {
                 ToastUtil.showShort(getActivity(), result.getData().getMessage());
             }

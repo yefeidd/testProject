@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:layout_marginTop="@dimen/base15dp"
+        android:gravity="center"
+        android:text="@string/choose_price_tip"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/base20dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_choose_ask"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/base30dp"
+            android:background="@mipmap/ic_choose_arrow"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/base30dp"
+            android:background="@mipmap/ic_choose_answer"/>
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_choose_price1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base18dp"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_znb2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@drawable/bg_radiobutton_znb_2"
+            />
+        <RadioButton
+            android:id="@+id/rb_znb5"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/base20dp"
+            android:button="@null"
+            android:background="@drawable/bg_radiobutton_znb_5"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rg_choose_price2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base12dp"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/rb_znb10"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:background="@drawable/bg_radiobutton_znb_10"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rb_znb15"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:layout_marginLeft="@dimen/base20dp"
+            android:background="@drawable/bg_radiobutton_znb_15"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rb_znb25"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:layout_marginLeft="@dimen/base20dp"
+            android:background="@drawable/bg_radiobutton_znb_25"
+            android:layout_height="wrap_content" />
+
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/iv_znb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/base18dp"
+        android:background="@android:color/transparent"
+        />
+
+    <Button
+        android:id="@+id/btn_pay_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Txt14White"
+        android:text="@string/pay_now"
+        android:layout_marginTop="@dimen/base20dp"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:background="@drawable/sp_rect_orange"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        style="@style/Txt12Grey"
+        android:lineSpacingMultiplier="1.2"
+        android:layout_marginTop="@dimen/base20dp"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:textColor="@color/article_bottom"
+        android:text="@string/choose_price_tip2"/>
+</LinearLayout>

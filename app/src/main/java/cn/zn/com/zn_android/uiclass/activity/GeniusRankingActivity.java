@@ -2,28 +2,31 @@ package cn.zn.com.zn_android.uiclass.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.adapter.viewHolder.ListViewAdapter;
-import cn.zn.com.zn_android.model.DynamicExpertModel;
-import cn.zn.com.zn_android.model.GeniusRankingModel;
-import cn.zn.com.zn_android.model.bean.AnyEventType;
-import cn.zn.com.zn_android.model.bean.DynamicExpertBean;
-import cn.zn.com.zn_android.model.bean.FyRankingBean;
-import cn.zn.com.zn_android.model.entity.ReturnListValue;
-import cn.zn.com.zn_android.presenter.GeniusRankingPresenter;
-import cn.zn.com.zn_android.uiclass.xlistview.XListView;
-import cn.zn.com.zn_android.viewfeatures.GeniusRankingView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.adapter.viewHolder.ListViewAdapter;
+import cn.zn.com.zn_android.manage.ApiManager;
+import cn.zn.com.zn_android.manage.RnApplication;
+import cn.zn.com.zn_android.model.DynamicExpertModel;
+import cn.zn.com.zn_android.model.bean.AnyEventType;
+import cn.zn.com.zn_android.model.bean.DynamicExpertBean;
+import cn.zn.com.zn_android.presenter.GeniusRankingPresenter;
+import cn.zn.com.zn_android.uiclass.xlistview.XListView;
+import cn.zn.com.zn_android.utils.ToastUtil;
+import cn.zn.com.zn_android.viewfeatures.GeniusRankingView;
 import de.greenrobot.event.EventBus;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * 人气牛人、最赚钱牛人、短线牛人
@@ -32,7 +35,8 @@ import de.greenrobot.event.EventBus;
  * explain:
  */
 public class GeniusRankingActivity extends BaseMVPActivity<GeniusRankingView, GeniusRankingPresenter>
-        implements View.OnClickListener, GeniusRankingView, XListView.IXListViewListener {
+        implements View.OnClickListener, GeniusRankingView, XListView.IXListViewListener,
+        DynamicExpertModel.FocusChangeListner {
 
     @Bind(R.id.iv_leftmenu)
     ImageView mIvLeftmenu;
@@ -93,12 +97,7 @@ public class GeniusRankingActivity extends BaseMVPActivity<GeniusRankingView, Ge
                 presenter.queryFyRanking(page, pageSize);
                 break;
             case 2:
-                if (dynamicExpertList.size() == 0) {
-                    presenter.queryWeekRankingList();
-                    mXlvRanking.setLoadMoreEnable(false);
-                    mXlvRanking.setPullLoadEnable(false);
-                    mXlvRanking.setPullRefreshEnable(false);
-                }
+                presenter.queryWeekRankingList(page, pageSize);
                 break;
         }
     }
@@ -141,20 +140,29 @@ public class GeniusRankingActivity extends BaseMVPActivity<GeniusRankingView, Ge
     }
 
     private void resultOperateList(List<DynamicExpertBean> list) {
+        updatListView();
 
+        int beforeCount = dynamicExpertList.size();
         List<DynamicExpertModel> modelList = new ArrayList<>();
-        for (DynamicExpertBean bean : list) {
-            DynamicExpertModel model = new DynamicExpertModel(this, bean);
+        int count = list.size();
+        for (int i = 0; i < count; i++) {
+            DynamicExpertBean bean = list.get(i);
+            DynamicExpertModel model = new DynamicExpertModel(this, bean, beforeCount + i, this);
+            if (type == 2) {
+                model.setShortTerm(true);
+            }
             modelList.add(model);
         }
-        updatListView(modelList);
-    }
-
-    private void updatListView(List<DynamicExpertModel> modelList) {
 
         if (modelList.size() == 0) {
             mXlvRanking.setLoadMoreEnable(false);
         }
+
+        dynamicExpertList.addAll(modelList);
+        rankingAdapter.notifyDataSetChanged();
+    }
+
+    private void updatListView() {
 
         if (mXlvRanking.ismPullRefreshing()) {
             mXlvRanking.stopRefresh();
@@ -168,30 +176,23 @@ public class GeniusRankingActivity extends BaseMVPActivity<GeniusRankingView, Ge
 
         mXlvRanking.stopLoadMore();
 
-        dynamicExpertList.addAll(modelList);
-        rankingAdapter.notifyDataSetChanged();
     }
 
-    private void resultZzqnr(List<FyRankingBean> fyList) {
+    private void resultZzqnr(List<DynamicExpertBean> fyList) {
+        updatListView();
+
         List<DynamicExpertModel> modelList = new ArrayList<>();
 
-        for (FyRankingBean bean : fyList) {
-            DynamicExpertBean expertBean = new DynamicExpertBean();
-            expertBean.setNickname(bean.getNickname());
-            expertBean.setFirst_time(bean.getFirst_time());
-            expertBean.setProfit(bean.getProfit());
-            expertBean.setWin_rate(bean.getWin_rate());
-            expertBean.setMon_income(bean.getMon_income());
-            expertBean.setWeek_income(bean.getWeek_income());
-            expertBean.setAvatars(bean.getAvatars());
-            expertBean.setUser_id(bean.getUser_id());
-            expertBean.setAttentionType(bean.getAttentionType());
-
-            DynamicExpertModel model = new DynamicExpertModel(this, expertBean);
+        int beforeCount = dynamicExpertList.size();
+        int count = fyList.size();
+        for (int i = 0; i < count; i++) {
+            DynamicExpertBean expertBean = fyList.get(i);
+            DynamicExpertModel model = new DynamicExpertModel(this, expertBean, beforeCount + i, this);
             modelList.add(model);
         }
-        updatListView(modelList);
 
+        dynamicExpertList.addAll(modelList);
+        rankingAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -204,7 +205,7 @@ public class GeniusRankingActivity extends BaseMVPActivity<GeniusRankingView, Ge
                 break;
 
             case GeniusRankingPresenter.ZZQNR:
-                List<FyRankingBean> fyList = (List<FyRankingBean>) object;
+                List<DynamicExpertBean> fyList = (List<DynamicExpertBean>) object;
                 resultZzqnr(fyList);
                 break;
         }
@@ -228,7 +229,9 @@ public class GeniusRankingActivity extends BaseMVPActivity<GeniusRankingView, Ge
     @Override
     public void onRefresh() {
         page = 0;
+        mXlvRanking.setLoadMoreEnable(true);
         initData();
+
     }
 
     @Override
@@ -236,4 +239,84 @@ public class GeniusRankingActivity extends BaseMVPActivity<GeniusRankingView, Ge
         page++;
         initData();
     }
+
+    @Override
+    public void focusChange(boolean focus, String userId, int position) {
+        ToastUtil.showShort(this, position + "");
+        if (focus) {
+            attentionOther(userId, position);
+        } else {
+            unsetConcern(userId, position);
+        }
+    }
+
+
+    public void attentionOther(String userId, int pos) {
+        ApiManager.getInstance().getService().attentionOther(
+                RnApplication.getInstance().getUserInfo().getSessionID(), userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(retValue -> {
+                    if (null != retValue) {
+                        ToastUtil.showShort(this, retValue.getData().getMessage());
+                        if (retValue.getData().getMessage().contains("成功")) {
+                            dynamicExpertList.get(pos).getBean().setAttentionType("1");
+                            rankingAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }, throwable -> {
+                    Log.e(TAG, "attentionOther: ", throwable);
+                });
+
+//        AppObservable.bindActivity(this, ApiManager.getInstance().getService().attentionOther(
+//                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        ToastUtil.showShort(this, retValue.getData().getMessage());
+//                        if (retValue.getData().getMessage().contains("成功")) {
+//                            dynamicExpertList.get(pos).getBean().setAttentionType("1");
+//                            rankingAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "attentionOther: ", throwable);
+//                });
+    }
+
+    public void unsetConcern(String userId, int pos) {
+        ApiManager.getInstance().getService().unsetConcern(
+                RnApplication.getInstance().getUserInfo().getSessionID(), userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(retValue -> {
+                    if (null != retValue) {
+                        ToastUtil.showShort(this, retValue.getData().getMessage());
+                        if (retValue.getData().getMessage().contains("成功")) {
+                            dynamicExpertList.get(pos).getBean().setAttentionType("0");
+                            rankingAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }, throwable -> {
+                    Log.e(TAG, "unsetConcern: ", throwable);
+                });
+
+//        AppObservable.bindActivity(this, ApiManager.getInstance().getService().unsetConcern(
+//                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        ToastUtil.showShort(this, retValue.getData().getMessage());
+//                        if (retValue.getData().getMessage().contains("成功")) {
+//                            dynamicExpertList.get(pos).getBean().setAttentionType("0");
+//                            rankingAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "unsetConcern: ", throwable);
+//                });
+    }
+
 }

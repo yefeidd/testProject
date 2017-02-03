@@ -6,6 +6,14 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.aodianyun.dms.android.DMS;
+
+import org.eclipse.paho.client.mqttv3.IMqttActionListener;
+import org.eclipse.paho.client.mqttv3.IMqttToken;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
+
+import java.util.List;
+
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.Constants;
@@ -20,15 +28,6 @@ import cn.zn.com.zn_android.uiclass.activity.LoginActivity;
 import cn.zn.com.zn_android.utils.StringUtil;
 import cn.zn.com.zn_android.utils.ToastUtil;
 import cn.zn.com.zn_android.viewfeatures.ChatView;
-
-import org.eclipse.paho.client.mqttv3.IMqttActionListener;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
-
-import java.util.List;
-
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -116,7 +115,7 @@ public class ChatPresenter extends BasePresenter<ChatView> {
      * 查询qq客服列表
      */
     public void queryQQByTid(String tid) {
-        AppObservable.bindActivity(_activity, _apiManager.getService().queryQQByTid(tid))
+        _apiManager.getService().queryQQByTid(tid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultQQByTid, throwable -> {
@@ -124,6 +123,15 @@ public class ChatPresenter extends BasePresenter<ChatView> {
                     Log.e(TAG, "querySpecialLectureQQ: ", throwable);
                     mChatView.onError(ChatRequestType.CSQQ, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryQQByTid(tid))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultQQByTid, throwable -> {
+////                    throwable.printStackTrace();
+//                    Log.e(TAG, "querySpecialLectureQQ: ", throwable);
+//                    mChatView.onError(ChatRequestType.CSQQ, throwable);
+//                });
     }
 
     private void resultQQByTid(ReturnValue<CSQQBean> returnValue) {
@@ -147,13 +155,20 @@ public class ChatPresenter extends BasePresenter<ChatView> {
             vipfd = (tid.contains("vip")) ? "1" : "0";
         }
 
-        AppObservable.bindActivity(_activity, _apiManager.getService().sendMsg(sessionID, type, tid, StringUtil.handlerSendMsg(msg), vipfd, giftid, giftnum, Constants.ANDROID))
+        _apiManager.getService().sendMsg(sessionID, type, tid, StringUtil.handlerSendMsg(msg), vipfd, giftid, giftnum, Constants.ANDROID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::sendMsgResult, throwable -> {
                     Log.e(TAG, mContext.getString(R.string.register_fail));
 //                    ToastUtil.showShort(mContext, mContext.getString(R.string.register_fail));
                 });
+//        AppObservable.bindActivity(_activity, _apiManager.getService().sendMsg(sessionID, type, tid, StringUtil.handlerSendMsg(msg), vipfd, giftid, giftnum, Constants.ANDROID))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::sendMsgResult, throwable -> {
+//                    Log.e(TAG, mContext.getString(R.string.register_fail));
+////                    ToastUtil.showShort(mContext, mContext.getString(R.string.register_fail));
+//                });
     }
 
     /**
@@ -173,13 +188,21 @@ public class ChatPresenter extends BasePresenter<ChatView> {
             _activity.startActivity(new Intent(_activity, LoginActivity.class));
             return;
         }
-        AppObservable.bindActivity(_activity, _apiManager.getService().addRoomCollect(_mApplication.getUserInfo().getSessionID(), tid))
+        _apiManager.getService().addRoomCollect(_mApplication.getUserInfo().getSessionID(), tid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultCollectRoom, throwable -> {
                     Log.e(TAG, "addCollectRoom: ", throwable);
                     mChatView.onError(ChatRequestType.FANS, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().addRoomCollect(_mApplication.getUserInfo().getSessionID(), tid))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultCollectRoom, throwable -> {
+//                    Log.e(TAG, "addCollectRoom: ", throwable);
+//                    mChatView.onError(ChatRequestType.FANS, throwable);
+//                });
     }
 
     private void resultCollectRoom(ReturnValue<MessageBean> returnValue) {
@@ -193,7 +216,7 @@ public class ChatPresenter extends BasePresenter<ChatView> {
      * @param isvip 0:普通房间1:VIP房间,默认0
      */
     public void queryImData(String isvip) {
-        AppObservable.bindActivity(_activity, _apiManager.getService().queryImData(tid, isvip))
+        _apiManager.getService().queryImData(tid, isvip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::imDataResult, throwable -> {
@@ -201,6 +224,15 @@ public class ChatPresenter extends BasePresenter<ChatView> {
                     ToastUtil.showShort(mContext, mContext.getString(R.string.no_net));
                     mChatView.onError(ChatRequestType.IM_DATA, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryImData(tid, isvip))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::imDataResult, throwable -> {
+//                    Log.e(TAG, "queryImData", throwable);
+//                    ToastUtil.showShort(mContext, mContext.getString(R.string.no_net));
+//                    mChatView.onError(ChatRequestType.IM_DATA, throwable);
+//                });
     }
 
     private void imDataResult(ReturnListValue<ChatMsgBean> returnValue) {
@@ -218,12 +250,19 @@ public class ChatPresenter extends BasePresenter<ChatView> {
             _activity.startActivity(new Intent(_activity, LoginActivity.class));
             return;
         }
-        AppObservable.bindActivity(_activity, _apiManager.getService().postPrivateMsg(_mApplication.getUserInfo().getSessionID(), msg, tid))
+
+        _apiManager.getService().postPrivateMsg(_mApplication.getUserInfo().getSessionID(), msg, tid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultMessage, Throwable -> {
                     mChatView.onError(ChatRequestType.PRI_CHAT, Throwable);
                 });
+//        AppObservable.bindActivity(_activity, _apiManager.getService().postPrivateMsg(_mApplication.getUserInfo().getSessionID(), msg, tid))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultMessage, Throwable -> {
+//                    mChatView.onError(ChatRequestType.PRI_CHAT, Throwable);
+//                });
     }
     private void resultMessage(ReturnValue<MessageBean> returnValue) {
         if (returnValue != null) {

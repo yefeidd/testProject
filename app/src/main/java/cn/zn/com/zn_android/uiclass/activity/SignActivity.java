@@ -31,9 +31,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import rx.android.app.AppObservable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * 签到
@@ -137,8 +134,13 @@ public class SignActivity extends BaseMVPActivity<SignView, SignPresenter> imple
         int inweek = DateUtils.getCurrentDayOfWeek();
         int today = DateUtils.getCurrentDay();
         int dayCount = DateUtils.getCurrentMonthDay();
-        int startSpace = 7 - (today - inweek) % 7;
-        int endSpace = 7 - inweek - (dayCount - today) % 7;
+        int startSpace = 0;
+        if (today > inweek) {
+            startSpace = 7 - (today - inweek) % 7;
+        } else {
+            startSpace = inweek - today;
+        }
+        int endSpace = 7 - (dayCount - today - (7 - inweek)) % 7;
         int calenderCount = startSpace + endSpace + dayCount + 7;
         String[] weeks = getResources().getStringArray(R.array.week);
         for (int i = 0; i < calenderCount; i ++) {

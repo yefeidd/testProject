@@ -55,6 +55,22 @@ public class RnBean extends UserInfoBean {
      */
     private String out_trade_no;
 
+    /**
+     * 该账号是否是老师账号
+     * 1：是
+     * 0：不是，学生账号
+     */
+    private boolean isTeacher = false;
+
+    public boolean getIsTeacher() {
+        return isTeacher;
+    }
+
+    public void setIsTeacher(int isTeacher) {
+        if (isTeacher == 1) this.isTeacher = true;
+        else this.isTeacher = false;
+    }
+
     public String getOut_trade_no() {
         return out_trade_no;
     }

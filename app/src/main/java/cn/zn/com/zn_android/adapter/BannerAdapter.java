@@ -1,6 +1,5 @@
 package cn.zn.com.zn_android.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
+import java.util.List;
+
 import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.RnApplication;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
@@ -17,12 +20,7 @@ import cn.zn.com.zn_android.model.bean.BannerBean;
 import cn.zn.com.zn_android.model.bean.BaseBannerBean;
 import cn.zn.com.zn_android.uiclass.activity.LoginActivity;
 import cn.zn.com.zn_android.uiclass.activity.SignUpActivity;
-import com.facebook.drawee.view.SimpleDraweeView;
-
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -115,7 +113,7 @@ public class BannerAdapter extends PagerAdapter {
         if (RnApplication.getInstance().getUserInfo().getIsLogin() == 0) {
             mContext.startActivity(new Intent(mContext, LoginActivity.class));
         }
-        AppObservable.bindActivity((Activity) mContext, ApiManager.getInstance().getService().virReg(RnApplication.getInstance().getUserInfo().getSessionID(), ""))
+        ApiManager.getInstance().getService().virReg(RnApplication.getInstance().getUserInfo().getSessionID(), "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -125,6 +123,17 @@ public class BannerAdapter extends PagerAdapter {
                 }, throwable -> {
                     Log.e(TAG, "queryUserSign: ", throwable);
                 });
+
+//        AppObservable.bindActivity((Activity) mContext, ApiManager.getInstance().getService().virReg(RnApplication.getInstance().getUserInfo().getSessionID(), ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (retValue.getCode().equals("2000")) {
+//                        mPageOnlickListener.clickPage(position);
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "queryUserSign: ", throwable);
+//                });
     }
 
 

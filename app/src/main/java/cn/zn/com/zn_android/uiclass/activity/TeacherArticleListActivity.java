@@ -9,6 +9,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.ArticleListAdapter;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
@@ -17,14 +23,7 @@ import cn.zn.com.zn_android.model.entity.ReturnListValue;
 import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import cn.zn.com.zn_android.uiclass.xlistview.XListView;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -161,7 +160,7 @@ public class TeacherArticleListActivity extends BaseActivity implements View.OnC
      */
     public void getArticleData(int page) {
         String pageNum = page + "";
-        AppObservable.bindActivity(this, _apiManager.getService().getTeacherArticle(tid, pageNum, PCOUNT))
+        _apiManager.getService().getTeacherArticle(tid, pageNum, PCOUNT)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultArticleList, throwable -> {
@@ -171,6 +170,17 @@ public class TeacherArticleListActivity extends BaseActivity implements View.OnC
                     throwable.printStackTrace();
                     ToastUtil.showShort(this, getString(R.string.no_net));
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().getTeacherArticle(tid, pageNum, PCOUNT))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultArticleList, throwable -> {
+//                    if (dialog != null) {
+//                        dialog.dismiss();
+//                    }
+//                    throwable.printStackTrace();
+//                    ToastUtil.showShort(this, getString(R.string.no_net));
+//                });
 
     }
 

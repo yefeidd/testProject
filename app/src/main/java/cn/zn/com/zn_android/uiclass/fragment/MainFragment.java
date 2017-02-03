@@ -14,9 +14,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.BannerAdapter;
 import cn.zn.com.zn_android.adapter.viewHolder.ListViewAdapter;
+import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.Constants;
 import cn.zn.com.zn_android.manage.RnApplication;
 import cn.zn.com.zn_android.model.DynamicExpertModel;
@@ -30,23 +39,18 @@ import cn.zn.com.zn_android.presenter.BannerPresenter;
 import cn.zn.com.zn_android.service.RefreshDataService;
 import cn.zn.com.zn_android.uiclass.activity.ArticleListActivity;
 import cn.zn.com.zn_android.uiclass.activity.ArticleSearchActivity;
+import cn.zn.com.zn_android.uiclass.activity.DiagnoseSocketActivity;
+import cn.zn.com.zn_android.uiclass.activity.DianosedStockActivity;
 import cn.zn.com.zn_android.uiclass.activity.GeniusRankingActivity;
 import cn.zn.com.zn_android.uiclass.activity.ImitateFryActivity;
 import cn.zn.com.zn_android.uiclass.activity.LoginActivity;
 import cn.zn.com.zn_android.uiclass.activity.MainActivity;
-import cn.zn.com.zn_android.uiclass.activity.MyCollectionActivity;
-import cn.zn.com.zn_android.uiclass.activity.SpecialLectureActivity;
 import cn.zn.com.zn_android.uiclass.customerview.vpindicator.CirclePageIndicator;
 import cn.zn.com.zn_android.uiclass.xlistview.XListView;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
+import cn.zn.com.zn_android.utils.ToastUtil;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
+import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -55,7 +59,8 @@ import rx.schedulers.Schedulers;
  * <p>
  * Created by Administrator on 2016/3/9 0009.
  */
-public class MainFragment extends BaseFragment implements View.OnClickListener, XListView.IXListViewListener {
+public class MainFragment extends BaseFragment implements View.OnClickListener,
+        XListView.IXListViewListener, DynamicExpertModel.FocusChangeListner {
     private final String TAG = MainFragment.class.getSimpleName();
     @Bind(R.id.iv_leftmenu)
     ImageView mIvLeftmenu;
@@ -119,7 +124,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         mViewpager = (ViewPager) header.findViewById(R.id.viewpager);
         mIndicator = (CirclePageIndicator) header.findViewById(R.id.dot_indicator);
         bannerList = new ArrayList<>();
-        mBannerAdapter = new BannerAdapter(_mActivity, bannerList, (MainActivity) getActivity(),TAG);
+        mBannerAdapter = new BannerAdapter(_mActivity, bannerList, (MainActivity) getActivity(), TAG);
         mViewpager.setAdapter(mBannerAdapter);
         mIndicator.setViewPager(mViewpager);
         bannerPresenter = new BannerPresenter(this, _mContext, mBannerAdapter);
@@ -140,7 +145,11 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 dynamicExpertList, "DynamicExpertViewHolder");
         lv_live.setAdapter(mHotAdapter);
         lv_live.setFooterDividersEnabled(false);
-        lv_live.setLoadMoreEnableShow(false);
+//        lv_live.setLoadMoreEnableShow(false);
+//        lv_live.setAutoLoadEnable(false);
+        lv_live.setPullLoadEnable(true);
+        lv_live.setPullRefreshEnable(true);
+        lv_live.setLoadMoreEnable(true);
 
         //初始化内部数据
 //        initData();
@@ -164,9 +173,14 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onResume() {
         super.onResume();
+        lv_live.setLoadMoreEnable(true);
+//        page = 0;
+//        initData();
+//        onRefresh();
+        bannerPresenter.postBannerFromServer("MainBanner");
         isRefreshing = true;
-        page = 0;
-        initData();
+        queryHotWarrenList(0, num * (page + 1));
+
         MobclickAgent.onPageStart("MainFragment"); //统计页面，"MainScreen"为页面名称，可自定义
     }
 
@@ -178,7 +192,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     /**
      * 初始化数据
      */
-    private void initData() {
+    public void initData() {
         //从服务器请求数据
         bannerPresenter.postBannerFromServer("MainBanner");
         queryHotWarrenList(page, num);
@@ -196,9 +210,18 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_school:
-                EventBus.getDefault().postSticky(new AnyEventType(Constants.ARTICLE).setState(true));
-                startActivity(new Intent(getActivity(), MyCollectionActivity.class));
+            case R.id.btn_school: // 诊股大厅
+//                EventBus.getDefault().postSticky(new AnyEventType(Constants.ARTICLE).setState(true));
+//                startActivity(new Intent(getActivity(), MyCollectionActivity.class));
+                if (_mApplication.getUserInfo().getIsLogin() == 1) {
+                    if (_mApplication.getUserInfo().getIsTeacher()) {
+                        startActivity(new Intent(getActivity(), DiagnoseSocketActivity.class));
+                    } else {
+                        startActivity(new Intent(getActivity(), DianosedStockActivity.class));
+                    }
+                } else {
+                    startActivity(new Intent(_mContext, LoginActivity.class));
+                }
                 break;
             case R.id.btn_course:
 //                startActivity(new Intent(getActivity(), SpecialLectureActivity.class));
@@ -232,7 +255,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     public void virReg(String sessionId, int flag) {
-        AppObservable.bindFragment(this, _apiManager.getService().virReg(sessionId, ""))
+        _apiManager.getService().virReg(sessionId, "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -240,6 +263,15 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 }, throwable -> {
                     Log.e(TAG, "queryUserSign: ", throwable);
                 });
+
+//        AppObservable.bindFragment(this, _apiManager.getService().virReg(sessionId, ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    resultVirReg(retValue, flag);
+//                }, throwable -> {
+//                    Log.e(TAG, "queryUserSign: ", throwable);
+//                });
     }
 
     public void resultVirReg(ReturnValue<MessageBean> returnValue, int flag) {
@@ -256,29 +288,33 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     private void queryHotWarrenList(int page, int num) {
-        AppObservable.bindFragment(this, _apiManager.getService().queryHotWarrenList(RnApplication.getInstance().getUserInfo().getSessionID(), page, num))
+        _apiManager.getService().queryMoneyStockGenius(_mApplication.getUserInfo().getSessionID(), page, num)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultOperateList, throwable -> {
                     Log.e(TAG, "queryOperateList: ", throwable);
+                    isRefreshing = false;
+                    if (lv_live != null) {
+                        lv_live.stopRefresh();
+                    }
                 });
+
+//        AppObservable.bindFragment(this, _apiManager.getService().queryMoneyStockGenius(_mApplication.getUserInfo().getSessionID(), page, num))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultOperateList, throwable -> {
+//                    Log.e(TAG, "queryOperateList: ", throwable);
+//                    isRefreshing = false;
+//                    lv_live.stopRefresh();
+//                });
     }
 
     private void resultOperateList(ReturnListValue<DynamicExpertBean> retValue) {
-        List<DynamicExpertBean> list = retValue.getData();
-
-        List<DynamicExpertModel> modelList = new ArrayList<>();
-        for (DynamicExpertBean bean : list) {
-            DynamicExpertModel model = new DynamicExpertModel(getActivity(), bean);
-            modelList.add(model);
-        }
-
-        if (modelList.size() == 0) {
-            lv_live.setLoadMoreEnable(false);
-        }
 
         if (lv_live.ismPullRefreshing()) {
-            lv_live.stopRefresh();
+            if (lv_live != null) {
+                lv_live.stopRefresh();
+            }
             dynamicExpertList.clear();
         }
 
@@ -287,17 +323,56 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             dynamicExpertList.clear();
         }
 
+        List<DynamicExpertBean> list = retValue.getData();
+
+        List<DynamicExpertModel> modelList = new ArrayList<>();
+        int beforeCount = dynamicExpertList.size();
+        int count = list.size();
+        for (int i = 0; i < count; i++) {
+            DynamicExpertModel model = new DynamicExpertModel(getActivity(), list.get(i), beforeCount + i, this);
+            modelList.add(model);
+        }
+
+        if (modelList.size() == 0) {
+            lv_live.setLoadMoreEnable(false);
+        }
+
         lv_live.stopLoadMore();
 
         dynamicExpertList.addAll(modelList);
         mHotAdapter.notifyDataSetChanged();
     }
 
+    Subscription timerSubscription;
+
+    private void timeCount() {
+        timerSubscription = Observable.timer(1, 1, TimeUnit.SECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+//                .toBlocking()
+                .subscribe(aLong -> {
+                    if (aLong == 5) {
+                        if (lv_live.ismPullRefreshing()) {
+                            lv_live.stopRefresh();
+                            timerSubscription.unsubscribe();
+                        }
+                    }
+                }, throwable -> {
+                    Log.e(TAG, "倒计时出错！\n" + throwable);
+                    timerSubscription.unsubscribe();
+                });
+    }
+
     @Override
     public void onRefresh() {
+        isRefreshing = true;
         lv_live.setLoadMoreEnable(true);
         page = 0;
         queryHotWarrenList(page, num);
+        timeCount();
+        bannerPresenter.postBannerFromServer("MainBanner");
+
     }
 
     @Override
@@ -305,4 +380,82 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         page++;
         queryHotWarrenList(page, num);
     }
+
+    @Override
+    public void focusChange(boolean focus, String userId, int position) {
+        if (focus) {
+            attentionOther(userId, position);
+        } else {
+            unsetConcern(userId, position);
+        }
+    }
+
+    public void attentionOther(String userId, int pos) {
+        ApiManager.getInstance().getService().attentionOther(
+                RnApplication.getInstance().getUserInfo().getSessionID(), userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(retValue -> {
+                    if (null != retValue) {
+                        ToastUtil.showShort(_mActivity, retValue.getData().getMessage());
+                        if (retValue.getData().getMessage().contains("成功")) {
+                            dynamicExpertList.get(pos).getBean().setAttentionType("1");
+                            mHotAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }, throwable -> {
+                    Log.e(TAG, "attentionOther: ", throwable);
+                });
+
+//        AppObservable.bindActivity(_mActivity, ApiManager.getInstance().getService().attentionOther(
+//                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        ToastUtil.showShort(_mActivity, retValue.getData().getMessage());
+//                        if (retValue.getData().getMessage().contains("成功")) {
+//                            dynamicExpertList.get(pos).getBean().setAttentionType("1");
+//                            mHotAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "attentionOther: ", throwable);
+//                });
+    }
+
+    public void unsetConcern(String userId, int pos) {
+        ApiManager.getInstance().getService().unsetConcern(
+                RnApplication.getInstance().getUserInfo().getSessionID(), userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(retValue -> {
+                    if (null != retValue) {
+                        ToastUtil.showShort(_mActivity, retValue.getData().getMessage());
+                        if (retValue.getData().getMessage().contains("成功")) {
+                            dynamicExpertList.get(pos).getBean().setAttentionType("0");
+                            mHotAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }, throwable -> {
+                    Log.e(TAG, "unsetConcern: ", throwable);
+                });
+
+//        AppObservable.bindActivity(_mActivity, ApiManager.getInstance().getService().unsetConcern(
+//                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        ToastUtil.showShort(_mActivity, retValue.getData().getMessage());
+//                        if (retValue.getData().getMessage().contains("成功")) {
+//                            dynamicExpertList.get(pos).getBean().setAttentionType("0");
+//                            mHotAdapter.notifyDataSetChanged();
+//                        }
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "unsetConcern: ", throwable);
+//                });
+    }
+
 }

@@ -29,7 +29,7 @@ public class ContestRankingListModel extends ListviewItemModel {
     }
 
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
         ContestRankingListHolder holder = (ContestRankingListHolder) viewHolder;
         int index = 1;
         try {
@@ -47,15 +47,17 @@ public class ContestRankingListModel extends ListviewItemModel {
         holder.mTvRank.setText(bean.getRanking());
         holder.mTvName.setText(bean.getNickname());
         holder.mTvProfit.setText(bean.getProfit() + "%");
-        if (bean.getProfit().contains("-")) {
+        if (null != bean.getProfit() && bean.getProfit().contains("-")) {
             holder.mTvProfit.setTextColor(mActivity.getResources().getColor(R.color.market_green));
+        } else if (null != bean.getProfit() && bean.getProfit().equals("0.00")){
+            holder.mTvProfit.setTextColor(mActivity.getResources().getColor(R.color.font_value_black));
         } else {
             holder.mTvProfit.setTextColor(mActivity.getResources().getColor(R.color.market_red));
         }
         holder.mTvTotal.setText(UnitUtils.clacUnit(bean.getTotalmoney()));
         holder.mTvAction.setText(bean.getNow_position() + "%");
         holder.mLlItem.setOnClickListener(v -> {
-            EventBus.getDefault().postSticky(new AnyEventType(bean.getUser_id()));
+            EventBus.getDefault().postSticky(new AnyEventType().setStockCode(bean.getUser_id()));
             mActivity.startActivity(new Intent(mActivity, TaActivity.class));
         });
     }

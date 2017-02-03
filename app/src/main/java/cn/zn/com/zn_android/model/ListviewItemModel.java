@@ -13,5 +13,5 @@ public abstract class ListviewItemModel {
 
     private final String TAG = this.getClass().getSimpleName();
 
-    public abstract void showItem(BaseViewHolder viewHolder, Context context);
+    public abstract void showItem(BaseViewHolder viewHolder, Context context, int position);
 }

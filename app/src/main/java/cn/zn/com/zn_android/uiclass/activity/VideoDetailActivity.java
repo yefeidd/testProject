@@ -16,16 +16,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.model.bean.AnyEventType;
-import cn.zn.com.zn_android.model.bean.MessageBean;
-import cn.zn.com.zn_android.model.entity.ReturnValue;
-import cn.zn.com.zn_android.presenter.PresentScorePresenter;
-import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
-import cn.zn.com.zn_android.uiclass.x5webview.X5WebView;
-import cn.zn.com.zn_android.utils.LogUtils;
-import cn.zn.com.zn_android.utils.ToastUtil;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.CookieSyncManager;
 import com.tencent.smtt.sdk.WebChromeClient;
@@ -39,9 +29,26 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 
+import java.util.List;
+
 import butterknife.Bind;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.manage.Constants_api;
+import cn.zn.com.zn_android.manage.CookieManger;
+import cn.zn.com.zn_android.manage.PersistentCookieStore;
+import cn.zn.com.zn_android.manage.RnApplication;
+import cn.zn.com.zn_android.model.bean.AnyEventType;
+import cn.zn.com.zn_android.model.bean.MessageBean;
+import cn.zn.com.zn_android.model.entity.ReturnValue;
+import cn.zn.com.zn_android.presenter.PresentScorePresenter;
+import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
+import cn.zn.com.zn_android.uiclass.x5webview.X5WebView;
+import cn.zn.com.zn_android.utils.LogUtils;
+import cn.zn.com.zn_android.utils.ToastUtil;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
+import okhttp3.Cookie;
+import okhttp3.HttpUrl;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -68,6 +75,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
     private PresentScorePresenter sharepresenter;
     private String shareContent = Constants.vedioShareContent;
     private String shareTitle = Constants.vedioShareTitle;
+    private String shareUrl = Constants.vedioShareUrl;
     private String mUrl = Constants.vedioShareUrl;
     UMImage image = new UMImage(VideoDetailActivity.this, Constants.iconResourece);
     /**
@@ -89,7 +97,7 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
                 .setDisplayList(displaylist)
                 .withText(shareContent)
                 .withTitle(shareTitle)
-                .withTargetUrl(mUrl)
+                .withTargetUrl(shareUrl )
                 .withMedia(image)
                 .setListenerList(umShareListener)
                 .open();
@@ -213,7 +221,6 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
         super.onResume();
         MobclickAgent.onPageStart("VideoDetailActivity"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
         MobclickAgent.onResume(this);          //统计时长
-
         initData();
     }
 
@@ -304,17 +311,23 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
      * @param url
      */
     private void syncCookie(String url) {
+        CookieManger cookieManger = new CookieManger(RnApplication.getInstance());
+        PersistentCookieStore cookieStore = cookieManger.getCookieStore();
+        List<Cookie> cookies = cookieStore.get(HttpUrl.parse(Constants_api.BASE_URL));
         try {
             CookieSyncManager.createInstance(mWvVedioDetail.getContext());
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.setAcceptCookie(true);
             cookieManager.removeSessionCookie();// 移除
             cookieManager.removeAllCookie();
-            StringBuilder sbCookie = new StringBuilder();
-            sbCookie.append(_mApplication.getUserInfo().getSessionID());
-            sbCookie.append(String.format(";domain=%s", ""));
-            sbCookie.append(String.format(";path=%s", ""));
-            String cookieValue = sbCookie.toString();
+//            StringBuilder sbCookie = new StringBuilder();
+//            sbCookie.append(_mApplication.getUserInfo().getSessionID());
+//            Log.e(TAG, "syncCookie: " + _mApplication.getUserInfo().getSessionID());
+////            ToastUtil.showLong(this, _mApplication.getUserInfo().getSessionID());
+//            sbCookie.append(String.format(";domain=%s", ""));
+//            sbCookie.append(String.format(";path=%s", ""));
+//            String cookieValue = sbCookie.toString();
+            String cookieValue = CookieManger.formatCookie(cookies);
             cookieManager.setCookie(url, cookieValue);
             CookieSyncManager.getInstance().sync();
         } catch (Exception e) {
@@ -399,13 +412,21 @@ public class VideoDetailActivity extends BaseActivity implements View.OnClickLis
      * @param vedio_id
      */
     public void postVideoCollect(String vedio_id) {
-        AppObservable.bindActivity(this, _apiManager.getService().postVedioCollect(_mApplication.getUserInfo().getSessionID(), vedio_id))
+        _apiManager.getService().postVedioCollect(_mApplication.getUserInfo().getSessionID(), vedio_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultVedioCollect, Throwable -> {
                     Throwable.printStackTrace();
                     ToastUtil.showShort(this, getString(R.string.no_net));
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().postVedioCollect(_mApplication.getUserInfo().getSessionID(), vedio_id))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultVedioCollect, Throwable -> {
+//                    Throwable.printStackTrace();
+//                    ToastUtil.showShort(this, getString(R.string.no_net));
+//                });
     }
 
     private void resultVedioCollect(ReturnValue<MessageBean> returnValue) {

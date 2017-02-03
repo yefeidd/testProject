@@ -3,6 +3,9 @@ package cn.zn.com.zn_android.presenter;
 import android.app.Activity;
 import android.util.SparseArray;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.zn.com.zn_android.model.bean.HsDayKLineBean;
 import cn.zn.com.zn_android.model.bean.HsWeekKLineBean;
 import cn.zn.com.zn_android.model.bean.MinuteTradingBean;
@@ -17,9 +20,6 @@ import cn.zn.com.zn_android.model.chartBean.MinutesBean;
 import cn.zn.com.zn_android.model.chartBean.MinutesModel;
 import cn.zn.com.zn_android.model.chartBean.RSIBean;
 import cn.zn.com.zn_android.uiclass.page.BaseChartPage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ChartParse {
     private Activity mActivity;
@@ -66,7 +66,7 @@ public class ChartParse {
     }
 
     /**
-     * 计算
+     * 计算分时数据
      *
      * @param minDatas
      */
@@ -100,7 +100,30 @@ public class ChartParse {
                         downPrice = Math.abs(Float.valueOf(minutesBean.getLowPrice()) - baseValue);
                         permaxmin = upPrice > downPrice ? upPrice : downPrice;
                     }
-                }
+                } else {
+                    MinutesBean initMinutesBean = new MinutesBean();
+                    initMinutesBean.setHighPrice("10");
+                    initMinutesBean.setLowPrice("-10");
+                    initMinutesBean.setTime("--");
+                    initMinutesBean.setLastPrice(0);
+                    initMinutesBean.setCurrent_volume("0");
+                    initMinutesBean.setAverage(0);
+                    initMinutesBean.setVol(0);
+                    initMinutesBean.setZf("0");
+                    initMinutesBean.setZf_rate("0");
+                    datas.add(initMinutesBean);
+                    float curPrice = initMinutesBean.getLastPrice();
+                    float upPrice, downPrice;
+                    if (curPrice == 0.0f) {
+                        baseValue = 0;
+                        permaxmin = 10f;
+                    } else {
+                        baseValue = curPrice - Float.valueOf(initMinutesBean.getZf());
+                        upPrice = Math.abs(Float.valueOf(initMinutesBean.getHighPrice()) - baseValue);
+                        downPrice = Math.abs(Float.valueOf(initMinutesBean.getLowPrice()) - baseValue);
+                        permaxmin = upPrice > downPrice ? upPrice : downPrice;
+
+                }}
 
                 if (chartPage != null) chartPage.initData();
             }
@@ -398,7 +421,7 @@ public class ChartParse {
     }
 
     public float getPercentMin() {
-        if (baseValue == 0) return 0.1f;
+        if (baseValue == 0) return -0.1f;
         else return -getPercentMax();
     }
 

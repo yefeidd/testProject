@@ -9,15 +9,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.model.bean.MinuteTradingBean;
-import cn.zn.com.zn_android.utils.UnitUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.model.bean.MinuteTradingBean;
+import cn.zn.com.zn_android.utils.UnitUtils;
 
 /**
  * Created by zjs on 2016/7/15 0015.
@@ -73,8 +72,10 @@ public class MinuteStockRradingAdapter extends ArrayAdapter<MinuteTradingBean> {
         try {
             count = Integer.valueOf(num);
             String unit = UnitUtils.getVolUnit1(count);
-            float number = UnitUtils.getVol(count);
-            viewHolder.mTvNumber.setText(number + unit);
+            if (!"".equals(unit)) {
+                float number = UnitUtils.getVol(count);
+                viewHolder.mTvNumber.setText(number + unit);
+            } else viewHolder.mTvNumber.setText(num);
         } catch (Exception e) {
             viewHolder.mTvNumber.setText(num);
         }

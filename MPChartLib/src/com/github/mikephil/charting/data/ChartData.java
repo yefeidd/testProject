@@ -20,6 +20,7 @@ import java.util.List;
  * @author Philipp Jahoda
  */
 public abstract class ChartData<T extends IDataSet<? extends Entry>> {
+    private static final String TAG = "ChartData";
 
     /**
      * maximum y-value in the y-value array across all axes
@@ -180,8 +181,9 @@ public abstract class ChartData<T extends IDataSet<? extends Entry>> {
 
         for (int i = 0; i < mDataSets.size(); i++) {
             if (mDataSets.get(i).getEntryCount() > mXVals.size()) {
-                throw new IllegalArgumentException(
-                        "One or more of the DataSet Entry arrays are longer than the x-values array of this ChartData object.");
+//                throw new IllegalArgumentException(
+//                        "One or more of the DataSet Entry arrays are longer than the x-values array of this ChartData object.");
+                Log.e(TAG, "One or more of the DataSet Entry arrays are longer than the x-values array of this ChartData object.");
             }
         }
     }

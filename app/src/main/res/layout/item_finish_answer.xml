@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_bottom_line"
+        android:divider="@null"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/base14dp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp"
+        android:paddingTop="@dimen/base20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_star"
+                    android:layout_marginTop="@dimen/base5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/pre_star4" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/base5dp"
+                    android:layout_marginRight="@dimen/base5dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_content"
+                        style="@style/Txt14Black"
+                        android:layout_width="match_parent"
+                        android:lineSpacingExtra="@dimen/base3dp"
+                        android:lines="2"
+                        android:text="猛狮科技 (002648) 今天为何如此下跌? 明天如何？我是不是不应该入手？" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        style="@style/Txt12BarGrey"
+                        android:layout_marginTop="@dimen/base3dp"
+                        android:text="回答时间:58分40秒"
+                        android:visibility="visible" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_set_cancel"
+                android:layout_width="@dimen/base65dp"
+                android:layout_height="@dimen/base35dp"
+                android:background="@drawable/sp_rect_btn_red"
+                android:gravity="center"
+                android:text="@string/set_perfect"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!--<TextView-->
+        <!--style="@style/Txt14BarGrey"-->
+        <!--android:layout_marginLeft="@dimen/base38dp"-->
+        <!--android:layout_marginTop="@dimen/base10dp"-->
+        <!--android:text="剩余时间:1小时56分09秒"-->
+        <!--android:visibility="gone" />-->
+    </LinearLayout>
+</LinearLayout>

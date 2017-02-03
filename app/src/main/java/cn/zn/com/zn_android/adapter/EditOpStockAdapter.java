@@ -1,6 +1,5 @@
 package cn.zn.com.zn_android.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -11,6 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.RnApplication;
@@ -18,14 +23,6 @@ import cn.zn.com.zn_android.model.OptionalStockModel;
 import cn.zn.com.zn_android.uiclass.callback.RVItemTouchCallback;
 import cn.zn.com.zn_android.uiclass.listener.DragRVItemClickListener;
 import cn.zn.com.zn_android.utils.ToastUtil;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -65,9 +62,9 @@ public class EditOpStockAdapter extends RecyclerView.Adapter<EditOpStockAdapter.
 
         holder.mIvDelete.setOnClickListener(v -> {
             if (position >= list.size()) return;
-            AppObservable.bindActivity((Activity) mContext, ApiManager.getInstance().getService()
-                    .delSelfStock(RnApplication.getInstance().getUserInfo().getSessionID(), 
-                            list.get(position).getId()))
+            ApiManager.getInstance().getService()
+                    .delSelfStock(RnApplication.getInstance().getUserInfo().getSessionID(),
+                            list.get(position).getId())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(returnValue -> {
@@ -81,6 +78,23 @@ public class EditOpStockAdapter extends RecyclerView.Adapter<EditOpStockAdapter.
                     }, throwable -> {
                         Log.e(TAG, "delSelfStock: ", throwable);
                     });
+
+//            AppObservable.bindActivity((Activity) mContext, ApiManager.getInstance().getService()
+//                    .delSelfStock(RnApplication.getInstance().getUserInfo().getSessionID(),
+//                            list.get(position).getId()))
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(returnValue -> {
+//                        if (null != returnValue) {
+//                            if (returnValue.getData().getMessage().equals("删除成功")) {
+//                                list.remove(position);
+//                                notifyItemRemoved(position);
+//                                notifyItemRangeChanged(position, list.size() - position);
+//                            }
+//                        }
+//                    }, throwable -> {
+//                        Log.e(TAG, "delSelfStock: ", throwable);
+//                    });
 
         });
 

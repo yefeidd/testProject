@@ -6,7 +6,7 @@ import java.util.List;
  *
  * Created by Jolly on 2016/9/22 0022.
  */
-public class StockRecordBean {
+public class StockRecordBean extends MessageBean {
     private String start_time;
     private String end_time;
     private List<StockRecordItemBean> data;

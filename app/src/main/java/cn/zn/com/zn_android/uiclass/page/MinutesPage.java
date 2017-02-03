@@ -13,24 +13,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.adapter.MinuteStockRradingAdapter;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.model.bean.MarketDetailBean;
-import cn.zn.com.zn_android.model.bean.MinuteTradingBean;
-import cn.zn.com.zn_android.model.chartBean.MinutesBean;
-import cn.zn.com.zn_android.presenter.ChartParse;
-import cn.zn.com.zn_android.uiclass.ScrollListView;
-import cn.zn.com.zn_android.uiclass.customerview.customChart.MyBarChart;
-import cn.zn.com.zn_android.uiclass.customerview.customChart.MyLeftMarkerView;
-import cn.zn.com.zn_android.uiclass.customerview.customChart.MyLineChart;
-import cn.zn.com.zn_android.uiclass.customerview.customChart.MyRightMarkerView;
-import cn.zn.com.zn_android.uiclass.customerview.customChart.MyXAxis;
-import cn.zn.com.zn_android.uiclass.customerview.customChart.MyYAxis;
-import cn.zn.com.zn_android.uiclass.listener.MyChartListener;
-import cn.zn.com.zn_android.utils.DensityUtil;
-import cn.zn.com.zn_android.utils.UnitUtils;
-import cn.zn.com.zn_android.utils.VolFormatter;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
@@ -51,6 +33,25 @@ import com.github.mikephil.charting.utils.Utils;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.adapter.MinuteStockRradingAdapter;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.model.bean.MarketDetailBean;
+import cn.zn.com.zn_android.model.bean.MinuteTradingBean;
+import cn.zn.com.zn_android.model.chartBean.MinutesBean;
+import cn.zn.com.zn_android.presenter.ChartParse;
+import cn.zn.com.zn_android.uiclass.ScrollListView;
+import cn.zn.com.zn_android.uiclass.customerview.customChart.MyBarChart;
+import cn.zn.com.zn_android.uiclass.customerview.customChart.MyLeftMarkerView;
+import cn.zn.com.zn_android.uiclass.customerview.customChart.MyLineChart;
+import cn.zn.com.zn_android.uiclass.customerview.customChart.MyRightMarkerView;
+import cn.zn.com.zn_android.uiclass.customerview.customChart.MyXAxis;
+import cn.zn.com.zn_android.uiclass.customerview.customChart.MyYAxis;
+import cn.zn.com.zn_android.uiclass.listener.MyChartListener;
+import cn.zn.com.zn_android.utils.DensityUtil;
+import cn.zn.com.zn_android.utils.UnitUtils;
+import cn.zn.com.zn_android.utils.VolFormatter;
 
 /**
  * Created by zjs on 2016/7/13 0013.
@@ -390,7 +391,7 @@ public class MinutesPage extends BaseChartPage {
         setShowLabels(stringSparseArray);
         Log.e("###", mData.getDatas().size() + "ee");
         if (mData.getDatas().size() == 0) {
-            mLineChart.setNoDataText("暂无数据");
+            mLineChart.setNoDataText("未开盘");
             return;
         }
         //设置y左右两轴最大最小值
@@ -452,9 +453,13 @@ public class MinutesPage extends BaseChartPage {
                     stringSparseArray.get(i).contains("/")) {
                 i++;
             }
-            lineCJEntries.add(new Entry(mData.getDatas().get(i).LastPrice, i));
-            lineJJEntries.add(new Entry(mData.getDatas().get(i).average, i));
-            barEntries.add(new BarEntry(mData.getDatas().get(i).vol, i));
+            if (i < mData.getDatas().size()) {
+                lineCJEntries.add(new Entry(mData.getDatas().get(i).LastPrice, i));
+                lineJJEntries.add(new Entry(mData.getDatas().get(i).average, i));
+                barEntries.add(new BarEntry(mData.getDatas().get(i).vol, i));
+            } else {
+                return;
+            }
             // dateList.add(mData.getDatas().get(i).time);
         }
         d1 = new LineDataSet(lineCJEntries, "成交价");

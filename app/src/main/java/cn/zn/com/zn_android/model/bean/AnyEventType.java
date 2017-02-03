@@ -8,6 +8,16 @@ public class AnyEventType {
     Boolean state;
     Integer type;
     String tid;
+    String stockCode;
+
+    public String getStockCode() {
+        return stockCode;
+    }
+
+    public AnyEventType setStockCode(String stockCode) {
+        this.stockCode = stockCode;
+        return this;
+    }
 
     public String getTid() {
         return tid;

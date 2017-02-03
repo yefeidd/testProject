@@ -11,6 +11,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.VideoListAdapter;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
@@ -18,14 +24,7 @@ import cn.zn.com.zn_android.model.bean.VideoBean;
 import cn.zn.com.zn_android.model.entity.ReturnListValue;
 import cn.zn.com.zn_android.uiclass.activity.VideoDetailActivity;
 import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -167,7 +166,7 @@ public class VideosFragment extends BaseFragment {
     }
 
     private void queryVideoList() {
-        AppObservable.bindFragment(this, _apiManager.getService().queryVideoList(""))
+        _apiManager.getService().queryVideoList("")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultVideoList, throwable -> {
@@ -176,6 +175,15 @@ public class VideosFragment extends BaseFragment {
                     }
                     Log.e(TAG, "queryVideoList: ", throwable);
                 });
+//        AppObservable.bindFragment(this, _apiManager.getService().queryVideoList(""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultVideoList, throwable -> {
+//                    if (dialog != null) {
+//                        dialog.dismiss();
+//                    }
+//                    Log.e(TAG, "queryVideoList: ", throwable);
+//                });
     }
 
     private void resultVideoList(ReturnListValue<VideoBean> returnValue) {

@@ -9,17 +9,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.adapter.ArticleListAdapter;
-import cn.zn.com.zn_android.adapter.HostLiveAdapter;
-import cn.zn.com.zn_android.model.bean.AnyEventType;
-import cn.zn.com.zn_android.model.bean.ArticleBean;
-import cn.zn.com.zn_android.model.bean.HotLiveBean;
-import cn.zn.com.zn_android.model.entity.ReturnListValue;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.uiclass.xlistview.XListView;
-import cn.zn.com.zn_android.utils.ToastUtil;
-import cn.zn.com.zn_android.utils.UIUtil;
 import com.qiniu.android.utils.StringUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -27,8 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.adapter.ArticleListAdapter;
+import cn.zn.com.zn_android.adapter.HostLiveAdapter;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.model.bean.AnyEventType;
+import cn.zn.com.zn_android.model.bean.ArticleBean;
+import cn.zn.com.zn_android.model.bean.HotLiveBean;
+import cn.zn.com.zn_android.model.entity.ReturnListValue;
+import cn.zn.com.zn_android.uiclass.xlistview.XListView;
+import cn.zn.com.zn_android.utils.ToastUtil;
+import cn.zn.com.zn_android.utils.UIUtil;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -216,7 +215,7 @@ public class ArticleSearchActivity extends BaseActivity implements View.OnClickL
      * @return
      */
     private void getNewArticleData(String kwords, String order, String page, String pcount) {
-        AppObservable.bindActivity(this, _apiManager.getService().getArticleList(kwords, origin, order, page, pcount))
+        _apiManager.getService().getArticleList(kwords, origin, order, page, pcount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultNewArticle, Throwable -> {
@@ -225,6 +224,17 @@ public class ArticleSearchActivity extends BaseActivity implements View.OnClickL
                     Throwable.printStackTrace();
                     ToastUtil.showShort(this, getString(R.string.no_net));
                 });
+
+
+//        AppObservable.bindActivity(this, _apiManager.getService().getArticleList(kwords, origin, order, page, pcount))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultNewArticle, Throwable -> {
+//                    mXlvSearchList.stopRefresh();
+//                    mXlvSearchList.stopLoadMore();
+//                    Throwable.printStackTrace();
+//                    ToastUtil.showShort(this, getString(R.string.no_net));
+//                });
     }
 
     private void resultNewArticle(ReturnListValue<ArticleBean> returnValue) {
@@ -248,13 +258,20 @@ public class ArticleSearchActivity extends BaseActivity implements View.OnClickL
      * 发送请求热门直播列表请求
      */
     private void postHotLiveRequest() {
-        AppObservable.bindActivity(this, _apiManager.getService().getHotLiveList(kwords)).
-                subscribeOn(Schedulers.io())
+        _apiManager.getService().getHotLiveList(kwords)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultLiveList, throwable -> {
                     Log.e(TAG, "." +
                             "postHotLiveRequest: 异常");
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().getHotLiveList(kwords)).
+//                subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultLiveList, throwable -> {
+//                    Log.e(TAG, "." +
+//                            "postHotLiveRequest: 异常");
+//                });
     }
 
     private void resultLiveList(ReturnListValue<HotLiveBean> returnValue) {

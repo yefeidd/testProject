@@ -9,13 +9,6 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.adapter.viewHolder.ListViewAdapter;
-import cn.zn.com.zn_android.model.ContestGameModel;
-import cn.zn.com.zn_android.model.ContestNoticeModel;
-import cn.zn.com.zn_android.model.ContestRankingListModel;
-import cn.zn.com.zn_android.model.bean.ContestDynamicBean;
-import cn.zn.com.zn_android.uiclass.xlistview.XListView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -23,7 +16,13 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.android.app.AppObservable;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.adapter.viewHolder.ListViewAdapter;
+import cn.zn.com.zn_android.model.ContestGameModel;
+import cn.zn.com.zn_android.model.ContestNoticeModel;
+import cn.zn.com.zn_android.model.ContestRankingListModel;
+import cn.zn.com.zn_android.model.bean.ContestDynamicBean;
+import cn.zn.com.zn_android.uiclass.xlistview.XListView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -151,7 +150,7 @@ public class ContestDynamicFragment extends BaseFragment implements RadioGroup.O
     /**
      * 初始化数据
      */
-    private void initData() {
+    public void initData() {
         gamePage = 0;
         lvPage = 0;
         noticePage = 0;
@@ -262,7 +261,7 @@ public class ContestDynamicFragment extends BaseFragment implements RadioGroup.O
 
 
     private void getDataForServer(String type, int page) {
-        AppObservable.bindActivity(_mActivity, _apiManager.getService().queryContestDynamicList(type, String.valueOf(page)))
+        _apiManager.getService().queryContestDynamicList(type, String.valueOf(page))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(returnListValue -> {
@@ -286,6 +285,31 @@ public class ContestDynamicFragment extends BaseFragment implements RadioGroup.O
                 }, throwable -> {
                     Log.e(TAG, "tradeStock: " + throwable);
                 });
+
+//        AppObservable.bindActivity(_mActivity, _apiManager.getService().queryContestDynamicList(type, String.valueOf(page)))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(returnListValue -> {
+//                    if (null != returnListValue && null != returnListValue.getData()) {
+//                        switch (type) {
+//                            case ALL_GAME:
+//                                gameList = returnListValue.getData();
+//                                setDataForAdapter(type, page);
+//                                break;
+//                            case LV_lIST:
+//                                lvList = returnListValue.getData();
+//                                setDataForAdapter(type, page);
+//                                break;
+//                            case LV_NOTICE:
+//                                noticeList = returnListValue.getData();
+//                                setDataForAdapter(type, page);
+//                                break;
+//                        }
+//
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "tradeStock: " + throwable);
+//                });
     }
 
 

@@ -12,6 +12,14 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.SearchMarketAdapter;
 import cn.zn.com.zn_android.adapter.SelfSelectAdapter;
@@ -25,16 +33,7 @@ import cn.zn.com.zn_android.model.modelMole.MarketImp;
 import cn.zn.com.zn_android.uiclass.xlistview.XListView;
 import cn.zn.com.zn_android.utils.ToastUtil;
 import cn.zn.com.zn_android.utils.UIUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -124,18 +123,25 @@ public class BuySearchActivity extends BaseActivity implements TextWatcher, Adap
 
     @Override
     public void afterTextChanged(Editable s) {
-        if (s.length() > 3) {
+        if (s.length() >= 3) {
             searchStock(s.toString());
         }
     }
 
     public void querySelfStock(String sessionId) {
-        AppObservable.bindActivity(this, _apiManager.getService().querySelfStock(sessionId, ""))
+        _apiManager.getService().querySelfStock(sessionId, "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultSelfStock, throwable -> {
                     Log.e(TAG, "querySelfStock: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().querySelfStock(sessionId, ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultSelfStock, throwable -> {
+//                    Log.e(TAG, "querySelfStock: ", throwable);
+//                });
     }
 
     private void resultSelfStock(ReturnListValue<SelfSelectStockBean> retValue) {
@@ -145,9 +151,9 @@ public class BuySearchActivity extends BaseActivity implements TextWatcher, Adap
         selfDataList.clear();
         List<SelfSelectStockBean> selfSelectStockList = retValue.getData();
         Iterator<SelfSelectStockBean> iter = selfSelectStockList.iterator();
-        while(iter.hasNext()){
+        while (iter.hasNext()) {
             SelfSelectStockBean bean = iter.next();
-            if(bean.getTicker().length() == 5){
+            if (bean.getTicker().length() == 5) {
                 iter.remove();
             }
         }
@@ -166,17 +172,31 @@ public class BuySearchActivity extends BaseActivity implements TextWatcher, Adap
      * @param keyword 股票代码，股票拼音简称
      */
     private void searchStock(String keyword) {
-        AppObservable.bindActivity(this, _apiManager.getService().searchStock(keyword))
+        _apiManager.getService().searchStock(keyword)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultSearchStock, throwable -> {
                     Log.e(TAG, "searchStock: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().searchStock(keyword))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultSearchStock, throwable -> {
+//                    Log.e(TAG, "searchStock: ", throwable);
+//                });
     }
 
     private void resultSearchStock(ReturnListValue<OptionalStockBean> retValue) {
         dataList.clear();
         List<OptionalStockBean> list = retValue.getData();
+        Iterator<OptionalStockBean> iter = list.iterator();
+        while (iter.hasNext()) {
+            OptionalStockBean bean = iter.next();
+            if (bean.getCode().length() == 5) {
+                iter.remove();
+            }
+        }
         if (null == list || list.size() == 0) {
             mTvSelfChoose.setVisibility(View.VISIBLE);
             ToastUtil.showShort(this, "搜索结果为空");

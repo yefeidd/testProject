@@ -19,6 +19,21 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+    <style name="Txt14BarRed">
+        <item name="android:textColor">@color/text_red</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Txt16BarRed">
+        <item name="android:textColor">@color/text_red</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="Black13">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/font_value_black</item>
@@ -40,6 +55,13 @@
     <style name="Market_Gray_12">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/market_detail_font_color</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Txt14_e99038">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/yellow_e99038</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>

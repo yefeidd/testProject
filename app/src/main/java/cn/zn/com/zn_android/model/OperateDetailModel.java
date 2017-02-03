@@ -18,7 +18,7 @@ public class OperateDetailModel extends ListviewItemModel {
     }
 
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
         TaOperateDetailViewHolder holder = (TaOperateDetailViewHolder) viewHolder;
         holder.mTvName.setText(bean.getCode_name());
         holder.mTvCode.setText(bean.getCode_id());

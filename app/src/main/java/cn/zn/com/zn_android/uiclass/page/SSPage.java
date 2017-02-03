@@ -84,7 +84,9 @@ public class SSPage extends BaseMvpPage<SSView, SSPresenter>
         mTitledListView.setTitleClickListener(new TitledListView.TitleClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new AnyEventType(v.getTag().toString()));
+                TextView tv = (TextView) v;
+                String title = tv.getText().toString();
+                EventBus.getDefault().postSticky(new AnyEventType(title));
                 mActivity.startActivity(new Intent(mActivity, UpDownRankingActivity.class));
             }
         });

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/base12dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_price"
+        style="@style/Txt16BarRed"
+        android:layout_alignParentRight="true"
+        android:text="￥15"/>
+
+    <TextView
+        android:id="@+id/tv_question"
+        style="@style/Txt14Black"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:text="猛狮科技（002684）今天为何如此下跌？"
+        android:layout_width="match_parent"
+        android:layout_toLeftOf="@+id/tv_price"
+        android:layout_toStartOf="@+id/tv_price" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        style="@style/Txt14ContestGrey"
+        android:layout_marginTop="@dimen/base8dp"
+        android:layout_below="@+id/tv_question"
+        android:text="提问"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/Txt14ContestGrey"
+        android:layout_marginTop="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base16dp"
+        android:layout_toRightOf="@+id/tv_type"
+        android:layout_below="@+id/tv_question"
+        android:text="下单时间：2016-11-04"/>
+
+    <ImageButton
+        android:id="@+id/ib_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/base4dp"
+        android:layout_below="@+id/tv_question"
+        android:background="@mipmap/ic_order_pay_now"/>
+</RelativeLayout>

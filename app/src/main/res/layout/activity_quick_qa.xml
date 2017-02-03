@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_quick_qa"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar"/>
+
+    <TextView
+        android:id="@+id/tv_tip_title"
+        style="@style/Txt14Black"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:layout_marginTop="@dimen/base12dp"
+        android:layout_below="@+id/toolbar"
+        android:text="@string/quick_qa_tip"/>
+
+    <TextView
+        android:id="@+id/tv_warning"
+        android:layout_below="@+id/tv_tip_title"
+        android:layout_width="match_parent"
+        style="@style/Txt13Black"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:layout_marginTop="@dimen/base4dp"
+        android:lineSpacingMultiplier="1.2"
+        android:text="@string/quick_qa_warning"/>
+
+    <LinearLayout
+        android:id="@+id/ll_name"
+        android:layout_below="@+id/tv_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base8dp"
+        android:padding="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:background="@drawable/sp_rect_corner_grey_border"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/Txt14Black"
+            android:text="@string/advice_stock"/>
+
+        <EditText
+            android:id="@+id/et_stock_name"
+            android:layout_width="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            style="@style/Txt13Black"
+            android:hint="@string/search_stock_hint"
+            android:layout_marginLeft="@dimen/base8dp"
+            android:background="@android:color/transparent"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_warning_code"
+        android:layout_below="@+id/ll_name"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:layout_marginTop="@dimen/base4dp"
+        android:visibility="gone"
+        style="@style/Txt12AppColor"
+        android:text="@string/quick_qa_error1"/>
+
+    <LinearLayout
+        android:id="@+id/ll_cost"
+        android:layout_below="@+id/tv_warning_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base8dp"
+        android:padding="@dimen/base8dp"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:background="@drawable/sp_rect_corner_grey_border"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/Txt14Black"
+            android:text="@string/stock_cost"/>
+
+        <EditText
+            android:id="@+id/et_price"
+            android:layout_width="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            style="@style/Txt13Black"
+            android:inputType="numberDecimal"
+            android:hint="@string/stock_price_hint"
+            android:layout_marginLeft="@dimen/base8dp"
+            android:background="@android:color/transparent"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_below="@+id/ll_cost"
+        android:id="@+id/tv_warning_cost"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:layout_marginTop="@dimen/base4dp"
+        android:visibility="gone"
+        style="@style/Txt12AppColor"
+        android:text="@string/quick_qa_error2"/>
+
+    <EditText
+        android:id="@+id/et_detail"
+        android:layout_below="@+id/tv_warning_cost"
+        android:layout_above="@+id/ll_commit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="top"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        style="@style/Txt12Black"
+        android:padding="@dimen/base8dp"
+        android:background="@drawable/sp_rect_corner_grey_border"
+        android:hint="@string/detail_stock_hint"
+        android:layout_marginTop="@dimen/base10dp"
+         />
+
+    <LinearLayout
+        android:id="@+id/ll_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:layout_marginBottom="@dimen/base12dp"
+        android:layout_marginTop="@dimen/base10dp"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cb_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/qa_checked"
+            android:checked="true"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_register_pro"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt13Black"
+            android:paddingLeft="@dimen/base8dp"
+            android:text="@string/qa_agreement" />
+
+        <ImageButton
+            android:id="@+id/ib_ask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/base8dp"
+            android:background="@drawable/ic_qa_ok"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_stocks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_name"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:dividerHeight="0.5dp"
+        android:divider="@color/register_content_color"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

@@ -54,7 +54,7 @@ public class GiftRVAdapter extends RecyclerView.Adapter {
 
         giftViewHolder.mIvGiftImg.setImageResource(giftBeans.get(position).getImgRes());
         giftViewHolder.mIvGiftName.setText(giftBeans.get(position).getGiftName());
-        giftViewHolder.mIvGiftWealth.setText(giftBeans.get(position).getGiftWealth() + "个财富币");
+        giftViewHolder.mIvGiftWealth.setText(giftBeans.get(position).getGiftWealth() + mContext.getString(R.string.wealthy_currency_count));
         if (giftBeans.get(position).isSelected()) {
             giftViewHolder.mLlGift.setBackgroundColor(mContext.getResources().getColor(R.color.register_content_color));
         } else {

@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.viewHolder.ListViewAdapter;
 import cn.zn.com.zn_android.model.ActionDetailModel;
@@ -19,13 +23,7 @@ import cn.zn.com.zn_android.model.bean.OperateDetailBean;
 import cn.zn.com.zn_android.model.bean.OperateDetailEntity;
 import cn.zn.com.zn_android.model.entity.ReturnValue;
 import cn.zn.com.zn_android.uiclass.xlistview.XListView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -86,6 +84,7 @@ public class OperatingDetailActivity extends BaseActivity implements XListView.I
         dataList = new ArrayList<>();
         actionDetailAdapter = new ListViewAdapter(this, R.layout.item_action_detail_dialog, dataList, "ActionDetailViewHolder");
         mXlvFyList.setAdapter(actionDetailAdapter);
+        mXlvFyList.setAutoLoadEnable(false);
         setData(page++);
     }
 
@@ -100,7 +99,7 @@ public class OperatingDetailActivity extends BaseActivity implements XListView.I
 
 
     public void setData(int pageNum) {
-        AppObservable.bindActivity(this, _apiManager.getService().queryOperateList(_mApplication.getUserInfo().getSessionID(), userId, pageNum))
+        _apiManager.getService().queryOperateList(_mApplication.getUserInfo().getSessionID(), userId, pageNum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultOperateList, throwable -> {
@@ -108,6 +107,15 @@ public class OperatingDetailActivity extends BaseActivity implements XListView.I
                     mXlvFyList.stopRefresh();
                     mXlvFyList.stopLoadMore();
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryOperateList(_mApplication.getUserInfo().getSessionID(), userId, pageNum))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultOperateList, throwable -> {
+//                    Log.e(TAG, "queryOperateList: ", throwable);
+//                    mXlvFyList.stopRefresh();
+//                    mXlvFyList.stopLoadMore();
+//                });
     }
 
     @Override
@@ -118,7 +126,10 @@ public class OperatingDetailActivity extends BaseActivity implements XListView.I
 
     private void resultOperateList(ReturnValue<OperateDetailEntity> retValue) {
         mXlvFyList.stopLoadMore();
-        mXlvFyList.stopRefresh();
+        if (mXlvFyList.ismPullRefreshing()) {
+            dataList.clear();
+            mXlvFyList.stopRefresh();
+        }
         if (null != retValue && null != retValue.getData()) {
             OperateDetailEntity entity = retValue.getData();
             List<OperateDetailBean> list = entity.getPosition();
@@ -136,11 +147,13 @@ public class OperatingDetailActivity extends BaseActivity implements XListView.I
 
     @Override
     public void onRefresh() {
-        setData(page++);
+        page = 0;
+        setData(page);
     }
 
     @Override
     public void onLoadMore() {
+        setData(page++);
 
     }
 }

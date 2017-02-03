@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">证牛</string>
 
-    <string name="no_net">未连接网络!</string>
+    <string name="no_net">请连接网络后重试</string>
     <string name="error_http">请求失败</string>
     <string name="error_conversion">请求异常</string>
     <string name="error_unexpected">内部错误</string>
+    <string name="no_net_refresh">网络不佳，请稍后重试</string>
 
     <string name="no_login">未登录</string>
     <string name="setting">设置</string>
@@ -30,7 +31,7 @@
     <string name="news">资讯</string>
     <string name="activity">活动</string>
     <string name="market">行情</string>
-    <string name="person">个人</string>
+    <string name="person">我的</string>
     <string name="forum">论坛</string>
 
     <string name="load_more">加载更多&#8230;</string>
@@ -193,10 +194,12 @@
     <string name="choose_recharge">请选择证牛币数量</string>
     <string name="input_recharge">输入任意金额财富数</string>
     <string name="wealthy_currency">证牛币</string>
+    <string name="wealthy_currency_count">个证牛币</string>
     <string name="recharge_now">立即充值</string>
-    <string name="recharge_tips">温馨提示\n证牛币是证牛针对个人用户在互联网的消费行业而推出的具有唯一性质的虚拟货币\n在充值、消费、提现过程中，1证牛币=1元人民币</string>
+    <string name="recharge_tips">温馨提示\n证牛币是证牛针对个人用户在互联网的消费行业而推出的具有唯一性质的虚拟货币\n在充值、消费过程中，1证牛币=1元人民币</string>
     <string name="pay_now">立即支付</string>
     <string name="pay">支付</string>
+    <string name="bill">账单</string>
 
     <string name="pay_yb">易宝支付</string>
     <string name="pay_yb_info">本服务由易宝支付（yeepay.com)提供</string>
@@ -223,7 +226,10 @@
     <string name="pay_zfb_tips">提示：支付宝充值目前暂时不支持自动到账，充值后如需马上到账或长时间未到账，请联系客服！\n(注：非交易日充值只能延至下一交易日到账)</string>
 
     <string name="my_tactics">我的策略</string>
+    <string name="new_tactics">最新策略</string>
     <string name="my_game">我的大赛</string>
+    <string name="my_qa">我的问答</string>
+    <string name="my_orders">我的订单</string>
     <string name="search_hint">请输入关键字或讲师名称</string>
     <string name="no_data_about_keyword">没有与该关键字有关的数据</string>
     <string name="not_more_data">没有更多数据</string>
@@ -284,6 +290,7 @@
     <!-- 个人 -->
     <string name="foucus_num">关注</string>
     <string name="past">签到</string>
+    <string name="guess_market">猜大盘</string>
     <string name="had_past">已签到</string>
     <string name="collect_num">收藏</string>
     <string name="private_talk">悄悄话</string>
@@ -293,6 +300,7 @@
     <string name="my_recommend">每日荐股</string>
     <string name="diagnosed">诊股券</string>
     <string name="sys_msg">系统消息</string>
+    <string name="sys_question">问卷调查</string>
 
     <string name="sse">上证指数</string>
     <string name="szstock">深证指数</string>
@@ -444,6 +452,7 @@
     <string name="initial_transaction">初次交易</string>
     <string name="last_transaction">最近交易</string>
     <string name="now_position">当前持仓</string>
+    <string name="trust_trans">委托交易</string>
     <string name="current_price">现    价</string>
     <string name="gains">收    益</string>
     <string name="last_market_value">最新市值</string>
@@ -463,7 +472,7 @@
     <string name="self_choose">自选</string>
     <string name="simulated_buy">模拟买入股票</string>
 
-    <string name="profit_loss">盈亏</string>
+    <string name="profit_loss">浮动盈亏</string>
     <string name="buy_in_amount">买入金额</string>
     <string name="sell_out_amount">卖出金额</string>
     <string name="histoty_records">历史记录</string>
@@ -492,6 +501,7 @@
     <string name="add_focus">+ 关注</string>
     <string name="total_profit_rate">总盈利率</string>
     <string name="average_profit">平均收益</string>
+    <string name="month_average_profit">月均收益</string>
     <string name="join_time">参赛时间</string>
     <string name="oprate_detail">操作明细</string>
     <string name="immediately_view">立即查看</string>
@@ -499,8 +509,11 @@
 
     <string name="buy_in_time">买入时间%1$s</string>
     <string name="month_profit">本月收益 %1$s</string>
-    <string name="week_profit">本周收益 %1$s</string>
+    <string name="week_profit">周收益 %1$s</string>
+    <string name="week_profit1">周收益\n%1$s</string>
+    <string name="contest_profit">大赛收益\n%1$s</string>
     <string name="sum_profit">总收益\n%1$s</string>
+    <string name="sum_profit1">总收益 %1$s</string>
     <string name="win_rate">胜率\n%1$s</string>
     <string name="fy_ranking">风云排行榜</string>
     <string name="hot_stock_ranking">热门股票排行榜</string>
@@ -529,5 +542,126 @@
     <string name="day_15_sign">连续签到15天额外送100积分</string>
     <string name="day_30_sign">连续签到30天额外送240积分</string>
     <string name="day_month_more">连续超过一个月不再多送，按照正常每天10积分</string>
+
+    <string name="entrust_price">委托价格</string>
+    <string name="entrust_num">委托数量</string>
+    <string name="entrust_time">委托时间</string>
+    <string name="entrust_frozen_money">冻结资金</string>
+
+    <string name="had_apply">（已报）</string>
+    <string name="cancel_trade">撤单</string>
+    <string name="add_self_select">+自选</string>
+    <string name="del_self_select">-自选</string>
+
+    <!--诊股相关-->
+    <string name="diagnoseSocketOffice">诊股大厅</string>
+    <string name="quick_ask_stock">快速问股</string>
+    <string name="online_teacher">在线精英投顾</string>
+    <string name="accellent_answer">精彩回答</string>
+    <string name="more">更多</string>
+    <string name="more_answer">更多回答</string>
+    <string name="answer_num">一个月解答%1$d条问股</string>
+    <string name="responsing">正在抢答中&#8230;</string>
+
+    <string name="quick_qa_tip">向投顾提问注意事项：</string>
+    <string name="quick_qa_warning">1、投顾的回答仅代表个人观点，仅供参考；\n2、请不要接受投顾私下提供的非本平台约定的服务；\n3、用户提问仅限于沪深两市A股相关问题；\n4、投资有风险，入市需谨慎。</string>
+    <string name="advice_stock">咨询股票</string>
+    <string name="stock_cost">股票成本</string>
+    <string name="search_stock_hint">输入股票名称或代码</string>
+    <string name="stock_price_hint">提示17.55元</string>
+    <string name="detail_stock_hint">· 想知道自己持有的股票接下来如何运转会更有效果？\n· 想了解自己持有的股票后期的走势发会生哪些变化？</string>
+    <string name="qa_agreement">我已同意《证牛投顾付费服务使用条款》</string>
+    <string name="question_count_limit">您的问题太精短了\n请完整描述需要提问的内容</string>
+    <string name="quick_qa_error1">请用正确的方式输入</string>
+    <string name="quick_qa_error2">请输入成本价</string>
+
+    <string name="choose_price">选择支付金额</string>
+    <string name="choose_price_tip">证牛投顾精密分析中，正常24小时内给您回复</string>
+    <string name="choose_price_tip2">温馨提示\n价格因需而异，导师各有所长；策略皆具特色，仅供参考参详（一星：新晋导师、二星：驻站导师、三星：特约导师、四星：知名牛散、五星：证牛大伽），你选谁，谁就为您来场价值翻番的个性回复。</string>
+
+    <string name="order_confirm">订单确认</string>
+    <string name="order_time_warning">订单将于下单过后%1$s后失效，请尽快支付！</string>
+    <string name="order_name">订单名称</string>
+    <string name="order_detail">订单详情</string>
+    <string name="order_cost">支付金额</string>
+    <string name="order_way">支付方式</string>
+    <string name="diagnosed_ticket">%1$s证牛币诊股券</string>
+    <string name="use_znb_pay">证牛币支付</string>
+    <string name="order_time">下单时间：%1$s</string>
+    <string name="order_no">订单编号：%1$s</string>
+    <string name="order_real_cost">应付金额：%1$s币</string>
+    <string name="balance_not_enough">您的余额不足，立即充值</string>
+
+    <string name="pay_result">支付结果</string>
+    <string name="pay_result_success_tip">恭喜您！支付已成功</string>
+    <string name="pay_result_success_warning">24小时内回复，超期自动返还证牛币\n%1$d秒后自动关闭&#8230;&#8230;</string>
+    <string name="pay_result_fail_tip">对不起，支付失败</string>
+    <string name="pay_result_fail_warning">%1$d秒后自动关闭，请稍等&#8230;</string>
+
+    <string name="synthetically_sorting">综合排序</string>
+    <string name="count">数量</string>
+    <string name="favourable_comment">好评</string>
+    <string name="online_teacher_ranking">精英投顾排行榜</string>
+
+    <string name="diagnose_use">使用诊股券</string>
+    <string name="diagnose_no_use">不使用诊股券</string>
+    <string name="diagnose_tip">诊股券不找零</string>
+    <string name="diagnose_count">有%1$d诊股券可用</string>
+
+    <string name="pre_answer">抢答</string>
+    <string name="wait_answer">回答</string>
+    <string name="set_perfect">设为精彩</string>
+    <string name="cancel_perfect">取消精彩</string>
+    <string name="teacher_answer">老师回答</string>
+    <string name="technical_analysis">技术分析：</string>
+    <string name="basic_analysis">基本面分析：</string>
+    <string name="supplement">补充：</string>
+    <string name="short_tendency">短线趋势：</string>
+    <string name="middle_tendency">中线趋势：</string>
+    <string name="sale">卖出</string>
+    <string name="reducing">减持</string>
+    <string name="middle">中性</string>
+    <string name="Overweight">增持</string>
+    <string name="buying">买入</string>
+    <string name="add_pic">添加照片</string>
+    <string name="diagnose__tips">不能少于15个字</string>
+    <string name="preview">预览</string>
+
+    <string name="ask_teacher">向%1$s提问</string>
+    <string name="question_answer">问题回答</string>
+
+    <string name="comment">评价</string>
+    <string name="had_comment">已评价</string>
+    <string name="had_back">已退还</string>
+    <string name="question_answer_detail">问答详情页</string>
+    <string name="qa_detail_op">操作风格：%1$s</string>
+    <string name="qa_detail_short">短线趋势：%1$s</string>
+    <string name="qa_detail_middle">中线趋势：%1$s</string>
+    <string name="qa_detail_tech_analyse">技术分析：%1$s</string>
+    <string name="qa_detail_base_analyse">基本面分析：%1$s</string>
+    <string name="qa_detail_supplement">补充：%1$s</string>
+
+    <string name="my_question">我的提问</string>
+    <string name="my_answer">问股答复</string>
+    <string name="wait">等待</string>
+
+    <string name="wait_for_pay">待支付</string>
+
+    <string name="bill_explain">转账说明</string>
+    <string name="bill_account">对方账号</string>
+    <string name="bill_time">下单时间</string>
+    <string name="bill_num">订单编号</string>
+
+    <string name="bill_detail">账单详情</string>
+
+
+    <string name="photos_num">%1$d张</string>
+    <string name="msg_no_camera">没找到摄像头</string>
+    <string name="msg_maxi_capacity">已达到照片选择上限</string>
+    <string name="commit_num">确定(%1$d/%2$d)</string>
+    <string name="answer_preview">回答预览</string>
+
+    <string name="leave_times">剩余时间：%1$d小时%2$d分%3$d秒</string>
+    <string name="no_data">抱歉主人，您还没有任何%1$s</string>
 
 </resources>

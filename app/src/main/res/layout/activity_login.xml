@@ -37,6 +37,8 @@
             android:drawablePadding="@dimen/activity_small_margin"
             android:drawableRight="@mipmap/ic_delete_txt"
             android:ellipsize="end"
+            android:digits="1234567890 "
+            android:maxLength="13"
             android:gravity="left|center_vertical"
             android:hint="@string/name"
             android:paddingBottom="@dimen/activity_small_margin"

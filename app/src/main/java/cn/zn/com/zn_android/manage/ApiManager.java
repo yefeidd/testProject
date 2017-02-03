@@ -1,7 +1,16 @@
 package cn.zn.com.zn_android.manage;
 
+import java.io.File;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.model.bean.ArticleBean;
+import cn.zn.com.zn_android.model.bean.AskQuestionResultBean;
 import cn.zn.com.zn_android.model.bean.BannerBean;
+import cn.zn.com.zn_android.model.bean.BillBean;
+import cn.zn.com.zn_android.model.bean.BillDetailBean;
 import cn.zn.com.zn_android.model.bean.BuySellStockBean;
 import cn.zn.com.zn_android.model.bean.CSQQBean;
 import cn.zn.com.zn_android.model.bean.ChatMsgBean;
@@ -13,7 +22,10 @@ import cn.zn.com.zn_android.model.bean.ContestHomeListBean;
 import cn.zn.com.zn_android.model.bean.ContributionBean;
 import cn.zn.com.zn_android.model.bean.CoursesBean;
 import cn.zn.com.zn_android.model.bean.DfbBean;
+import cn.zn.com.zn_android.model.bean.DiagnoseUserIndexBean;
 import cn.zn.com.zn_android.model.bean.DynamicExpertBean;
+import cn.zn.com.zn_android.model.bean.EntrustBean;
+import cn.zn.com.zn_android.model.bean.ExcellentAnswerBean;
 import cn.zn.com.zn_android.model.bean.ExchangeRecordBean;
 import cn.zn.com.zn_android.model.bean.FyRankingBean;
 import cn.zn.com.zn_android.model.bean.GjgbBean;
@@ -30,20 +42,33 @@ import cn.zn.com.zn_android.model.bean.HslBean;
 import cn.zn.com.zn_android.model.bean.ImitateFryBean;
 import cn.zn.com.zn_android.model.bean.ImitateFryItemBean;
 import cn.zn.com.zn_android.model.bean.IndexBean;
+import cn.zn.com.zn_android.model.bean.LoginResultBean;
 import cn.zn.com.zn_android.model.bean.MarketDetailBean;
 import cn.zn.com.zn_android.model.bean.MessageBean;
+import cn.zn.com.zn_android.model.bean.MyAskAnswerBean;
+import cn.zn.com.zn_android.model.bean.MyOrderBean;
+import cn.zn.com.zn_android.model.bean.MyQuestionBean;
+import cn.zn.com.zn_android.model.bean.OnlineTeacherBean;
 import cn.zn.com.zn_android.model.bean.OperateDetailEntity;
 import cn.zn.com.zn_android.model.bean.OptionalStockBean;
+import cn.zn.com.zn_android.model.bean.OrderInfoBean;
 import cn.zn.com.zn_android.model.bean.OrderResultBean;
 import cn.zn.com.zn_android.model.bean.OtherHomeMsgBean;
+import cn.zn.com.zn_android.model.bean.PayOrderBean;
 import cn.zn.com.zn_android.model.bean.PaySignBean;
 import cn.zn.com.zn_android.model.bean.PrivateMsgBean;
+import cn.zn.com.zn_android.model.bean.QADetailBean;
+import cn.zn.com.zn_android.model.bean.QuestionBean;
+import cn.zn.com.zn_android.model.bean.QuestionDetailBean;
+import cn.zn.com.zn_android.model.bean.RegularStockBean;
 import cn.zn.com.zn_android.model.bean.RoomBean;
 import cn.zn.com.zn_android.model.bean.RoomSummaryBean;
+import cn.zn.com.zn_android.model.bean.RushAnswerBean;
 import cn.zn.com.zn_android.model.bean.SSListBean;
 import cn.zn.com.zn_android.model.bean.SelfSelectStockBean;
 import cn.zn.com.zn_android.model.bean.ShCfgBean;
 import cn.zn.com.zn_android.model.bean.ShSzDetailBean;
+import cn.zn.com.zn_android.model.bean.ShareTicBean;
 import cn.zn.com.zn_android.model.bean.SignInfoBean;
 import cn.zn.com.zn_android.model.bean.StockNewsBean;
 import cn.zn.com.zn_android.model.bean.StockRecordBean;
@@ -54,6 +79,7 @@ import cn.zn.com.zn_android.model.bean.TransDetailListBean;
 import cn.zn.com.zn_android.model.bean.UserInfoBean;
 import cn.zn.com.zn_android.model.bean.UserPrivateTalkBean;
 import cn.zn.com.zn_android.model.bean.VIPInfoBean;
+import cn.zn.com.zn_android.model.bean.VersionBean;
 import cn.zn.com.zn_android.model.bean.VideoBean;
 import cn.zn.com.zn_android.model.bean.VipStateBean;
 import cn.zn.com.zn_android.model.bean.ZfbBean;
@@ -61,40 +87,45 @@ import cn.zn.com.zn_android.model.bean.ZflBean;
 import cn.zn.com.zn_android.model.chartBean.MinutesBean;
 import cn.zn.com.zn_android.model.entity.ReturnListValue;
 import cn.zn.com.zn_android.model.entity.ReturnValue;
-
-import java.util.Collections;
-import java.util.List;
-
-import retrofit.Callback;
-import retrofit.ErrorHandler;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
-import retrofit.http.Header;
-import retrofit.http.POST;
+import okhttp3.Cache;
+import okhttp3.ConnectionPool;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
  * Created by WJL on 2016/3/10 0010 10:19.
  */
 public class ApiManager {
-    private static final String endpoint = Constants_api.BASE_API_URL;
+    private static final String endpoint = Constants_api.BASE_URL;
     private static final String BASE_PARAMS = "/clientAction.do?method=json&classes=appinterface&common=";
     private static final String BASE_PARAMS_GSON = "/clientAction.do?method=gson&classes=appinterface&common=";
     private static final String BASE_PARAMS_PERSONAL_GSON = "/clientAction.do?method=gson&classes=personalService&common=";
-
     private static final String BASE_PARAMS_HOME = "/m/HomebaseServer/";
+    private static OkHttpClient okHttpClient;
+    private static final int DEFAULT_TIMEOUT = 20; //超时
+    private int[] certificates = {R.raw.tt};
+    private String hosts[] = {"https//tt.zhengniu.net"};
+    private Cache cache = null;
+    private File httpCacheDirectory;
+    private static Retrofit retrofit;
 
-    private RestAdapter restAdapter;
+
+    //    private RestAdapter restAdapter;
     private ApiService service;
-
     private static ApiManager mApiManager;
 
+
     private ApiManager() {
-
     }
-
 
     /**
      * 获取单例
@@ -117,27 +148,58 @@ public class ApiManager {
      * @return
      */
     public ApiService getService() {
-        if (restAdapter == null) {
-            restAdapter = new RestAdapter.Builder()
-                    .setEndpoint(endpoint)
-                    .setErrorHandler(new ErrorHandler() {
-                        @Override
-                        public Throwable handleError(RetrofitError cause) {
-                            return cause.getCause();
-                        }
-                    })
-                    //    .setLogLevel(RestAdapter.LogLevel.FULL)
-                    .build();
-        }
+
+//        if (httpCacheDirectory == null) {
+//            httpCacheDirectory = new File(context.getCacheDir(), "zjs-cache");
+//        }
+//        try {
+//            if (cache == null) {
+//                cache = new Cache(httpCacheDirectory, 10 * 1024 * 1024);
+//            }
+//        } catch (Exception e) {
+//            Log.e("OKHttp", "Could not create http cache", e);
+//        }
+//
+
         if (service == null) {
+//            SSLSocketFactory ss = HttpsFactory.getSSLSocketFactory(context, certificates);
+//            HostnameVerifier verifier = HttpsFactory.getHostnameVerifier(hosts);
+//            if (Constants_api.BASE_URL.startsWith("https:")) {
+//                okHttpClient = new OkHttpClient.Builder()
+//                        .socketFactory(ss)
+//                        .hostnameVerifier(verifier)
+//                        .cookieJar(new CookieManger(context))
+//                        .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+//                        .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+//                        .connectionPool(new ConnectionPool(8, 15, TimeUnit.SECONDS))
+////                 这里你可以根据自己的机型设置同时连接的个数和时间，我这里8个，和每个保持时间为10s
+//                        .build();
+//            } else {
+            okHttpClient = new OkHttpClient.Builder()
+//                    .cookieJar(new CookieManger(context))
+                    .cookieJar(new CookieManger(RnApplication.getInstance()))
+                    .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                    .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                    .connectionPool(new ConnectionPool(8, 15, TimeUnit.SECONDS))
+//                 这里你可以根据自己的机型设置同时连接的个数和时间，我这里8个，和每个保持时间为10s
+                    .build();
+//            }
+            retrofit = new Retrofit.Builder()
+                    .client(okHttpClient)
+                    .baseUrl(Constants_api.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .build();
+
             synchronized (ApiService.class) {
                 if (service == null) {
-                    service = restAdapter.create(ApiService.class);
+                    service = retrofit.create(ApiService.class);
                 }
             }
         }
         return service;
     }
+
 
 //    /**
 //     * 返回结果包转换为 List对象
@@ -184,6 +246,35 @@ public class ApiManager {
     public interface ApiService {
 
         /**
+         * 登陆
+         *
+         * @param phone    手机号
+         * @param password 密码
+         * @param platform 安卓：2，IOS：3
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.LOGIN_URL)
+        Observable<ReturnValue<LoginResultBean>> login(@Field("phone") String phone,
+                                                 @Field("password") String password,
+                                                 @Field("platform") String platform);
+
+        /**
+         * 三方登陆绑定
+         *
+         * @param type     三方登陆的类型
+         * @param ucode    唯一识别码
+         * @param phone    手机号码
+         * @param password 密码
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.TRIPARTITE_BINDING)
+        Observable<ReturnValue<LoginResultBean>> bindLogin(@Field("type") int type,
+                                                     @Field("ucode") String ucode,
+                                                     @Field("phone") String phone,
+                                                     @Field("password") String password);
+
+        /**
          * 找回密码，发送验证码
          *
          * @param phone 手机号
@@ -194,38 +285,6 @@ public class ApiManager {
         Observable<ReturnValue<MessageBean>> findPWSendSms(@Field("phone") String phone);
 
         /**
-         * 登陆
-         *
-         * @param phone    手机号
-         * @param password 密码
-         * @param platform 安卓：2，IOS：3
-         * @return
-         */
-        @FormUrlEncoded
-        @POST(Constants_api.LOGIN_URL)
-        void login(@Field("phone") String phone,
-                   @Field("password") String password,
-                   @Field("platform") String platform,
-                   Callback<ReturnValue<MessageBean>> callback);
-
-        /**
-         * 三方登陆绑定
-         *
-         * @param type     三方登陆的类型
-         * @param ucode    唯一识别码
-         * @param phone    手机号码
-         * @param password 密码
-         * @param callback 回调
-         */
-        @FormUrlEncoded
-        @POST(Constants_api.TRIPARTITE_BINDING)
-        void bindLogin(@Field("type") int type,
-                       @Field("ucode") String ucode,
-                       @Field("phone") String phone,
-                       @Field("password") String password,
-                       Callback<ReturnValue<MessageBean>> callback);
-
-        /**
          * 发送注册验证码
          *
          * @return
@@ -233,7 +292,6 @@ public class ApiManager {
         @FormUrlEncoded
         @POST(Constants_api.SEND_REGIST_CODE)
         Observable<ReturnValue<MessageBean>> sendResCode(@Field("phone") String phone);
-
 
         /**
          * 提交注册信息
@@ -246,8 +304,8 @@ public class ApiManager {
                                                          @Field("nickname") String nickname,
                                                          @Field("password") String password,
                                                          @Field("code") String code,
-                                                         @Field("platform") String platform);
-
+                                                         @Field("platform") String platform,
+                                                         @Field("channel") int channel);
 
         /**
          * 第三方注册绑定
@@ -267,7 +325,8 @@ public class ApiManager {
                                                           @Field("phone") String phone,
                                                           @Field("password") String password,
                                                           @Field("code") String code,
-                                                          @Field("platform") String platform);
+                                                          @Field("platform") String platform,
+                                                          @Field("channel") int channel);
 
         /**
          * 找回密码
@@ -308,9 +367,8 @@ public class ApiManager {
          */
         @FormUrlEncoded
         @POST(Constants_api.GET_MEMBER_INFO)
-        void queryMemberInfo(@Header(Constants.COOKIE) String cookie,
-                             @Field("") String str,
-                             Callback<ReturnValue<UserInfoBean>> callback);
+        Observable<ReturnValue<UserInfoBean>> queryMemberInfo(@Header(Constants.COOKIE) String cookie,
+                                                              @Field("") String str);
 
         /**
          * 修改昵称
@@ -324,7 +382,6 @@ public class ApiManager {
         Observable<ReturnValue<MessageBean>> modifyMemberNick(@Header(Constants.COOKIE) String sessID,
                                                               @Field("nickname") String nickname);
 
-
         /**
          * 修改头像
          *
@@ -336,7 +393,6 @@ public class ApiManager {
         @POST(Constants_api.MODIFY_MEMBER_INFO)
         Observable<ReturnValue<MessageBean>> modifyMemberAvatars(@Header(Constants.COOKIE) String sessID,
                                                                  @Field("avatars") String avatars);
-
 
         /**
          * 修改个性签名
@@ -397,7 +453,6 @@ public class ApiManager {
         @FormUrlEncoded
         @POST(Constants_api.UPLOAD_TOKEN)
         Observable<ReturnValue<MessageBean>> getUpLoadToken(@Field("") String str);
-
 
         /**
          * 发送消息到服务器
@@ -530,9 +585,13 @@ public class ApiManager {
         Observable<ReturnValue<CoursesBean>> queryNotice(@Field("tid") String tid);
 
         /**
-         * 获取名家博文列表
+         * 名家博文/资讯列表(总站)
          *
-         * @param
+         * @param kwords 搜索关键字
+         * @param type   1:资讯2:名家博文
+         * @param order  1:热度2:时间
+         * @param page   页码，默认1)
+         * @param pcount 每页显示数量
          * @return
          */
         @FormUrlEncoded
@@ -626,7 +685,6 @@ public class ApiManager {
         @POST(Constants_api.IS_COLLECT_ART)
         Observable<ReturnValue<MessageBean>> postArtISCollect(@Header(Constants.COOKIE) String sessID,
                                                               @Field("art_id") String art_id);
-
 
         /**
          * 会员购买策略列表
@@ -760,16 +818,12 @@ public class ApiManager {
         Observable<ReturnValue<MessageBean>> feedback(@Header(Constants.COOKIE) String sessID,
                                                       @Field("content") String content);
 
-
         /**
          * 第三方登陆的接口
          */
         @FormUrlEncoded
         @POST(Constants_api.TRIPARTITE_LOGIN)
-        void tripartiteLogin(@Field("type") int type,
-                             @Field("ucode") String ucode,
-                             Callback<ReturnValue<MessageBean>> callback);
-
+        Observable<ReturnValue<LoginResultBean>> tripartiteLogin(@Field("type") int type, @Field("ucode") String ucode);
 
         /**
          * 获取特约讲堂QQ号
@@ -791,6 +845,18 @@ public class ApiManager {
         @FormUrlEncoded
         @POST(Constants_api.IM_DARA)
         Observable<ReturnListValue<ChatMsgBean>> queryImData(@Field("tid") String tid, @Field("isvip") String isvip);
+
+        /**
+         * 会员删除关注(房间)
+         *
+         * @param sessionId
+         * @param tid
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.CANCEL_ROOM)
+        Observable<ReturnValue<MessageBean>> cancelRoom(@Header(Constants.COOKIE) String sessionId,
+                                                        @Field("tid") String tid);
 
         /**
          * 获取上证指数
@@ -863,7 +929,6 @@ public class ApiManager {
         @POST(Constants_api.ADD_SELF_STOCK)
         Observable<ReturnValue<MessageBean>> addSelfStock(@Header(Constants.COOKIE) String sessionId,
                                                           @Field("ticker") String ticker);
-
 
         /**
          * 拉取用户自选股票列表
@@ -1187,7 +1252,6 @@ public class ApiManager {
         Observable<ReturnListValue<HsWeekKLineBean>> querySZCZMonthQuota(@Field("start_time") String start_time,
                                                                          @Field("end_time") String end_time);
 
-
         /**
          * 创业板日K线图数据
          *
@@ -1260,7 +1324,6 @@ public class ApiManager {
         Observable<ReturnListValue<HsWeekKLineBean>> queryHSMonthQuota(@Field("start_time") String start_time,
                                                                        @Field("end_time") String end_time);
 
-
         /**
          * 国企日K线图数据
          *
@@ -1296,7 +1359,6 @@ public class ApiManager {
         @POST(Constants_api.GET_GQ_YUE_K)
         Observable<ReturnListValue<HsWeekKLineBean>> queryGQMonthQuota(@Field("start_time") String start_time,
                                                                        @Field("end_time") String end_time);
-
 
         /**
          * 红筹日K线图数据
@@ -1346,7 +1408,6 @@ public class ApiManager {
         @FormUrlEncoded
         @POST(Constants_api.GET_MIN_ZS_QUOTA)
         Observable<ReturnListValue<MinutesBean>> queryZSMinQuota(@Field("zs_type") String zs_type);
-
 
         /**
          * 港股首页
@@ -1510,7 +1571,8 @@ public class ApiManager {
          */
         @FormUrlEncoded
         @POST(Constants_api.TIC_TOP_INFO)
-        Observable<ReturnValue<MarketDetailBean>> queryMarketDetail(@Field("tic_code") String str);
+        Observable<ReturnValue<MarketDetailBean>> queryMarketDetail(@Header(Constants.COOKIE) String sessionId,
+                                                                    @Field("tic_code") String str);
 
         /**
          * 港股新闻公告列表
@@ -1551,6 +1613,20 @@ public class ApiManager {
         @FormUrlEncoded
         @POST(Constants_api.SEARCH_STOCK)
         Observable<ReturnListValue<OptionalStockBean>> searchStock(@Field("code") String code);
+
+        /**
+         * 搜索股票
+         *
+         * @param code 股票代码，拼音，中文
+         * @param type 值为1显示5条，值为空10条
+         * @param len  值为1,只显示沪深股票，为空都显示
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.SEARCH_STOCK)
+        Observable<ReturnListValue<OptionalStockBean>> searchStock(@Field("code") String code,
+                                                                   @Field("type") String type,
+                                                                   @Field("len") String len);
 
         /**
          * 沪深股票股东，简况，财务信息
@@ -1720,7 +1796,6 @@ public class ApiManager {
         @POST(Constants_api.QUERY_CONTEST_HOME_LIST)
         Observable<ReturnValue<ContestHomeListBean>> queryContestHomeList(@Field("") String id, @Header(Constants.COOKIE) String sessID);
 
-
         /**
          * 风云排行榜(同最赚钱牛人)
          *
@@ -1740,8 +1815,9 @@ public class ApiManager {
          */
         @FormUrlEncoded
         @POST(Constants_api.QUERY_TRACK_RANKING)
-        Observable<ReturnListValue<TrackRankingBean>> queryTrankRanking(@Field("page") String page, @Field("num") String num);
-
+        Observable<ReturnListValue<TrackRankingBean>> queryTrankRanking(@Header(Constants.COOKIE) String sessionId,
+                                                                        @Field("page") String page,
+                                                                        @Field("num") String num);
 
         /**
          * 热门股票列表
@@ -1783,19 +1859,6 @@ public class ApiManager {
         Observable<ReturnValue<MessageBean>> userSign(@Header(Constants.COOKIE) String sessionId, @Field("") String str);
 
         /**
-         * 首页 热门大股神(同人气牛人一个接口、同牛人动态)
-         *
-         * @param page
-         * @param num
-         * @return
-         */
-        @FormUrlEncoded
-        @POST(Constants_api.QUERY_HOT_WARREN_LIST)
-        Observable<ReturnListValue<DynamicExpertBean>> queryHotWarrenList(@Header(Constants.COOKIE) String sessionId,
-                                                                          @Field("page") int page,
-                                                                          @Field("num") int num);
-
-        /**
          * 模拟炒股注册接口
          *
          * @param str
@@ -1824,7 +1887,6 @@ public class ApiManager {
         @FormUrlEncoded
         @POST(Constants_api.SHARE_LOOK_DETAILS)
         Observable<ReturnValue<MessageBean>> presentScore(@Header(Constants.COOKIE) String sessionId, @Field("") String str);
-
 
         /**
          * 大赛动态
@@ -1892,12 +1954,370 @@ public class ApiManager {
                                                        @Field("nu_order_num") String number);
 
         /**
-         * 支付宝
+         * 取消关注
          */
         @FormUrlEncoded
         @POST(Constants_api.UNSET_CONCERN)
         Observable<ReturnValue<MessageBean>> unsetConcern(@Header(Constants.COOKIE) String sessionId,
-                                                       @Field("user_id") String user_id);
+                                                          @Field("user_id") String user_id);
+
+        /**
+         * 委托列表
+         *
+         * @param sessionId
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.QUERY_ENTRUST_LIST)
+        Observable<ReturnListValue<EntrustBean>> queryEntrusList(@Header(Constants.COOKIE) String sessionId,
+                                                                 @Field("") String str);
+
+        /**
+         * 撤销委托
+         *
+         * @param sessionId
+         * @param id
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.REMOVE_ENTRUST)
+        Observable<ReturnValue<MessageBean>> removeEnstuct(@Header(Constants.COOKIE) String sessionId,
+                                                           @Field("id") String id);
+
+        /**
+         * 牛人动态/最赚钱牛人
+         */
+
+        @FormUrlEncoded
+        @POST(Constants_api.HOME_USER_RANK)
+        Observable<ReturnListValue<DynamicExpertBean>> queryMoneyStockGenius(@Header(Constants.COOKIE) String sessionId,
+                                                                             @Field("page") int page,
+                                                                             @Field("num") int num);
+
+        /**
+         * 短线牛人
+         */
+
+        @FormUrlEncoded
+        @POST(Constants_api.HOME_WEEK_RANK)
+        Observable<ReturnListValue<DynamicExpertBean>> querySortStockGenius(@Header(Constants.COOKIE) String sessionId,
+                                                                            @Field("page") int page,
+                                                                            @Field("num") int num);
+
+        /**
+         * 人气牛人
+         */
+
+        @FormUrlEncoded
+        @POST(Constants_api.HOME_HOT_RANK)
+        Observable<ReturnListValue<DynamicExpertBean>> queryHotStockGenius(@Header(Constants.COOKIE) String sessionId,
+                                                                           @Field("page") int page,
+                                                                           @Field("num") int num);
+
+        /**
+         * 诊股提问题
+         *
+         * @param ptype        1:快速问股2:指定老师问股
+         * @param niubi        (证牛币)
+         * @param scode        股票代码
+         * @param sname        股票名称
+         * @param scosts       成本价
+         * @param pdescription 问题描述
+         * @param form         1：安卓 2：IOS
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.ASK_QUESTION)
+        Observable<ReturnValue<AskQuestionResultBean>> askQuestion(@Header(Constants.COOKIE) String sessionId,
+                                                                   @Field("tid") String tid,
+                                                                   @Field("ptype") String ptype,
+                                                                   @Field("niubi") String niubi,
+                                                                   @Field("scode") String scode,
+                                                                   @Field("sname") String sname,
+                                                                   @Field("scosts") String scosts,
+                                                                   @Field("pdescription") String pdescription,
+                                                                   @Field("form") String form);
+
+        /**
+         * 下订单后获取订单信息
+         *
+         * @param order_num 订单号
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.QUERY_ORDER_INFO)
+        Observable<ReturnValue<OrderInfoBean>> queryOrderInfo(@Header(Constants.COOKIE) String sessionId,
+                                                              @Field("order_num") String order_num);
+
+        /**
+         * 订单支付
+         *
+         * @param sessionId
+         * @param order_num 订单号
+         * @param zg_tic    诊股券id
+         * @param platform
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.PAY_ORDER)
+        Observable<ReturnValue<PayOrderBean>> payOrder(@Header(Constants.COOKIE) String sessionId,
+                                                       @Field("order_num") String order_num,
+                                                       @Field("zg_tic") String zg_tic,
+                                                       @Field("platform") String platform);
+
+        /**
+         * 查询问题列表
+         *
+         * @param sessionId
+         * @param type
+         * @param stype
+         * @param page
+         * @param num
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.TEACHER_QUESTION_LIST)
+        Observable<ReturnListValue<QuestionBean>> queryTeacherQuestionList(@Header(Constants.COOKIE) String sessionId,
+                                                                           @Field("type") int type,
+                                                                           @Field("stype") int stype,
+                                                                           @Field("page") int page,
+                                                                           @Field("num") int num);
+
+        /**
+         * 抢答接口
+         *
+         * @param sessionId
+         * @param id
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.RUSH_ANSWER)
+        Observable<ReturnValue<RushAnswerBean>> rushAnswer(@Header(Constants.COOKIE) String sessionId,
+                                                           @Field("id") String id);
+
+        /**
+         * 问题详情
+         *
+         * @param sessionId
+         * @param id
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.QUERY_ASK_INFO)
+        Observable<ReturnListValue<QuestionDetailBean>> queryAskInfo(@Header(Constants.COOKIE) String sessionId,
+                                                                     @Field("id") String id);
+
+        @FormUrlEncoded
+        @POST(Constants_api.TEACHER_ANSWER)
+        Observable<ReturnValue<QuestionDetailBean>> queryTeacherAnswer(@Header(Constants.COOKIE) String sessionId,
+                                                                       @Field("id") String id);
+
+        @FormUrlEncoded
+        @POST(Constants_api.POST_ANSWER)
+        Observable<ReturnValue<MessageBean>> commitTeacherAnswer(@Header(Constants.COOKIE) String sessionId,
+                                                                 @Field("strend") int strend,
+                                                                 @Field("mtrend") int mtrend,
+                                                                 @Field("tanalysis") String tanalysis,
+                                                                 @Field("fanalysis") String fanalysis,
+                                                                 @Field("supplement") String supplement,
+                                                                 @Field("img1") String img1,
+                                                                 @Field("img2") String img2,
+                                                                 @Field("img3") String img3,
+                                                                 @Field("id") String id,
+                                                                 @Field("from") String from);
+
+        /**
+         * 首页精彩回答列表
+         *
+         * @param sessionId
+         * @param page
+         * @param num
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.EXCELLENT_ANSWER_LIST)
+        Observable<ReturnListValue<ExcellentAnswerBean>> excellentAnswerList(@Header(Constants.COOKIE) String sessionId,
+                                                                             @Field("page") String page,
+                                                                             @Field("num") String num);
+
+        /**
+         * 老师房间精彩回答列表
+         *
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.ROOM_JC_ANSWER)
+        Observable<ReturnListValue<ExcellentAnswerBean>> excellentRoomAnswerList(@Header(Constants.COOKIE) String sessionId,
+                                                                                 @Field("tid") String tid);
+
+        /**
+         * 诊股大厅用户首页接口
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.DIAGNOSE_INDEX)
+        Observable<ReturnValue<DiagnoseUserIndexBean>> diagnoseIndex(@Field("") String str);
+
+        /**
+         * 精英投顾排行榜
+         *
+         * @param type 1:综合排序2:数量排序3:好评排序
+         * @param sort 1为升序2位降序
+         * @param page 从0开始
+         * @param num  一页数量
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.DIAGNOSE_TEACHER_LIST)
+        Observable<ReturnListValue<OnlineTeacherBean>> queryDiagnoseTeacherList(@Field("type") String type,
+                                                                                @Field("sort") String sort,
+                                                                                @Field("page") String page,
+                                                                                @Field("num") String num);
+
+        /**
+         * 我的订单
+         *
+         * @param type 1全部 2待支付的
+         * @param page 从0开始
+         * @param num  一页数量
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.QUERY_MY_ORDER)
+        Observable<ReturnListValue<MyOrderBean>> queryMyOrderList(@Header(Constants.COOKIE) String sessionId,
+                                                                  @Field("type") String type,
+                                                                  @Field("page") String page,
+                                                                  @Field("num") String num);
+
+        /**
+         * 问答详情页面
+         *
+         * @param sessionId
+         * @param id
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.QA_DETAIL)
+        Observable<ReturnValue<QADetailBean>> queryQADetail(@Header(Constants.COOKIE) String sessionId,
+                                                            @Field("id") String id);
+
+        /**
+         * 问股答复
+         *
+         * @param sessionId
+         * @param page
+         * @param num
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.QA_ASK_ANSWER)
+        Observable<ReturnListValue<MyAskAnswerBean>> queryAskAnswerList(@Header(Constants.COOKIE) String sessionId,
+                                                                        @Field("page") String page,
+                                                                        @Field("num") String num);
+
+        /**
+         * 提交评价
+         *
+         * @param sessionId
+         * @param id
+         * @param score     星级
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.POST_EVALUATE)
+        Observable<ReturnValue<MessageBean>> postEvaluate(@Header(Constants.COOKIE) String sessionId,
+                                                          @Field("id") String id,
+                                                          @Field("score") String score);
+
+        /**
+         * 我的提问
+         *
+         * @param sessionId
+         * @param page
+         * @param num
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.QUERY_MY_ASK)
+        Observable<ReturnListValue<MyQuestionBean>> queryMyAskList(@Header(Constants.COOKIE) String sessionId,
+                                                                   @Field("page") int page,
+                                                                   @Field("num") int num);
+
+        /**
+         * 取消精彩
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.ANSWER_ADD_GOOD)
+        Observable<ReturnValue<MessageBean>> addGoodAnswer(@Header(Constants.COOKIE) String sessionId,
+                                                           @Field("id") String id);
+
+        /**
+         * 设为精彩
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.ANSWER_DEL_GOOD)
+        Observable<ReturnValue<MessageBean>> delGoodAnswer(@Header(Constants.COOKIE) String sessionId,
+                                                           @Field("id") String id);
+
+        /**
+         * 删除问题
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.ANSWER_DEL_ASK)
+        Observable<ReturnValue<MessageBean>> delAnswer(@Header(Constants.COOKIE) String sessionId,
+                                                       @Field("id") String id);
+
+        /**
+         * 查询账单列表
+         *
+         * @param sessionId
+         * @param page
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.USER_BILL)
+        Observable<ReturnListValue<BillBean>> queryUserBillList(@Header(Constants.COOKIE) String sessionId,
+                                                                @Field("page") int page);
+
+        /**
+         * 查询账单详情
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.BILL_INFO)
+        Observable<ReturnValue<BillDetailBean>> queryBillDeatail(@Header(Constants.COOKIE) String sessionId,
+                                                                 @Field("id") String id);
+
+        /**
+         * 匹配股票名+代码格式是否正确
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.REGULAR_STOCK)
+        Observable<ReturnValue<RegularStockBean>> regularStock(@Field("tic_tit") String tic_tit);
+
+        /**
+         * 个人中心诊股卷列表
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.QUERY_SHARE_TIC_LIST)
+        Observable<ReturnListValue<ShareTicBean>> queryShareTicList(@Header(Constants.COOKIE) String sessionId,
+                                                                    @Field("") String str);
+
+        /**
+         * 老师直播间信息
+         *
+         * @param tid
+         * @return
+         */
+        @FormUrlEncoded
+        @POST(Constants_api.QUERY_TEACHER_INFO)
+        Observable<ReturnValue<HotLiveBean>> queryTeacherInfo(@Field("tid") String tid);
+
+        /**
+         *
+         * @param str
+         * @return
+         */
+        @GET(Constants_api.ANDREWS_VER)
+        Observable<ReturnValue<VersionBean>> queryAndroidVer(@Query("") String str);
 
     }
 }

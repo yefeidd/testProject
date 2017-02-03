@@ -19,7 +19,6 @@ import cn.zn.com.zn_android.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -115,13 +114,21 @@ public class SignatureActivity extends BaseActivity implements View.OnClickListe
             return;
         }
 
-        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberSignature(_mApplication.getUserInfo().getSessionID(), mEtSelfIntru.getText().toString()))
+        _apiManager.getService().modifyMemberSignature(_mApplication.getUserInfo().getSessionID(),
+                mEtSelfIntru.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::modifyResult, throwable -> {
                     Log.i(TAG, "modifySignature: 异常");
                     ToastUtil.showShort(this, getString(R.string.modify_fail));
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberSignature(_mApplication.getUserInfo().getSessionID(), mEtSelfIntru.getText().toString()))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::modifyResult, throwable -> {
+//                    Log.i(TAG, "modifySignature: 异常");
+//                    ToastUtil.showShort(this, getString(R.string.modify_fail));
+//                });
     }
 
     /**

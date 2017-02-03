@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lv_drop_down"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    android:footerDividersEnabled="true"
+    android:background="@color/white"
+    android:divider="@color/grey_line"
+    android:dividerHeight="0.5dp"
+    android:orientation="vertical">
+
+</ListView>

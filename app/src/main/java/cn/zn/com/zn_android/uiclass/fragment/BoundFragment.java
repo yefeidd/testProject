@@ -11,25 +11,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.model.bean.MessageBean;
-import cn.zn.com.zn_android.model.entity.ReturnValue;
-import cn.zn.com.zn_android.uiclass.activity.MainActivity;
-import cn.zn.com.zn_android.uiclass.activity.RegisterActivity;
-import cn.zn.com.zn_android.utils.NetUtil;
-import cn.zn.com.zn_android.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Header;
-import retrofit.client.Response;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.uiclass.activity.RegisterActivity;
+import cn.zn.com.zn_android.utils.ToastUtil;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by zjs on 2016/5/13 0013.
@@ -125,37 +118,24 @@ public class BoundFragment extends BaseFragment implements View.OnClickListener 
             return;
         }
 
-        Callback<ReturnValue<MessageBean>> callback = new Callback<ReturnValue<MessageBean>>() {
-            @Override
-            public void success(ReturnValue<MessageBean> returnValue, Response response) {
-                //保存sessionID
-                List<Header> headerList = response.getHeaders();
-                for (Header header : headerList) {
-                    Log.d(TAG, header.getName() + " " + header.getValue());
-                    if (header.getName().equals(Constants.SET_COOKIE)) {
-                        String phpSessId = header.getValue().split(";")[0];
-                        _mApplication.getUserInfo().setSessionID(phpSessId);
-                        break;
+        _apiManager.getService().bindLogin(type, ucode, loginPhone, loginPassword)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(returnValue -> {
+                    if (returnValue != null) {
+                        if (returnValue.getMsg().equals(Constants.SUCCESS)) {
+                            // 登录成功，保存数据
+                            _mApplication.getUserInfo().setIsLogin(Constants.IS_LOGIN);
+                            _mApplication.getUserInfo().setIsTeacher(returnValue.getData().getIs_teacher());
+                            _mActivity.finish();
+                        } else {
+                            ToastUtil.showShort(_mApplication, returnValue.getData().getMessage());
+                        }
                     }
-                }
-                if (returnValue.getMsg().equals(Constants.SUCCESS)) {
-                    // 登录成功，保存数据
-                    _mApplication.getUserInfo().setIsLogin(Constants.IS_LOGIN);
-                    startActivity(new Intent(_mActivity, MainActivity.class));
-                } else {
-                    ToastUtil.showShort(_mActivity, returnValue.getData().getMessage());
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.i(TAG, "failure: " + error);
-                NetUtil.errorTip(error.getKind());
-
-            }
-        };
-
-        _apiManager.getService().bindLogin(type, ucode, loginPhone, loginPassword, callback);
+                }, throwable -> {
+                    Log.e(TAG, "sendResInfoResult: 异常");
+                    ToastUtil.show(_mActivity, throwable.toString(), Toast.LENGTH_SHORT);
+                });
     }
 
 

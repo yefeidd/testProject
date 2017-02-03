@@ -16,35 +16,28 @@ import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.umeng.analytics.MobclickAgent;
 
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.helper.SpfHelper;
 import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.manage.Constants_api;
 import cn.zn.com.zn_android.manage.RnApplication;
-import cn.zn.com.zn_android.model.bean.MessageBean;
-import cn.zn.com.zn_android.model.bean.UpdataVersionBean;
+import cn.zn.com.zn_android.model.bean.UserInfoBean;
 import cn.zn.com.zn_android.model.entity.ReturnValue;
 import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import cn.zn.com.zn_android.utils.AppUtil;
 import cn.zn.com.zn_android.utils.NetUtil;
+import cn.zn.com.zn_android.utils.OtherUtils;
 import cn.zn.com.zn_android.utils.StorageUtil;
 import cn.zn.com.zn_android.utils.StringUtil;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.google.gson.Gson;
-import com.umeng.analytics.MobclickAgent;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Header;
-import retrofit.client.Response;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by zjs on 2016/4/20 0020.
@@ -61,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
     private AnimationSet set;
     private SharedPreferences sPreferences;
     private RnApplication _mApplication = RnApplication.getInstance();
-    private String updataUrl = Constants_api.BASE_API_URL + Constants_api.ANDREWS_VER;
+//    private String updataUrl = Constants_api.BASE_API_URL + Constants_api.ANDREWS_VER;
 //    //微信app_id
 //    //IWXAPI是第三方app和微信通信的openapi接口
 //    private IWXAPI api;
@@ -88,7 +81,7 @@ public class SplashActivity extends AppCompatActivity {
         initEvent();
         _mApplication.addActivity(this);
 
-        login();
+//        Log.e(TAG, "onCreate: " + getDeviceInfo(this));//获取设备信息
     }
 
     @Override
@@ -100,8 +93,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void initView() {
         rlRoot = (RelativeLayout) findViewById(R.id.rl_root);
 //        checkVersion();
-        //从服务器拿到接口
-        getData(updataUrl);
+
         // 渐变动画
         AlphaAnimation animAlpha = new AlphaAnimation(0, 1);
         animAlpha.setDuration(2000);// 动画时间
@@ -135,6 +127,32 @@ public class SplashActivity extends AppCompatActivity {
         set.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
+                //从服务器拿到接口
+                getData();
+                login();
+                String channelStr = OtherUtils.getChannelName(_mApplication);
+                Observable.just(channelStr)
+                        .subscribeOn(Schedulers.io())
+                        .subscribeOn(Schedulers.io())
+                        .flatMap(new Func1<String, Observable<Integer>>() {
+                            @Override
+                            public Observable<Integer> call(String s) {
+                                int channel = 0;
+                                if (null == channelStr || "".equals(channelStr))
+                                    channel = 0;
+                                else {
+                                    for (int i = 0; i < Constants.channels.length; i++) {
+                                        if (channelStr.equals(Constants.channels[i])) {
+                                            channel = i;
+                                            break;
+                                        }
+                                    }
+                                }
+                                return Observable.just(channel);
+                            }
+                        }).subscribe(value -> {
+                    RnApplication.getInstance().setChannel(value);
+                });
 
             }
 
@@ -275,42 +293,58 @@ public class SplashActivity extends AppCompatActivity {
      */
     private static final String TAG = "SplashActivity";
 
-    private void getData(String httpUrl) {
-        new Thread() {
-            private String mStrContent;
+    private void getData() {
+//        new Thread() {
+//            private String mStrContent;
+//
+//            @Override
+//            public void run() {
+//                try {
+//                    StringBuilder resultData = new StringBuilder();
+//                    URL url = new URL(httpUrl);
+//                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//                    conn.setRequestMethod("GET");
+//                    //inputStreamReader一个个字节读取转为字符,可以一个个字符读也可以读到一个buffer
+//                    //getInputStream是真正去连接网络获取数据
+//                    if (conn.getResponseCode() == 200) {
+//                        InputStreamReader isr = new InputStreamReader(conn.getInputStream());
+//                        //使用缓冲一行行的读入，加速InputStreamReader的速度
+//                        BufferedReader buffer = new BufferedReader(isr);
+//                        String inputLine;
+//                        while ((inputLine = buffer.readLine()) != null) {
+//                            resultData.append(inputLine);
+//                        }
+//                        buffer.close();
+//                        isr.close();
+//                        conn.disconnect();
+//                        mStrContent = resultData.toString();
+//                        Gson gson = new Gson();
+//                        UpdataVersionBean updataVersionBean = gson.fromJson(mStrContent, UpdataVersionBean.class);
+//                        currentVersion = updataVersionBean.getData().getVersion();
+//                        mDownLoadUrl = updataVersionBean.getData().getUrl();
+//                        _mApplication.setDownLoadUrl(mDownLoadUrl);
+//                    }
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.start();
 
-            @Override
-            public void run() {
-                try {
-                    StringBuilder resultData = new StringBuilder();
-                    URL url = new URL(httpUrl);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("GET");
-                    //inputStreamReader一个个字节读取转为字符,可以一个个字符读也可以读到一个buffer
-                    //getInputStream是真正去连接网络获取数据
-                    if (conn.getResponseCode() == 200) {
-                        InputStreamReader isr = new InputStreamReader(conn.getInputStream());
-                        //使用缓冲一行行的读入，加速InputStreamReader的速度
-                        BufferedReader buffer = new BufferedReader(isr);
-                        String inputLine;
-                        while ((inputLine = buffer.readLine()) != null) {
-                            resultData.append(inputLine);
-                        }
-                        buffer.close();
-                        isr.close();
-                        conn.disconnect();
-                        mStrContent = resultData.toString();
-                        Gson gson = new Gson();
-                        UpdataVersionBean updataVersionBean = gson.fromJson(mStrContent, UpdataVersionBean.class);
-                        currentVersion = updataVersionBean.getData().getVersion();
-                        mDownLoadUrl = updataVersionBean.getData().getUrl();
+        ApiManager.getInstance().getService().queryAndroidVer("")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(ret -> {
+                    if (null != ret) {
+                        currentVersion = ret.getData().getVersion();
+                        mDownLoadUrl = ret.getData().getUrl();
                         _mApplication.setDownLoadUrl(mDownLoadUrl);
+
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+                }, throwable -> {
+                    Log.e(TAG, "getData: ", throwable);
+                });
+
     }
 
     /**
@@ -323,47 +357,151 @@ public class SplashActivity extends AppCompatActivity {
         if (password == null && password.equals("")) {
             return;
         }
-
-        Callback<ReturnValue<MessageBean>> callback = new Callback<ReturnValue<MessageBean>>() {
-            @Override
-            public void success(ReturnValue<MessageBean> returnValue, Response response) {
-                List<Header> headerList = response.getHeaders();
-                for (Header header : headerList) {
-                    Log.d(TAG, header.getName() + " " + header.getValue());
-                    if (header.getName().equals(Constants.SET_COOKIE)) {
-                        String phpSessId = header.getValue().split(";")[0];
-                        _mApplication.getUserInfo().setSessionID(phpSessId);
-                        break;
-                    }
-                }
-                if (returnValue.getMsg().equals(Constants.SUCCESS)) {
-                    // 登录成功，保存数据
-                    Log.d(TAG, "success: 登录成功");
-//                    _spfHelper.saveData(Constants.SPF_KEY_PHONE, mEtUsername.getText().toString().trim());
-                    _mApplication.getUserInfo().setPhone(name); // 手机号
-                    _mApplication.getUserInfo().setIsLogin(1);
-                    _mApplication.getUserInfo().setPassword(password);
-
-//                    _spfHelper.saveData(Constants.SPF_KEY_PWD, mEtPassword.getText().toString().trim());
-////                    startActivity(new Intent(_mApplication, MainActivity.class));
-//                    finish();
-                } else {
-                    ToastUtil.showShort(_mApplication, returnValue.getData().getMessage());
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.i(TAG, "failure: " + error);
-                NetUtil.errorTip(error.getKind());
-
-            }
-        };
-
         if (name != null && !name.equals("") && password != null && !password.equals("")) {
-            Log.d(TAG, "login: " + name + "\n" + password);
-            ApiManager.getInstance().getService().login(name, password, "2", callback);
+            /* 登录 */
+            ApiManager.getInstance().getService().login(name, password, "2")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(returnValue -> {
+                        if (returnValue != null) {
+                            if (returnValue.getMsg().equals(Constants.SUCCESS)) {
+                                // 登录成功，保存数据
+                                _mApplication.getUserInfo().setPhone(name); // 手机号
+                                _mApplication.getUserInfo().setIsLogin(1);
+                                _mApplication.getUserInfo().setIsTeacher(returnValue.getData().getIs_teacher());
+                                startActivity(new Intent(_mApplication, MainActivity.class));
+                                finish();
+                            } else {
+                                ToastUtil.showShort(_mApplication, returnValue.getData().getMessage());
+                            }
+                        }
+                    }, throwable -> {
+                        Log.e(TAG, "sendResInfoResult: 异常",throwable);
+                        ToastUtil.show(this, getString(R.string.no_net), Toast.LENGTH_SHORT);
+                    });
+        }
+
+    }
+
+    private void getUserInfo() {
+
+        ApiManager.getInstance().getService().queryMemberInfo(_mApplication.getUserInfo().getSessionID(), "")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(returnValue -> queryUserInfoResult(returnValue), throwable -> {
+                    Log.i(TAG, "queryMemberInfo: 异常");
+                });
+    }
+
+    public void queryUserInfoResult(ReturnValue<UserInfoBean> returnValue) {
+        if (returnValue == null) return;
+        if (returnValue.getMsg().equals(Constants.SUCCESS)) { // 查询接口成功
+            if (returnValue.getData() != null) {
+                _mApplication.getUserInfo().setMemberGrade(returnValue.getData().getGrade());
+                _mApplication.getUserInfo().setName(returnValue.getData().getNickname());
+                _mApplication.getUserInfo().setSex(returnValue.getData().getSex());
+                _mApplication.getUserInfo().setBirthday(returnValue.getData().getBirthday());
+                _mApplication.getUserInfo().setProvince(returnValue.getData().getProvince());
+                _mApplication.getUserInfo().setCity(returnValue.getData().getCity());
+                _mApplication.getUserInfo().setAvatars(returnValue.getData().getAvatars());
+                _mApplication.getUserInfo().setSignature(returnValue.getData().getSignature());
+                _mApplication.getUserInfo().setWealth(returnValue.getData().getWealth());
+                _mApplication.getUserInfo().setIsTeacher(returnValue.getData().getIs_teacher());
+                if (!returnValue.getData().getFen().equals("")) {
+                    _mApplication.getUserInfo().setFen(returnValue.getData().getFen());
+                } else {
+                    _mApplication.getUserInfo().setFen("0");
+                }
+            }
+        } else { // 失败
+            ToastUtil.showShort(_mApplication, "查询会员信息失败，请稍后重试");
+            if (_mApplication.getResources().getString(R.string.please_login).equals(returnValue.getData().getMessage())) {
+                _mApplication.getUserInfo().setIsLogin(Constants.NOT_LOGIN);
+            }
         }
     }
+
+//    /**
+//     * 友盟获取设备信息
+//     */
+//    public static boolean checkPermission(Context context, String permission) {
+//        boolean result = false;
+//        if (Build.VERSION.SDK_INT >= 23) {
+//            try {
+//                Class<?> clazz = Class.forName("android.content.Context");
+//                Method method = clazz.getMethod("checkSelfPermission", String.class);
+//                int rest = (Integer) method.invoke(context, permission);
+//                if (rest == PackageManager.PERMISSION_GRANTED) {
+//                    result = true;
+//                } else {
+//                    result = false;
+//                }
+//            } catch (Exception e) {
+//                result = false;
+//            }
+//        } else {
+//            PackageManager pm = context.getPackageManager();
+//            if (pm.checkPermission(permission, context.getPackageName()) == PackageManager.PERMISSION_GRANTED) {
+//                result = true;
+//            }
+//        }
+//        return result;
+//    }
+//
+//    public static String getDeviceInfo(Context context) {
+//        try {
+//            org.json.JSONObject json = new org.json.JSONObject();
+//            android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context
+//                    .getSystemService(Context.TELEPHONY_SERVICE);
+//            String device_id = null;
+//            if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+//                device_id = tm.getDeviceId();
+//            }
+//            String mac = null;
+//            FileReader fstream = null;
+//            try {
+//                fstream = new FileReader("/sys/class/net/wlan0/address");
+//            } catch (FileNotFoundException e) {
+//                fstream = new FileReader("/sys/class/net/eth0/address");
+//            }
+//            BufferedReader in = null;
+//            if (fstream != null) {
+//                try {
+//                    in = new BufferedReader(fstream, 1024);
+//                    mac = in.readLine();
+//                } catch (IOException e) {
+//                } finally {
+//                    if (fstream != null) {
+//                        try {
+//                            fstream.close();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    if (in != null) {
+//                        try {
+//                            in.close();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            }
+//            json.put("mac", mac);
+//            if (TextUtils.isEmpty(device_id)) {
+//                device_id = mac;
+//            }
+//            if (TextUtils.isEmpty(device_id)) {
+//                device_id = android.provider.Settings.Secure.getString(context.getContentResolver(),
+//                        android.provider.Settings.Secure.ANDROID_ID);
+//            }
+//            json.put("device_id", device_id);
+//            return json.toString();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
 
 }

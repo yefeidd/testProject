@@ -58,7 +58,6 @@
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_width="match_parent"
-                android:text="2015年6月"
                 android:padding="@dimen/base10dp"
                 android:background="@color/white"
                 android:gravity="center"

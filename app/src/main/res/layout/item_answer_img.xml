@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.drawee.view.SimpleDraweeView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sdv_avatar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/base118dp"
+    android:layout_marginRight="@dimen/base8dp"
+    android:scaleType="centerCrop"
+    app:fadeDuration="200"
+    app:roundAsCircle="false" />

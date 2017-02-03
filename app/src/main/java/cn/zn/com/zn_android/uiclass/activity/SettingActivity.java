@@ -13,19 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.model.bean.MessageBean;
-import cn.zn.com.zn_android.model.bean.UpdataVersionBean;
-import cn.zn.com.zn_android.model.entity.ReturnValue;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.manage.Constants_api;
-import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
-import cn.zn.com.zn_android.utils.AppUtil;
-import cn.zn.com.zn_android.utils.NetUtil;
-import cn.zn.com.zn_android.utils.StorageUtil;
-import cn.zn.com.zn_android.utils.StringUtil;
-import cn.zn.com.zn_android.utils.ToastUtil;
-import cn.zn.com.zn_android.utils.UIUtil;
 import com.google.gson.Gson;
 import com.umeng.analytics.MobclickAgent;
 
@@ -36,7 +23,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import butterknife.Bind;
-import rx.android.app.AppObservable;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.manage.Constants_api;
+import cn.zn.com.zn_android.model.bean.MessageBean;
+import cn.zn.com.zn_android.model.bean.UpdataVersionBean;
+import cn.zn.com.zn_android.model.entity.ReturnValue;
+import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
+import cn.zn.com.zn_android.utils.AppUtil;
+import cn.zn.com.zn_android.utils.NetUtil;
+import cn.zn.com.zn_android.utils.StorageUtil;
+import cn.zn.com.zn_android.utils.StringUtil;
+import cn.zn.com.zn_android.utils.ToastUtil;
+import cn.zn.com.zn_android.utils.UIUtil;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -100,23 +99,23 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_leftmenu:
+            case R.id.iv_leftmenu: //返回键
                 finish();
                 break;
-            case R.id.btn_about_us:
+            case R.id.btn_about_us: //关于我们
                 startActivity(new Intent(_mApplication, AboutUsActivity.class));
                 break;
-            case R.id.btn_feedback:
+            case R.id.btn_feedback://意见反馈
                 if (_mApplication.getUserInfo().getIsLogin() == 1) {
                     startActivity(new Intent(_mApplication, FeedBackActivity.class));
                 } else {
                     startActivity(new Intent(_mApplication, LoginActivity.class));
                 }
                 break;
-            case R.id.btn_update:
+            case R.id.btn_update: //检查更新
                 getData(updataUrl);
                 break;
-            case R.id.btn_clear:
+            case R.id.btn_clear: //清除缓存
 //                if (_mApplication.getUserInfo().getIsLogin() == 1) {
 //                    startCleanDialog();
 //                } else {
@@ -124,10 +123,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 //                }
                 startCleanDialog();
                 break;
-            case R.id.btn_refresh_rate:
+            case R.id.btn_refresh_rate: //行情刷新频率
                 startActivity(new Intent(_mApplication, RefreshRateActivity.class));
                 break;
-            case R.id.btn_push:
+            case R.id.btn_push://推送设置
                 startActivity(new Intent(_mApplication, PushActivity.class));
                 break;
             case R.id.btn_favourable_comment:
@@ -137,7 +136,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     startActivity(i);
                 }
                 break;
-            case R.id.tv_exit:
+            case R.id.tv_exit: //腿出当前账号
                 postExitLogin();
                 break;
         }
@@ -171,12 +170,18 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
      * 退出登陆
      */
     private void postExitLogin() {
-        AppObservable.bindActivity(this, _apiManager.getService().postExitLogin(_mApplication.getUserInfo().getSessionID(), "")).
-                subscribeOn(Schedulers.io())
+        _apiManager.getService().postExitLogin(_mApplication.getUserInfo().getSessionID(), "")
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultExitLogin, throwable -> {
                     Log.e(TAG, "getQNToken: 异常");
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().postExitLogin(_mApplication.getUserInfo().getSessionID(), "")).
+//                subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultExitLogin, throwable -> {
+//                    Log.e(TAG, "getQNToken: 异常");
+//                });
     }
 
     private void resultExitLogin(ReturnValue<MessageBean> returnValue) {

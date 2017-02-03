@@ -7,7 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,25 +16,24 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.adapter.PrivateTalkAdapter;
-import cn.zn.com.zn_android.model.bean.AnyEventType;
-import cn.zn.com.zn_android.model.bean.MessageBean;
-import cn.zn.com.zn_android.model.bean.PrivateMsgBean;
-import cn.zn.com.zn_android.model.entity.ReturnListValue;
-import cn.zn.com.zn_android.model.entity.ReturnValue;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.uiclass.customerview.InterceptSwpRefLayout;
-import cn.zn.com.zn_android.utils.StringUtil;
-import cn.zn.com.zn_android.utils.ToastUtil;
-import cn.zn.com.zn_android.utils.UIUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.adapter.PrivateTalkAdapter;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.model.bean.AnyEventType;
+import cn.zn.com.zn_android.model.bean.MessageBean;
+import cn.zn.com.zn_android.model.bean.PrivateMsgBean;
+import cn.zn.com.zn_android.model.entity.ReturnListValue;
+import cn.zn.com.zn_android.model.entity.ReturnValue;
+import cn.zn.com.zn_android.uiclass.customerview.InterceptSwpRefLayout;
+import cn.zn.com.zn_android.utils.StringUtil;
+import cn.zn.com.zn_android.utils.ToastUtil;
+import cn.zn.com.zn_android.utils.UIUtil;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -234,13 +232,20 @@ public class PrivateTalkActivity extends BaseActivity implements View.OnClickLis
      * 获取消息列表
      */
     private void getMsgList() {
-        AppObservable.bindActivity(this, _apiManager.getService().getPrivateMsg(_mApplication.getUserInfo().getSessionID(), ""))
+        _apiManager.getService().getPrivateMsg(_mApplication.getUserInfo().getSessionID(), "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultPrivateMsg, Throwable -> {
                     Throwable.printStackTrace();
                     showTips();
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().getPrivateMsg(_mApplication.getUserInfo().getSessionID(), ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultPrivateMsg, Throwable -> {
+//                    Throwable.printStackTrace();
+//                    showTips();
+//                });
     }
 
     private void resultPrivateMsg(ReturnListValue<PrivateMsgBean> returnValue) {
@@ -260,12 +265,18 @@ public class PrivateTalkActivity extends BaseActivity implements View.OnClickLis
      * 发送悄悄话
      */
     private void postMsg(String msg) {
-        AppObservable.bindActivity(this, _apiManager.getService().postPrivateMsg(_mApplication.getUserInfo().getSessionID(), msg, ""))
+        _apiManager.getService().postPrivateMsg(_mApplication.getUserInfo().getSessionID(), msg, "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultMessage, Throwable -> {
                     Throwable.printStackTrace();
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().postPrivateMsg(_mApplication.getUserInfo().getSessionID(), msg, ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultMessage, Throwable -> {
+//                    Throwable.printStackTrace();
+//                });
     }
 
     private void resultMessage(ReturnValue<MessageBean> returnValue) {

@@ -251,4 +251,10 @@ public class Constants {
 
 
     public static final int SDK_PAY_FLAG = BASE_ID + 2;
+
+    public static final String[] channels = {"zhengniu","yingyongbao","baidu","_360","oppo","vivo","huawei","wandoujia","xiaomi","meizu","yingyongbaovip","baiduvip1","_360vip","oppovip","baiduvip2"};
+
+    public static final int IS_BACK = 1;
+    public static final int COMMENT_UN = 2;
+
 }

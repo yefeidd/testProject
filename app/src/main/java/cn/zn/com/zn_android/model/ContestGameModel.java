@@ -28,10 +28,10 @@ public class ContestGameModel extends ListviewItemModel {
     }
 
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
         ContestGameHolder holder = (ContestGameHolder) viewHolder;
         holder.mSlvIcon.setImageURI(Uri.parse(bean.getImg()));
-        holder.mTvTitle.setText(bean.getTitle());
+        holder.mTvTitle.setText(bean.getName());
         holder.mTvDate.setText(bean.getStart_time() + "-" + bean.getEnd_time());
         holder.mTvAward.setText(bean.getReward());
         holder.mRlItem.setOnClickListener(v -> {

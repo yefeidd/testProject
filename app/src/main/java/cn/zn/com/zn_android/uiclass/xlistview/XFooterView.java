@@ -66,6 +66,10 @@ public class XFooterView extends LinearLayout {
         mRotateDownAnim.setFillAfter(true);
     }
 
+    public void setFootViewBgColor(int colorRes) {
+        mLayout.setBackgroundResource(R.color.app_bar_color);
+    }
+
     /**
      * Set footer view state
      *

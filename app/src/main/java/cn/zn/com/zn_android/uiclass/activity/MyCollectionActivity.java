@@ -5,28 +5,26 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.adapter.JoFragmentPagerAdapter;
-import cn.zn.com.zn_android.model.bean.AnyEventType;
-import cn.zn.com.zn_android.model.bean.CollectVideoArtBean;
-import cn.zn.com.zn_android.model.entity.ReturnValue;
-import cn.zn.com.zn_android.uiclass.fragment.ArticlesFragment;
-import cn.zn.com.zn_android.uiclass.fragment.CollectionArtFragment;
-import cn.zn.com.zn_android.uiclass.fragment.CollectionVideoFragment;
-import cn.zn.com.zn_android.uiclass.fragment.VideosFragment;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
-import cn.zn.com.zn_android.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.adapter.JoFragmentPagerAdapter;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.model.bean.AnyEventType;
+import cn.zn.com.zn_android.model.bean.CollectVideoArtBean;
+import cn.zn.com.zn_android.model.entity.ReturnValue;
+import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
+import cn.zn.com.zn_android.uiclass.fragment.ArticlesFragment;
+import cn.zn.com.zn_android.uiclass.fragment.CollectionArtFragment;
+import cn.zn.com.zn_android.uiclass.fragment.CollectionVideoFragment;
+import cn.zn.com.zn_android.uiclass.fragment.VideosFragment;
+import cn.zn.com.zn_android.utils.ToastUtil;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -122,7 +120,7 @@ public class MyCollectionActivity extends BaseActivity {
     }
 
     private void queryCollectList() {
-        AppObservable.bindActivity(this, _apiManager.getService().queryCollectList(_mApplication.getUserInfo().getSessionID(), ""))
+        _apiManager.getService().queryCollectList(_mApplication.getUserInfo().getSessionID(), "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultCollect, throwable -> {
@@ -131,6 +129,16 @@ public class MyCollectionActivity extends BaseActivity {
                     }
                     Log.e(TAG, "queryCollectList: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryCollectList(_mApplication.getUserInfo().getSessionID(), ""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultCollect, throwable -> {
+//                    if (dialog != null) {
+//                        dialog.dismiss();
+//                    }
+//                    Log.e(TAG, "queryCollectList: ", throwable);
+//                });
 
     }
 
@@ -148,7 +156,7 @@ public class MyCollectionActivity extends BaseActivity {
     }
 
     private void queryStockSchool() {
-        AppObservable.bindActivity(this, _apiManager.getService().queryStockSchool(1, 10))
+        _apiManager.getService().queryStockSchool(1, 10)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultStockSchool, throwable -> {
@@ -157,6 +165,16 @@ public class MyCollectionActivity extends BaseActivity {
                     }
                     Log.e(TAG, "queryStockSchool: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryStockSchool(1, 10))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultStockSchool, throwable -> {
+//                    if (dialog != null) {
+//                        dialog.dismiss();
+//                    }
+//                    Log.e(TAG, "queryStockSchool: ", throwable);
+//                });
     }
 
     private void resultStockSchool(ReturnValue<CollectVideoArtBean> returnValue) {

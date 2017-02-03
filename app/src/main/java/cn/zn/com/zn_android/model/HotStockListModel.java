@@ -36,7 +36,7 @@ public class HotStockListModel extends ListviewItemModel {
 
 
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
         HotStockListHolder hotStockListHolder = (HotStockListHolder) viewHolder;
         hotStockListHolder.mTvName.setText(bean.getCode_name());
         hotStockListHolder.mTvProfit.setText(bean.getCode_id());
