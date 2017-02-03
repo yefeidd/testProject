@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_quick_ask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/base10dp">
+
+        <TextView
+            style="@style/Txt14AppColor"
+            android:drawablePadding="@dimen/base8dp"
+            android:drawableRight="@mipmap/ic_arrow_orange"
+            android:gravity="center_vertical"
+            android:text="@string/quick_ask_stock" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_question"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base200dp"
+        android:background="@android:color/white"
+        android:layout_marginTop="@dimen/base6dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/base10dp"
+        android:paddingRight="@dimen/base10dp">
+
+        <TextView
+            style="@style/Txt16Black"
+            android:text="@string/online_teacher" />
+
+        <TextView
+            android:id="@+id/tv_more_teacher"
+            style="@style/Txt12Grey"
+            android:layout_width="match_parent"
+            android:drawablePadding="@dimen/base4dp"
+            android:drawableRight="@mipmap/ic_arrow_grey"
+            android:gravity="end"
+            android:paddingBottom="@dimen/base8dp"
+            android:paddingTop="@dimen/base12dp"
+            android:text="@string/more"
+            android:textColor="@color/article_bottom" />
+    </LinearLayout>
+
+    <cn.zn.com.zn_android.uiclass.NoScrollGridView
+        android:id="@+id/nsgv_online_teacher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:horizontalSpacing="@dimen/base8dp"
+        android:numColumns="2"
+        android:paddingBottom="@dimen/base6dp"
+        android:paddingLeft="@dimen/base10dp"
+        android:paddingRight="@dimen/base10dp"
+        android:verticalSpacing="@dimen/base8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/base10dp"
+        android:paddingRight="@dimen/base10dp">
+
+        <TextView
+            style="@style/Txt16Black"
+            android:text="@string/accellent_answer" />
+
+        <TextView
+            android:id="@+id/tv_more_answer"
+            style="@style/Txt12Grey"
+            android:layout_width="match_parent"
+            android:drawablePadding="@dimen/base4dp"
+            android:drawableRight="@mipmap/ic_arrow_grey"
+            android:gravity="end"
+            android:paddingBottom="@dimen/base8dp"
+            android:paddingTop="@dimen/base6dp"
+            android:text="@string/more_answer"
+            android:textColor="@color/article_bottom" />
+    </LinearLayout>
+
+    <cn.zn.com.zn_android.uiclass.ScrollListView
+        android:id="@+id/slv_excellent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:divider="@color/grey_line"
+        android:dividerHeight="0.5dp" />
+</LinearLayout>

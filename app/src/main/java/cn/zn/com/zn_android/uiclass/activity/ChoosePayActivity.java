@@ -198,10 +198,15 @@ public class ChoosePayActivity extends BaseMVPActivity<PayView, PayPresenter>
 //                        startActivity(new Intent(this, PayZFBActivity.class));
                         break;
                     case 1:
-                        if (_mApplication.getUserInfo().getSessionID() == null || _mApplication.getUserInfo().getSessionID().equals("")) {
+                        if (_mApplication.getUserInfo().getIsLogin() == 0) {
+                            EventBus.getDefault().postSticky(new AnyEventType().setState(false));
                             startActivity(new Intent(this, LoginActivity.class));
                         } else {
-                            presenter.queryWXPaySign(_mApplication.getUserInfo().getSessionID(), money, getString(R.string.wealthy_currency));
+                            if (_mApplication.getMsgApi().isWXAppInstalled() && _mApplication.getMsgApi().isWXAppSupportAPI()) {
+                                presenter.queryWXPaySign(_mApplication.getUserInfo().getSessionID(), money, getString(R.string.wealthy_currency));
+                            } else {
+                                ToastUtil.showShort(_Activity, "请先安装微信");
+                            }
                         }
                         break;
                     case 2: // 连连

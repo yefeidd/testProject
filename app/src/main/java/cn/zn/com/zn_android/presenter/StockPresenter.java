@@ -1,15 +1,12 @@
 package cn.zn.com.zn_android.presenter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
 
 import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.presenter.requestType.StockRequestType;
-import cn.zn.com.zn_android.viewfeatures.SelfStockView;
 import cn.zn.com.zn_android.viewfeatures.StockView;
 
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -35,7 +32,7 @@ public class StockPresenter extends BasePresenter<StockView> {
      * @param ticker    股票代码
      */
     public void addSelfStock(String sessionId, String ticker) {
-        AppObservable.bindActivity(_activity, _apiManager.getService().addSelfStock(sessionId, ticker))
+        _apiManager.getService().addSelfStock(sessionId, ticker)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(returnValue -> {
@@ -46,6 +43,18 @@ public class StockPresenter extends BasePresenter<StockView> {
                     Log.e(TAG, "addSelfStock: ", throwable);
                     stockView.onError(StockRequestType.ADD_SELF_SELECT, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().addSelfStock(sessionId, ticker))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(returnValue -> {
+//                    if (null != returnValue) {
+//                        stockView.onSuccess(StockRequestType.ADD_SELF_SELECT, returnValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "addSelfStock: ", throwable);
+//                    stockView.onError(StockRequestType.ADD_SELF_SELECT, throwable);
+//                });
     }
 
     /**
@@ -55,7 +64,7 @@ public class StockPresenter extends BasePresenter<StockView> {
      * @param keyword   股票代码，股票拼音简称
      */
     public void searchStock(String keyword) {
-        AppObservable.bindActivity(_activity, _apiManager.getService().searchStock(keyword))
+        _apiManager.getService().searchStock(keyword)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(returnValue -> {
@@ -66,6 +75,18 @@ public class StockPresenter extends BasePresenter<StockView> {
                     Log.e(TAG, "searchStock: ", throwable);
                     stockView.onError(StockRequestType.SEARCH_STOCK, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().searchStock(keyword))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(returnValue -> {
+//                    if (null != returnValue) {
+//                        stockView.onSuccess(StockRequestType.SEARCH_STOCK, returnValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "searchStock: ", throwable);
+//                    stockView.onError(StockRequestType.SEARCH_STOCK, throwable);
+//                });
     }
 
 }

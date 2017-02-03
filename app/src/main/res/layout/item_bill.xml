@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/base15dp"
+    android:paddingRight="@dimen/base15dp"
+    android:paddingTop="@dimen/base12dp"
+    android:paddingBottom="@dimen/base10dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/Txt14Grey"
+        android:text="周二\n11-22"/>
+    
+    <ImageView
+        android:id="@+id/iv_znb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_znb_bill_list"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_toRightOf="@+id/tv_time"/>
+
+    <TextView
+        android:id="@+id/tv_price"
+        style="@style/Txt15Black"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_toRightOf="@+id/iv_znb"
+        android:text="+25币"/>
+
+    <TextView
+        android:id="@+id/tv_type"
+        style="@style/Txt14Grey"
+        android:layout_marginLeft="@dimen/base12dp"
+        android:layout_toRightOf="@+id/iv_znb"
+        android:layout_below="@+id/tv_price"
+        android:text="提问"/>
+
+</RelativeLayout>

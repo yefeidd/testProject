@@ -129,7 +129,11 @@ public class StockRankingFactory {
             stockBean.setCode(bean.getCode());
             stockBean.setPrice(bean.getPrice() + "");
             if (null != bean.getChange()) {
-                stockBean.setChangePct(Float.valueOf(bean.getChange()));
+                try {
+                    stockBean.setChangePct(Float.valueOf(bean.getChange()));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
             stockBean.setmStockType(Constants.SH);
             dataList.add(stockBean);
@@ -145,7 +149,11 @@ public class StockRankingFactory {
             stockBean.setCode(bean.getCode());
             stockBean.setPrice(bean.getPrice() + "");
             if (null != bean.getChange()) {
-                stockBean.setChangePct(Float.valueOf(bean.getChange()));
+                try {
+                    stockBean.setChangePct(Float.valueOf(bean.getChange()));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
             stockBean.setmStockType(shOrHk);
             stockBean.setMoney(bean.getMoney());

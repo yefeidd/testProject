@@ -8,7 +8,9 @@ import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.ImitateFryAdapter;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
 import cn.zn.com.zn_android.model.bean.ImitateFryItemBean;
+import cn.zn.com.zn_android.model.bean.OptionalStockBean;
 import cn.zn.com.zn_android.uiclass.activity.BuyInActivity;
+import cn.zn.com.zn_android.uiclass.activity.MarketDetailActivity;
 import cn.zn.com.zn_android.uiclass.activity.TransactionDetailActivity;
 
 import de.greenrobot.event.EventBus;
@@ -27,6 +29,17 @@ public class ImitateFryModel {
 
     public void updateUi(ImitateFryAdapter.ViewHolder viewHolder) {
         viewHolder.mTvHead.setText(bean.getCode_name() + "  （" + bean.getCode_id() + "）");
+        viewHolder.mTvHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OptionalStockBean stockBean = new OptionalStockBean();
+                stockBean.setCode(bean.getCode_id());
+                stockBean.setName(bean.getCode_name());
+                EventBus.getDefault().postSticky(new AnyEventType(stockBean));
+                mContext.startActivity(new Intent(mContext, MarketDetailActivity.class));
+            }
+        });
+
         viewHolder.mTvCurrentPrice.setText(bean.getNow_price());
         if (bean.getProfit().startsWith("-")) {
             viewHolder.mTvGains.setText(bean.getProfit() + "%");
@@ -48,7 +61,7 @@ public class ImitateFryModel {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().postSticky(new AnyEventType(
-                        bean.getCode_id()).setTid(mContext.getString(R.string.mnpdqcc)));
+                        bean.getCode_id()).setTid(mContext.getString(R.string.mnpdqcc)).setStockCode(bean.getCode_name()));
                 mContext.startActivity(new Intent(mContext, TransactionDetailActivity.class));
             }
         });

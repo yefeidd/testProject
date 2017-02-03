@@ -1,5 +1,6 @@
 package cn.zn.com.zn_android.uiclass.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.TransactionDetailAdapter;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
+import cn.zn.com.zn_android.model.bean.OptionalStockBean;
 import cn.zn.com.zn_android.model.bean.TransDetailBean;
 import cn.zn.com.zn_android.model.bean.TransDetailListBean;
 import cn.zn.com.zn_android.presenter.TransactionDetalPresenter;
@@ -29,6 +31,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
+import static cn.zn.com.zn_android.presenter.requestType.SimulativeBoardType.QUERY_CHANGE_CODE_LIST;
+import static cn.zn.com.zn_android.presenter.requestType.SimulativeBoardType.QUERY_HOLD_LIST;
+
 /**
  * 模拟盘当前持仓，成交明细
  * Created by Jolly on 2016/9/9 0009.
@@ -43,7 +48,7 @@ public class TransactionDetailActivity extends BaseMVPActivity<TransactionDetail
     private TransactionDetailAdapter mAdapter;
     private ViewHolder headHolder;
     private List<TransDetailListBean> detailList = new ArrayList<>();
-    private String title, code;
+    private String title, code, codeName;
     private int page = 1, pageSize = 10;
 
     @Override
@@ -63,8 +68,11 @@ public class TransactionDetailActivity extends BaseMVPActivity<TransactionDetail
     }
 
     public void onEventMainThread(AnyEventType event) {
-        title = event.getTid();
-        code = event.getObject().toString();
+        if (event.getObject() instanceof String) {
+            code = event.getObject().toString();
+            title = event.getTid();
+            codeName = event.getStockCode();
+        }
     }
 
     @Override
@@ -104,10 +112,21 @@ public class TransactionDetailActivity extends BaseMVPActivity<TransactionDetail
             headHolder.mLl3.setVisibility(View.GONE);
             headHolder.mLl4.setVisibility(View.GONE);
         }
+        headHolder.mTvName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OptionalStockBean stockBean = new OptionalStockBean();
+                stockBean.setCode(code);
+                stockBean.setName(codeName);
+                EventBus.getDefault().postSticky(new AnyEventType(stockBean));
+                startActivity(new Intent(_Activity, MarketDetailActivity.class));
+            }
+        });
 
         mAdapter = new TransactionDetailAdapter(this, R.layout.item_transaction_detail, detailList);
         mXlvTransactionDetail.setAdapter(mAdapter);
         mXlvTransactionDetail.setXListViewListener(this);
+        mXlvTransactionDetail.setAutoLoadEnable(false);
 
         queryData();
     }
@@ -278,7 +297,9 @@ public class TransactionDetailActivity extends BaseMVPActivity<TransactionDetail
 
     @Override
     public void onError(SimulativeBoardType requestType, Throwable t) {
-        mXlvTransactionDetail.stopRefresh();
+        if (QUERY_HOLD_LIST.equals(requestType) || QUERY_CHANGE_CODE_LIST.equals(requestType)) {
+            mXlvTransactionDetail.stopRefresh();
+        }
         mXlvTransactionDetail.stopLoadMore();
     }
 

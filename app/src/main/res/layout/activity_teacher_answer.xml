@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/rl_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/border_bottom_line"
+        android:paddingBottom="@dimen/base5dp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp"
+        android:paddingTop="@dimen/base13dp">
+
+        <LinearLayout
+            android:id="@+id/ll_0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/base30dp"
+                android:layout_height="@dimen/base30dp"
+                android:src="@drawable/zn_coin" />
+
+            <TextView
+                android:id="@+id/tv_question"
+                style="@style/Txt15Black"
+                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/base5dp"
+                android:layout_weight="1"
+                android:maxLines="2"
+               />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/ll_0"
+            />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            style="@style/Txt13MarketGrey"
+            android:layout_below="@id/iv_level"
+            android:layout_marginLeft="@dimen/base35dp"
+            android:layout_marginTop="@dimen/base2dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/Txt13MarketGrey"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/iv_level"
+            android:layout_marginTop="@dimen/base2dp"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_preview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/app_bar_color"
+        android:gravity="center"
+        android:text="@string/preview"
+        android:textColor="@color/white" />
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/ll_content"-->
+    <!---->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/white"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingLeft="@dimen/base20dp"-->
+    <!--android:paddingRight="@dimen/base20dp">-->
+
+    <!---->
+    <!--</RelativeLayout>-->
+    <RelativeLayout
+        android:id="@+id/rl_01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_head"
+        android:layout_marginTop="@dimen/base5dp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp">
+
+        <TextView
+            android:id="@+id/tv_head_0"
+            style="@style/Txt15Black"
+            android:layout_centerVertical="true"
+            android:text="@string/short_tendency" />
+
+        <RadioGroup
+            android:id="@+id/rg_short"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/base5dp"
+            android:layout_toRightOf="@+id/tv_head_0"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_01"
+                style="@style/Txt14Black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radiobutton_red_white_select"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base3dp"
+                android:paddingTop="@dimen/base3dp"
+                android:text="@string/sale"
+                android:textColor="@drawable/text_white_black_selector" />
+
+            <RadioButton
+                android:id="@+id/rb_02"
+                style="@style/Txt14Black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radiobutton_red_white_select"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base3dp"
+                android:paddingTop="@dimen/base3dp"
+                android:text="@string/reducing"
+                android:textColor="@drawable/text_white_black_selector" />
+
+            <RadioButton
+                android:id="@+id/rb_03"
+                style="@style/Txt14Black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radiobutton_red_white_select"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base3dp"
+                android:paddingTop="@dimen/base3dp"
+                android:text="@string/middle"
+                android:textColor="@drawable/text_white_black_selector" />
+
+            <RadioButton
+                android:id="@+id/rb_04"
+                style="@style/Txt14Black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radiobutton_red_white_select"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base3dp"
+                android:paddingTop="@dimen/base3dp"
+                android:text="@string/Overweight"
+                android:textColor="@drawable/text_white_black_selector" />
+
+            <RadioButton
+                android:id="@+id/rb_05"
+                style="@style/Txt14Black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radiobutton_red_white_select"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base3dp"
+                android:paddingTop="@dimen/base3dp"
+                android:text="@string/buying"
+                android:textColor="@drawable/text_white_black_selector" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_01"
+        android:layout_marginTop="@dimen/base5dp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp">
+
+        <TextView
+            android:id="@+id/tv_head_1"
+            style="@style/Txt15Black"
+            android:layout_centerVertical="true"
+            android:text="@string/middle_tendency" />
+
+        <RadioGroup
+            android:id="@+id/rg_middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/base5dp"
+            android:layout_toRightOf="@+id/tv_head_1"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_001"
+                style="@style/Txt14Black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radiobutton_red_white_select"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base3dp"
+                android:paddingTop="@dimen/base3dp"
+                android:text="@string/sale"
+                android:textColor="@drawable/text_white_black_selector" />
+
+            <RadioButton
+                android:id="@+id/rb_002"
+                style="@style/Txt14Black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radiobutton_red_white_select"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base3dp"
+                android:paddingTop="@dimen/base3dp"
+                android:text="@string/reducing"
+                android:textColor="@drawable/text_white_black_selector" />
+
+            <RadioButton
+                android:id="@+id/rb_003"
+                style="@style/Txt14Black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radiobutton_red_white_select"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base3dp"
+                android:paddingTop="@dimen/base3dp"
+                android:text="@string/middle"
+                android:textColor="@drawable/text_white_black_selector" />
+
+            <RadioButton
+                android:id="@+id/rb_004"
+                style="@style/Txt14Black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radiobutton_red_white_select"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base3dp"
+                android:paddingTop="@dimen/base3dp"
+                android:text="@string/Overweight"
+                android:textColor="@drawable/text_white_black_selector" />
+
+            <RadioButton
+                android:id="@+id/rb_005"
+                style="@style/Txt14Black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radiobutton_red_white_select"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base3dp"
+                android:paddingTop="@dimen/base3dp"
+                android:text="@string/buying"
+                android:textColor="@drawable/text_white_black_selector" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_02"
+        android:layout_marginTop="@dimen/base5dp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp">
+
+        <TextView
+            android:id="@+id/tv_technology"
+            style="@style/Txt14Black"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/technical_analysis" />
+
+        <EditText
+            android:id="@+id/et_technology"
+            android:layout_width="@dimen/base228dp"
+            android:layout_height="@dimen/base55dp"
+            android:background="@drawable/sp_rect_corner_grey_border"
+            android:padding="@dimen/base2dp"
+            android:textSize="13sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_04"
+        style="@style/Txt12MarketGrey"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rl_03"
+        android:layout_marginTop="@dimen/base2dp"
+        android:paddingRight="@dimen/base20dp"
+        android:text="@string/diagnose__tips" />
+
+    <RelativeLayout
+        android:id="@+id/rl_05"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_04"
+        android:layout_marginTop="@dimen/base10dp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp">
+
+        <TextView
+            android:id="@+id/tv_basic"
+            style="@style/Txt14Black"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/basic_analysis" />
+
+        <EditText
+            android:id="@+id/et_basic"
+            android:layout_width="@dimen/base228dp"
+            android:layout_height="@dimen/base55dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/sp_rect_corner_grey_border"
+            android:padding="@dimen/base2dp"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_06"
+        style="@style/Txt12MarketGrey"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rl_05"
+        android:layout_marginTop="@dimen/base2dp"
+        android:paddingRight="@dimen/base20dp"
+        android:text="@string/diagnose__tips" />
+
+    <RelativeLayout
+        android:id="@+id/rl_07"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_06"
+        android:layout_marginTop="@dimen/base10dp"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp">
+
+        <TextView
+            android:id="@+id/tv_supplement"
+            style="@style/Txt14Black"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/supplement" />
+
+        <EditText
+            android:id="@+id/et_supplement"
+            android:layout_width="@dimen/base228dp"
+            android:layout_height="@dimen/base55dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/sp_rect_corner_grey_border"
+            android:padding="@dimen/base2dp"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/gv_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tv_preview"
+        android:layout_below="@+id/rl_07"
+        android:layout_marginLeft="@dimen/base100dp"
+        android:layout_marginRight="@dimen/base20dp"
+        android:layout_marginTop="@dimen/base10dp"
+        android:numColumns="3"/>
+
+
+</RelativeLayout>

@@ -8,6 +8,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
+import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -15,6 +18,23 @@ import android.os.RemoteException;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.cache.memory.MemoryCacheAware;
+import com.nostra13.universalimageloader.cache.memory.impl.LRULimitedMemoryCache;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.umeng.socialize.PlatformConfig;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.helper.FrescoHelper;
@@ -25,14 +45,6 @@ import cn.zn.com.zn_android.uiclass.activity.SplashActivity;
 import cn.zn.com.zn_android.utils.NetUtil;
 import cn.zn.com.zn_android.utils.StorageUtil;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.umeng.socialize.PlatformConfig;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by WJL on 2016/3/10 0010 09:41.
@@ -46,6 +58,10 @@ public class RnApplication extends Application implements Thread.UncaughtExcepti
     private SpfHelper spfHelper, spfHelperConfig;
     private static RnApplication instance;
     public static boolean isShowLog = true;
+
+
+
+    private int channel;
     // 获取到主线程的handler
     private static Handler mMainThreadHandler = null;
     // 获取到主线程
@@ -58,8 +74,14 @@ public class RnApplication extends Application implements Thread.UncaughtExcepti
     private IBinder mRefreshBinder;
     //微信支付
     final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
-    private static final String wx_APP_ID = "wx0adb85454b5306af";
-    private static final String wx_App_Secret = "7129b2d357f6e79f6270b78c2130517c";
+    public static final String wx_APP_ID = "wx0adb85454b5306af";
+    public static final String wx_App_Secret = "7129b2d357f6e79f6270b78c2130517c";
+
+
+    //imageloader初始化
+    public static DisplayImageOptions mNormalImageOptions;
+    public static final String SDCARD_PATH = Environment.getExternalStorageDirectory().toString();
+    public static final String IMAGES_FOLDER = SDCARD_PATH + File.separator + "证牛" + File.separator + "images" + File.separator;
 
     public HashMap<String, Object> getBmMap() {
         return bmMap;
@@ -107,6 +129,7 @@ public class RnApplication extends Application implements Thread.UncaughtExcepti
 
         initAppDirs();
 
+
         if (!NetUtil.checkNet(this)) {
             ToastUtil.showShort(this, R.string.no_net);
 //            getSpfHelper().saveData(Constants.LOCATIONEVENT, "");
@@ -124,7 +147,7 @@ public class RnApplication extends Application implements Thread.UncaughtExcepti
         //新浪微博 appkey appsecret
         PlatformConfig.setSinaWeibo("2323659575", "0fcd4ae08b6b1cf33e3231a27cdd60ed");
         // QQ和Qzone appid appkey
-        PlatformConfig.setQQZone("1105579929", "JmVlVkp7tWWUM7Gh");
+        PlatformConfig.setQQZone("1105702354", "Pg12kYzEO3bGbNfP");
 
         initRefreshService(); // 初始化行情刷新频率
 
@@ -156,6 +179,8 @@ public class RnApplication extends Application implements Thread.UncaughtExcepti
         if (!fileApp.exists()) {
             fileApp.mkdirs();
         }
+        initImageLoader(this);
+
     }
 
     /**
@@ -293,6 +318,7 @@ public class RnApplication extends Application implements Thread.UncaughtExcepti
 //            android.os.Process.killProcess(android.os.Process.myPid());
 //            System.exit(0);
         }
+
     }
 
 
@@ -341,5 +367,48 @@ public class RnApplication extends Application implements Thread.UncaughtExcepti
     @Override
     public void onServiceDisconnected(ComponentName name) {
 
+    }
+
+    /**
+     * 初始化imageloader
+     */
+
+    private void initImageLoader(Context context) {
+        int memoryCacheSize = (int) (Runtime.getRuntime().maxMemory() / 5);
+        MemoryCacheAware<String, Bitmap> memoryCache;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            memoryCache = new LruMemoryCache(memoryCacheSize);
+        } else {
+            memoryCache = new LRULimitedMemoryCache(memoryCacheSize);
+        }
+
+        mNormalImageOptions = new DisplayImageOptions.Builder().bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true).cacheOnDisc(true)
+                .resetViewBeforeLoading(true).build();
+
+        // This
+        // This configuration tuning is custom. You can tune every option, you
+        // may tune some of them,
+        // or you can create default configuration by
+        // ImageLoaderConfiguration.createDefault(this);
+        // method.
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).defaultDisplayImageOptions(mNormalImageOptions)
+                .denyCacheImageMultipleSizesInMemory().discCache(new UnlimitedDiscCache(new File(IMAGES_FOLDER)))
+                // .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                .memoryCache(memoryCache)
+                // .memoryCacheSize(memoryCacheSize)
+                .tasksProcessingOrder(QueueProcessingType.LIFO).threadPriority(Thread.NORM_PRIORITY - 2).threadPoolSize(3).build();
+
+        // Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config);
+    }
+
+
+
+    public int getChannel() {
+        return channel;
+    }
+
+    public void setChannel(int channel) {
+        this.channel = channel;
     }
 }

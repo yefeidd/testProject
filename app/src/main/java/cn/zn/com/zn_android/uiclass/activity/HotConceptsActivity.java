@@ -12,9 +12,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.HotAdapter;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
@@ -23,15 +28,7 @@ import cn.zn.com.zn_android.model.entity.ReturnListValue;
 import cn.zn.com.zn_android.service.RefreshDataService;
 import cn.zn.com.zn_android.uiclass.xlistview.XListView;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import butterknife.Bind;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -161,7 +158,7 @@ public class HotConceptsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void getHotHy() {
-        AppObservable.bindActivity(this, _apiManager.getService().queryHotHy(orderUpDown ? "1" : "2"))
+        _apiManager.getService().queryHotHy(orderUpDown ? "1" : "2")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultHotHy, throwable -> {
@@ -169,6 +166,15 @@ public class HotConceptsActivity extends BaseActivity implements View.OnClickLis
                     Log.e(TAG, "getHotHy: ", throwable);
                     ToastUtil.showShort(this, getString(R.string.no_net));
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryHotHy(orderUpDown ? "1" : "2"))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultHotHy, throwable -> {
+//                    mXlvHot.stopRefresh();
+//                    Log.e(TAG, "getHotHy: ", throwable);
+//                    ToastUtil.showShort(this, getString(R.string.no_net));
+//                });
     }
 
     private void resultHotHy(ReturnListValue<HotConceptBean> returnListValue) {
@@ -181,7 +187,7 @@ public class HotConceptsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void getHotGn() {
-        AppObservable.bindActivity(this, _apiManager.getService().queryHotGn(orderUpDown ? "1" : "2"))
+        _apiManager.getService().queryHotGn(orderUpDown ? "1" : "2")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultHotGn, throwable -> {
@@ -189,6 +195,15 @@ public class HotConceptsActivity extends BaseActivity implements View.OnClickLis
                     Log.e(TAG, "getHotGn: ", throwable);
                     ToastUtil.showShort(this, getString(R.string.no_net));
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryHotGn(orderUpDown ? "1" : "2"))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultHotGn, throwable -> {
+//                    mXlvHot.stopRefresh();
+//                    Log.e(TAG, "getHotGn: ", throwable);
+//                    ToastUtil.showShort(this, getString(R.string.no_net));
+//                });
     }
 
     private void resultHotGn(ReturnListValue<HotConceptBean> returnListValue) {

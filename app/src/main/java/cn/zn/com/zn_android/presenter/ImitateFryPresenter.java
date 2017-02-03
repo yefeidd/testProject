@@ -7,9 +7,10 @@ import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.presenter.requestType.SimulativeBoardType;
 import cn.zn.com.zn_android.viewfeatures.ImitateFryView;
 
-import rx.android.app.AppObservable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * 模拟炒股
@@ -25,6 +26,7 @@ public class ImitateFryPresenter extends BasePresenter<ImitateFryView> {
         this.imitateFryView = imitateFryView;
         this._activity = _activity;
         this._apiManager = ApiManager.getInstance();
+        this.msubscription = new CompositeSubscription();
     }
 
     /**
@@ -34,7 +36,7 @@ public class ImitateFryPresenter extends BasePresenter<ImitateFryView> {
      * @return
      */
     public void queryUserPosition(String sessionId, String page) {
-        AppObservable.bindActivity(_activity, _apiManager.getService().queryUserPosition(sessionId, page))
+        Subscription sub = _apiManager.getService().queryUserPosition(sessionId, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -43,11 +45,22 @@ public class ImitateFryPresenter extends BasePresenter<ImitateFryView> {
                     Log.e(TAG, "queryUserPosition: " + throwable);
                     imitateFryView.onError(SimulativeBoardType.USER_POSITION, throwable);
                 });
+        msubscription.add(sub);
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryUserPosition(sessionId, page))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    imitateFryView.onSuccess(SimulativeBoardType.USER_POSITION, retValue.getData());
+//                }, throwable -> {
+//                    Log.e(TAG, "queryUserPosition: " + throwable);
+//                    imitateFryView.onError(SimulativeBoardType.USER_POSITION, throwable);
+//                });
 
     }
 
     public void queryImitateFry(String sessionId) {
-        AppObservable.bindActivity(_activity, _apiManager.getService().queryImitateFry(sessionId, ""))
+        Subscription sub = _apiManager.getService().queryImitateFry(sessionId, "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -56,5 +69,63 @@ public class ImitateFryPresenter extends BasePresenter<ImitateFryView> {
                     Log.e(TAG, "queryImitateFry: " + throwable);
                     imitateFryView.onError(SimulativeBoardType.QUERY_IMITATE_FRY, throwable);
                 });
+        msubscription.add(sub);
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryImitateFry(sessionId, ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    imitateFryView.onSuccess(SimulativeBoardType.QUERY_IMITATE_FRY, retValue.getData());
+//                }, throwable -> {
+//                    Log.e(TAG, "queryImitateFry: " + throwable);
+//                    imitateFryView.onError(SimulativeBoardType.QUERY_IMITATE_FRY, throwable);
+//                });
     }
+
+    public void queryEntrusList(String sessionId) {
+        Subscription sub = _apiManager.getService().queryEntrusList(sessionId, "")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(retValue -> {
+                    imitateFryView.onSuccess(SimulativeBoardType.QUERY_ENTRUST_LIST, retValue.getData());
+                }, throwable -> {
+                    Log.e(TAG, "queryEntrusList: " + throwable);
+                    imitateFryView.onError(SimulativeBoardType.QUERY_ENTRUST_LIST, throwable);
+                });
+        msubscription.add(sub);
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryEntrusList(sessionId, ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    imitateFryView.onSuccess(SimulativeBoardType.QUERY_ENTRUST_LIST, retValue.getData());
+//                }, throwable -> {
+//                    Log.e(TAG, "queryEntrusList: " + throwable);
+//                    imitateFryView.onError(SimulativeBoardType.QUERY_ENTRUST_LIST, throwable);
+//                });
+    }
+
+    public void removeEnstuct(String sessionId, String id) {
+        Subscription sub = _apiManager.getService().removeEnstuct(sessionId, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(retValue -> {
+                    imitateFryView.onSuccess(SimulativeBoardType.REMOVE_ENTRUST, retValue.getData());
+                }, throwable -> {
+                    Log.e(TAG, "removeEnstuct: " + throwable);
+                    imitateFryView.onError(SimulativeBoardType.REMOVE_ENTRUST, throwable);
+                });
+        msubscription.add(sub);
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().removeEnstuct(sessionId, id))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    imitateFryView.onSuccess(SimulativeBoardType.REMOVE_ENTRUST, retValue.getData());
+//                }, throwable -> {
+//                    Log.e(TAG, "removeEnstuct: " + throwable);
+//                    imitateFryView.onError(SimulativeBoardType.REMOVE_ENTRUST, throwable);
+//                });
+    }
+
 }

@@ -3,11 +3,11 @@ package cn.zn.com.zn_android.uiclass.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.Constants;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
@@ -25,6 +29,8 @@ import cn.zn.com.zn_android.model.bean.UserInfoBean;
 import cn.zn.com.zn_android.model.entity.ReturnValue;
 import cn.zn.com.zn_android.presenter.PersonPresenter;
 import cn.zn.com.zn_android.uiclass.activity.AlertListActivity;
+import cn.zn.com.zn_android.uiclass.activity.BillListActivity;
+import cn.zn.com.zn_android.uiclass.activity.GuessMarketActivity;
 import cn.zn.com.zn_android.uiclass.activity.HistoryPrivateActivity;
 import cn.zn.com.zn_android.uiclass.activity.ImitateFryActivity;
 import cn.zn.com.zn_android.uiclass.activity.LoginActivity;
@@ -32,19 +38,17 @@ import cn.zn.com.zn_android.uiclass.activity.MainActivity;
 import cn.zn.com.zn_android.uiclass.activity.MyCollectionActivity;
 import cn.zn.com.zn_android.uiclass.activity.MyFocusActivity;
 import cn.zn.com.zn_android.uiclass.activity.MyInvolvementActivity;
+import cn.zn.com.zn_android.uiclass.activity.MyOrdersActivity;
+import cn.zn.com.zn_android.uiclass.activity.MyQAActivity;
 import cn.zn.com.zn_android.uiclass.activity.MyTacticsActivity;
 import cn.zn.com.zn_android.uiclass.activity.PersonActivity;
+import cn.zn.com.zn_android.uiclass.activity.QuestionaireActivity;
 import cn.zn.com.zn_android.uiclass.activity.RechargeActivity;
 import cn.zn.com.zn_android.uiclass.activity.SettingActivity;
-import cn.zn.com.zn_android.uiclass.activity.SignActivity;
 import cn.zn.com.zn_android.uiclass.activity.VoucherActivity;
 import cn.zn.com.zn_android.utils.DensityUtil;
 import cn.zn.com.zn_android.utils.ToastUtil;
 import cn.zn.com.zn_android.viewfeatures.PersonView;
-import com.facebook.drawee.view.SimpleDraweeView;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -54,6 +58,8 @@ public class PersonFragment extends BaseMVPFragment<PersonView, PersonPresenter>
 
     @Bind(R.id.iv_leftmenu)
     ImageView mIvLeftmenu;
+    @Bind(R.id.tv_leftMenu)
+    TextView mTvLeftMenu;
     @Bind(R.id.toolbar_title)
     TextView mToolbarTitle;
     @Bind(R.id.ib_search)
@@ -80,10 +86,16 @@ public class PersonFragment extends BaseMVPFragment<PersonView, PersonPresenter>
     TextView mBtnAlert;
     @Bind(R.id.btn_tastic)
     TextView mBtnTastic;
+    @Bind(R.id.btn_qa)
+    TextView mBtnQa;
+    @Bind(R.id.btn_orders)
+    TextView mBtnOrders;
     @Bind(R.id.btn_activitis)
     TextView mBtnActivitis;
     @Bind(R.id.btn_sysmsg)
     TextView mBtnSysmsg;
+    @Bind(R.id.btn_question)
+    TextView mBtnQuestion;
     @Bind(R.id.tv_past)
     TextView mTvPast;
     @Bind(R.id.btn_analog)
@@ -102,11 +114,6 @@ public class PersonFragment extends BaseMVPFragment<PersonView, PersonPresenter>
         PersonFragment personFragment = new PersonFragment();
 
         return personFragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -131,6 +138,11 @@ public class PersonFragment extends BaseMVPFragment<PersonView, PersonPresenter>
 
     @Override
     protected void initView(View view) {
+        mTvLeftMenu.setVisibility(View.VISIBLE);
+        mTvLeftMenu.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_person_pay, 0 , 0, 0);
+        mTvLeftMenu.setCompoundDrawablePadding(DensityUtil.dip2px(_mContext, 4));
+        mTvLeftMenu.setText(R.string.bill);
+        mTvLeftMenu.setOnClickListener(this);
         mIvLeftmenu.setVisibility(View.GONE);
         mToolbarTitle.setText(getString(R.string.person));
         mIbSearch.setVisibility(View.VISIBLE);
@@ -150,6 +162,9 @@ public class PersonFragment extends BaseMVPFragment<PersonView, PersonPresenter>
         mBtnTastic.setOnClickListener(this);
         mBtnActivitis.setOnClickListener(this);
         mBtnSysmsg.setOnClickListener(this);
+        mBtnQuestion.setOnClickListener(this);
+        mBtnQa.setOnClickListener(this);
+        mBtnOrders.setOnClickListener(this);
 
         mTvPast.setOnClickListener(this);
         mBtnAnalog.setOnClickListener(this);
@@ -172,6 +187,13 @@ public class PersonFragment extends BaseMVPFragment<PersonView, PersonPresenter>
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_leftMenu: //账单
+                if (_mApplication.getUserInfo().getIsLogin() == 1) {
+                    startActivity(new Intent(_mContext, BillListActivity.class));
+                } else {
+                    startActivity(new Intent(_mContext, LoginActivity.class));
+                }
+                break;
             case R.id.ib_search: // 设置
                 startActivity(new Intent(_mContext, SettingActivity.class));
                 break;
@@ -203,7 +225,20 @@ public class PersonFragment extends BaseMVPFragment<PersonView, PersonPresenter>
                 } else {
                     startActivity(new Intent(_mContext, LoginActivity.class));
                 }
-
+                break;
+            case R.id.btn_qa: // 我的问答
+                if (_mApplication.getUserInfo().getIsLogin() == 1) {
+                    startActivity(new Intent(_mContext, MyQAActivity.class));
+                } else {
+                    startActivity(new Intent(_mContext, LoginActivity.class));
+                }
+                break;
+            case R.id.btn_orders: // 我的订单
+                if (_mApplication.getUserInfo().getIsLogin() == 1) {
+                    startActivity(new Intent(_mContext, MyOrdersActivity.class));
+                } else {
+                    startActivity(new Intent(_mContext, LoginActivity.class));
+                }
                 break;
             case R.id.btn_activitis: // 我的参与
                 if (_mApplication.getUserInfo().getIsLogin() == 1) {
@@ -218,6 +253,9 @@ public class PersonFragment extends BaseMVPFragment<PersonView, PersonPresenter>
                 } else {
                     startActivity(new Intent(_mContext, LoginActivity.class));
                 }
+                break;
+            case R.id.btn_question: // 问卷调查
+                startActivity(new Intent(_mContext, QuestionaireActivity.class));
                 break;
             case R.id.tv_collect: // 收藏
                 if (_mApplication.getUserInfo().getIsLogin() == 1) {
@@ -241,9 +279,9 @@ public class PersonFragment extends BaseMVPFragment<PersonView, PersonPresenter>
                     startActivity(new Intent(_mContext, LoginActivity.class));
                 }
                 break;
-            case R.id.tv_past: // 签到
+            case R.id.tv_past: // 猜大盘
                 if (_mApplication.getUserInfo().getIsLogin() == 1) {
-                    startActivity(new Intent(_mContext, SignActivity.class));
+                    startActivity(new Intent(_mContext, GuessMarketActivity.class));
                 } else {
                     startActivity(new Intent(_mContext, LoginActivity.class));
                 }
@@ -264,7 +302,7 @@ public class PersonFragment extends BaseMVPFragment<PersonView, PersonPresenter>
                 break;
             case R.id.btn_diagnosed: // 诊股券
                 if (_mApplication.getUserInfo().getIsLogin() == 1) {
-                    EventBus.getDefault().postSticky(new AnyEventType(count));
+//                    EventBus.getDefault().postSticky(new AnyEventType(count));
                     startActivity(new Intent(_mContext, VoucherActivity.class));
                 } else {
                     startActivity(new Intent(_mContext, LoginActivity.class));
@@ -371,6 +409,16 @@ public class PersonFragment extends BaseMVPFragment<PersonView, PersonPresenter>
         mTvFen.setVisibility(View.GONE);
         mTvNick.setText(getString(R.string.no_login));
         mSdvAvatar.setImageURI(null);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+//        if (isFirst) {
+//            super.onHiddenChanged(hidden);
+//        } else {
+//
+//        }
+        Log.d(TAG, "onHiddenChanged: " + hidden);
     }
 
 }

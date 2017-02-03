@@ -8,28 +8,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.NewsAdapter;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
 import cn.zn.com.zn_android.model.bean.StockNewsBean;
 import cn.zn.com.zn_android.model.entity.ReturnListValue;
-import cn.zn.com.zn_android.presenter.requestType.MarketDetailType;
 import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import cn.zn.com.zn_android.uiclass.xlistview.XListView;
-import cn.zn.com.zn_android.utils.DateUtils;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import butterknife.Bind;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -171,7 +166,7 @@ public class NewsActivity extends BaseActivity implements XListView.IXListViewLi
     }
 
     private void queryHk(String type) {
-        AppObservable.bindActivity(this, _apiManager.getService().queryHkNewsList(type, ticCode, page + "", "10"))
+        _apiManager.getService().queryHkNewsList(type, ticCode, page + "", "10")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultNewsData, throwable -> {
@@ -182,11 +177,23 @@ public class NewsActivity extends BaseActivity implements XListView.IXListViewLi
                     }
                     Log.e(TAG, "queryHkNewsList: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryHkNewsList(type, ticCode, page + "", "10"))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultNewsData, throwable -> {
+//                    mXlvNews.stopLoadMore();
+//                    mXlvNews.stopRefresh();
+//                    if (dialog != null) {
+//                        dialog.dismiss();
+//                    }
+//                    Log.e(TAG, "queryHkNewsList: ", throwable);
+//                });
     }
 
     private void queryHs(String type) {
         Log.d(TAG, "type: " + type + "\n" + "ticCode: " + ticCode + "\npage: " + page);
-        AppObservable.bindActivity(this, _apiManager.getService().queryHsNewsList(type, ticCode, page + "", "10"))
+        _apiManager.getService().queryHsNewsList(type, ticCode, page + "", "10")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultNewsData, throwable -> {
@@ -197,6 +204,18 @@ public class NewsActivity extends BaseActivity implements XListView.IXListViewLi
                     }
                     Log.e(TAG, "queryHkNewsList: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryHsNewsList(type, ticCode, page + "", "10"))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultNewsData, throwable -> {
+//                    mXlvNews.stopLoadMore();
+//                    mXlvNews.stopRefresh();
+//                    if (dialog != null) {
+//                        dialog.dismiss();
+//                    }
+//                    Log.e(TAG, "queryHkNewsList: ", throwable);
+//                });
     }
 
     private void resultNewsData(ReturnListValue<StockNewsBean> retValue) {

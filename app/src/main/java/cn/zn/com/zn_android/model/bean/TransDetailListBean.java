@@ -19,6 +19,7 @@ public class TransDetailListBean {
     private String num;
     private String money;
     private String tax;
+    private String shui;
     /**
      * 1：买入   2：卖出
      */
@@ -60,8 +61,8 @@ public class TransDetailListBean {
         return tax;
     }
 
-    public void setTax(String shui) {
-        this.tax = shui;
+    public void setTax(String tax) {
+        this.tax = tax;
     }
 
     public String getTrade_type() {
@@ -71,4 +72,13 @@ public class TransDetailListBean {
     public void setTrade_type(String trade_type) {
         this.trade_type = trade_type;
     }
+
+    public String getShui() {
+        return shui;
+    }
+
+    public void setShui(String shui) {
+        this.shui = shui;
+    }
+
 }

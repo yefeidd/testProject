@@ -47,8 +47,8 @@
                 android:id="@+id/tv_but_time"
                 style="@style/Txt13ContestGrey"
                 android:layout_below="@id/tv_name"
-                android:layout_marginLeft="@dimen/base10dp"
-                android:layout_marginStart="@dimen/base10dp"
+                android:layout_marginLeft="@dimen/base8dp"
+                android:layout_marginStart="@dimen/base8dp"
                 android:layout_toEndOf="@id/tv_0"
                 android:layout_toRightOf="@id/tv_0"
                 android:text="06-05-11  16:08" />
@@ -75,7 +75,7 @@
 
             <TextView
                 style="@style/Txt13ContestGrey"
-                android:paddingLeft="@dimen/base25dp"
+                android:paddingLeft="@dimen/base10dp"
                 android:text="本周收益率" />
 
             <TextView
@@ -118,7 +118,7 @@
 
                     <TextView
                         style="@style/Txt12BarGrey"
-                        android:text="总收益" />
+                        android:text="大赛收益" />
 
 
                     <TextView

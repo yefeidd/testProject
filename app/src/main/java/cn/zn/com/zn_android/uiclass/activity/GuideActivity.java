@@ -16,7 +16,10 @@ import android.widget.TextView;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.helper.SpfHelper;
 import cn.zn.com.zn_android.manage.RnApplication;
+import cn.zn.com.zn_android.model.bean.AnyEventType;
 import cn.zn.com.zn_android.utils.DensityUtil;
+import de.greenrobot.event.EventBus;
+
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -178,6 +181,7 @@ public class GuideActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_login:
+                EventBus.getDefault().postSticky(new AnyEventType().setState(true));
                 startActivity(new Intent(this, LoginActivity.class));
                 helper.saveData("is_first_enter", "1");
                 finish();

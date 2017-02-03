@@ -7,7 +7,6 @@ import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.presenter.requestType.SignRequestType;
 import cn.zn.com.zn_android.viewfeatures.SignView;
 
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -27,7 +26,7 @@ public class SignPresenter extends BasePresenter<SignView> {
     }
 
     public void queryUserSign(String sessionId) {
-        AppObservable.bindActivity(_activity, _apiManager.getService().queryUserSign(sessionId, ""))
+        _apiManager.getService().queryUserSign(sessionId, "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -36,10 +35,20 @@ public class SignPresenter extends BasePresenter<SignView> {
                     signView.onError(SignRequestType.SIGN_INFO, throwable);
                     Log.e(TAG, "queryUserSign: ", throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryUserSign(sessionId, ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    signView.onSuccess(SignRequestType.SIGN_INFO, retValue.getData());
+//                }, throwable -> {
+//                    signView.onError(SignRequestType.SIGN_INFO, throwable);
+//                    Log.e(TAG, "queryUserSign: ", throwable);
+//                });
     }
 
     public void userSign(String sessionId) {
-        AppObservable.bindActivity(_activity, _apiManager.getService().userSign(sessionId, ""))
+        _apiManager.getService().userSign(sessionId, "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -48,6 +57,16 @@ public class SignPresenter extends BasePresenter<SignView> {
                     signView.onError(SignRequestType.USER_SIGN, throwable);
                     Log.e(TAG, "userSign: ", throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().userSign(sessionId, ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    signView.onSuccess(SignRequestType.USER_SIGN, retValue.getData());
+//                }, throwable -> {
+//                    signView.onError(SignRequestType.USER_SIGN, throwable);
+//                    Log.e(TAG, "userSign: ", throwable);
+//                });
     }
 
 }

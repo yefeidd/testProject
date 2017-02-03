@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/base10dp"
+    android:paddingRight="@dimen/base10dp"
+    android:paddingTop="@dimen/base8dp"
+    android:paddingBottom="@dimen/base6dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_question"
+        android:layout_width="match_parent"
+        style="@style/Txt15Black"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="四维图新（002405）可以介入吗？"/>
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_detail"-->
+        <!--android:layout_width="match_parent"-->
+        <!--style="@style/MarketTitleTxt13Grey"-->
+        <!--android:layout_marginTop="@dimen/base4dp"-->
+        <!--android:lineSpacingMultiplier="1.3"-->
+        <!--android:ellipsize="end"-->
+        <!--android:maxLines="3"-->
+        <!--android:text="四维图新（002405）可以介入吗四维图新（002405）可以介入吗四维图新（002405）可以介入吗四维图新（002405）可以介入吗四维图新（002405）可以介入吗"/>-->
+
+    <cn.zn.com.zn_android.uiclass.customerview.LetterSpacingTextView
+        android:id="@+id/tv_detail"
+        android:layout_width="match_parent"
+        style="@style/MarketTitleTxt13Grey"
+        android:layout_marginTop="@dimen/base4dp"
+        android:lineSpacingMultiplier="1.3"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="四维图新（002405）可以介入吗四维图新（002405）可以介入吗四维图新（002405）可以介入吗四维图新（002405）可以介入吗四维图新（002405）可以介入吗"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@id/sdv_avatar"
+            android:layout_width="@dimen/base32dp"
+            android:layout_height="@dimen/base32dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            app:actualImageScaleType="focusCrop"
+            app:placeholderImage="@mipmap/ic_default_avatars"
+            app:roundAsCircle="false"
+            app:roundedCornerRadius="0dp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            style="@style/Txt12MarketGrey"
+            android:layout_marginLeft="@dimen/base10dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="天送轮股"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            style="@style/Txt12MarketGrey"
+            android:layout_marginLeft="@dimen/base10dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="11-15 09:22"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_comment"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/base10dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_comment"
+                android:layout_alignParentRight="true"
+                style="@style/Txt12MarketGrey"
+                android:ellipsize="end"
+                android:lines="1"
+                android:drawablePadding="@dimen/base4dp"
+                android:drawableLeft="@mipmap/ic_comment"
+                android:text="@string/comment"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

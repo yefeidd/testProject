@@ -134,13 +134,18 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="Txt15Redd83d21">
+    <style name="Txt14Redd83d21">
         <item name="android:textColor">@color/red</item>
         <item name="android:textSize">14sp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-
+    <style name="Txt12Redd83d21">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
     <style name="Txt15Black">
         <item name="android:textColor">@color/font_value_black</item>
         <item name="android:textSize">15sp</item>
@@ -176,10 +181,23 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="Txt12MarketGrey">
+        <item name="android:textColor">@color/market_code_color</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 
     <style name="Txt13MarketGrey">
         <item name="android:textColor">@color/market_code_color</item>
         <item name="android:textSize">13sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Txt14MarketGrey">
+        <item name="android:textColor">@color/market_code_color</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -248,6 +266,13 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="Txt16GreyLight">
+        <item name="android:textColor">@color/teacher_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="Txt16Green">
         <item name="android:textColor">@color/green_down</item>
         <item name="android:textSize">16sp</item>
@@ -279,6 +304,13 @@
     <style name="Txt20AppColor">
         <item name="android:textColor">@color/app_bar_color</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Txt30AppColor">
+        <item name="android:textColor">@color/app_bar_color</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -400,6 +432,13 @@
 
 
     <!--行情页面的字体样式-->
+    <style name="MarketTitleTxt13Grey">
+        <item name="android:textColor">@color/market_tittle_gray_color</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="MarketTitleTxt14Grey">
         <item name="android:textColor">@color/market_tittle_gray_color</item>
         <item name="android:textSize">14sp</item>
@@ -412,6 +451,19 @@
         <item name="android:textSize">15sp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MarketTitleTxt18Grey">
+        <item name="android:textColor">@color/market_tittle_gray_color</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="markRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/mark_ratingbar</item>
+        <item name="android:minHeight">@dimen/base23dp</item>
+        <item name="android:maxHeight">@dimen/base23dp</item>
     </style>
 
 </resources>

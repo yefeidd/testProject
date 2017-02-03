@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.Constants;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
@@ -22,11 +25,7 @@ import cn.zn.com.zn_android.model.entity.ReturnValue;
 import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import cn.zn.com.zn_android.uiclass.x5webview.X5WebView;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import butterknife.Bind;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -153,12 +152,18 @@ public class TacticsDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void getVipState() {
-        AppObservable.bindActivity(this, _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), ""))
+        _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultVipState, throwable -> {
                     Log.e(TAG, "getVipState: ", throwable);
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), ""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultVipState, throwable -> {
+//                    Log.e(TAG, "getVipState: ", throwable);
+//                });
     }
 
     private void resultVipState(ReturnValue<VipStateBean> returnValue) {
@@ -175,12 +180,19 @@ public class TacticsDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void buyTactics() {
-        AppObservable.bindActivity(this, _apiManager.getService().buyTactics(_mApplication.getUserInfo().getSessionID(), tacticsBean.getSumid(), "2"))
+        _apiManager.getService().buyTactics(_mApplication.getUserInfo().getSessionID(), tacticsBean.getSumid(), "2")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultBuyTactics, throwable -> {
                     Log.e(TAG, "buyTactics: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().buyTactics(_mApplication.getUserInfo().getSessionID(), tacticsBean.getSumid(), "2"))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultBuyTactics, throwable -> {
+//                    Log.e(TAG, "buyTactics: ", throwable);
+//                });
     }
 
     private void resultBuyTactics(ReturnValue<MessageBean> returnValue) {

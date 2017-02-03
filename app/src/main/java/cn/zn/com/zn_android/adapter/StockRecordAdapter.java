@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
+import cn.zn.com.zn_android.model.bean.OptionalStockBean;
 import cn.zn.com.zn_android.model.bean.StockRecordItemBean;
+import cn.zn.com.zn_android.uiclass.activity.MarketDetailActivity;
 import cn.zn.com.zn_android.uiclass.activity.TransactionDetailActivity;
 
 import java.util.ArrayList;
@@ -48,9 +50,20 @@ public class StockRecordAdapter extends ArrayAdapter<StockRecordItemBean> {
         StockRecordItemBean bean = data.get(position);
 
         holder.mTvNameCode.setText(bean.getCode_name() + "（" + bean.getCode_id() + "）");
+        holder.mTvNameCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OptionalStockBean stockBean = new OptionalStockBean();
+                stockBean.setCode(bean.getCode_id());
+                stockBean.setName(bean.getCode_name());
+                EventBus.getDefault().postSticky(new AnyEventType(stockBean));
+                mContext.startActivity(new Intent(mContext, MarketDetailActivity.class));
+            }
+        });
+
         holder.mTvProfitLoss.setText(bean.getWin_lose());
         holder.mTvGains.setText(bean.getSy() + "%");
-        if (bean.getWin_lose().startsWith("-")){
+        if (bean.getSy().startsWith("-")){
             holder.mTvProfitLoss.setTextColor(mContext.getResources().getColor(R.color.green_down));
             holder.mTvGains.setTextColor(mContext.getResources().getColor(R.color.green_down));
         } else {
@@ -64,7 +77,7 @@ public class StockRecordAdapter extends ArrayAdapter<StockRecordItemBean> {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().postSticky(new AnyEventType(
-                        bean.getCode_id()).setTid(mContext.getString(R.string.transaction_detail)));
+                        bean.getCode_id()).setTid(mContext.getString(R.string.transaction_detail)).setStockCode(bean.getCode_name()));
                 mContext.startActivity(new Intent(mContext, TransactionDetailActivity.class));
             }
         });

@@ -6,12 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.manage.ApiManager;
-import cn.zn.com.zn_android.manage.EnvConstants;
-import cn.zn.com.zn_android.manage.RnApplication;
-import cn.zn.com.zn_android.utils.ToastUtil;
-import cn.zn.com.zn_android.viewfeatures.PayView;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -19,7 +13,11 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-import rx.android.app.AppObservable;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.manage.ApiManager;
+import cn.zn.com.zn_android.manage.EnvConstants;
+import cn.zn.com.zn_android.manage.RnApplication;
+import cn.zn.com.zn_android.utils.ToastUtil;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -82,7 +80,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
      * @param orderid
      */
     private void queryOrder(String orderid) {
-        AppObservable.bindActivity(this, ApiManager.getInstance().getService().queryWXCheckOrder(orderid))
+        ApiManager.getInstance().getService().queryWXCheckOrder(orderid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -91,6 +89,16 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 }, throwable -> {
                     Log.e(TAG, "queryOrder: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, ApiManager.getInstance().getService().queryWXCheckOrder(orderid))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    ToastUtil.showShort(getApplicationContext(), retValue.getData().getMessage());
+//                    finish();
+//                }, throwable -> {
+//                    Log.e(TAG, "queryOrder: ", throwable);
+//                });
     }
 
     /**
@@ -98,7 +106,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
      * @param orderid
      */
     private void closeWXOrder(String orderid) {
-        AppObservable.bindActivity(this, ApiManager.getInstance().getService().queryWXCloseOrder(orderid))
+        ApiManager.getInstance().getService().queryWXCloseOrder(orderid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -107,6 +115,16 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 }, throwable -> {
                     Log.e(TAG, "queryOrder: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, ApiManager.getInstance().getService().queryWXCloseOrder(orderid))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    ToastUtil.showShort(getApplicationContext(), retValue.getData().getMessage());
+//                    finish();
+//                }, throwable -> {
+//                    Log.e(TAG, "queryOrder: ", throwable);
+//                });
     }
 
 }

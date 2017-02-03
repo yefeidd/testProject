@@ -4,13 +4,25 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
-    <ProgressBar
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateDrawable="@drawable/progress_loading"
-        android:background="@android:color/transparent"/>
-    <TextView
-        style="@style/Txt14White"
-        android:layout_marginTop="@dimen/base12dp"
-        android:text="@string/loadind"/>
+        android:orientation="vertical"
+        android:paddingTop="@dimen/base20dp"
+        android:paddingBottom="@dimen/base20dp"
+        android:paddingLeft="@dimen/base35dp"
+        android:paddingRight="@dimen/base35dp"
+        android:background="@drawable/sp_rect_corner_trans_black"
+        android:gravity="center_horizontal|center_vertical">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/progress_loading"
+            android:background="@android:color/transparent"/>
+        <TextView
+            style="@style/Txt14White"
+            android:layout_marginTop="@dimen/base12dp"
+            android:text="@string/loadind"/>
+    </LinearLayout>
+
 </LinearLayout>

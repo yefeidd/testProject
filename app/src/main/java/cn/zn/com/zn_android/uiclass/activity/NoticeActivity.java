@@ -5,16 +5,15 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.model.bean.AnyEventType;
-import cn.zn.com.zn_android.model.bean.CoursesBean;
-import cn.zn.com.zn_android.model.entity.ReturnValue;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.model.bean.AnyEventType;
+import cn.zn.com.zn_android.model.bean.CoursesBean;
+import cn.zn.com.zn_android.model.entity.ReturnValue;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -81,12 +80,18 @@ public class NoticeActivity extends BaseActivity {
     }
 
     private void queryNotice() {
-        AppObservable.bindActivity(this, _apiManager.getService().queryNotice(tid))
+        _apiManager.getService().queryNotice(tid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultNotice, throwable -> {
                     Log.e(TAG, "queryNotice: ", throwable);
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().queryNotice(tid))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultNotice, throwable -> {
+//                    Log.e(TAG, "queryNotice: ", throwable);
+//                });
     }
 
     private void resultNotice(ReturnValue<CoursesBean> returnValue) {

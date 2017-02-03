@@ -131,7 +131,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="@string/average_profit"
+            android:text="@string/month_average_profit"
             style="@style/Txt14Black" />
 
         <TextView

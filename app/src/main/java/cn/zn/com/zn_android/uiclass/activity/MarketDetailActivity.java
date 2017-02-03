@@ -23,6 +23,20 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.components.YAxis;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.Config;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.NewsAdapter;
 import cn.zn.com.zn_android.manage.Constants;
@@ -51,20 +65,6 @@ import cn.zn.com.zn_android.utils.ClassUtils;
 import cn.zn.com.zn_android.utils.DateUtils;
 import cn.zn.com.zn_android.utils.ToastUtil;
 import cn.zn.com.zn_android.viewfeatures.MarketDetailView;
-import com.github.mikephil.charting.components.YAxis;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.socialize.Config;
-import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.media.UMImage;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -90,7 +90,10 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
     FrameLayout mFlChart;
     ScrollListView mSlvNews;
     RadioButton mRbNews, mRbAnnounce;
-    private TextView mTvAddSelfStock;
+    @Bind(R.id.tv_add_self_stock)
+    TextView mTvAddSelfStock;
+    @Bind(R.id.tv_buy_in)
+    TextView mTvBuyIn;
     private Button mBtnClick;
 
     private BaseFragment[] fragments = new BaseFragment[3];
@@ -130,6 +133,7 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
             };
     private RadioButton minSBtn;
     private RadioButton dayKBtn;
+    private String optionalID;
 
     /**
      * 三方平台的分享
@@ -201,8 +205,14 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
             String action = intent.getAction();
             if (action.equals(RefreshDataService.TAG)) {
 //                Log.d("mark", "MarketFragment网络状态已经改变\n" + intent.getStringExtra("mark"));
-                mTvSubtitle.setText(DateUtils.stockStatus() + "  " +
-                        DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+//                mTvSubtitle.setText(DateUtils.stockStatus() + "  " +
+//                        DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+                if (ticCode.length() == 6) {
+                    mTvSubtitle.setVisibility(View.VISIBLE);
+                    mTvSubtitle.setText(DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+                } else {
+                    mTvSubtitle.setVisibility(View.GONE);
+                }
                 initData();
             }
         }
@@ -225,6 +235,7 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
             ticCode = ((HotTicBean) event.getObject()).getCode_id();
             title = ((HotTicBean) event.getObject()).getCode_name();
         }
+
     }
 
     @Override
@@ -239,6 +250,7 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        presenter.destroy();
     }
 
     @Override
@@ -254,18 +266,24 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
     @Override
     protected void initView() {
         sharepresenter = new PresentScorePresenter(this);
-        mToolbarTitle.setText(title);
+        mToolbarTitle.setText(title + " ( " + ticCode + " )");
         if (DateUtils.stockStatus().equals("交易中")) {
             isOpenStatus = true;
         }
 
-        mTvSubtitle.setText(DateUtils.stockStatus() + "  " +
-                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+//        mTvSubtitle.setText(DateUtils.stockStatus() + "  " +
+//                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+        if (ticCode.length() == 6) {
+            mTvSubtitle.setVisibility(View.VISIBLE);
+            mTvSubtitle.setText(DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+        } else {
+            mTvSubtitle.setVisibility(View.GONE);
+        }
         View content = LayoutInflater.from(this).inflate(R.layout.layout_market_detail_content, null);
 
         minSBtn = (RadioButton) content.findViewById(R.id.rb_chart_0);
         dayKBtn = (RadioButton) content.findViewById(R.id.rb_chart_1);
-        mTvAddSelfStock = (TextView) content.findViewById(R.id.tv_add_self_stock);
+//        mTvAddSelfStock = (TextView) content.findViewById(R.id.tv_add_self_stock);
         marketDetaiHolder = new ViewHolder(content);
         mXsvMarketDetail.setView(content);
         mXsvMarketDetail.setPullLoadEnable(false);
@@ -313,9 +331,11 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
         mTvAddSelfStock.setOnClickListener(this);
 
         if (ticCode.length() == 5) {
-            ((TextView) content.findViewById(R.id.tv_buy_in)).setText(getString(R.string.share));
+//            ((TextView) content.findViewById(R.id.tv_buy_in)).setText(getString(R.string.share));
+            mTvBuyIn.setText(getString(R.string.share));
         }
-        (content.findViewById(R.id.tv_buy_in)).setOnClickListener(this);
+//        (content.findViewById(R.id.tv_buy_in)).setOnClickListener(this);
+        mTvBuyIn.setOnClickListener(this);
 
         newsAdapter = new NewsAdapter(this, R.layout.item_stock_news, newsList);
         mSlvNews.setAdapter(newsAdapter);
@@ -344,7 +364,7 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
         } else {
             presenter.queryHkTicInfo(ticCode);
         }
-        presenter.queryMarketDetail(ticCode);
+        presenter.queryMarketDetail(_mApplication.getUserInfo().getSessionID(), ticCode);
     }
 
     private void queryNews() {
@@ -384,7 +404,11 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
                 societyShare();
                 break;
             case R.id.tv_add_self_stock:
-                presenter.addSelfStock(_mApplication.getUserInfo().getSessionID(), ticCode);
+                if (mTvAddSelfStock.getText().toString().startsWith("+")) {
+                    presenter.addSelfStock(_mApplication.getUserInfo().getSessionID(), ticCode);
+                } else {
+                    presenter.delSelfStock(_mApplication.getUserInfo().getSessionID(), optionalID);
+                }
                 break;
             case R.id.tv_buy_in:
                 if (ticCode.length() == 6) {
@@ -425,19 +449,21 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
             case R.id.rg_news:
                 switch (checkedId) {
                     case R.id.rb_news:
+                        newsAdapter.setData(newsList);
                         if (newsList.size() == 0) {
                             newType = "1";
                             queryNews();
+                            mBtnClick.setVisibility(View.INVISIBLE);
                         } else {
                             Log.d(TAG, "------------->news");
-                            newsAdapter.setData(newsList);
                             mBtnClick.setVisibility(View.VISIBLE);
                         }
                         break;
                     case R.id.rb_announce:
+                        newsAdapter.setData(announceList);
                         if (announceList.size() == 0) {
-                            Log.d(TAG, "announceList: " + announceList.size());
                             newType = "2";
+                            Log.d(TAG, "announceList: " + announceList.size());
                             if (dialog == null) {
                                 dialog = new JoDialog.Builder(this)
                                         .setViewRes(R.layout.layout_loading)
@@ -445,9 +471,9 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
                                         .show(false);
                             }
                             queryNews();
+                            mBtnClick.setVisibility(View.INVISIBLE);
                         } else {
                             Log.d(TAG, "------------->announce");
-                            newsAdapter.setData(announceList);
                             mBtnClick.setVisibility(View.VISIBLE);
                         }
                         break;
@@ -647,10 +673,20 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
                 MessageBean msgBean = (MessageBean) object;
                 if (msgBean.getMessage().contains("登录")) {
                     startActivity(new Intent(this, LoginActivity.class));
-                } else {
-//                    mTvAddSelfStock.setText();
+                } else if (msgBean.getMessage().contains("成功")){
+//                    mTvAddSelfStock.setText(getString(R.string.del_self_select));
+                    presenter.queryMarketDetail(_mApplication.getUserInfo().getSessionID(), ticCode);
                 }
                 ToastUtil.showShort(this, msgBean.getMessage());
+                break;
+            case DEL_SELF_SELECT:
+                MessageBean msg1Bean = (MessageBean) object;
+                if (msg1Bean.getMessage().contains("登录")) {
+                    startActivity(new Intent(this, LoginActivity.class));
+                } else if (msg1Bean.getMessage().contains("成功")) {
+                    mTvAddSelfStock.setText(getString(R.string.add_self_select));
+                }
+                ToastUtil.showShort(this, msg1Bean.getMessage());
                 break;
             case QUERY_MARKET_DETAIL:
                 setMarketData(object);
@@ -663,30 +699,38 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
             case QUERY_HK_NEWS_LIST:
             case QUERY_HS_NEWS_LIST:
                 List<StockNewsBean> newsBeanList = (List<StockNewsBean>) object;
-                if (newsBeanList.size() == 0) {
-                    mBtnClick.setVisibility(View.INVISIBLE);
-                } else {
-                    mBtnClick.setVisibility(View.VISIBLE);
-                }
                 if (mRbNews.isChecked()) {
-                    newsList.clear();
-                    newsList.addAll(newsBeanList);
-                    Log.d(TAG, "newsList: " + newsList.size());
+                    if (newsList.size() == 0) {
+                        newsList.clear();
+                        newsList.addAll(newsBeanList);
+                        Log.d(TAG, "newsList: " + newsList.size());
 //                    newsAdapter.setData(newsList);
-                    newsAdapter = new NewsAdapter(this, R.layout.item_stock_news, newsList);
-                    mSlvNews.setAdapter(newsAdapter);
-                }
-                else if (mRbAnnounce.isChecked()) {
+                        newsAdapter = new NewsAdapter(this, R.layout.item_stock_news, newsList);
+                        mSlvNews.setAdapter(newsAdapter);
+                        if (newsBeanList.size() == 0) {
+                            mBtnClick.setVisibility(View.INVISIBLE);
+                        } else {
+                            mBtnClick.setVisibility(View.VISIBLE);
+                        }
+                    }
+                } else if (mRbAnnounce.isChecked()) {
                     if (dialog != null) {
                         dialog.dismiss();
                     }
-                    announceList.clear();
-                    announceList.addAll(newsBeanList);
-                    Log.d(TAG, "newsBeanList: " + newsBeanList.size());
-                    Log.d(TAG, "announceList: " + announceList.size());
+                    if (announceList.size() == 0) {
+                        announceList.clear();
+                        announceList.addAll(newsBeanList);
+                        Log.d(TAG, "newsBeanList: " + newsBeanList.size());
+                        Log.d(TAG, "announceList: " + announceList.size());
 //                    newsAdapter.setData(announceList);
-                    newsAdapter = new NewsAdapter(this, R.layout.item_stock_news, announceList);
-                    mSlvNews.setAdapter(newsAdapter);
+                        newsAdapter = new NewsAdapter(this, R.layout.item_stock_news, announceList);
+                        mSlvNews.setAdapter(newsAdapter);
+                        if (newsBeanList.size() == 0) {
+                            mBtnClick.setVisibility(View.INVISIBLE);
+                        } else {
+                            mBtnClick.setVisibility(View.VISIBLE);
+                        }
+                    }
                 }
 
                 break;
@@ -709,6 +753,7 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
         MarketDetailBean marketDetailBean = (MarketDetailBean) object;
         marketDetailBean = new ClassUtils<>(marketDetailBean).initField(MarketDetailBean.class);
         Log.d(TAG, "setMarketData: " + marketDetailBean.getLastPrice());
+        optionalID = marketDetailBean.getOptional_id();
         marketDetaiHolder.mTvRatio.setText(getString(R.string.change_hand));
         marketDetaiHolder.mTvTodayOpen.setText(marketDetailBean.getOpenprice());
         marketDetaiHolder.mTvLastClose.setText(marketDetailBean.getPrecloprice());
@@ -756,46 +801,52 @@ public class MarketDetailActivity extends BaseMVPActivity<MarketDetailView, Mark
             Log.e(TAG, "setMarketData: ", e);
         }
 
-        if (ticCode.length() == 6) {
-            if (marketDetailBean.getTradingPhaseCode() != null) {
-                switch (marketDetailBean.getTradingPhaseCode()) {
-                    case "0":
-                        mTvSubtitle.setText("交易中  " +
-                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
-                        break;
-                    case "1":
-                        mTvSubtitle.setText("休市中  " +
-                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
-                        break;
-                    case "2":
-                        mTvSubtitle.setText("已闭市  " +
-                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
-                        break;
-                    case "3":
-                        mTvSubtitle.setText("已停牌  " +
-                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
-                        break;
-                }
-
-            }
-
-            if (marketDetailBean.getDeletionIndicator() != null) {
-                switch (marketDetailBean.getDeletionIndicator()) {
-                    case "0":
-                        mTvSubtitle.setText("交易中  " +
-                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
-                        break;
-                    case "1":
-                        mTvSubtitle.setText("休市中  " +
-                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
-                        break;
-                    case "2":
-                        mTvSubtitle.setText("已闭市  " +
-                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
-                        break;
-                }
-            }
+        if (marketDetailBean.getOptional() == 1) {
+            mTvAddSelfStock.setText(getString(R.string.del_self_select));
+        } else {
+            mTvAddSelfStock.setText(getString(R.string.add_self_select));
         }
+
+//        if (ticCode.length() == 6) {
+//            if (marketDetailBean.getTradingPhaseCode() != null) {
+//                switch (marketDetailBean.getTradingPhaseCode()) {
+//                    case "0":
+//                        mTvSubtitle.setText("交易中  " +
+//                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+//                        break;
+//                    case "1":
+//                        mTvSubtitle.setText("休市中  " +
+//                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+//                        break;
+//                    case "2":
+//                        mTvSubtitle.setText("已闭市  " +
+//                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+//                        break;
+//                    case "3":
+//                        mTvSubtitle.setText("已停牌  " +
+//                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+//                        break;
+//                }
+//
+//            }
+//
+//            if (marketDetailBean.getDeletionIndicator() != null) {
+//                switch (marketDetailBean.getDeletionIndicator()) {
+//                    case "0":
+//                        mTvSubtitle.setText("交易中  " +
+//                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+//                        break;
+//                    case "1":
+//                        mTvSubtitle.setText("休市中  " +
+//                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+//                        break;
+//                    case "2":
+//                        mTvSubtitle.setText("已闭市  " +
+//                                DateUtils.getStringDate(System.currentTimeMillis(), "MM-dd HH:mm"));
+//                        break;
+//                }
+//            }
+//        }
 
     }
 

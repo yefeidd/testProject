@@ -1,36 +1,26 @@
 package cn.zn.com.zn_android.uiclass.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.model.bean.AnyEventType;
-import cn.zn.com.zn_android.model.bean.ArticleBean;
-import cn.zn.com.zn_android.model.bean.MessageBean;
-import cn.zn.com.zn_android.model.entity.ReturnValue;
-import cn.zn.com.zn_android.presenter.PresentScorePresenter;
-import cn.zn.com.zn_android.uiclass.customerview.InterceptSwpRefLayout;
-import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
-import cn.zn.com.zn_android.uiclass.x5webview.X5WebView;
-import cn.zn.com.zn_android.utils.LogUtils;
-import cn.zn.com.zn_android.utils.ToastUtil;
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
+import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
+import com.tencent.smtt.sdk.CookieManager;
+import com.tencent.smtt.sdk.CookieSyncManager;
 import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.umeng.analytics.MobclickAgent;
@@ -41,9 +31,27 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 
+import java.util.List;
+
 import butterknife.Bind;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.manage.Constants_api;
+import cn.zn.com.zn_android.manage.CookieManger;
+import cn.zn.com.zn_android.manage.PersistentCookieStore;
+import cn.zn.com.zn_android.manage.RnApplication;
+import cn.zn.com.zn_android.model.bean.AnyEventType;
+import cn.zn.com.zn_android.model.bean.ArticleBean;
+import cn.zn.com.zn_android.model.bean.MessageBean;
+import cn.zn.com.zn_android.model.entity.ReturnValue;
+import cn.zn.com.zn_android.presenter.PresentScorePresenter;
+import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
+import cn.zn.com.zn_android.uiclass.x5webview.X5WebView;
+import cn.zn.com.zn_android.utils.LogUtils;
+import cn.zn.com.zn_android.utils.ToastUtil;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
+import okhttp3.Cookie;
+import okhttp3.HttpUrl;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -53,44 +61,54 @@ import rx.schedulers.Schedulers;
  */
 public class ArticleDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    @Bind(R.id.iv_leftmenu)
-    ImageView mIvLeftmenu;
+    @Bind(R.id.tv_leftMenu)
+    TextView mTvLeftMenu;
     @Bind(R.id.toolbar_title)
     TextView mToolbarTitle;
-    @Bind(R.id.ib_history)
-    ImageButton mIbHistory;
-    @Bind(R.id.ib_search)
-    ImageButton mIbShare;
-    @Bind(R.id.tv_save)
-    TextView mTvSave;
-    @Bind(R.id.toolbar)
-    Toolbar mToolbar;
-    @Bind(R.id.tv_title)
-    TextView mTvTitle;
-    @Bind(R.id.tv_time)
-    TextView mTvTime;
-    @Bind(R.id.tv_click)
-    TextView mTvClick;
-    @Bind(R.id.tv_nickname)
-    TextView mTvNickname;
-    @Bind(R.id.wv_detail)
-    X5WebView mWvDetail;
-    @Bind(R.id.cb_collect)
-    CheckBox mCbCollect;
-    @Bind(R.id.rl_collect)
-    RelativeLayout mRlCollect;
-    @Bind(R.id.cb_like)
-    CheckBox mCbLike;
-    @Bind(R.id.rl_like)
-    RelativeLayout mRlLike;
-    //    @Bind(R.id.fl_content)
-//    FrameLayout mFlContent;
-    @Bind(R.id.isr_refresh)
-    InterceptSwpRefLayout mIsrRefresh;
     @Bind(R.id.pb_web_load)
     ProgressBar mPbWebLoad;
-    @Bind(R.id.sv_art_detail)
-    ScrollView mSvArtDetail;
+    @Bind(R.id.wv_detail)
+    X5WebView mWvDetail;
+    @Bind(R.id.lv_chat)
+    FrameLayout mLvChat;
+    @Bind(R.id.iv_leftmenu)
+    ImageView mIvLeftmenu;
+//    @Bind(R.id.toolbar_title)
+//    TextView mToolbarTitle;
+//    @Bind(R.id.ib_history)
+//    ImageButton mIbHistory;
+    @Bind(R.id.ib_search)
+    ImageButton mIbShare;
+//    @Bind(R.id.tv_save)
+//    TextView mTvSave;
+//    @Bind(R.id.toolbar)
+//    Toolbar mToolbar;
+//    @Bind(R.id.tv_title)
+//    TextView mTvTitle;
+//    @Bind(R.id.tv_time)
+//    TextView mTvTime;
+//    @Bind(R.id.tv_click)
+//    TextView mTvClick;
+//    @Bind(R.id.tv_nickname)
+//    TextView mTvNickname;
+//    @Bind(R.id.wv_detail)
+//    X5WebView mWvDetail;
+//    @Bind(R.id.cb_collect)
+//    CheckBox mCbCollect;
+//    @Bind(R.id.rl_collect)
+//    RelativeLayout mRlCollect;
+//    @Bind(R.id.cb_like)
+//    CheckBox mCbLike;
+//    @Bind(R.id.rl_like)
+//    RelativeLayout mRlLike;
+//    //    @Bind(R.id.fl_content)
+////    FrameLayout mFlContent;
+//    @Bind(R.id.isr_refresh)
+//    InterceptSwpRefLayout mIsrRefresh;
+//    @Bind(R.id.pb_web_load)
+//    ProgressBar mPbWebLoad;
+//    @Bind(R.id.sv_art_detail)
+//    ScrollView mSvArtDetail;
     private ArticleBean articleInfo;
     //初始化点赞状态
     private boolean likeStatus = false;
@@ -109,6 +127,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             };
     private String shareContent = Constants.articleShareContent;
     private String shareTitle = Constants.articleShareTitle;
+    private String shareUrl = Constants.articleShareUrl;
     private String mUrl = Constants.articleShareUrl;
     UMImage image = new UMImage(ArticleDetailActivity.this, Constants.iconResourece);
     private PresentScorePresenter sharepresenter;
@@ -121,7 +140,7 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         new ShareAction(this).setDisplayList(displaylist)
                 .withText(shareContent)
                 .withTitle(shareTitle)
-                .withTargetUrl(mUrl)
+                .withTargetUrl(shareUrl)
                 .withMedia(image)
                 .setListenerList(umShareListener)
                 .open();
@@ -193,7 +212,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         mIbShare.setImageResource(R.drawable.article_share);
         mIbShare.setVisibility(View.VISIBLE);
-        mWvDetail.getView().setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+//        mWvDetail.getView().setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+        mWvDetail.setFocusable(false);
         mUrl = articleInfo.getIosurl();
 //        not_net_view = UIUtil.inflate(R.layout.layout_not_net);
 //        mFlContent.addView(not_net_view);
@@ -205,15 +225,15 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onPageFinished(WebView webView, String s) {
                 super.onPageFinished(webView, s);
-                int len = mSvArtDetail.getHeight();
-                mSvArtDetail.scrollTo(0, len);
+//                int len = mSvArtDetail.getHeight();
+//                mSvArtDetail.scrollTo(0, len);
 
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mSvArtDetail.fullScroll(ScrollView.FOCUS_DOWN);
-                    }
-                });
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        mSvArtDetail.fullScroll(ScrollView.FOCUS_UP);
+//                    }
+//                });
             }
 
         });
@@ -269,19 +289,19 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void initEvent() {
         mIvLeftmenu.setOnClickListener(this);
-        mRlLike.setOnClickListener(this);
-        mRlCollect.setOnClickListener(this);
+//        mRlLike.setOnClickListener(this);
+//        mRlCollect.setOnClickListener(this);
         mIbShare.setOnClickListener(this);
         //设置下拉刷新
-        mIsrRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (mIsrRefresh.isRefreshing()) {
-                    mIsrRefresh.setRefreshing(false);
-                }
-                mWvDetail.reload();
-            }
-        });
+//        mIsrRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                if (mIsrRefresh.isRefreshing()) {
+//                    mIsrRefresh.setRefreshing(false);
+//                }
+//                mWvDetail.reload();
+//            }
+//        });
     }
 
     @Override
@@ -299,11 +319,92 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             postArtIsCollect(articleInfo.getId());
         }
 
+        initWebData();
+
+//        mWvDetail.getSettings().setJavaScriptEnabled(true);
+//        mTvTitle.setText(articleInfo.getTitle());
+//        mTvTime.setText(articleInfo.getTimes());
+//        mTvClick.setText("阅: " + articleInfo.getClick());
+//        mTvNickname.setText(articleInfo.getSource());
+//
+//        mWvDetail.setWebChromeClient(new WebChromeClient() {
+//            @Override
+//            public void onProgressChanged(WebView view, int newProgress) {
+//                // TODO Auto-generated method stub
+//                mPbWebLoad.setProgress(newProgress);
+//                if (mPbWebLoad != null && newProgress != 100) {
+//                    mPbWebLoad.setVisibility(View.VISIBLE);
+//                } else if (mPbWebLoad != null) {
+//                    mPbWebLoad.setVisibility(View.GONE);
+//                }
+//            }
+//
+//        });
+
+//        mWvDetail.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                setShowView();
+//                mIsrRefresh.setRefreshing(false);
+//                super.onPageFinished(view, url);
+//            }
+//        });
+//        mWvDetail.loadUrl(articleInfo.getUrl());
+
+        // 设置cookie
+        syncCookie(mUrl);
+        mWvDetail.loadUrl(mUrl);
+
+    }
+
+    /**
+     * 初始化webView的图片加载机制
+     */
+    public void intWebViewImageLoader() {
+        if (Build.VERSION.SDK_INT >= 19) {
+            mWvDetail.getSettings().setLoadsImagesAutomatically(true);
+        } else {
+            mWvDetail.getSettings().setLoadsImagesAutomatically(false);
+        }
+    }
+
+    protected void initWebData() {
+        //初始化webview的图片加载
+        intWebViewImageLoader();
+        mWvDetail.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         mWvDetail.getSettings().setJavaScriptEnabled(true);
-        mTvTitle.setText(articleInfo.getTitle());
-        mTvTime.setText(articleInfo.getTimes());
-        mTvClick.setText("阅: " + articleInfo.getClick());
-        mTvNickname.setText(articleInfo.getSource());
+        mWvDetail.getSettings().setDatabaseEnabled(true);
+        mWvDetail.getSettings().setDomStorageEnabled(true);
+        mWvDetail.setWebViewClient(new WebViewClient() {
+
+            @SuppressLint("NewApi")
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                String url = request.getUrl().toString();
+                syncCookie(url);
+                return super.shouldInterceptRequest(view, url);
+            }
+
+
+            /**
+             * 5.0以下
+             * @param view
+             * @param url
+             * @return
+             */
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                syncCookie(url);
+                return super.shouldInterceptRequest(view, url);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+
+                super.onPageFinished(view, url);
+            }
+        });
+
 
         mWvDetail.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -318,17 +419,39 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         });
+        // 设置cookie
+        syncCookie(mUrl);
+        mWvDetail.loadUrl(mUrl);
+    }
 
-//        mWvDetail.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public void onPageFinished(WebView view, String url) {
-//                setShowView();
-//                mIsrRefresh.setRefreshing(false);
-//                super.onPageFinished(view, url);
-//            }
-//        });
-        mWvDetail.loadUrl(articleInfo.getUrl());
-
+    /**
+     * 为webview设置sessionId
+     *
+     * @param url
+     */
+    private void syncCookie(String url) {
+        CookieManger cookieManger = new CookieManger(RnApplication.getInstance());
+        PersistentCookieStore cookieStore = cookieManger.getCookieStore();
+        List<Cookie> cookies = cookieStore.get(HttpUrl.parse(Constants_api.BASE_URL));
+        try {
+            CookieSyncManager.createInstance(mWvDetail.getContext());
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.setAcceptCookie(true);
+            cookieManager.removeSessionCookie();// 移除
+            cookieManager.removeAllCookie();
+//            StringBuilder sbCookie = new StringBuilder();
+//            sbCookie.append(_mApplication.getUserInfo().getSessionID());
+//            Log.e(TAG, "syncCookie: " + _mApplication.getUserInfo().getSessionID());
+////            ToastUtil.showLong(this, _mApplication.getUserInfo().getSessionID());
+//            sbCookie.append(String.format(";domain=%s", ""));
+//            sbCookie.append(String.format(";path=%s", ""));
+//            String cookieValue = sbCookie.toString();
+            String cookieValue = CookieManger.formatCookie(cookies);
+            cookieManager.setCookie(url, cookieValue);
+            CookieSyncManager.getInstance().sync();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void onEventMainThread(AnyEventType event) {
@@ -372,8 +495,8 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
         } else {
             mToolbarTitle.setText(getString(R.string.news));
         }
-        mCbLike.setChecked(likeStatus);
-        mCbCollect.setChecked(collectStaus);
+//        mCbLike.setChecked(likeStatus);
+//        mCbCollect.setChecked(collectStaus);
     }
 
 
@@ -383,12 +506,12 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
             case R.id.iv_leftmenu:
                 finish();
                 break;
-            case R.id.rl_like:
-                postArtLikes(articleInfo.getId());
-                break;
-            case R.id.rl_collect:
-                postArtCollect(articleInfo.getId());
-                break;
+//            case R.id.rl_like:
+//                postArtLikes(articleInfo.getId());
+//                break;
+//            case R.id.rl_collect:
+//                postArtCollect(articleInfo.getId());
+//                break;
             case R.id.ib_search:
                 societyShare();
                 break;
@@ -404,13 +527,21 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
      * @param art_id
      */
     public void postArtLikes(String art_id) {
-        AppObservable.bindActivity(this, _apiManager.getService().postArtLikes(art_id))
+        _apiManager.getService().postArtLikes(art_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultArtLikes, Throwable -> {
                     Throwable.printStackTrace();
                     ToastUtil.showShort(this, getString(R.string.no_net));
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().postArtLikes(art_id))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultArtLikes, Throwable -> {
+//                    Throwable.printStackTrace();
+//                    ToastUtil.showShort(this, getString(R.string.no_net));
+//                });
     }
 
     private void resultArtLikes(ReturnValue<MessageBean> returnValue) {
@@ -430,13 +561,21 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
      * @param art_id
      */
     public void postArtCollect(String art_id) {
-        AppObservable.bindActivity(this, _apiManager.getService().postArtCollect(_mApplication.getUserInfo().getSessionID(), art_id))
+        _apiManager.getService().postArtCollect(_mApplication.getUserInfo().getSessionID(), art_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultArtCollect, Throwable -> {
                     Throwable.printStackTrace();
                     ToastUtil.showShort(this, getString(R.string.no_net));
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().postArtCollect(_mApplication.getUserInfo().getSessionID(), art_id))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultArtCollect, Throwable -> {
+//                    Throwable.printStackTrace();
+//                    ToastUtil.showShort(this, getString(R.string.no_net));
+//                });
     }
 
     private void resultArtCollect(ReturnValue<MessageBean> returnValue) {
@@ -456,13 +595,21 @@ public class ArticleDetailActivity extends BaseActivity implements View.OnClickL
      * @param art_id
      */
     public void postArtIsCollect(String art_id) {
-        AppObservable.bindActivity(this, _apiManager.getService().postArtISCollect(_mApplication.getUserInfo().getSessionID(), art_id))
+        _apiManager.getService().postArtISCollect(_mApplication.getUserInfo().getSessionID(), art_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultArtIsCollect, Throwable -> {
                     Throwable.printStackTrace();
                     ToastUtil.showShort(this, getString(R.string.no_net));
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().postArtISCollect(_mApplication.getUserInfo().getSessionID(), art_id))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultArtIsCollect, Throwable -> {
+//                    Throwable.printStackTrace();
+//                    ToastUtil.showShort(this, getString(R.string.no_net));
+//                });
     }
 
     private void resultArtIsCollect(ReturnValue<MessageBean> returnValue) {

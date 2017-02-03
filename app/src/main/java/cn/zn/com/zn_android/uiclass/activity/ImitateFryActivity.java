@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -12,19 +13,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.adapter.ImitateFryAdapter;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.model.ImitateFryModel;
-import cn.zn.com.zn_android.model.bean.ImitateFryBean;
-import cn.zn.com.zn_android.model.bean.ImitateFryItemBean;
-import cn.zn.com.zn_android.presenter.ImitateFryPresenter;
-import cn.zn.com.zn_android.presenter.PresentScorePresenter;
-import cn.zn.com.zn_android.presenter.requestType.SimulativeBoardType;
-import cn.zn.com.zn_android.uiclass.customerview.CanvasChartView;
-import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
-import cn.zn.com.zn_android.uiclass.xlistview.XListView;
-import cn.zn.com.zn_android.viewfeatures.ImitateFryView;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
@@ -39,13 +27,33 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.adapter.ImitateFryAdapter;
+import cn.zn.com.zn_android.adapter.viewHolder.ListViewAdapter;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.model.EntrustModel;
+import cn.zn.com.zn_android.model.ImitateFryModel;
+import cn.zn.com.zn_android.model.bean.EntrustBean;
+import cn.zn.com.zn_android.model.bean.ImitateFryBean;
+import cn.zn.com.zn_android.model.bean.ImitateFryItemBean;
+import cn.zn.com.zn_android.model.bean.MessageBean;
+import cn.zn.com.zn_android.presenter.ImitateFryPresenter;
+import cn.zn.com.zn_android.presenter.PresentScorePresenter;
+import cn.zn.com.zn_android.presenter.requestType.SimulativeBoardType;
+import cn.zn.com.zn_android.uiclass.ScrollListView;
+import cn.zn.com.zn_android.uiclass.customerview.CanvasChartView;
+import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
+import cn.zn.com.zn_android.uiclass.xlistview.XListView;
+import cn.zn.com.zn_android.utils.ToastUtil;
+import cn.zn.com.zn_android.viewfeatures.ImitateFryView;
 
 /**
  * 模拟炒股
  * Created by Jolly on 2016/9/8 0008.
  */
 public class ImitateFryActivity extends BaseMVPActivity<ImitateFryView, ImitateFryPresenter>
-        implements ImitateFryView, View.OnClickListener, XListView.IXListViewListener {
+        implements ImitateFryView, View.OnClickListener, XListView.IXListViewListener,
+        EntrustModel.CancelTradeListener {
 
     @Bind(R.id.toolbar_title)
     TextView mToolbarTitle;
@@ -55,9 +63,11 @@ public class ImitateFryActivity extends BaseMVPActivity<ImitateFryView, ImitateF
     XListView mXlvImitate;
 
     private ImitateFryAdapter mAdapter;
+    private ListViewAdapter entrustAdapter;
     private ViewHolder mHolder;
     private int page = 0;
     private List<ImitateFryModel> userPositonList = new ArrayList<>();
+    private List<EntrustModel> entrustList = new ArrayList<>();
     private ImitateFryBean fryBean = null;
 
 
@@ -146,6 +156,12 @@ public class ImitateFryActivity extends BaseMVPActivity<ImitateFryView, ImitateF
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.destroy();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
@@ -181,6 +197,8 @@ public class ImitateFryActivity extends BaseMVPActivity<ImitateFryView, ImitateF
         mHolder = new ViewHolder(headView);
         mHolder.mBtnBuyIn.setOnClickListener(this);
         mHolder.mBtnRecords.setOnClickListener(this);
+        entrustAdapter = new ListViewAdapter(this, R.layout.item_entrust_trade, entrustList, "EntrustViewHolder");
+        mHolder.mSlvTrustTrans.setAdapter(entrustAdapter);
         mXlvImitate.addHeaderView(headView);
 
         mAdapter = new ImitateFryAdapter(this, R.layout.item_imitate_fry, userPositonList);
@@ -191,7 +209,7 @@ public class ImitateFryActivity extends BaseMVPActivity<ImitateFryView, ImitateF
     protected void initData() {
         presenter.queryUserPosition(_mApplication.getUserInfo().getSessionID(), page + "");
         presenter.queryImitateFry(_mApplication.getUserInfo().getSessionID());
-
+        presenter.queryEntrusList(_mApplication.getUserInfo().getSessionID());
     }
 
     @Override
@@ -258,10 +276,10 @@ public class ImitateFryActivity extends BaseMVPActivity<ImitateFryView, ImitateF
         mHolder.mTvExpendableFund.setText(fryBean.getUsable_money());
         mHolder.mTvInitialCapital.setText(fryBean.getInitial_money());
         mHolder.mTvDayBeak.setText(fryBean.getToday_win());
-        if (fryBean.getMon_income().startsWith("-")) {
+        if (null != fryBean.getMon_income() && fryBean.getMon_income().startsWith("-")) {
             mHolder.mTvMonthGainRatio.setText(fryBean.getMon_income() + "%");
             mHolder.mTvMonthGainRatio.setTextColor(getResources().getColor(R.color.green_down));
-        } else if (!fryBean.getMon_income().equals("")) {
+        } else if (null != fryBean.getMon_income() && !fryBean.getMon_income().equals("")) {
             mHolder.mTvMonthGainRatio.setText("+" + fryBean.getMon_income() + "%");
             mHolder.mTvMonthGainRatio.setTextColor(getResources().getColor(R.color.app_bar_color));
         }
@@ -271,14 +289,35 @@ public class ImitateFryActivity extends BaseMVPActivity<ImitateFryView, ImitateF
         if (!fryBean.getNow_position().equals("")) {
             mHolder.mTvCurrentPosition.setText(fryBean.getNow_position() + "%");
         }
-        mHolder.mTvAvarageStockOwnership.setText(fryBean.getAverage_position());
-        mHolder.mTvAvarageMonthly.setText(fryBean.getMon_ave_trans());
+        if (null != fryBean.getAverage_position() && !TextUtils.isEmpty(fryBean.getAverage_position())) {
+            mHolder.mTvAvarageStockOwnership.setText(fryBean.getAverage_position() + "天");
+        }
+        if (null != fryBean.getMon_ave_trans() && !TextUtils.isEmpty(fryBean.getMon_ave_trans())) {
+            mHolder.mTvAvarageMonthly.setText(fryBean.getMon_ave_trans() + "次");
+        }
         mHolder.mTvInitialTransaction.setText(fryBean.getFirst_trans());
         mHolder.mTvLastTransaction.setText(fryBean.getLast_trans());
 
         mHolder.mCcvChat.setData(fryBean.getLine_chart().getList(),
                 fryBean.getLine_chart().getStart_time(),
                 fryBean.getLine_chart().getEnd_time());
+    }
+
+    private void updateHeadList(List<EntrustBean> list) {
+        entrustList.clear();
+
+        if (list.size() == 0) {
+            mHolder.mTvTrustTitle.setVisibility(View.GONE);
+        } else {
+            mHolder.mTvTrustTitle.setVisibility(View.VISIBLE);
+        }
+
+        for (EntrustBean bean : list) {
+            EntrustModel model = new EntrustModel(bean, this);
+            entrustList.add(model);
+        }
+
+        entrustAdapter.setDataList(entrustList);
     }
 
     @Override
@@ -297,6 +336,18 @@ public class ImitateFryActivity extends BaseMVPActivity<ImitateFryView, ImitateF
                 ImitateFryBean fryBean = (ImitateFryBean) object;
                 updateHead(fryBean);
                 break;
+
+            case QUERY_ENTRUST_LIST:
+                List<EntrustBean> entrustList = (List<EntrustBean>) object;
+                updateHeadList(entrustList);
+                break;
+            case REMOVE_ENTRUST:
+                MessageBean bean = (MessageBean) object;
+                ToastUtil.showShort(this, bean.getMessage());
+                if (bean.getMessage().contains("成功")) {
+                    presenter.queryEntrusList(_mApplication.getUserInfo().getSessionID());
+                }
+                break;
         }
 
     }
@@ -306,6 +357,8 @@ public class ImitateFryActivity extends BaseMVPActivity<ImitateFryView, ImitateF
         mXlvImitate.stopLoadMore();
         mXlvImitate.stopRefresh();
     }
+
+
 
     @Override
     public void onRefresh() {
@@ -318,6 +371,11 @@ public class ImitateFryActivity extends BaseMVPActivity<ImitateFryView, ImitateF
     public void onLoadMore() {
         page++;
         initData();
+    }
+
+    @Override
+    public void cancelTrade(String id) {
+        presenter.removeEnstuct(_mApplication.getUserInfo().getSessionID(), id);
     }
 
     static class ViewHolder {
@@ -353,8 +411,12 @@ public class ImitateFryActivity extends BaseMVPActivity<ImitateFryView, ImitateF
         TextView mTvInitialTransaction;
         @Bind(R.id.tv_last_transaction)
         TextView mTvLastTransaction;
+        @Bind(R.id.tv_trust_title)
+        TextView mTvTrustTitle;
         @Bind(R.id.ccv_chat)
         CanvasChartView mCcvChat;
+        @Bind(R.id.slv_trust_trans)
+        ScrollListView mSlvTrustTrans;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

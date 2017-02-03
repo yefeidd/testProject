@@ -49,7 +49,15 @@ public class MarketDetailBean extends MessageBean {
     private String amplitude;
     private String invol;
     private String outer;
+    /**
+     * 深圳股票交易状态（暂时无用）
+     * 0:交易中, 1:休市中, 2:已闭市
+     */
     private String DeletionIndicator;
+    /**
+     * 上海股票 股票代码以6开头 （暂时无用）
+     * 0:交易中, 1:休市中, 2:已闭市, 3:已停牌
+     */
     private String TradingPhaseCode;
 
     /**
@@ -64,6 +72,25 @@ public class MarketDetailBean extends MessageBean {
      */
 
     private List<ToBuyBean> to_buy;
+
+    /**
+     * 1  代表  已添加自选    2  代表  未添加  或者 未登录
+     * optional : 2
+     */
+    private int optional;
+
+    /**
+     * 该股票用户自选的id
+     */
+    private String optional_id;
+
+    public String getOptional_id() {
+        return optional_id;
+    }
+
+    public void setOptional_id(String optional_id) {
+        this.optional_id = optional_id;
+    }
 
     public String getTradingPhaseCode() {
         return TradingPhaseCode;
@@ -231,6 +258,14 @@ public class MarketDetailBean extends MessageBean {
 
     public void setOuter(String outer) {
         this.outer = outer;
+    }
+
+    public int getOptional() {
+        return optional;
+    }
+
+    public void setOptional(int optional) {
+        this.optional = optional;
     }
 
     public static class ToSellBean {

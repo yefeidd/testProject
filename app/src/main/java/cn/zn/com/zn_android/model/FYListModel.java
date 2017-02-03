@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.viewHolder.BaseViewHolder;
-import cn.zn.com.zn_android.adapter.viewHolder.DynamicExpertViewHolder;
 import cn.zn.com.zn_android.adapter.viewHolder.FYListHolder;
 import cn.zn.com.zn_android.helper.SpfHelper;
 import cn.zn.com.zn_android.manage.ApiManager;
@@ -26,11 +28,7 @@ import cn.zn.com.zn_android.uiclass.customerview.ShareDialogBuilder;
 import cn.zn.com.zn_android.utils.DateUtils;
 import cn.zn.com.zn_android.utils.ToastUtil;
 import cn.zn.com.zn_android.utils.UnitUtils;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -55,11 +53,19 @@ public class FYListModel extends ListviewItemModel {
     private TrackRankingBean trackBean;
     private int index;
     private PresentScorePresenter sharepresenter;
+    private DynamicExpertModel.FocusChangeListner mListner = null;
 
+    public void setmListner(DynamicExpertModel.FocusChangeListner mListner) {
+        this.mListner = mListner;
+    }
 
     public FYListModel setIndex(int index) {
         this.index = index;
         return this;
+    }
+
+    public TrackRankingBean getTrackBean() {
+        return trackBean;
     }
 
     public FYListModel(Activity activity, int type) {
@@ -77,7 +83,7 @@ public class FYListModel extends ListviewItemModel {
 
 
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
         FYListHolder fyListHolder = (FYListHolder) viewHolder;
         if (index > 2) {
             fyListHolder.mTvRank.setBackgroundResource(R.color.bar_bg_gray);
@@ -99,10 +105,17 @@ public class FYListModel extends ListviewItemModel {
             case 0:
                 fyBean = (FyRankingBean) object;
                 fyListHolder.mTvName.setText(fyBean.getNickname());
+                if (null != fyBean.getProfit() && fyBean.getProfit().startsWith("-")) {
+                    fyListHolder.mTvProfit.setTextColor(context.getResources().getColor(R.color.green_down));
+                } else if (null != fyBean.getProfit() && fyBean.getProfit().equals("0.00")) {
+                    fyListHolder.mTvProfit.setTextColor(context.getResources().getColor(R.color.font_value_black));
+                } else {
+                    fyListHolder.mTvProfit.setTextColor(context.getResources().getColor(R.color.app_bar_color));
+                }
                 fyListHolder.mTvProfit.setText(fyBean.getProfit() + "%");
                 fyListHolder.mTvTotal.setText(clacUnit(fyBean.getTotalmoney()));
                 fyListHolder.mLlItem.setOnClickListener(v -> {
-                    EventBus.getDefault().postSticky(new AnyEventType(fyBean.getUser_id()));
+                    EventBus.getDefault().postSticky(new AnyEventType().setStockCode(fyBean.getUser_id()));
                     _mActivity.startActivity(new Intent(_mActivity, TaActivity.class));
                 });
                 fyListHolder.mTvAction.setOnClickListener(v -> {
@@ -120,9 +133,16 @@ public class FYListModel extends ListviewItemModel {
                 trackBean = (TrackRankingBean) object;
                 fyListHolder.mTvName.setText(trackBean.getNickname());
                 fyListHolder.mTvProfit.setText(trackBean.getProfit() + "%");
+                if (null != trackBean.getProfit() && trackBean.getProfit().startsWith("-")) {
+                    fyListHolder.mTvProfit.setTextColor(context.getResources().getColor(R.color.green_down));
+                } else if (null != trackBean.getProfit() && trackBean.getProfit().equals("0.00")) {
+                    fyListHolder.mTvProfit.setTextColor(context.getResources().getColor(R.color.font_value_black));
+                } else {
+                    fyListHolder.mTvProfit.setTextColor(context.getResources().getColor(R.color.app_bar_color));
+                }
                 fyListHolder.mTvTotal.setText(clacUnit(trackBean.getTotalmoney()));
                 fyListHolder.mLlItem.setOnClickListener(v -> {
-                    EventBus.getDefault().postSticky(new AnyEventType(trackBean.getUser_id()));
+                    EventBus.getDefault().postSticky(new AnyEventType().setStockCode(trackBean.getUser_id()));
                     _mActivity.startActivity(new Intent(_mActivity, TaActivity.class));
                 });
                 break;
@@ -130,9 +150,17 @@ public class FYListModel extends ListviewItemModel {
         fyListHolder.mTvAttention.setOnClickListener(v -> {
             if (RnApplication.getInstance().getUserInfo().getIsLogin() == 1) {
                 if (fyListHolder.mTvAttention.getText().equals(_mActivity.getString(R.string.add_focus))) {
-                    attentionOther(trackBean.getUser_id(), fyListHolder);
+                    if (mListner == null) {
+                        attentionOther(trackBean.getUser_id(), fyListHolder);
+                    } else {
+                        mListner.focusChange(true, trackBean.getUser_id(), index);
+                    }
                 } else {
-                    unsetConcern(trackBean.getUser_id(), fyListHolder);
+                    if (mListner == null) {
+                        unsetConcern(trackBean.getUser_id(), fyListHolder);
+                    } else {
+                        mListner.focusChange(false, trackBean.getUser_id(), index);
+                    }
                 }
             } else {
                 _mActivity.startActivity(new Intent(_mActivity, LoginActivity.class));
@@ -205,33 +233,67 @@ public class FYListModel extends ListviewItemModel {
     private String TAG = "FYListModel";
 
     public void attentionOther(String userId, FYListHolder holder) {
-        AppObservable.bindActivity(_mActivity, ApiManager.getInstance().getService().attentionOther(
-                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+        ApiManager.getInstance().getService().attentionOther(
+                RnApplication.getInstance().getUserInfo().getSessionID(), userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
                     if (null != retValue) {
                         ToastUtil.showShort(_mActivity, retValue.getData().getMessage());
-                        holder.mTvAttention.setText(_mActivity.getString(R.string.finish_focus));
+                        if (retValue.getData().getMessage().contains("成功")) {
+                            holder.mTvAttention.setText(_mActivity.getString(R.string.finish_focus));
+                        }
                     }
                 }, throwable -> {
                     Log.e(TAG, "attentionOther: ", throwable);
                 });
+
+//        AppObservable.bindActivity(_mActivity, ApiManager.getInstance().getService().attentionOther(
+//                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        ToastUtil.showShort(_mActivity, retValue.getData().getMessage());
+//                        if (retValue.getData().getMessage().contains("成功")) {
+//                            holder.mTvAttention.setText(_mActivity.getString(R.string.finish_focus));
+//                        }
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "attentionOther: ", throwable);
+//                });
     }
 
     public void unsetConcern(String userId, FYListHolder holder) {
-        AppObservable.bindActivity(_mActivity, ApiManager.getInstance().getService().unsetConcern(
-                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+        ApiManager.getInstance().getService().unsetConcern(
+                RnApplication.getInstance().getUserInfo().getSessionID(), userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
                     if (null != retValue) {
                         ToastUtil.showShort(_mActivity, retValue.getData().getMessage());
-                        holder.mTvAttention.setText(_mActivity.getString(R.string.add_focus));
+                        if (retValue.getData().getMessage().contains("成功")) {
+                            holder.mTvAttention.setText(_mActivity.getString(R.string.add_focus));
+                        }
                     }
                 }, throwable -> {
                     Log.e(TAG, "attentionOther: ", throwable);
                 });
+
+//        AppObservable.bindActivity(_mActivity, ApiManager.getInstance().getService().unsetConcern(
+//                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        ToastUtil.showShort(_mActivity, retValue.getData().getMessage());
+//                        if (retValue.getData().getMessage().contains("成功")) {
+//                            holder.mTvAttention.setText(_mActivity.getString(R.string.add_focus));
+//                        }
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "attentionOther: ", throwable);
+//                });
     }
 
 }

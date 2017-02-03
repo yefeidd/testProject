@@ -64,7 +64,7 @@
             android:gravity="center"
             android:drawablePadding="@dimen/base5dp"
             android:drawableTop="@drawable/btn_stock_school"
-            android:text="@string/school" />
+            android:text="@string/diagnoseSocketOffice" />
 
         <TextView
             android:id="@+id/btn_article"

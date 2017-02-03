@@ -28,28 +28,22 @@ import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.Constants;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
-import cn.zn.com.zn_android.model.bean.MessageBean;
-import cn.zn.com.zn_android.model.entity.ReturnValue;
 import cn.zn.com.zn_android.uiclass.NoUnderlineSpan;
 import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import cn.zn.com.zn_android.utils.AppUtil;
 import cn.zn.com.zn_android.utils.DensityUtil;
-import cn.zn.com.zn_android.utils.NetUtil;
 import cn.zn.com.zn_android.utils.StringUtil;
 import cn.zn.com.zn_android.utils.ToastUtil;
 import cn.zn.com.zn_android.utils.UIUtil;
 import de.greenrobot.event.EventBus;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Header;
-import retrofit.client.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * 登录页面
@@ -80,18 +74,33 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private int type = Constants.WEI_XING;
     private String ucode = "";
 
-    private final String BOUND_SUCCESS = "1";
+    private final String BOUND_SUCCESS = "登录成功";
     private final String NOT_BOUND = "0";
+
+    private boolean isFromGuide = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().registerSticky(this);
         _setLightSystemBarTheme(true);
         super.onCreate(savedInstanceState);
         _setLayoutRes(R.layout.activity_login);
         //获取UMShareAPI
         mShareAPI = UMShareAPI.get(this);
+        if (_mApplication.getUserInfo().getIsLogin() == Constants.IS_LOGIN) finish();
     }
 
+    public void onEventMainThread(AnyEventType event) {
+        if (null != event && event.getState()) {
+            isFromGuide = event.getState();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 
     /**
      * 社会化组件登陆
@@ -167,38 +176,27 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         /**
          * 三方openid提交到服务器的回调
          */
-        Callback<ReturnValue<MessageBean>> callback = new Callback<ReturnValue<MessageBean>>() {
-            private String bound_status;
-
-            @Override
-            public void success(ReturnValue<MessageBean> returnValue, Response response) {
-                bound_status = returnValue.getData().getMessage();
-                //如果绑定成功
-                if (bound_status.equals(BOUND_SUCCESS)) {
-                    List<Header> headerList = response.getHeaders();
-                    for (Header header : headerList) {
-                        Log.d(TAG, header.getName() + " " + header.getValue());
-                        if (header.getName().equals(Constants.SET_COOKIE)) {
-                            String phpSessId = header.getValue().split(";")[0];
-                            _mApplication.getUserInfo().setSessionID(phpSessId);
-                            break;
+        _apiManager.getService().tripartiteLogin(type, ucode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(returnValue -> {
+                    if (returnValue != null) {
+                        String bound_status = returnValue.getData().getMessage();
+                        // 登录成功，保存数据  //如果绑定成功
+                        if (bound_status.equals(BOUND_SUCCESS)) {
+                            // 登录成功，设置登陆状态为已经登陆
+                            _mApplication.getUserInfo().setIsTeacher(returnValue.getData().getIs_teacher());
+                            _mApplication.getUserInfo().setIsLogin(Constants.IS_LOGIN);
+                            finish();
+                        } else if (bound_status.equals(NOT_BOUND)) {
+                            EventBus.getDefault().postSticky(new AnyEventType(ucode).setType(type));
+                            startActivity(new Intent(LoginActivity.this, BoundLoginActivity.class));
                         }
                     }
-                    // 登录成功，设置登陆状态为已经登陆
-                    _mApplication.getUserInfo().setIsLogin(Constants.IS_LOGIN);
-                    finish();
-                } else if (bound_status.equals(NOT_BOUND)) {
-                    EventBus.getDefault().postSticky(new AnyEventType(ucode).setType(type));
-                    startActivity(new Intent(LoginActivity.this, BoundLoginActivity.class));
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.i(TAG, "failure: ");
-            }
-        };
-        _apiManager.getService().tripartiteLogin(type, ucode, callback);
+                }, throwable -> {
+                    Log.e(TAG, "sendResInfoResult: 异常", throwable);
+                    ToastUtil.show(this, getString(R.string.no_net), Toast.LENGTH_SHORT);
+                });
     }
 
     @Override
@@ -220,7 +218,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         tv_register.setHighlightColor(getResources().getColor(android.R.color.transparent));
 
         if (_spfHelper.getData(Constants.SPF_KEY_PHONE) != null && !_spfHelper.getData(Constants.SPF_KEY_PHONE).equals("")) {
-            mEtUsername.setText(_spfHelper.getData(Constants.SPF_KEY_PHONE));
+            String phoneStr = _spfHelper.getData(Constants.SPF_KEY_PHONE);
+            phoneStr = phoneStr.substring(0, 3) + " " + phoneStr.substring(3, 7) + " " + phoneStr.substring(7, phoneStr.length());
+            mEtUsername.setText(phoneStr);
             Editable editable = mEtUsername.getText();
             Selection.setSelection(editable, editable.length());
         }
@@ -256,6 +256,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mIbnWbLogin.setOnClickListener(this);
         mIbnQqLogin.setOnClickListener(this);
         mEtUsername.addTextChangedListener(new TextWatcher() {
+
+            int c = 0;
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -263,13 +266,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                c = count;
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 0) {
                     mEtPassword.setText("");
+                }
+                if (s.length() == 3 && c > 0) {
+                    s.append(" ");
+                }
+                if (s.length() == 8 && c > 0) {
+                    s.append(" ");
                 }
             }
         });
@@ -365,47 +374,70 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             ToastUtil.showShort(this, getString(R.string.login_pw_empty));
             return;
         }
+        final String phoneStr = mEtUsername.getText().toString().trim().replace(" ", "");
 
-        Callback<ReturnValue<MessageBean>> callback = new Callback<ReturnValue<MessageBean>>() {
-            @Override
-            public void success(ReturnValue<MessageBean> returnValue, Response response) {
-                List<Header> headerList = response.getHeaders();
-                for (Header header : headerList) {
-                    Log.d(TAG, header.getName() + " " + header.getValue());
-                    if (header.getName().equals(Constants.SET_COOKIE)) {
-                        String phpSessId = header.getValue().split(";")[0];
-                        _mApplication.getUserInfo().setSessionID(phpSessId);
-                        break;
-                    }
-                }
-                if (returnValue.getMsg().equals(Constants.SUCCESS)) {
-                    // 登录成功，保存数据
-                    _spfHelper.saveData(Constants.SPF_KEY_PHONE, mEtUsername.getText().toString().trim());
-                    _mApplication.getUserInfo().setPhone(mEtUsername.getText().toString().trim()); // 手机号
-                    _mApplication.getUserInfo().setIsLogin(1);
-                    if (cb_remenber_pw.isChecked()) { // 记住密码
-                        _spfHelper.saveData(Constants.SPF_KEY_PWD, mEtPassword.getText().toString().trim());
-                        _mApplication.getUserInfo().setPassword(mEtPassword.getText().toString().trim());
-                    } else {
-                        _spfHelper.saveData(Constants.SPF_KEY_PWD, "");
-                        _mApplication.getUserInfo().setPassword("");
-                    }
+        _apiManager.getService().login(phoneStr, mEtPassword.getText().toString(), "2")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(returnValue -> {
+                    if (returnValue != null) {
+                        if (returnValue.getMsg().equals(Constants.SUCCESS)) {
+                            // 登录成功，保存数据
+//                            _mApplication.getUserInfo().setPhone(phoneStr); // 手机号
+//                            _mApplication.getUserInfo().setIsLogin(1);
+//                            _mApplication.getUserInfo().setIsTeacher(returnValue.getData().getIs_teacher());
+                            _spfHelper.saveData(Constants.SPF_KEY_PHONE, phoneStr);
+                            _mApplication.getUserInfo().setPhone(phoneStr); // 手机号
+                            _mApplication.getUserInfo().setIsLogin(1);
+                            _mApplication.getUserInfo().setIsTeacher(returnValue.getData().getIs_teacher());
+                            if (cb_remenber_pw.isChecked()) { // 记住密码
+                                _spfHelper.saveData(Constants.SPF_KEY_PWD, mEtPassword.getText().toString().trim());
+                                _mApplication.getUserInfo().setPassword(mEtPassword.getText().toString().trim());
+                            } else {
+                                _spfHelper.saveData(Constants.SPF_KEY_PWD, "");
+                                _mApplication.getUserInfo().setPassword("");
+                            }
 //                    startActivity(new Intent(_mApplication, MainActivity.class));
-                    finish();
-                } else {
-                    ToastUtil.showShort(_mApplication, returnValue.getData().getMessage());
-                }
-            }
+                            if (!isFromGuide) {
+                                finish();
+                            } else {
+                                startActivity(new Intent(_mApplication, MainActivity.class));
+                            }
+                            startActivity(new Intent(_mApplication, MainActivity.class));
+                            finish();
+                        } else {
+                            ToastUtil.showShort(_mApplication, returnValue.getData().getMessage());
+                        }
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.i(TAG, "failure: " + error);
-                NetUtil.errorTip(error.getKind());
+//                if (returnValue.getMsg().equals(Constants.SUCCESS)) {
+//                    // 登录成功，保存数据
+//                    // 登录成功，保存数据
+//                    _spfHelper.saveData(Constants.SPF_KEY_PHONE, mEtUsername.getText().toString().trim());
+//                    _mApplication.getUserInfo().setPhone(mEtUsername.getText().toString().trim()); // 手机号
+//                    _mApplication.getUserInfo().setIsLogin(1);
+//                    _mApplication.getUserInfo().setIsTeacher(returnValue.getData().getIs_teacher());
+//                    if (cb_remenber_pw.isChecked()) { // 记住密码
+//                        _spfHelper.saveData(Constants.SPF_KEY_PWD, mEtPassword.getText().toString().trim());
+//                        _mApplication.getUserInfo().setPassword(mEtPassword.getText().toString().trim());
+//                    } else {
+//                        _spfHelper.saveData(Constants.SPF_KEY_PWD, "");
+//                        _mApplication.getUserInfo().setPassword("");
+//                    }
+////                    startActivity(new Intent(_mApplication, MainActivity.class));
+//                    if (!isFromGuide) {
+//                        finish();
+//                    } else {
+//                        startActivity(new Intent(_mApplication, MainActivity.class));
+//                    }
+//                } else {
+//                    ToastUtil.showShort(_mApplication, returnValue.getData().getMessage());
+//                }
+                    }
+                }, throwable -> {
+                    Log.e(TAG, "sendResInfoResult: 异常");
+                    ToastUtil.show(this, getString(R.string.no_net), Toast.LENGTH_SHORT);
+                });
 
-            }
-        };
-
-        _apiManager.getService().login(mEtUsername.getText().toString(), mEtPassword.getText().toString(), "2", callback);
     }
 
 }

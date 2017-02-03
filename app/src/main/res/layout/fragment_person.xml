@@ -121,7 +121,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:padding="@dimen/base8dp"
-                    android:text="@string/past" />
+                    android:text="@string/guess_market" />
 
                 <View
                     android:layout_width="0.5dp"
@@ -191,6 +191,19 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/btn_game"
+                    style="@style/Txt14Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_bottom_line"
+                    android:drawableLeft="@mipmap/ic_my_game"
+                    android:drawablePadding="@dimen/base10dp"
+                    android:drawableRight="@drawable/right_arrows"
+                    android:gravity="left|center_vertical"
+                    android:padding="@dimen/base12dp"
+                    android:text="@string/my_game" />
+
+                <TextView
                     android:id="@+id/btn_tastic"
                     style="@style/Txt14Black"
                     android:layout_width="match_parent"
@@ -204,17 +217,30 @@
                     android:text="@string/my_tactics" />
 
                 <TextView
-                    android:id="@+id/btn_game"
+                    android:id="@+id/btn_qa"
                     style="@style/Txt14Black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_bottom_line"
-                    android:drawableLeft="@mipmap/ic_my_game"
+                    android:drawableLeft="@mipmap/ic_person_qa"
                     android:drawablePadding="@dimen/base10dp"
                     android:drawableRight="@drawable/right_arrows"
                     android:gravity="left|center_vertical"
                     android:padding="@dimen/base12dp"
-                    android:text="@string/my_game" />
+                    android:text="@string/my_qa" />
+
+                <TextView
+                    android:id="@+id/btn_orders"
+                    style="@style/Txt14Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_bottom_line"
+                    android:drawableLeft="@mipmap/ic_person_orders"
+                    android:drawablePadding="@dimen/base10dp"
+                    android:drawableRight="@drawable/right_arrows"
+                    android:gravity="left|center_vertical"
+                    android:padding="@dimen/base12dp"
+                    android:text="@string/my_orders" />
 
                 <TextView
                     android:id="@+id/btn_activitis"
@@ -256,6 +282,20 @@
                     android:padding="@dimen/base12dp"
                     android:text="@string/sys_msg"
                     android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/btn_question"
+                    style="@style/Txt14Black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_bottom_line"
+                    android:drawableLeft="@mipmap/ic_person_quest"
+                    android:drawablePadding="@dimen/base10dp"
+                    android:drawableRight="@drawable/right_arrows"
+                    android:gravity="left|center_vertical"
+                    android:padding="@dimen/base12dp"
+                    android:text="@string/sys_question"
+                     />
 
 
                 <!--<TextView-->

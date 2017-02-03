@@ -25,7 +25,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -108,12 +107,19 @@ public class TeacherDetailActivity extends BaseActivity {
     }
 
     private void queryRoomSummary() {
-        AppObservable.bindActivity(this, _apiManager.getService().queryRoomSummary(tid))
+        _apiManager.getService().queryRoomSummary(tid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultRoomSummary, throwable -> {
                     Log.e(TAG, "queryRoomSummary: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryRoomSummary(tid))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultRoomSummary, throwable -> {
+//                    Log.e(TAG, "queryRoomSummary: ", throwable);
+//                });
     }
 
     private void resultRoomSummary(ReturnValue<RoomSummaryBean> returnValue) {

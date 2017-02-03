@@ -51,7 +51,7 @@ public class TaActivity extends BaseMVPActivity<BaseMvpView, TaPresenter> implem
     @Bind(R.id.xlv_record)
     XListView mXlvRecord;
 
-    private List<OperateDetailModel> operateDetailList = new ArrayList<>();
+//    private List<OperateDetailModel> operateDetailList = new ArrayList<>();
     private List<ExchangeRecordModel> recordList = new ArrayList<>();
     private ListViewAdapter recordAdapter;
     private final static int head = 0;
@@ -77,8 +77,9 @@ public class TaActivity extends BaseMVPActivity<BaseMvpView, TaPresenter> implem
     }
 
     public void onEventMainThread(AnyEventType event) {
-        if (null != event) {
-            userId = event.getObject().toString();
+
+        if (null != event && null != event.getStockCode()) {
+            userId = event.getStockCode();
         }
     }
 
@@ -152,15 +153,15 @@ public class TaActivity extends BaseMVPActivity<BaseMvpView, TaPresenter> implem
                 curDate = DateUtils.getStringDate(System.currentTimeMillis(), "yyyy-MM-dd");
                 saveDate = _mApplication.getSpfHelper().getData(STATUS_KEY);
 
-                if (curDate.equals(saveDate)) {
-                    if (_mApplication.getUserInfo().getIsLogin() == 1) {
+                if (_mApplication.getUserInfo().getIsLogin() == 1) {
+                    if (curDate.equals(saveDate)) {
                         EventBus.getDefault().postSticky(new AnyEventType(userId));
                         startActivity(new Intent(_Activity, OperatingDetailActivity.class));
                     } else {
-                        startActivity(new Intent(_Activity, LoginActivity.class));
+                        showShareDialog();
                     }
                 } else {
-                    showShareDialog();
+                    startActivity(new Intent(_Activity, LoginActivity.class));
                 }
 
             }
@@ -294,7 +295,9 @@ public class TaActivity extends BaseMVPActivity<BaseMvpView, TaPresenter> implem
                 MessageBean msgBean = (MessageBean) object;
                 ToastUtil.showShort(this, msgBean.getMessage());
                 if (!msgBean.getMessage().contains("登录")) {
-                    headHolder.mTvAddFocus.setText(getString(R.string.finish_focus));
+                    if (msgBean.getMessage().contains("成功")) {
+                        headHolder.mTvAddFocus.setText(getString(R.string.finish_focus));
+                    }
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
                 }
@@ -303,7 +306,9 @@ public class TaActivity extends BaseMVPActivity<BaseMvpView, TaPresenter> implem
                 MessageBean msgBean1 = (MessageBean) object;
                 ToastUtil.showShort(this, msgBean1.getMessage());
                 if (!msgBean1.getMessage().contains("登录")) {
-                    headHolder.mTvAddFocus.setText(getString(R.string.add_focus));
+                    if (msgBean1.getMessage().contains("成功")) {
+                        headHolder.mTvAddFocus.setText(getString(R.string.add_focus));
+                    }
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
                 }

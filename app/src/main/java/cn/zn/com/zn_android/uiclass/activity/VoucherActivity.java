@@ -2,22 +2,25 @@ package cn.zn.com.zn_android.uiclass.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
-
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.adapter.viewHolder.ListViewAdapter;
-import cn.zn.com.zn_android.model.VoucherModel;
-import cn.zn.com.zn_android.model.bean.AnyEventType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.adapter.viewHolder.ListViewAdapter;
+import cn.zn.com.zn_android.manage.ApiManager;
+import cn.zn.com.zn_android.model.VoucherModel;
+import cn.zn.com.zn_android.model.bean.ShareTicBean;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * 诊股券
@@ -29,6 +32,10 @@ public class VoucherActivity extends BaseActivity {
     TextView mToolbarTitle;
     @Bind(R.id.lv_voucher)
     ListView mLvVoucher;
+    @Bind(android.R.id.empty)
+    TextView mEmpty;
+    @Bind(R.id.ll_empty)
+    LinearLayout mLlEmpty;
 
     private ListViewAdapter mAdapter;
     private List<VoucherModel> data = new ArrayList<>();
@@ -36,7 +43,7 @@ public class VoucherActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        EventBus.getDefault().registerSticky(this);
+//        EventBus.getDefault().registerSticky(this);
         super.onCreate(savedInstanceState);
         _setLayoutRes(R.layout.activity_voucher);
     }
@@ -55,26 +62,26 @@ public class VoucherActivity extends BaseActivity {
         MobclickAgent.onPause(this);
     }
 
-    public void onEventMainThread(AnyEventType event) {
-        count = Integer.valueOf(event.getObject().toString());
-    }
+//    public void onEventMainThread(AnyEventType event) {
+//        count = Integer.valueOf(event.getObject().toString());
+//    }
 
-    @Override
-    protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        EventBus.getDefault().unregister(this);
+//        super.onDestroy();
+//    }
 
     @Override
     protected void initView() {
         mToolbarTitle.setText(getString(R.string.diagnosed));
 
-        for (int i = 0; i < count; i ++) {
-            VoucherModel model = new VoucherModel();
-            data.add(model);
-        }
-        mAdapter = new ListViewAdapter(this, R.layout.item_voucher, data, "VoucherViewHolder");
+        mEmpty.setText(String.format(getString(R.string.no_data), getString(R.string.diagnosed)));
+        mLvVoucher.setEmptyView(mLlEmpty);
+
+        mAdapter = new ListViewAdapter(this, R.layout.item_use_diagnose, data, "VoucherViewHolder");
         mLvVoucher.setAdapter(mAdapter);
+        queryShareTicList(_mApplication.getUserInfo().getSessionID());
     }
 
     @Override
@@ -85,5 +92,35 @@ public class VoucherActivity extends BaseActivity {
     @OnClick(R.id.iv_leftmenu)
     public void onClick() {
         finish();
+    }
+
+    private void queryShareTicList(String sessionId) {
+        _apiManager.getService().queryShareTicList(sessionId, "")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(ret -> ApiManager.getInstance().processReturnListValue(ret))
+                .subscribe(retValue -> {
+                    for (ShareTicBean bean : retValue) {
+                        VoucherModel model = new VoucherModel(bean);
+                        data.add(model);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }, throwable -> {
+                    Log.e(TAG, "queryShareTicList: ", throwable);
+                });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryShareTicList(sessionId, ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .map(ret -> ApiManager.getInstance().processReturnListValue(ret))
+//                .subscribe(retValue -> {
+//                    for (ShareTicBean bean : retValue) {
+//                        VoucherModel model = new VoucherModel(bean);
+//                        data.add(model);
+//                    }
+//                    mAdapter.notifyDataSetChanged();
+//                }, throwable -> {
+//                    Log.e(TAG, "queryShareTicList: ", throwable);
+//                });
     }
 }

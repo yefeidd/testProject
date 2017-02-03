@@ -10,6 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.Constants;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
@@ -20,12 +24,7 @@ import cn.zn.com.zn_android.model.entity.ReturnValue;
 import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import cn.zn.com.zn_android.uiclass.x5webview.X5WebView;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import butterknife.Bind;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -165,12 +164,18 @@ public class MemberAreaActivity extends BaseActivity implements View.OnClickList
     }
 
     private void queryVipMemberIntru() {
-        AppObservable.bindActivity(this, _apiManager.getService().queryVipMemberIntru(_mApplication.getUserInfo().getSessionID(), ""))
+        _apiManager.getService().queryVipMemberIntru(_mApplication.getUserInfo().getSessionID(), "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultVipInstru, throwable -> {
                     Log.e(TAG, "queryVipMemberIntru: " + throwable, throwable);
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().queryVipMemberIntru(_mApplication.getUserInfo().getSessionID(), ""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultVipInstru, throwable -> {
+//                    Log.e(TAG, "queryVipMemberIntru: " + throwable, throwable);
+//                });
     }
 
     private void resultVipInstru(ReturnValue<VIPInfoBean> returnValue) {
@@ -185,12 +190,18 @@ public class MemberAreaActivity extends BaseActivity implements View.OnClickList
     }
 
     private void getVipState() {
-        AppObservable.bindActivity(this, _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), tid))
+        _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), tid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultVipState, throwable -> {
                     Log.e(TAG, "getVipState: ", throwable);
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), tid))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultVipState, throwable -> {
+//                    Log.e(TAG, "getVipState: ", throwable);
+//                });
     }
 
     private void resultVipState(ReturnValue<VipStateBean> returnValue) {
@@ -215,12 +226,19 @@ public class MemberAreaActivity extends BaseActivity implements View.OnClickList
     }
 
     private void queryRoomVipPage() {
-        AppObservable.bindActivity(this, _apiManager.getService().queryRoomVipPage(tid))
+        _apiManager.getService().queryRoomVipPage(tid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultVipPage, throwable -> {
                     Log.e(TAG, "getVipState: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryRoomVipPage(tid))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultVipPage, throwable -> {
+//                    Log.e(TAG, "getVipState: ", throwable);
+//                });
     }
 
     private void resultVipPage(ReturnValue<MessageBean> returnValue) {
@@ -243,12 +261,19 @@ public class MemberAreaActivity extends BaseActivity implements View.OnClickList
         } else {
             tacID = tid;
         }
-        AppObservable.bindActivity(this, _apiManager.getService().buyTactics(_mApplication.getUserInfo().getSessionID(), tacID, "2"))
+        _apiManager.getService().buyTactics(_mApplication.getUserInfo().getSessionID(), tacID, "2")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultBuyTactics, throwable -> {
                     Log.e(TAG, "buyTactics: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().buyTactics(_mApplication.getUserInfo().getSessionID(), tacID, "2"))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultBuyTactics, throwable -> {
+//                    Log.e(TAG, "buyTactics: ", throwable);
+//                });
     }
 
     private void resultBuyTactics(ReturnValue<MessageBean> returnValue) {

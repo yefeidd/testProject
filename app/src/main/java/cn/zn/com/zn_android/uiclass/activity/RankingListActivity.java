@@ -30,7 +30,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -179,7 +178,7 @@ public class RankingListActivity extends BaseActivity {
      * @return
      */
     private void getContribution() {
-        AppObservable.bindActivity(this, _apiManager.getService().getContribution(tid))
+        _apiManager.getService().getContribution(tid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultContribution, Throwable -> {
@@ -189,6 +188,16 @@ public class RankingListActivity extends BaseActivity {
                     Throwable.printStackTrace();
                     ToastUtil.showShort(this, getString(R.string.no_net));
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().getContribution(tid))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultContribution, Throwable -> {
+//                    if (dialog != null) {
+//                        dialog.dismiss();
+//                    }
+//                    Throwable.printStackTrace();
+//                    ToastUtil.showShort(this, getString(R.string.no_net));
+//                });
     }
 
     private void resultContribution(ReturnValue<ContributionBean> returnValue) {

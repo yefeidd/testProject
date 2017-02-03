@@ -47,7 +47,11 @@ public class TransactionDetailAdapter extends ArrayAdapter<TransDetailListBean> 
         holder.mTvDealPrice.setText(bean.getPrice());
         holder.mTvDealNum.setText(bean.getNum());
         holder.mTvDealAmount.setText(bean.getMoney());
-        holder.mTvExchangeFee.setText(bean.getTax());
+        if (null != bean.getTax()) {
+            holder.mTvExchangeFee.setText(bean.getTax());
+        } else {
+            holder.mTvExchangeFee.setText(bean.getShui());
+        }
         holder.mTvTime.setText(bean.getTime());
 
         if (bean.getTrade_type().equals("1")) { // 买入

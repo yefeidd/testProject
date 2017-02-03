@@ -35,7 +35,7 @@ public class HotAritcleContestModel extends ListviewItemModel {
     }
 
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
         HotArticleContestHolder hotArticleContestHolder = (HotArticleContestHolder) viewHolder;
         if (order > 2) {
             hotArticleContestHolder.mTvRank.setBackgroundResource(R.color.bar_bg_gray);

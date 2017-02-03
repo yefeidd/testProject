@@ -13,5 +13,7 @@ public enum  SimulativeBoardType {
     QUERY_IMITATE_FRY, // 模拟炒股用户首页
     QUERY_CHANGE_LIST, // 历史交易--成交明细 头部接口
     QUERY_CHANGE_CODE_LIST, // 历史交易--成交明细 列表接口
+    QUERY_ENTRUST_LIST, // 委托列表
+    REMOVE_ENTRUST, // 撤销委托
 
 }

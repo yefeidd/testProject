@@ -61,10 +61,10 @@ public abstract class BaseFragment extends Fragment {
                 parent.removeView(currentView);
             }
         } else {
-        currentView = inflater.inflate(layoutRes, container, false);
-        ButterKnife.bind(this, currentView);
-        initView(currentView);
-        initEvent();
+            currentView = inflater.inflate(layoutRes, container, false);
+            ButterKnife.bind(this, currentView);
+            initView(currentView);
+            initEvent();
         }
 
         this.inflater = inflater;
@@ -84,6 +84,12 @@ public abstract class BaseFragment extends Fragment {
 //        return view;
         layoutRes = res;
     }
+
+    public void initData(boolean isRefreshing) {
+    }
+
+
+    public void startCountDown(){}
 
     @Override
     public void onDestroyView() {

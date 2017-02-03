@@ -130,5 +130,4 @@
         android:layout_marginRight="@dimen/base8dp"
         android:layout_marginStart="@dimen/base8dp"/>
 
-    <include layout="@layout/layout_market_footer" />
 </LinearLayout>

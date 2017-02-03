@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.utils.DensityUtil;
 
@@ -83,6 +85,7 @@ public class JoDialog extends AlertDialog implements View.OnClickListener {
             contentScrollView.setVisibility(View.VISIBLE);
             content = (TextView) view.findViewById(R.id.content);
             content.setText(b.strContent);
+            content.setTextColor(content.getResources().getColor(b.colorContent));
         }
 
 //        if (b.items != null) {
@@ -175,6 +178,7 @@ public class JoDialog extends AlertDialog implements View.OnClickListener {
         private String strTitle;
         private int iconRes;
         private int viewRes;
+        private int colorContent = R.color.app_bar_color;
         private String strContent;
         private String[] items;
         private int positiveTextRes;
@@ -233,6 +237,11 @@ public class JoDialog extends AlertDialog implements View.OnClickListener {
 
         public Builder setStrContent(String strContent) {
             this.strContent = strContent;
+            return this;
+        }
+
+        public Builder setColorContent(int colorContent) {
+            this.colorContent = colorContent;
             return this;
         }
 

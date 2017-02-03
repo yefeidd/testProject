@@ -5,8 +5,6 @@
     android:layout_height="wrap_content"
     android:background="@color/app_bar_color">
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/base50dp">

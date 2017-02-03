@@ -68,7 +68,7 @@ public class OrderInfoUtil2_0 {
 
         keyValues.put("app_id", app_id);
 
-        keyValues.put("biz_content", "{\"timeout_express\":\"90m\",\"product_code\":\"QUICK_MSECURITY_PAY\",\"total_amount\":\"" + price + "\",\"subject\":\"证牛币充值\",\"body\":\"证牛币\",\"out_trade_no\":\"" + getOutTradeNo() + "\"}");
+        keyValues.put("biz_content", "{\"timeout_express\":\"90m\",\"product_code\":\"QUICK_MSECURITY_PAY\",\"total_amount\":\"" + price + "\",\"subject\":\"证牛币充值\",\"body\":\"zn_coin\",\"out_trade_no\":\"" + getOutTradeNo() + "\"}");
 
         keyValues.put("charset", "utf-8");
 

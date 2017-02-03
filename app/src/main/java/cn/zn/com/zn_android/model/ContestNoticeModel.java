@@ -28,7 +28,7 @@ public class ContestNoticeModel extends ListviewItemModel {
     }
 
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
         ContestNoticeListHolder holder = (ContestNoticeListHolder) viewHolder;
         holder.mTvTitle.setText(bean.getTitle());
         holder.mTvDate.setText(bean.getTime());

@@ -20,6 +20,26 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.pili.pldroid.player.AVOptions;
+import com.pili.pldroid.player.PlayerCode;
+import com.pili.pldroid.player.common.Util;
+import com.pili.pldroid.player.widget.VideoView;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.Config;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.JoFragmentPagerAdapter;
 import cn.zn.com.zn_android.manage.Constants;
@@ -46,30 +66,9 @@ import cn.zn.com.zn_android.utils.NetUtil;
 import cn.zn.com.zn_android.utils.StringUtil;
 import cn.zn.com.zn_android.utils.ToastUtil;
 import cn.zn.com.zn_android.viewfeatures.ChatView;
-import com.pili.pldroid.player.AVOptions;
-import com.pili.pldroid.player.PlayerCode;
-import com.pili.pldroid.player.common.Util;
-import com.pili.pldroid.player.widget.VideoView;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.socialize.Config;
-import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.media.UMImage;
-
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import butterknife.Bind;
 import de.greenrobot.event.EventBus;
 import rx.Observable;
 import rx.Subscription;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
@@ -706,13 +705,20 @@ public class SpecialLectureActivity extends BaseActivity implements
      * 查询公告
      */
     private void queryNotice() {
-        AppObservable.bindActivity(this, _apiManager.getService().queryNotice(""))
+        _apiManager.getService().queryNotice("")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultNotice, throwable -> {
                     mTvNotice.setVisibility(View.GONE);
                     Log.e(TAG, "queryNotice: ", throwable);
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().queryNotice(""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultNotice, throwable -> {
+//                    mTvNotice.setVisibility(View.GONE);
+//                    Log.e(TAG, "queryNotice: ", throwable);
+//                });
     }
 
     /**
@@ -813,13 +819,20 @@ public class SpecialLectureActivity extends BaseActivity implements
             vipfd = (tid.contains("vip")) ? "1" : "0";
         }
 
-        AppObservable.bindActivity(this, _apiManager.getService().sendMsg(sessionID, type, tid, StringUtil.handlerSendMsg(msg), vipfd, giftid, giftnum, Constants.ANDROID))
+        _apiManager.getService().sendMsg(sessionID, type, tid, StringUtil.handlerSendMsg(msg), vipfd, giftid, giftnum, Constants.ANDROID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::sendMsgResult, throwable -> {
                     Log.e(TAG, getString(R.string.register_fail));
                     ToastUtil.showShort(this, this.getString(R.string.register_fail));
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().sendMsg(sessionID, type, tid, StringUtil.handlerSendMsg(msg), vipfd, giftid, giftnum, Constants.ANDROID))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::sendMsgResult, throwable -> {
+//                    Log.e(TAG, getString(R.string.register_fail));
+//                    ToastUtil.showShort(this, this.getString(R.string.register_fail));
+//                });
     }
 
     /**
@@ -839,13 +852,21 @@ public class SpecialLectureActivity extends BaseActivity implements
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        AppObservable.bindActivity(this, _apiManager.getService().addRoomCollect(_mApplication.getUserInfo().getSessionID(), tid))
+        _apiManager.getService().addRoomCollect(_mApplication.getUserInfo().getSessionID(), tid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultCollectRoom, throwable -> {
                     Log.e(TAG, "addCollectRoom: ", throwable);
                     this.onError(ChatRequestType.FANS, throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().addRoomCollect(_mApplication.getUserInfo().getSessionID(), tid))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultCollectRoom, throwable -> {
+//                    Log.e(TAG, "addCollectRoom: ", throwable);
+//                    this.onError(ChatRequestType.FANS, throwable);
+//                });
     }
 
     private void resultCollectRoom(ReturnValue<MessageBean> returnValue) {

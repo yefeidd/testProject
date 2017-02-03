@@ -21,7 +21,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -72,6 +71,7 @@ public class StockRecordActivity extends BaseActivity implements XListView.IXLis
         mAdapter = new StockRecordAdapter(this, R.layout.item_stock_record, itemList);
         mXlvRecord.setAdapter(mAdapter);
         mXlvRecord.setXListViewListener(this);
+        mXlvRecord.setAutoLoadEnable(false);
 
         queryRecordList();
     }
@@ -87,7 +87,7 @@ public class StockRecordActivity extends BaseActivity implements XListView.IXLis
     }
 
     private void queryRecordList() {
-        AppObservable.bindActivity(this, _apiManager.getService().queryRecordList(_mApplication.getUserInfo().getSessionID(), page, pageSize))
+        _apiManager.getService().queryRecordList(_mApplication.getUserInfo().getSessionID(), page, pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultRecordList, throwable -> {
@@ -96,9 +96,19 @@ public class StockRecordActivity extends BaseActivity implements XListView.IXLis
                     mXlvRecord.stopRefresh();
                     mXlvRecord.setLoadMoreEnable(true);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryRecordList(_mApplication.getUserInfo().getSessionID(), page, pageSize))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultRecordList, throwable -> {
+//                    Log.e(TAG, "queryRecordList: " + throwable);
+//                    mXlvRecord.stopLoadMore();
+//                    mXlvRecord.stopRefresh();
+//                    mXlvRecord.setLoadMoreEnable(true);
+//                });
     }
 
-    private void resultRecordList(ReturnValue returnValue) {
+    private void resultRecordList(ReturnValue<StockRecordBean> returnValue) {
         if (null == returnValue) return;
 
         if (mXlvRecord.ismPullRefreshing()) {
@@ -107,7 +117,7 @@ public class StockRecordActivity extends BaseActivity implements XListView.IXLis
         mXlvRecord.stopLoadMore();
         mXlvRecord.stopRefresh();
 
-        StockRecordBean recordBean = (StockRecordBean) returnValue.getData();
+        StockRecordBean recordBean = returnValue.getData();
         holder.mTvStart.setText(String.format(getString(R.string.start_time), recordBean.getStart_time()));
         holder.mTvEnd.setText(String.format(getString(R.string.end_time), recordBean.getEnd_time()));
 

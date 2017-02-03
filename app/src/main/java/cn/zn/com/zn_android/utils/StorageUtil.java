@@ -5,9 +5,6 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.util.Log;
 
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.manage.RnApplication;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -21,6 +18,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.manage.RnApplication;
 
 /**
  * 路径工具类
@@ -477,6 +477,13 @@ public class StorageUtil {
         return sb.toString();
     }
 
+    /**
+     * 截取路径中的文件名
+     */
+    public static String getFileName(String filePath) {
+        String[] names = filePath.split("[\\/,\\.]");
+        return names[names.length - 2];
+    }
 
     /**
      * 复制文件，可以选择是否删除源文件

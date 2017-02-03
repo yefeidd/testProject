@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/tv_syn_sort"
+                android:layout_width="wrap_content"
+                style="@style/Txt14AppColor"
+                android:paddingLeft="@dimen/base12dp"
+                android:paddingRight="@dimen/base12dp"
+                android:paddingTop="@dimen/base12dp"
+                android:paddingBottom="@dimen/base8dp"
+                android:text="@string/synthetically_sorting"
+                android:drawablePadding="@dimen/base8dp"
+                android:drawableRight="@mipmap/ic_arrow_down"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="wrap_content"
+                style="@style/Txt14Black"
+                android:paddingLeft="@dimen/base12dp"
+                android:paddingRight="@dimen/base12dp"
+                android:paddingTop="@dimen/base12dp"
+                android:paddingBottom="@dimen/base8dp"
+                android:text="@string/count"
+                android:drawablePadding="@dimen/base8dp"
+                android:drawableRight="@mipmap/ic_arrow_down"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_favo_comm"
+                android:layout_width="wrap_content"
+                style="@style/Txt14Black"
+                android:paddingLeft="@dimen/base12dp"
+                android:paddingRight="@dimen/base12dp"
+                android:paddingTop="@dimen/base12dp"
+                android:paddingBottom="@dimen/base8dp"
+                android:text="@string/favourable_comment"
+                android:drawablePadding="@dimen/base8dp"
+                android:drawableRight="@mipmap/ic_arrow_down"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <cn.zn.com.zn_android.uiclass.xlistview.XListView
+        android:id="@+id/xlv_online"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="0dp"
+        android:divider="@android:color/transparent"
+        />
+
+</LinearLayout>

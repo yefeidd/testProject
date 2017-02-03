@@ -17,6 +17,7 @@ import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.BannerAdapter;
 import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.model.bean.AnyEventType;
 import cn.zn.com.zn_android.uiclass.fragment.ArticalListFragment;
 import cn.zn.com.zn_android.uiclass.fragment.BaseFragment;
 import cn.zn.com.zn_android.uiclass.fragment.MainFragment;
@@ -25,13 +26,14 @@ import cn.zn.com.zn_android.uiclass.fragment.PersonFragment;
 import cn.zn.com.zn_android.uiclass.fragment.SimulateContestHomeFragment;
 import cn.zn.com.zn_android.uiclass.fragment.TeacherFragment;
 import cn.zn.com.zn_android.utils.ToastUtil;
+import de.greenrobot.event.EventBus;
 
 public class MainActivity extends BaseActivity implements BannerAdapter.pageOnlickListener {
     private final int POS_HOME = 0;
     private final int POS_TEACHER = 1;
     private final int POS_MARKET = 2;
     private final int POS_ARTICLE = 3;
-    private final int POS_PERSON = 4;
+    public static final int POS_PERSON = 4;
     private final int POS_CONTEST = 5;
     private final String CURRENT_INDEX = "currentIndex";
     // 再点一次退出程序时间设置
@@ -61,6 +63,7 @@ public class MainActivity extends BaseActivity implements BannerAdapter.pageOnli
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         _setLightSystemBarTheme(false);
         super.onCreate(savedInstanceState);
         _setLayoutRes(R.layout.activity_main);
@@ -77,10 +80,22 @@ public class MainActivity extends BaseActivity implements BannerAdapter.pageOnli
             personFragment = (PersonFragment) getSupportFragmentManager()
                     .findFragmentByTag(PersonFragment.class.getSimpleName());
             currentFragIndex = savedInstanceState.getInt(CURRENT_INDEX);
-            mTabHost.setCurrentTab(currentFragIndex);
+
 //            setFragmentIndicator(currentFragIndex);
         }
 
+    }
+
+    public void onEventMainThread(AnyEventType event) {
+        if (event.getType() != null) {
+            currentFragIndex = event.getType();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        switchFragment(currentFragIndex);
     }
 
     @Override
@@ -113,11 +128,13 @@ public class MainActivity extends BaseActivity implements BannerAdapter.pageOnli
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        currentFragIndex = mTabHost.getCurrentTab();
         MobclickAgent.onPause(this);
     }
 
@@ -128,11 +145,14 @@ public class MainActivity extends BaseActivity implements BannerAdapter.pageOnli
         // 解决Fragment重叠问题
         initFragment();
 //        initBottomTab();
-        setFragmentIndicator(currentFragIndex);
         _mApplication.addActivity(this);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.contentPanel);
         int fragmentCount = fragments.length;
         String[] tabName = getResources().getStringArray(R.array.tab_name);
+
+        if (mTabHost.getChildCount() > 0) {
+            mTabHost.clearAllTabs();
+        }
         for (int i = 0; i < fragmentCount; ++i) {
             //为每一个Tab按钮设置图标、文字和内容
             TabHost.TabSpec tabSpec = mTabHost.newTabSpec(tabName[i]).setIndicator(getTabItemView(i));
@@ -245,15 +265,15 @@ public class MainActivity extends BaseActivity implements BannerAdapter.pageOnli
             transaction.commit();
         }
     }
-
-    private void setFragmentIndicator(int index) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (currentFragIndex != index) {
-            transaction.hide(fragments[currentFragIndex]).show(fragments[index]);
-        }
-        currentFragIndex = index;
-        transaction.commit();
-    }
+//
+//    private void setFragmentIndicator(int index) {
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        if (currentFragIndex != index) {
+//            transaction.hide(fragments[currentFragIndex]).show(fragments[index]);
+//        }
+//        currentFragIndex = index;
+//        transaction.commit();
+//    }
 
     @Override
     public void clickPage(int position) {
@@ -269,7 +289,6 @@ public class MainActivity extends BaseActivity implements BannerAdapter.pageOnli
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
-
 
     /**
      *

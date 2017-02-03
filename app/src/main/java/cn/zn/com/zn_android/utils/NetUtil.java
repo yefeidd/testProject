@@ -7,9 +7,6 @@ import android.net.NetworkInfo;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.RnApplication;
 
-import retrofit.RetrofitError;
-
-
 /**
  * 判断当前手机联网的渠道
  *
@@ -58,20 +55,20 @@ public class NetUtil {
         return false;
     }
 
-    public static void errorTip(RetrofitError.Kind kind) {
-        switch (kind) {
-            case NETWORK:
-                ToastUtil.showShort(RnApplication.getInstance(), RnApplication.getInstance().getString(R.string.no_net));
-                break;
-            case HTTP:
-                ToastUtil.showShort(RnApplication.getInstance(), RnApplication.getInstance().getString(R.string.error_http));
-                break;
-            case CONVERSION:
-                ToastUtil.showShort(RnApplication.getInstance(), RnApplication.getInstance().getString(R.string.error_conversion));
-                break;
-            default:
-                ToastUtil.showShort(RnApplication.getInstance(), RnApplication.getInstance().getString(R.string.error_unexpected));
-                break;
-        }
-    }
+//    public static void errorTip(RetrofitError.Kind kind) {
+//        switch (kind) {
+//            case NETWORK:
+//                ToastUtil.showShort(RnApplication.getInstance(), RnApplication.getInstance().getString(R.string.no_net));
+//                break;
+//            case HTTP:
+//                ToastUtil.showShort(RnApplication.getInstance(), RnApplication.getInstance().getString(R.string.error_http));
+//                break;
+//            case CONVERSION:
+//                ToastUtil.showShort(RnApplication.getInstance(), RnApplication.getInstance().getString(R.string.error_conversion));
+//                break;
+//            default:
+//                ToastUtil.showShort(RnApplication.getInstance(), RnApplication.getInstance().getString(R.string.no_net));
+//                break;
+//        }
+//    }
 }

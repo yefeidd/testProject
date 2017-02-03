@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_stock"
+        style="@style/Txt14Black"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp"
+        android:paddingTop="@dimen/base22dp" />
+
+    <TextView
+        android:id="@+id/tv_costing"
+        style="@style/Txt14Black"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp"
+        android:paddingTop="@dimen/base11dp" />
+
+    <TextView
+        android:id="@+id/content"
+        style="@style/Txt14Black"
+        android:paddingLeft="@dimen/base20dp"
+        android:paddingRight="@dimen/base20dp"
+        android:paddingTop="@dimen/base15dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/tv_ask"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base40dp"
+        android:background="@color/btn_bg_red"
+        android:gravity="center"
+        android:text="抢答"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+</LinearLayout>

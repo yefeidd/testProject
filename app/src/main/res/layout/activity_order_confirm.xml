@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar"/>
+
+    <TextView
+        android:id="@+id/tv_time_warning"
+        android:layout_width="match_parent"
+        android:background="@color/yellow_88cef7"
+        android:padding="@dimen/base10dp"
+        android:gravity="center"
+        style="@style/Txt12AppColor" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/base12dp"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            style="@style/MarketTitleTxt14Grey"
+            android:text="@string/order_name"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt14Black"
+            android:gravity="right|end"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/base12dp"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_detail"
+            android:layout_width="wrap_content"
+            android:maxWidth="@dimen/base270dp"
+            android:paddingLeft="@dimen/base8dp"
+            android:layout_alignParentRight="true"
+            style="@style/Txt13Black"
+            />
+
+        <TextView
+            android:id="@+id/tv_order_detial"
+            android:layout_width="wrap_content"
+            android:minWidth="@dimen/base60dp"
+            android:layout_height="wrap_content"
+            style="@style/MarketTitleTxt14Grey"
+            android:layout_toLeftOf="@+id/tv_detail"
+            android:layout_alignParentLeft="true"
+            android:text="@string/order_detail"
+             />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/base12dp"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/MarketTitleTxt14Grey"
+            android:text="@string/order_cost"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_cost"
+            android:layout_width="wrap_content"
+            style="@style/Txt16AppColor"
+            android:drawablePadding="@dimen/base8dp"
+            android:drawableLeft="@drawable/ic_znb_small"
+            android:gravity="right|end"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base4dp"
+        android:background="@color/register_content_color"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/base12dp"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/MarketTitleTxt14Grey"
+            android:text="@string/diagnosed"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_diagnosed"
+            android:layout_width="wrap_content"
+            style="@style/Txt14AppColor"
+            android:gravity="right|end"
+            android:drawablePadding="@dimen/base6dp"
+            android:drawableRight="@mipmap/ic_arrow_grey"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base4dp"
+        android:background="@color/register_content_color"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        style="@style/MarketTitleTxt14Grey"
+        android:text="@string/order_way"
+        android:paddingTop="@dimen/base12dp"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/base12dp"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt15Black"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/base6dp"
+            android:drawableLeft="@drawable/ic_znb_big"
+            android:text="@string/use_znb_pay"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_balance"
+            android:layout_width="wrap_content"
+            style="@style/Txt14AppColor"
+            android:gravity="right|end"
+            />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cb_use_znb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/base8dp"
+            android:background="@android:color/transparent"
+            android:button="@drawable/order_znb_checked"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base4dp"
+        android:background="@color/register_content_color"/>
+
+    <TextView
+        android:id="@+id/tv_not_enough"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/base8dp"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:text="@string/balance_not_enough"
+        android:gravity="right"
+        style="@style/Txt14Black"/>
+
+    <TextView
+        android:id="@+id/tv_order_time"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:gravity="bottom|left"
+        style="@style/MarketTitleTxt13Grey"/>
+
+    <TextView
+        android:id="@+id/tv_order_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/base4dp"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingBottom="@dimen/base8dp"
+        style="@style/MarketTitleTxt13Grey"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_real_cost"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Txt16AppColor"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_pay_now"
+            android:layout_width="wrap_content"
+            android:paddingTop="@dimen/base15dp"
+            android:paddingBottom="@dimen/base15dp"
+            android:paddingLeft="@dimen/base25dp"
+            android:paddingRight="@dimen/base25dp"
+            android:background="@color/app_bar_color"
+            style="@style/Txt16White"
+            android:gravity="right|end"
+            android:text="@string/pay_now"/>
+    </LinearLayout>
+
+</LinearLayout>

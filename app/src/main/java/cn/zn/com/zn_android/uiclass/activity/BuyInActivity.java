@@ -281,7 +281,11 @@ public class BuyInActivity extends BaseMVPActivity<BuyInView, BuyInPresenter> im
 //        viewHolder.mTvTitle.setText(String.format(getString(R.string.mark_buy_in_confirm), title));
         viewHolder.mTvCode.setText(String.format(getString(R.string.buy_sell_code), code));
         viewHolder.mTvName.setText(String.format(getString(R.string.buy_sell_name), mTvName.getText().toString()));
-        viewHolder.mTvPrice.setText(String.format(getString(R.string.buy_sell_price), mEtPrice.getText().toString()));
+        if (dialogTitle.contains("委托")) {
+            viewHolder.mTvPrice.setText(String.format(getString(R.string.buy_sell_price), mEtPrice.getText().toString()));
+        } else {
+            viewHolder.mTvPrice.setText(String.format(getString(R.string.buy_sell_price), "- -"));
+        }
         viewHolder.mTvNum.setText(String.format(getString(R.string.buy_sell_num), mEtNum.getText().toString()));
 
         viewHolder.mBtnBuyIn.setText(title);

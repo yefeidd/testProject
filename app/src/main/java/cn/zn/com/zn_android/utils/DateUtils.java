@@ -207,4 +207,52 @@ public class DateUtils {
         String dateString = formatter.format(date);
         return dateString;
     }
+
+    /**
+     * 将秒形式的数据以  hh:mm:ss的方式展示
+     *
+     * @param second
+     * @return
+     */
+    public static String second2HourStr(Long second) {
+        String dateStr = "";
+        long h = second / 3600;
+        long m = second % 3600 / 60;
+        long s = second % 3600 % 60;
+        dateStr = h + ":" + m + ":" + s;
+        return dateStr;
+    }
+
+
+
+
+    /**
+     * 将毫秒值转换为时分秒 times[0] 小时  times[1] 分 times[2] 秒 times[3] 总数秒
+     *
+     * @param
+     * @return
+     */
+    public static Long[] second2HourStr1(Long second) {
+        Long[] times = new Long[3];
+        times[0] = second / 3600;
+        times[1] = second % 3600 / 60;
+        times[2] = second % 3600 % 60;
+        return times;
+    }
+
+    /**
+     * 将毫秒值转换为时分秒 times[0] 小时  times[1] 分 times[2] 秒 times[3] 总数秒
+     *
+     * @param
+     * @return
+     */
+    public static Integer[] second2HourStr1(Integer second) {
+        Integer[] times = new Integer[3];
+        times[0] = second / 3600;
+        times[1] = second % 3600 / 60;
+        times[2] = second % 3600 % 60;
+        return times;
+    }
+
+
 }

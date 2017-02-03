@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/register_content_color"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/base12dp"
+        android:paddingLeft="@dimen/base18dp"
+        android:paddingRight="@dimen/base18dp"
+        android:paddingTop="@dimen/base12dp">
+
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/MarketTitleTxt18Grey"
+            android:drawableLeft="@mipmap/ic_znb_bill_detail"
+            android:drawablePadding="@dimen/base12dp"
+            android:gravity="center_vertical"
+            android:text="币" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            style="@style/Txt14MarketGrey"
+            android:paddingLeft="@dimen/base48dp"
+             />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/base8dp"
+        android:paddingLeft="@dimen/base18dp"
+        android:paddingRight="@dimen/base18dp"
+        android:paddingTop="@dimen/base12dp">
+
+        <TextView
+            style="@style/MarketTitleTxt14Grey"
+            android:text="@string/bill_explain" />
+
+        <TextView
+            android:id="@+id/tv_explain"
+            style="@style/Txt14Black"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/base8dp"
+        android:paddingLeft="@dimen/base18dp"
+        android:paddingRight="@dimen/base18dp"
+        android:paddingTop="@dimen/base12dp">
+
+        <TextView
+            style="@style/MarketTitleTxt14Grey"
+            android:text="@string/bill_account" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            style="@style/Txt14Black"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/base8dp"
+        android:paddingLeft="@dimen/base18dp"
+        android:paddingRight="@dimen/base18dp"
+        android:paddingTop="@dimen/base12dp">
+
+        <TextView
+            style="@style/MarketTitleTxt14Grey"
+            android:text="@string/bill_time" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/Txt14Black"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"
+             />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/base8dp"
+        android:paddingLeft="@dimen/base18dp"
+        android:paddingRight="@dimen/base18dp">
+
+        <TextView
+            style="@style/MarketTitleTxt14Grey"
+            android:text="@string/bill_num" />
+
+        <TextView
+            android:id="@+id/tv_number"
+            style="@style/Txt14Black"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"
+             />
+
+    </LinearLayout>
+
+</LinearLayout>

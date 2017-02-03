@@ -29,7 +29,7 @@ public class TeacherExplainModel extends ListviewItemModel {
 
 
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
         TeacherExplainHolder explainHolder = (TeacherExplainHolder) viewHolder;
         explainHolder.mSdvExplain.setImageURI(Uri.parse(bean.getImage()));
         explainHolder.mTvTitle.setText(bean.getTitle());

@@ -9,6 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.ArticleListAdapter;
 import cn.zn.com.zn_android.manage.Constants;
@@ -17,14 +24,6 @@ import cn.zn.com.zn_android.model.bean.CollectVideoArtBean;
 import cn.zn.com.zn_android.model.entity.ReturnValue;
 import cn.zn.com.zn_android.uiclass.xlistview.XListView;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -183,7 +182,7 @@ public class ArticlesFragment extends BaseFragment {
     }
 
     private void queryStockSchool(int page, int pcount) {
-        AppObservable.bindFragment(this, _apiManager.getService().queryStockSchool(page, pcount))
+        _apiManager.getService().queryStockSchool(page, pcount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultStockSchool, throwable -> {
@@ -191,6 +190,15 @@ public class ArticlesFragment extends BaseFragment {
                     mLvArticle.stopRefresh();
                     mLvArticle.stopLoadMore();
                 });
+
+//        AppObservable.bindFragment(this, _apiManager.getService().queryStockSchool(page, pcount))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultStockSchool, throwable -> {
+//                    Log.e(TAG, "queryStockSchool: ", throwable);
+//                    mLvArticle.stopRefresh();
+//                    mLvArticle.stopLoadMore();
+//                });
     }
 
     private void resultStockSchool(ReturnValue<CollectVideoArtBean> returnValue) {

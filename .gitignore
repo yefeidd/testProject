@@ -8,7 +8,7 @@ app/src/main/gen/
 /build
 /captures
 .idea/
-/.idea
+/idea
 .gradle
 local.properties
 \app\build

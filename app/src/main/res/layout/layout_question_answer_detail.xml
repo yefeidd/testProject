@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base12dp"
+        android:paddingTop="@dimen/base8dp"
+        android:paddingBottom="@dimen/base8dp">
+
+        <ImageView
+            android:id="@+id/iv_znb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_znb_big"/>
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="match_parent"
+            android:lineSpacingMultiplier="1.2"
+            style="@style/Txt14Black"
+            android:layout_marginLeft="@dimen/base8dp"
+            android:layout_toRightOf="@+id/iv_znb"/>
+
+        <ImageView
+            android:id="@+id/iv_mark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base4dp"
+            android:layout_below="@+id/tv_question"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/answer_star5"
+            />
+
+        <TextView
+            android:id="@+id/tv_questioner"
+            android:layout_width="wrap_content"
+            style="@style/Txt14Grey"
+            android:layout_below="@+id/iv_mark"
+            android:layout_marginTop="@dimen/base4dp"
+            android:layout_marginLeft="@dimen/base8dp"
+            android:layout_toRightOf="@+id/iv_znb"/>
+
+        <TextView
+            android:id="@+id/tv_question_time"
+            android:layout_width="wrap_content"
+            style="@style/Txt14Grey"
+            android:layout_marginTop="@dimen/base4dp"
+            android:layout_below="@+id/iv_mark"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/register_content_color"/>
+
+    <LinearLayout
+        android:id="@+id/ll_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            style="@style/Txt14Black"
+            android:padding="@dimen/base12dp"
+            android:text="@string/question_answer"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/register_content_color"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/base12dp"
+            android:paddingRight="@dimen/base12dp"
+            android:paddingTop="@dimen/base8dp"
+            android:paddingBottom="@dimen/base8dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_avatar"
+                android:layout_width="@dimen/base30dp"
+                android:layout_height="@dimen/base30dp"
+                android:layout_marginRight="@dimen/base8dp"
+                android:layout_toLeftOf="@+id/iv_avatar_right"
+                android:scaleType="centerCrop"
+                app:fadeDuration="200"
+                app:placeholderImage="@mipmap/ic_default_avatars"
+                app:roundAsCircle="true" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                style="@style/Txt14Black"
+                android:layout_marginLeft="@dimen/base8dp"
+                android:layout_toRightOf="@+id/sdv_avatar"/>
+
+            <TextView
+                android:id="@+id/tv_answer_time"
+                android:layout_width="wrap_content"
+                style="@style/MarketTitleTxt14Grey"
+                android:layout_marginLeft="@dimen/base8dp"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:id="@+id/tv_style"
+                android:layout_width="wrap_content"
+                style="@style/Txt14Grey"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginTop="@dimen/base4dp"
+                android:layout_marginLeft="@dimen/base8dp"
+                android:layout_toRightOf="@+id/sdv_avatar"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/register_content_color"/>
+
+        <TextView
+            android:id="@+id/tv_trend_short"
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/base12dp"
+            android:paddingRight="@dimen/base12dp"
+            android:paddingTop="@dimen/base12dp"
+            style="@style/Txt14Black"/>
+
+        <TextView
+            android:id="@+id/tv_trend_middle"
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/base12dp"
+            android:paddingRight="@dimen/base12dp"
+            android:paddingTop="@dimen/base4dp"
+            style="@style/Txt14Black"/>
+
+        <TextView
+            android:id="@+id/tv_tech_analyse"
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/base12dp"
+            android:paddingRight="@dimen/base12dp"
+            android:paddingTop="@dimen/base8dp"
+            android:lineSpacingMultiplier="1.2"
+            style="@style/Txt14Black"/>
+
+        <TextView
+            android:id="@+id/tv_base_analyse"
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/base12dp"
+            android:paddingRight="@dimen/base12dp"
+            android:paddingTop="@dimen/base8dp"
+            android:lineSpacingMultiplier="1.2"
+            style="@style/Txt14Black"/>
+
+        <TextView
+            android:id="@+id/tv_supplement"
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/base12dp"
+            android:paddingRight="@dimen/base12dp"
+            android:paddingTop="@dimen/base8dp"
+            android:lineSpacingMultiplier="1.2"
+            style="@style/Txt14Black"/>
+
+        <GridView
+            android:id="@+id/gv_imgs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/base12dp"
+            android:paddingRight="@dimen/base12dp"
+            android:paddingTop="@dimen/base4dp"
+            android:horizontalSpacing="@dimen/base4dp"
+            android:numColumns="3"/>
+
+    </LinearLayout>
+
+</LinearLayout>

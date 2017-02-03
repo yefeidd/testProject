@@ -211,7 +211,7 @@ public class MarketSearchActivity extends BaseMVPActivity<StockView, StockPresen
 
     @Override
     public void afterTextChanged(Editable s) {
-        if (s.length() > 3) {
+        if (s.length() >= 3) {
             presenter.searchStock(s.toString());
         }
     }

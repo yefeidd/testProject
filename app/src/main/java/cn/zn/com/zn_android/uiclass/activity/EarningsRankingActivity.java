@@ -22,7 +22,9 @@ import java.util.List;
 import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.viewHolder.ListViewAdapter;
+import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.RnApplication;
+import cn.zn.com.zn_android.model.DynamicExpertModel;
 import cn.zn.com.zn_android.model.FYListModel;
 import cn.zn.com.zn_android.model.HotStockListModel;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
@@ -30,8 +32,8 @@ import cn.zn.com.zn_android.model.bean.FyRankingBean;
 import cn.zn.com.zn_android.model.bean.HotTicBean;
 import cn.zn.com.zn_android.model.bean.TrackRankingBean;
 import cn.zn.com.zn_android.uiclass.xlistview.XListView;
+import cn.zn.com.zn_android.utils.ToastUtil;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -40,7 +42,8 @@ import rx.schedulers.Schedulers;
  * email: m15267280642@163.com
  * explain:
  */
-public class EarningsRankingActivity extends BaseActivity implements View.OnClickListener, XListView.IXListViewListener {
+public class EarningsRankingActivity extends BaseActivity implements View.OnClickListener,
+        XListView.IXListViewListener, DynamicExpertModel.FocusChangeListner {
 
     @Bind(R.id.iv_leftmenu)
     ImageView mIvLeftmenu;
@@ -59,7 +62,7 @@ public class EarningsRankingActivity extends BaseActivity implements View.OnClic
     private List<HotTicBean> hot_tic = new ArrayList<>();
     private List<TrackRankingBean> track_ranking = new ArrayList<>();
     private int page = 0;
-    private int num = 12;
+    private int num = 10;
     private Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
@@ -98,6 +101,21 @@ public class EarningsRankingActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void initData() {
+//        switch (type) {
+//            case 0:
+//                setFyDatas(page++);
+//                break;
+//            case 1:
+//                setEarningsDatas(page++);
+//                break;
+//            case 2:
+//                setHotDatas(page++);
+//                break;
+//        }
+//        super.initData();
+    }
+
+    private void queryData(int page) {
         switch (type) {
             case 0:
                 setFyDatas(page++);
@@ -109,7 +127,6 @@ public class EarningsRankingActivity extends BaseActivity implements View.OnClic
                 setHotDatas(page++);
                 break;
         }
-        super.initData();
     }
 
     @Override
@@ -129,6 +146,8 @@ public class EarningsRankingActivity extends BaseActivity implements View.OnClic
                 break;
         }
         //风云排行榜
+        mXlvFyList.setAutoLoadEnable(false);
+        mXlvFyList.setPullRefreshEnable(false);
         mXlvFyList.addHeaderView(headFyView);
         mXlvFyList.setAdapter(xlvAdapter);
         fyi = 0;
@@ -160,6 +179,10 @@ public class EarningsRankingActivity extends BaseActivity implements View.OnClic
         MobclickAgent.onPageStart(TAG); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
         MobclickAgent.onResume(this);          //统计时长
 
+        fyi = 0;
+        tracki = 0;
+        queryData(0);
+
     }
 
     @Override
@@ -175,14 +198,25 @@ public class EarningsRankingActivity extends BaseActivity implements View.OnClic
         super.onDestroy();
     }
 
-    public void setFyDatas(int page) {
-        AppObservable.bindActivity(this, _apiManager.getService().queryFyRanking(RnApplication.getInstance().getUserInfo().getSessionID(), String.valueOf(page), String.valueOf(num)))
+    public void setFyDatas(int p) {
+        int count = 0;
+        if (p == 0) {
+            count = (page + 1) * num;
+        } else {
+            count = num;
+        }
+
+        _apiManager.getService().queryFyRanking(
+                RnApplication.getInstance().getUserInfo().getSessionID(), String.valueOf(p), String.valueOf(count))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
                     if (null != retValue && null != retValue.getData() && retValue.getData().size() != 0) {
                         fy_ranking = retValue.getData();
-                        if (fy_ranking.size() <= num) mXlvFyList.setLoadMoreEnableShow(false);
+                        if (p == 0) {
+                            fyDatas.clear();
+                        }
+                        if (fy_ranking.size() < num) mXlvFyList.setLoadMoreEnableShow(false);
                         for (FyRankingBean bean : fy_ranking) {
                             FYListModel model = new FYListModel(EarningsRankingActivity.this, 0).setBean(bean).setIndex(fyi++);
                             fyDatas.add(model);
@@ -190,28 +224,66 @@ public class EarningsRankingActivity extends BaseActivity implements View.OnClic
                     }
                     Message msg = Message.obtain();
                     msg.what = 0;
-                    mHandler.handleMessage(msg);
+//                    mHandler.handleMessage(msg);
+                    mHandler.sendEmptyMessageDelayed(0, 500);
 
 
                 }, throwable -> {
                     Log.e(TAG, "fyDatas: ", throwable);
                 });
 
+//        AppObservable.bindActivity(this, _apiManager.getService().queryFyRanking(
+//                RnApplication.getInstance().getUserInfo().getSessionID(), String.valueOf(p), String.valueOf(count)))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue && null != retValue.getData() && retValue.getData().size() != 0) {
+//                        fy_ranking = retValue.getData();
+//                        if (p == 0) {
+//                            fyDatas.clear();
+//                        }
+//                        if (fy_ranking.size() < num) mXlvFyList.setLoadMoreEnableShow(false);
+//                        for (FyRankingBean bean : fy_ranking) {
+//                            FYListModel model = new FYListModel(EarningsRankingActivity.this, 0).setBean(bean).setIndex(fyi++);
+//                            fyDatas.add(model);
+//                        }
+//                    }
+//                    Message msg = Message.obtain();
+//                    msg.what = 0;
+////                    mHandler.handleMessage(msg);
+//                    mHandler.sendEmptyMessageDelayed(0, 500);
+//
+//
+//                }, throwable -> {
+//                    Log.e(TAG, "fyDatas: ", throwable);
+//                });
+
 
     }
 
 
-    public void setEarningsDatas(int page) {
-        AppObservable.bindActivity(this, _apiManager.getService().queryTrankRanking(String.valueOf(page), String.valueOf(num)))
+    public void setEarningsDatas(int p) {
+        int count = 0;
+        if (p == 0) {
+            count = (page + 1) * num;
+        } else {
+            count = num;
+        }
+        _apiManager.getService().queryTrankRanking(
+                _mApplication.getUserInfo().getSessionID(), String.valueOf(p), String.valueOf(count))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
                     if (null != retValue && null != retValue.getData() && retValue.getData().size() != 0) {
                         track_ranking = retValue.getData();
-                        if (track_ranking.size() <= num) mXlvFyList.setLoadMoreEnableShow(false);
+                        if (track_ranking.size() < num) mXlvFyList.setLoadMoreEnableShow(false);
 
+                        if (p == 0) {
+                            earningsDatas.clear();
+                        }
                         for (TrackRankingBean bean : track_ranking) {
                             FYListModel model = new FYListModel(EarningsRankingActivity.this, 1).setBean(bean).setIndex(tracki++);
+                            model.setmListner(this);
                             earningsDatas.add(model);
                         }
                     }
@@ -223,19 +295,48 @@ public class EarningsRankingActivity extends BaseActivity implements View.OnClic
                     Log.e(TAG, "earningsDatas: ", throwable);
                 });
 
+//        AppObservable.bindActivity(this, _apiManager.getService().queryTrankRanking(
+//                _mApplication.getUserInfo().getSessionID(), String.valueOf(p), String.valueOf(count)))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue && null != retValue.getData() && retValue.getData().size() != 0) {
+//                        track_ranking = retValue.getData();
+//                        if (track_ranking.size() < num) mXlvFyList.setLoadMoreEnableShow(false);
+//
+//                        if (p == 0) {
+//                            earningsDatas.clear();
+//                        }
+//                        for (TrackRankingBean bean : track_ranking) {
+//                            FYListModel model = new FYListModel(EarningsRankingActivity.this, 1).setBean(bean).setIndex(tracki++);
+//                            model.setmListner(this);
+//                            earningsDatas.add(model);
+//                        }
+//                    }
+//                    Message msg = Message.obtain();
+//                    msg.what = 1;
+//                    mHandler.handleMessage(msg);
+//
+//                }, throwable -> {
+//                    Log.e(TAG, "earningsDatas: ", throwable);
+//                });
+
 
     }
 
 
     public void setHotDatas(int page) {
         if (page == 0) {
-            AppObservable.bindActivity(this, _apiManager.getService().queryHotTic(""))
+            _apiManager.getService().queryHotTic("")
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(retValue -> {
                         if (null != retValue && null != retValue.getData() && retValue.getData().size() != 0) {
                             hot_tic = retValue.getData();
-                            if (hot_tic.size() <= num) mXlvFyList.setLoadMoreEnableShow(false);
+                            if (0 == page) {
+                                hotDatas.clear();
+                            }
+                            if (hot_tic.size() < num) mXlvFyList.setLoadMoreEnableShow(false);
                             int start = page * num < hot_tic.size() ? page * num : hot_tic.size();
                             int end = (page + 1) * num < hot_tic.size() ? (page + 1) * num : hot_tic.size();
                             for (int i = start; i < end; i++) {
@@ -250,6 +351,31 @@ public class EarningsRankingActivity extends BaseActivity implements View.OnClic
                     }, throwable -> {
                         Log.e(TAG, "hotDatas: ", throwable);
                     });
+
+//            AppObservable.bindActivity(this, _apiManager.getService().queryHotTic(""))
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(retValue -> {
+//                        if (null != retValue && null != retValue.getData() && retValue.getData().size() != 0) {
+//                            hot_tic = retValue.getData();
+//                            if (0 == page) {
+//                                hotDatas.clear();
+//                            }
+//                            if (hot_tic.size() < num) mXlvFyList.setLoadMoreEnableShow(false);
+//                            int start = page * num < hot_tic.size() ? page * num : hot_tic.size();
+//                            int end = (page + 1) * num < hot_tic.size() ? (page + 1) * num : hot_tic.size();
+//                            for (int i = start; i < end; i++) {
+//                                HotTicBean bean = hot_tic.get(i);
+//                                HotStockListModel model = new HotStockListModel(this, bean).setIndex(i);
+//                                hotDatas.add(model);
+//                            }
+//                        }
+//                        Message msg = Message.obtain();
+//                        msg.what = 2;
+//                        mHandler.handleMessage(msg);
+//                    }, throwable -> {
+//                        Log.e(TAG, "hotDatas: ", throwable);
+//                    });
         } else {
             int start = page * num < hot_tic.size() ? page * num : hot_tic.size();
             int end = (page + 1) * num < hot_tic.size() ? (page + 1) * num : hot_tic.size();
@@ -275,11 +401,89 @@ public class EarningsRankingActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onRefresh() {
-        initData();
     }
 
     @Override
     public void onLoadMore() {
-        initData();
+//        initData();
+        page ++;
+        queryData(page);
     }
+
+    @Override
+    public void focusChange(boolean focus, String userId, int position) {
+        if (focus) {
+            attentionOther(userId, position);
+        } else {
+            unsetConcern(userId, position);
+        }
+    }
+
+    public void attentionOther(String userId, int pos) {
+        ApiManager.getInstance().getService().attentionOther(RnApplication.getInstance().getUserInfo().getSessionID(), userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(retValue -> {
+                    if (null != retValue) {
+                        ToastUtil.showShort(this, retValue.getData().getMessage());
+                        if (retValue.getData().getMessage().contains("成功")) {
+                            earningsDatas.get(pos).getTrackBean().setAttentionType(1);
+                            xlvAdapter.setDataList(earningsDatas);
+                        }
+                    }
+                }, throwable -> {
+                    Log.e(TAG, "attentionOther: ", throwable);
+                });
+
+//        AppObservable.bindActivity(this, ApiManager.getInstance().getService().attentionOther(
+//                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        ToastUtil.showShort(this, retValue.getData().getMessage());
+//                        if (retValue.getData().getMessage().contains("成功")) {
+//                            earningsDatas.get(pos).getTrackBean().setAttentionType(1);
+//                            xlvAdapter.setDataList(earningsDatas);
+//                        }
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "attentionOther: ", throwable);
+//                });
+    }
+
+    public void unsetConcern(String userId, int pos) {
+        ApiManager.getInstance().getService().unsetConcern(
+                RnApplication.getInstance().getUserInfo().getSessionID(), userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(retValue -> {
+                    if (null != retValue) {
+                        ToastUtil.showShort(this, retValue.getData().getMessage());
+                        if (retValue.getData().getMessage().contains("成功")) {
+                            earningsDatas.get(pos).getTrackBean().setAttentionType(0);
+                            xlvAdapter.setDataList(earningsDatas);
+                        }
+                    }
+                }, throwable -> {
+                    Log.e(TAG, "unsetConcern: ", throwable);
+                });
+
+//        AppObservable.bindActivity(this, ApiManager.getInstance().getService().unsetConcern(
+//                RnApplication.getInstance().getUserInfo().getSessionID(), userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        ToastUtil.showShort(this, retValue.getData().getMessage());
+//                        if (retValue.getData().getMessage().contains("成功")) {
+//                            earningsDatas.get(pos).getTrackBean().setAttentionType(0);
+//                            xlvAdapter.setDataList(earningsDatas);
+//                        }
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "unsetConcern: ", throwable);
+//                });
+    }
+
 }

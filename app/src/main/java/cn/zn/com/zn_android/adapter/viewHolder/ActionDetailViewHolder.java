@@ -1,6 +1,7 @@
 package cn.zn.com.zn_android.adapter.viewHolder;
 
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import cn.zn.com.zn_android.R;
@@ -14,17 +15,18 @@ import butterknife.Bind;
  */
 public class ActionDetailViewHolder extends BaseViewHolder {
 
-
+    @Bind(R.id.ll_item)
+    public LinearLayout mLlItem;
     @Bind(R.id.tv_code)
-    TextView mTvCode;
+    public TextView mTvCode;
     @Bind(R.id.tv_name)
-    TextView mTvName;
+    public TextView mTvName;
     @Bind(R.id.tv_number)
-    TextView mTvNumber;
+    public TextView mTvNumber;
     @Bind(R.id.tv_base_price)
-    TextView mTvBasePrice;
+    public TextView mTvBasePrice;
     @Bind(R.id.tv_position_cost)
-    TextView mTvPositionCost;
+    public TextView mTvPositionCost;
 
     ActionDetailViewHolder(View view) {
         super(view);

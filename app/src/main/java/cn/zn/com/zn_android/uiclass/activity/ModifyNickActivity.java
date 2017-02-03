@@ -10,16 +10,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.Constants;
 import cn.zn.com.zn_android.model.bean.MessageBean;
 import cn.zn.com.zn_android.model.entity.ReturnValue;
 import cn.zn.com.zn_android.utils.StringUtil;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import butterknife.Bind;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -122,13 +121,20 @@ public class ModifyNickActivity extends BaseActivity implements View.OnClickList
      * 调用修改昵称接口
      */
     private void modifyNick() {
-        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberNick(_mApplication.getUserInfo().getSessionID(), mEvNickname.getText().toString()))
+        _apiManager.getService().modifyMemberNick(_mApplication.getUserInfo().getSessionID(), mEvNickname.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::modifyResult, throwable -> {
                     Log.i(TAG, "modifyNick: 异常");
                     ToastUtil.showShort(this, getString(R.string.modify_fail));
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberNick(_mApplication.getUserInfo().getSessionID(), mEvNickname.getText().toString()))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::modifyResult, throwable -> {
+//                    Log.i(TAG, "modifyNick: 异常");
+//                    ToastUtil.showShort(this, getString(R.string.modify_fail));
+//                });
     }
 
     /**

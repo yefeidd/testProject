@@ -3,19 +3,13 @@ package cn.zn.com.zn_android.presenter;
 import android.app.Activity;
 import android.util.Log;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.adapter.viewHolder.DynamicExpertViewHolder;
-import cn.zn.com.zn_android.manage.ApiManager;
-import cn.zn.com.zn_android.manage.RnApplication;
-import cn.zn.com.zn_android.model.ExchangeRecordModel;
-import cn.zn.com.zn_android.model.bean.ExchangeRecordBean;
-import cn.zn.com.zn_android.utils.ToastUtil;
-import cn.zn.com.zn_android.viewfeatures.BaseMvpView;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.android.app.AppObservable;
+import cn.zn.com.zn_android.manage.ApiManager;
+import cn.zn.com.zn_android.model.ExchangeRecordModel;
+import cn.zn.com.zn_android.model.bean.ExchangeRecordBean;
+import cn.zn.com.zn_android.viewfeatures.BaseMvpView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -44,7 +38,7 @@ public class TaPresenter extends BasePresenter<BaseMvpView> {
 
 
     public void requestHeadDate(String sessionId, String userId) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().queryOtherMsg(sessionId, userId))
+        _apiManager.getService().queryOtherMsg(sessionId, userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -55,11 +49,23 @@ public class TaPresenter extends BasePresenter<BaseMvpView> {
                     Log.e(TAG, "queryMainMoney: ", throwable);
                     mView.onError(head, throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().queryOtherMsg(sessionId, userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        mView.onSuccess(head, retValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "queryMainMoney: ", throwable);
+//                    mView.onError(head, throwable);
+//                });
     }
 
 
     public void requestHistoryDate(String userId, int page, int pageSize) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().queryOtherHistory(userId, page, pageSize))
+        _apiManager.getService().queryOtherHistory(userId, page, pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -76,10 +82,28 @@ public class TaPresenter extends BasePresenter<BaseMvpView> {
                     Log.e(TAG, "queryMainMoney: ", throwable);
                     mView.onError(history, throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().queryOtherHistory(userId, page, pageSize))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        List<ExchangeRecordModel> historyModels = new ArrayList<>();
+//                        List<ExchangeRecordBean> historyList = retValue.getData();
+//                        for (ExchangeRecordBean bean : historyList) {
+//                            ExchangeRecordModel model = new ExchangeRecordModel(mActivity, bean);
+//                            historyModels.add(model);
+//                        }
+//                        mView.onSuccess(history, historyModels);
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "queryMainMoney: ", throwable);
+//                    mView.onError(history, throwable);
+//                });
     }
 
     public void attentionOther(String sessionId, String userId) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().attentionOther(sessionId, userId))
+        _apiManager.getService().attentionOther(sessionId, userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -90,11 +114,22 @@ public class TaPresenter extends BasePresenter<BaseMvpView> {
                     Log.e(TAG, "attentionOther: ", throwable);
                     mView.onError(focus, throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().attentionOther(sessionId, userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        mView.onSuccess(focus, retValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "attentionOther: ", throwable);
+//                    mView.onError(focus, throwable);
+//                });
     }
 
     public void unsetConcern(String sessionId, String userId) {
-        AppObservable.bindActivity(mActivity, ApiManager.getInstance().getService().unsetConcern(
-                sessionId, userId))
+        ApiManager.getInstance().getService().unsetConcern(sessionId, userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -104,6 +139,18 @@ public class TaPresenter extends BasePresenter<BaseMvpView> {
                 }, throwable -> {
                     Log.e(TAG, "attentionOther: ", throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, ApiManager.getInstance().getService().unsetConcern(
+//                sessionId, userId))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        mView.onSuccess(unfocus, retValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "attentionOther: ", throwable);
+//                });
     }
 
 }

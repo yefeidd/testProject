@@ -20,6 +20,12 @@ public class TitledListView extends XListView {
 
     public View mTitle;
 
+    private int firstPos = 1;
+
+    public void setFirstPos(int firstPos) {
+        this.firstPos = firstPos;
+    }
+
     public interface TitleClickListener {
         void onClick(View v);
     }
@@ -64,7 +70,7 @@ public class TitledListView extends XListView {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
-        if (getFirstVisiblePosition() > 1) {
+        if (getFirstVisiblePosition() > firstPos) {
             drawChild(canvas, mTitle, getDrawingTime());
             mTitle.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -76,18 +82,18 @@ public class TitledListView extends XListView {
         }
     }
 
-    private static final String TAG = "TitledListView";
+//    private static final String TAG = "TitledListView";
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (getFirstVisiblePosition() > 1) {
+        if (getFirstVisiblePosition() > firstPos) {
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     float heigh = mTitle.getHeight();
                     float y = ev.getY();
-                    Log.d(TAG, "y= " + y + "/nheigh=" + heigh);
+//                    Log.d(TAG, "y= " + y + "/nheigh=" + heigh);
                     if (y - heigh < 0) {
-                        Log.d(TAG, "dispatchTouchEvent: " + y);
+//                        Log.d(TAG, "dispatchTouchEvent: " + y);
                         titleClickListener.onClick(mTitle);
                         return false;
 
@@ -129,7 +135,7 @@ public class TitledListView extends XListView {
             title_text.setText(title);
         }
         mTitle.layout(0, 0, mTitle.getMeasuredWidth(), mTitle.getMeasuredHeight());
-        mTitle.setTag(title);
+        mTitle.setTag(index);
 
     }
 

@@ -94,4 +94,11 @@
     <color name="blue_0a78b8">#0a78b8</color>
     <color name="blue_88cef7">#88cef7</color>
 
+    <color name="yellow_88cef7">#fed94d</color>
+    <color name="yellow_efb11d">#efb11d</color>
+    <color name="yellow_f39800">#f39800</color>
+    <color name="bg_floder_press">#bdbdbd</color>
+
+    <color name="yellow_e99038">#e99038</color>
+
 </resources>

@@ -9,17 +9,25 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.model.bean.AnyEventType;
-import cn.zn.com.zn_android.uiclass.x5webview.X5WebView;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.CookieSyncManager;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.umeng.analytics.MobclickAgent;
 
+import java.util.List;
+
 import butterknife.Bind;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.manage.Constants_api;
+import cn.zn.com.zn_android.manage.CookieManger;
+import cn.zn.com.zn_android.manage.PersistentCookieStore;
+import cn.zn.com.zn_android.manage.RnApplication;
+import cn.zn.com.zn_android.model.bean.AnyEventType;
+import cn.zn.com.zn_android.uiclass.x5webview.X5WebView;
 import de.greenrobot.event.EventBus;
+import okhttp3.Cookie;
+import okhttp3.HttpUrl;
 
 /**
  * Created by zjs on 2016/9/27 0027.
@@ -141,17 +149,23 @@ public class ContestNoticeActivity extends BaseActivity implements View.OnClickL
      * @param url
      */
     private void syncCookie(String url) {
+        CookieManger cookieManger = new CookieManger(RnApplication.getInstance());
+        PersistentCookieStore cookieStore = cookieManger.getCookieStore();
+        List<Cookie> cookies = cookieStore.get(HttpUrl.parse(Constants_api.BASE_URL));
         try {
             CookieSyncManager.createInstance(mWvSignUp.getContext());
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.setAcceptCookie(true);
             cookieManager.removeSessionCookie();// 移除
             cookieManager.removeAllCookie();
-            StringBuilder sbCookie = new StringBuilder();
-            sbCookie.append(_mApplication.getUserInfo().getSessionID());
-            sbCookie.append(String.format(";domain=%s", ""));
-            sbCookie.append(String.format(";path=%s", ""));
-            String cookieValue = sbCookie.toString();
+//            StringBuilder sbCookie = new StringBuilder();
+//            sbCookie.append(_mApplication.getUserInfo().getSessionID());
+//            Log.e(TAG, "syncCookie: " + _mApplication.getUserInfo().getSessionID());
+////            ToastUtil.showLong(this, _mApplication.getUserInfo().getSessionID());
+//            sbCookie.append(String.format(";domain=%s", ""));
+//            sbCookie.append(String.format(";path=%s", ""));
+//            String cookieValue = sbCookie.toString();
+            String cookieValue = CookieManger.formatCookie(cookies);
             cookieManager.setCookie(url, cookieValue);
             CookieSyncManager.getInstance().sync();
         } catch (Exception e) {

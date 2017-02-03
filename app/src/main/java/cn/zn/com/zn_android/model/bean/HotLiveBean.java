@@ -22,6 +22,8 @@ public class HotLiveBean {
      * tid : 9999
      * times : 1459818960
      * title : 房间222
+     * nickname : sdfgasd63se
+     * star_num : 3
      * vipurl : http://192.168.1.3:98/Api/Index/t_vipim?tid=9999
      */
 
@@ -42,6 +44,17 @@ public class HotLiveBean {
     private String times = "";
     private String title = "";
     private String vipurl = "";
+    private String nickname;
+    private String star_num;
+    private int currentItem = 0;
+
+    public int getCurrentItem() {
+        return currentItem;
+    }
+
+    public void setCurrentItem(int currentItem) {
+        this.currentItem = currentItem;
+    }
 
     public String getAvatars() {
         if (avatars == null) return "";
@@ -181,4 +194,19 @@ public class HotLiveBean {
     }
 
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getStar_num() {
+        return star_num;
+    }
+
+    public void setStar_num(String star_num) {
+        this.star_num = star_num;
+    }
 }

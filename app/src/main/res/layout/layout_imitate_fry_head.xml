@@ -330,11 +330,11 @@
                     android:text="@string/avarage_stock_ownership"/>
                 <TextView
                     android:id="@+id/tv_avarage_stock_ownership"
-                    style="@style/Txt14Black"
+                    style="@style/Txt12Black"
                     android:layout_width="0dp"
                     android:layout_weight="1.2"
                     android:layout_marginLeft="@dimen/base8dp"
-                    android:text="0"/>
+                    android:text="0天"/>
             </LinearLayout>
 
             <LinearLayout
@@ -349,11 +349,11 @@
                     android:text="@string/avarage_monthly"/>
                 <TextView
                     android:id="@+id/tv_avarage_monthly"
-                    style="@style/Txt14Black"
+                    style="@style/Txt12Black"
                     android:layout_width="0dp"
                     android:layout_weight="1.2"
                     android:layout_marginLeft="@dimen/base8dp"
-                    android:text="0"/>
+                    android:text="0次"/>
             </LinearLayout>
 
             <View
@@ -379,7 +379,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/base8dp"
-                    android:text="2016-02-03"/>
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -398,7 +398,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/base8dp"
-                    android:text="2016-02-03"/>
+                    />
             </LinearLayout>
 
         </LinearLayout>
@@ -410,6 +410,25 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/base8dp"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_trust_title"
+        android:layout_width="match_parent"
+        style="@style/Txt14Black"
+        android:background="@color/register_content_color"
+        android:paddingLeft="@dimen/base14dp"
+        android:paddingTop="@dimen/base8dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:text="@string/trust_trans"/>
+
+    <cn.zn.com.zn_android.uiclass.ScrollListView
+        android:id="@+id/slv_trust_trans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:divider="@color/grey_line"
+        android:dividerHeight="0.5dp"
+        android:scrollbars="none"/>
 
     <TextView
         android:layout_width="match_parent"

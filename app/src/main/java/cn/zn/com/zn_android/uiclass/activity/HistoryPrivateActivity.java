@@ -14,6 +14,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.manage.Constants;
 import cn.zn.com.zn_android.model.bean.UserPrivateTalkBean;
@@ -22,14 +29,6 @@ import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import cn.zn.com.zn_android.uiclass.xlistview.XListView;
 import cn.zn.com.zn_android.utils.ToastUtil;
 import cn.zn.com.zn_android.utils.UIUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -139,7 +138,7 @@ public class HistoryPrivateActivity extends BaseActivity implements View.OnClick
      * 获取消息列表
      */
     private void getMsgList(String page) {
-        AppObservable.bindActivity(this, _apiManager.getService().queryUserprivateTalkList(_mApplication.getUserInfo().getSessionID(), page, PACOUT, ""))
+        _apiManager.getService().queryUserprivateTalkList(_mApplication.getUserInfo().getSessionID(), page, PACOUT, "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultPrivateMsg, Throwable -> {
@@ -148,6 +147,16 @@ public class HistoryPrivateActivity extends BaseActivity implements View.OnClick
                     ToastUtil.showShort(this, getString(R.string.no_net));
                     stopRefresh();
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryUserprivateTalkList(_mApplication.getUserInfo().getSessionID(), page, PACOUT, ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultPrivateMsg, Throwable -> {
+//                    dialog.dismiss();
+//                    Throwable.printStackTrace();
+//                    ToastUtil.showShort(this, getString(R.string.no_net));
+//                    stopRefresh();
+//                });
     }
 
     private void resultPrivateMsg(ReturnListValue<UserPrivateTalkBean> returnValue) {

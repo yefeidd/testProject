@@ -2,6 +2,9 @@ package cn.zn.com.zn_android.presenter;
 
 import android.app.Activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.RnApplication;
 import cn.zn.com.zn_android.model.FYListModel;
@@ -19,11 +22,6 @@ import cn.zn.com.zn_android.model.bean.TrackRankingBean;
 import cn.zn.com.zn_android.model.bean.VideoBean;
 import cn.zn.com.zn_android.model.entity.ReturnValue;
 import cn.zn.com.zn_android.viewfeatures.BaseMvpView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -71,12 +69,19 @@ public class ContestHomePresenter extends BasePresenter<BaseMvpView> {
      * 首页请求数据
      */
     public void queryContestDataList() {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().queryContestHomeList("", _mApplication.getUserInfo().getSessionID()))
+        _apiManager.getService().queryContestHomeList("", _mApplication.getUserInfo().getSessionID())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::disposeData, throwable -> {
                     mView.onError(0, throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().queryContestHomeList("", _mApplication.getUserInfo().getSessionID()))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::disposeData, throwable -> {
+//                    mView.onError(0, throwable);
+//                });
     }
 
 
@@ -104,7 +109,7 @@ public class ContestHomePresenter extends BasePresenter<BaseMvpView> {
         hotAritcleContestModels = new ArrayList<>();
         int index = 0;
         for (ArticleBean bean : art_list) {
-            HotAritcleContestModel model = new HotAritcleContestModel(mActivity,bean).setOrder(index++);
+            HotAritcleContestModel model = new HotAritcleContestModel(mActivity, bean).setOrder(index++);
             hotAritcleContestModels.add(model);
         }
         return hotAritcleContestModels;
@@ -114,7 +119,7 @@ public class ContestHomePresenter extends BasePresenter<BaseMvpView> {
     public List<HotStockGodModel> getHotStockGodModles() {
         hotStockGodModels = new ArrayList<>();
         for (DynamicExpertBean bean : hot_warren) {
-            HotStockGodModel model = new HotStockGodModel(mActivity,bean);
+            HotStockGodModel model = new HotStockGodModel(mActivity, bean);
             hotStockGodModels.add(model);
         }
         return hotStockGodModels;
@@ -146,7 +151,7 @@ public class ContestHomePresenter extends BasePresenter<BaseMvpView> {
         hotDatas = new ArrayList<>();
         int i = 0;
         for (HotTicBean bean : hot_tic) {
-            HotStockListModel model = new HotStockListModel(mActivity,bean).setIndex(i++);
+            HotStockListModel model = new HotStockListModel(mActivity, bean).setIndex(i++);
             hotDatas.add(model);
         }
         return hotDatas;

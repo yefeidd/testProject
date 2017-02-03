@@ -8,6 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.VideoListAdapter;
 import cn.zn.com.zn_android.model.bean.AnyEventType;
@@ -19,14 +26,7 @@ import cn.zn.com.zn_android.uiclass.activity.SpecialLectureActivity;
 import cn.zn.com.zn_android.uiclass.activity.TeacherLiveActivity;
 import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import cn.zn.com.zn_android.uiclass.xlistview.XListView;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -63,7 +63,6 @@ public class FocusRoomFragment extends BaseFragment implements AdapterView.OnIte
 
         mAdapter = new VideoListAdapter(_mContext, list);
         mLvFocus.setAdapter(mAdapter);
-        queryFocusList();
     }
 
     @Override
@@ -76,6 +75,7 @@ public class FocusRoomFragment extends BaseFragment implements AdapterView.OnIte
     public void onResume() {
         super.onResume();
         MobclickAgent.onPageStart(TAG); //统计页面，"MainScreen"为页面名称，可自定义
+        queryFocusList();
     }
     public void onPause() {
         super.onPause();
@@ -83,20 +83,38 @@ public class FocusRoomFragment extends BaseFragment implements AdapterView.OnIte
     }
 
     private void queryFocusList() {
-        AppObservable.bindFragment(this, _apiManager.getService().queryFocusList(_mApplication.getUserInfo().getSessionID(), ""))
+        _apiManager.getService().queryFocusList(_mApplication.getUserInfo().getSessionID(), "")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultRoom, throwable -> {
                     dialog.dismiss();
                     Log.e(TAG, "queryFocusList: ", throwable);
                 });
+
+//        AppObservable.bindFragment(this, _apiManager.getService().queryFocusList(_mApplication.getUserInfo().getSessionID(), ""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultRoom, throwable -> {
+//                    dialog.dismiss();
+//                    Log.e(TAG, "queryFocusList: ", throwable);
+//                });
     }
 
     private void resultRoom(ReturnListValue<RoomBean> returnValue) {
         dialog.dismiss();
 
-        roomBeanList = returnValue.getData();
-        for (RoomBean b:returnValue.getData()) {
+        roomBeanList.clear();
+        list.clear();
+        roomBeanList.addAll(returnValue.getData());
+
+        Iterator<RoomBean> iter = roomBeanList.iterator();
+        while (iter.hasNext()) {
+            RoomBean bean = iter.next();
+            if (null != bean.getTid() && bean.getTid().equals("9898")) {
+                iter.remove();
+            }
+        }
+        for (RoomBean b:roomBeanList) {
             VideoBean bean = new VideoBean();
             bean.setTitle(b.getTitle());
             bean.setRemark(b.getSummary());
@@ -128,4 +146,5 @@ public class FocusRoomFragment extends BaseFragment implements AdapterView.OnIte
             startActivity(new Intent(_mContext, TeacherLiveActivity.class));
         }
     }
+
 }

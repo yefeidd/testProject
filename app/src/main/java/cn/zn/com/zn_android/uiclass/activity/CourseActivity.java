@@ -5,16 +5,15 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.zn.com.zn_android.R;
-import cn.zn.com.zn_android.model.bean.CoursesBean;
-import cn.zn.com.zn_android.model.entity.ReturnValue;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import rx.android.app.AppObservable;
+import cn.zn.com.zn_android.R;
+import cn.zn.com.zn_android.manage.Constants;
+import cn.zn.com.zn_android.model.bean.CoursesBean;
+import cn.zn.com.zn_android.model.entity.ReturnValue;
+import cn.zn.com.zn_android.utils.ToastUtil;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -65,12 +64,18 @@ public class CourseActivity extends BaseActivity {
     }
 
     private void queryCourse() {
-        AppObservable.bindActivity(this, _apiManager.getService().queryCourse(""))
+        _apiManager.getService().queryCourse("")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultCourses, throwable -> {
                     Log.e(TAG, "queryCourse: ", throwable);
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().queryCourse(""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultCourses, throwable -> {
+//                    Log.e(TAG, "queryCourse: ", throwable);
+//                });
     }
 
     private void resultCourses(ReturnValue<CoursesBean> returnValue) {

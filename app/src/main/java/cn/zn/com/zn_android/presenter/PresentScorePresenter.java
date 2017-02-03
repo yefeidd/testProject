@@ -6,7 +6,6 @@ import android.util.Log;
 import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.RnApplication;
 
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -30,7 +29,7 @@ public class PresentScorePresenter {
      * 报名赠送积分
      */
     public void presentScore() {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().presentSignScore(_mApplication.getUserInfo().getSessionID(), ""))
+        _apiManager.getService().presentSignScore(_mApplication.getUserInfo().getSessionID(), "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(reurnValue -> {
@@ -40,13 +39,24 @@ public class PresentScorePresenter {
                 }, Throwable -> {
                     Throwable.printStackTrace();
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().presentSignScore(_mApplication.getUserInfo().getSessionID(), ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(reurnValue -> {
+//                    if (reurnValue != null && reurnValue.getMsg().equals("success")) {
+//                        Log.i(TAG, "presentScore: " + "赠送成功");
+//                    }
+//                }, Throwable -> {
+//                    Throwable.printStackTrace();
+//                });
     }
 
     /**
      * 分享送积分接口
      */
     public void sharePresentScore() {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().presentScore(_mApplication.getUserInfo().getSessionID(), ""))
+        _apiManager.getService().presentScore(_mApplication.getUserInfo().getSessionID(), "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(reurnValue -> {
@@ -56,5 +66,16 @@ public class PresentScorePresenter {
                 }, Throwable -> {
                     Throwable.printStackTrace();
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().presentScore(_mApplication.getUserInfo().getSessionID(), ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(reurnValue -> {
+//                    if (reurnValue != null && reurnValue.getMsg().equals("success")) {
+//                        Log.i(TAG, "presentScore: " + "赠送成功");
+//                    }
+//                }, Throwable -> {
+//                    Throwable.printStackTrace();
+//                });
     }
 }

@@ -14,6 +14,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.ArticleListAdapter;
 import cn.zn.com.zn_android.adapter.ListPageAdapter;
@@ -26,14 +31,7 @@ import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import cn.zn.com.zn_android.uiclass.page.ListPage;
 import cn.zn.com.zn_android.utils.ToastUtil;
 import cn.zn.com.zn_android.utils.UIUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -280,7 +278,7 @@ public class ArticalListFragment extends BaseFragment {
      * @return
      */
     private void getHotArticleData(String kwords, String order, String page, String pcount) {
-        AppObservable.bindFragment(this, _apiManager.getService().getArticleList(kwords, type, order, page, pcount))
+        _apiManager.getService().getArticleList(kwords, type, order, page, pcount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultHotArticle, Throwable -> {
@@ -291,6 +289,18 @@ public class ArticalListFragment extends BaseFragment {
                         dialog.dismiss();
                     }
                 });
+
+//        AppObservable.bindFragment(this, _apiManager.getService().getArticleList(kwords, type, order, page, pcount))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultHotArticle, Throwable -> {
+//                    hotPager.stopRefresh();
+//                    hotPager.stopLoadMore();
+//                    Throwable.printStackTrace();
+//                    if (dialog != null) {
+//                        dialog.dismiss();
+//                    }
+//                });
     }
 
     private void resultHotArticle(ReturnListValue<ArticleBean> returnValue) {
@@ -324,7 +334,7 @@ public class ArticalListFragment extends BaseFragment {
      * @return
      */
     private void getNewArticleData(String kwords, String order, String page, String pcount) {
-        AppObservable.bindFragment(this, _apiManager.getService().getArticleList(kwords, type, order, page, pcount))
+        _apiManager.getService().getArticleList(kwords, type, order, page, pcount)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultNewArticle, Throwable -> {
@@ -337,6 +347,20 @@ public class ArticalListFragment extends BaseFragment {
                         dialog.dismiss();
                     }
                 });
+
+//        AppObservable.bindFragment(this, _apiManager.getService().getArticleList(kwords, type, order, page, pcount))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultNewArticle, Throwable -> {
+//                    SystemClock.sleep(2000);
+//                    newPager.stopRefresh();
+//                    newPager.stopLoadMore();
+//                    Throwable.printStackTrace();
+//                    ToastUtil.showShort(getActivity(), getString(R.string.no_net));
+//                    if (dialog != null) {
+//                        dialog.dismiss();
+//                    }
+//                });
     }
 
     private void resultNewArticle(ReturnListValue<ArticleBean> returnValue) {

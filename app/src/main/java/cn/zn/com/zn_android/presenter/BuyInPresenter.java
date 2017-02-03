@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.util.Log;
 
 import cn.zn.com.zn_android.manage.ApiManager;
-import cn.zn.com.zn_android.model.entity.RetValue;
 import cn.zn.com.zn_android.presenter.requestType.SimulativeBoardType;
 import cn.zn.com.zn_android.viewfeatures.BuyInView;
 
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -27,7 +25,7 @@ public class BuyInPresenter extends BasePresenter<BuyInView> {
     }
 
     public void buySellStock(String sessionId, String code_id, String type) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().buySellStock(sessionId, code_id, type))
+        _apiManager.getService().buySellStock(sessionId, code_id, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -36,6 +34,16 @@ public class BuyInPresenter extends BasePresenter<BuyInView> {
                     Log.e(TAG, "buySellStock: " + throwable);
                     buyInView.onError(SimulativeBoardType.BUY_STOCK, throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().buySellStock(sessionId, code_id, type))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    buyInView.onSuccess(SimulativeBoardType.BUY_STOCK, retValue.getData());
+//                }, throwable -> {
+//                    Log.e(TAG, "buySellStock: " + throwable);
+//                    buyInView.onError(SimulativeBoardType.BUY_STOCK, throwable);
+//                });
     }
 
     /**
@@ -49,8 +57,8 @@ public class BuyInPresenter extends BasePresenter<BuyInView> {
      */
     public void tradeStock(String sessionId, String code_id, String code_num, String type,
                            String code_name, String code_price, String now) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().tradeStock(sessionId, code_id,
-                code_num, type, code_name, code_price, now))
+        _apiManager.getService().tradeStock(sessionId, code_id,
+                code_num, type, code_name, code_price, now)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -59,6 +67,17 @@ public class BuyInPresenter extends BasePresenter<BuyInView> {
                     Log.e(TAG, "tradeStock: " + throwable);
                     buyInView.onError(SimulativeBoardType.TRADE_STOCK, throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().tradeStock(sessionId, code_id,
+//                code_num, type, code_name, code_price, now))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    buyInView.onSuccess(SimulativeBoardType.TRADE_STOCK, retValue.getData());
+//                }, throwable -> {
+//                    Log.e(TAG, "tradeStock: " + throwable);
+//                    buyInView.onError(SimulativeBoardType.TRADE_STOCK, throwable);
+//                });
 
     }
 }

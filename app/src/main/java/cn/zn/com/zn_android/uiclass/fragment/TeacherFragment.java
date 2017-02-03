@@ -11,6 +11,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.HostLiveAdapter;
 import cn.zn.com.zn_android.manage.Constants;
@@ -20,17 +27,11 @@ import cn.zn.com.zn_android.model.entity.ReturnListValue;
 import cn.zn.com.zn_android.uiclass.activity.ArticleSearchActivity;
 import cn.zn.com.zn_android.uiclass.xlistview.XListView;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static cn.zn.com.zn_android.R.id.lv_live;
 
 /**
  * 老师 Fragment
@@ -38,9 +39,9 @@ import rx.schedulers.Schedulers;
  * Created by WJL on 2016/3/11 0011 09:01.
  */
 public class TeacherFragment extends BaseFragment implements View.OnClickListener, XListView.IXListViewListener {
-    @Bind(R.id.lv_live)
+    @Bind(lv_live)
     XListView mLvLive;
-//    @Bind(R.id.srl_teachers)
+    //    @Bind(R.id.srl_teachers)
 //    InterceptSwpRefLayout mSrlTeachers;
     @Bind(R.id.iv_leftmenu)
     ImageView mIvLeftmenu;
@@ -118,24 +119,34 @@ public class TeacherFragment extends BaseFragment implements View.OnClickListene
      * 发送请求老师直播列表请求
      */
     private void postHotLiveRequest() {
-        AppObservable.bindFragment(this, _apiManager.getService().getHotLiveList("")).
-                subscribeOn(Schedulers.io())
+        _apiManager.getService().getHotLiveList("")
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultLiveList, throwable -> {
                     Log.e(TAG, "postHotLiveRequest: 异常", throwable);
-                    mLvLive.stopRefresh();
-//                    if (mSrlTeachers.isRefreshing()) {
-//                        mSrlTeachers.setRefreshing(false);
-//                    }
+                    if (mLvLive != null) {
+                        mLvLive.stopRefresh();
+                    }
                 });
+//        AppObservable.bindFragment(this, _apiManager.getService().getHotLiveList("")).
+//                subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultLiveList, throwable -> {
+//                    Log.e(TAG, "postHotLiveRequest: 异常", throwable);
+//                    mLvLive.stopRefresh();
+////                    if (mSrlTeachers.isRefreshing()) {
+////                        mSrlTeachers.setRefreshing(false);
+////                    }
+//                });
     }
 
     private void resultLiveList(ReturnListValue<HotLiveBean> returnValue) {
 //        if (mSrlTeachers.isRefreshing()) {
 //            mSrlTeachers.setRefreshing(false);
 //        }
-        mLvLive.stopRefresh();
-
+        if (mLvLive != null) {
+            mLvLive.stopRefresh();
+        }
         hotLiveList = new ArrayList<>();
         if (returnValue != null && returnValue.getMsg().equals(Constants.SUCCESS)) {
             hotLiveList = returnValue.getData();

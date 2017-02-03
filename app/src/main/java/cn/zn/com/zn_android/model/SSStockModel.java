@@ -49,37 +49,6 @@ public class SSStockModel {
             public void onClick(View v) {
                 EventBus.getDefault().postSticky(new AnyEventType(bean.getType()));
                 mContext.startActivity(new Intent(mContext, UpDownRankingActivity.class));
-//                switch (pos) {
-//                    case 0:
-//                        EventBus.getDefault().postSticky(new AnyEventType(mContext.getResources().getString(R.string.up_list)));
-//                        mContext.startActivity(new Intent(mContext, UpDownRankingActivity.class));
-//                        break;
-//                    case 1:
-//                        EventBus.getDefault().postSticky(new AnyEventType(mContext.getResources().getString(R.string.drop_list)));
-//                        mContext.startActivity(new Intent(mContext, UpDownRankingActivity.class));
-//                        break;
-//                    case 2:
-//                        EventBus.getDefault().postSticky(new AnyEventType(mContext.getResources().getString(R.string.exchange_rate_list)));
-//                        mContext.startActivity(new Intent(mContext, UpDownRankingActivity.class));
-//                        break;
-//                    case 3:
-//                        EventBus.getDefault().postSticky(new AnyEventType(mContext.getResources().getString(R.string.amplitude_list)));
-//                        mContext.startActivity(new Intent(mContext, UpDownRankingActivity.class));
-//                        break;
-//                    case 4:
-//                        EventBus.getDefault().postSticky(new AnyEventType(mContext.getResources().getString(R.string.high_price_stock_list)));
-//                        mContext.startActivity(new Intent(mContext, UpDownRankingActivity.class));
-//                        break;
-//                    case 5:
-//                        EventBus.getDefault().postSticky(new AnyEventType(mContext.getResources().getString(R.string.low_price_stock_list)));
-//                        mContext.startActivity(new Intent(mContext, UpDownRankingActivity.class));
-//                        break;
-//                    case 6:
-//                        EventBus.getDefault().postSticky(new AnyEventType(mContext.getResources().getString(R.string.gt_stock)));
-//                        mContext.startActivity(new Intent(mContext, UpDownRankingActivity.class));
-//                        break;
-//                }
-
             }
         });
 

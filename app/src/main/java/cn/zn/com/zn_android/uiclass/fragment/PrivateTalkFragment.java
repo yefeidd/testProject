@@ -14,6 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.PrivateTalkAdapter;
 import cn.zn.com.zn_android.manage.Constants;
@@ -27,15 +34,7 @@ import cn.zn.com.zn_android.uiclass.activity.MemberAreaActivity;
 import cn.zn.com.zn_android.uiclass.activity.PrivateTalkActivity;
 import cn.zn.com.zn_android.utils.DensityUtil;
 import cn.zn.com.zn_android.utils.ToastUtil;
-import com.umeng.analytics.MobclickAgent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -118,12 +117,18 @@ public class PrivateTalkFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void getVipState(String tid) {
-        AppObservable.bindFragment(this, _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), tid))
+        _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), tid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultVipState, Throwable -> {
                     Throwable.printStackTrace();
                 });
+//        AppObservable.bindFragment(this, _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), tid))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultVipState, Throwable -> {
+//                    Throwable.printStackTrace();
+//                });
     }
 
     private void resultVipState(ReturnValue<VipStateBean> returnValue) {
@@ -149,12 +154,18 @@ public class PrivateTalkFragment extends BaseFragment implements View.OnClickLis
         if (_mApplication.getUserInfo().getIsLogin() == 0) {
             return;
         }
-        AppObservable.bindFragment(this, _apiManager.getService().getPrivateMsg(_mApplication.getUserInfo().getSessionID(), ""))
+        _apiManager.getService().getPrivateMsg(_mApplication.getUserInfo().getSessionID(), "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultPrivateMsg, Throwable -> {
                     Throwable.printStackTrace();
                 });
+//        AppObservable.bindFragment(this, _apiManager.getService().getPrivateMsg(_mApplication.getUserInfo().getSessionID(), ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultPrivateMsg, Throwable -> {
+//                    Throwable.printStackTrace();
+//                });
     }
 
     private void resultPrivateMsg(ReturnListValue<PrivateMsgBean> returnValue) {

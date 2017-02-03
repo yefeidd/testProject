@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@+id/tv_wait"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@mipmap/ic_wait"
+        android:paddingTop="@dimen/base10dp"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base8dp"
+        android:drawablePadding="@dimen/base4dp"
+        style="@style/Txt14_e99038"
+        android:text="@string/wait"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_wait"
+        style="@style/Txt14Black"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/base14dp"
+        android:text="猛狮科技（002684）今天为何如此下跌？"/>
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_wait"
+        android:layout_below="@+id/tv_title"
+        style="@style/Txt14Black"
+        android:paddingLeft="@dimen/base8dp"
+        android:paddingRight="@dimen/base6dp"
+        android:paddingTop="@dimen/base4dp"
+        android:paddingBottom="@dimen/base4dp"
+        android:background="@color/chat_bg"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/base8dp"
+        android:layout_marginRight="@dimen/base12dp"
+        android:text="提问成功，解牛进行中，请留意导师回复"/>
+
+    <LinearLayout
+        android:id="@+id/ll_time"
+        android:layout_below="@+id/tv_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/base12dp"
+        android:paddingRight="@dimen/base6dp"
+        android:paddingTop="@dimen/base8dp"
+        android:paddingBottom="@dimen/base8dp"
+        android:layout_marginTop="@dimen/base12dp"
+        android:layout_marginBottom="@dimen/base10dp"
+        android:background="@color/chat_bg"
+        android:orientation="horizontal">
+        
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/Txt16BarRed"
+            android:text="￥15"
+            />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            style="@style/Txt14Black"
+            android:text="等待时间：1小时20分"/>
+        
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base7dp"
+        android:layout_below="@+id/ll_time"
+        android:background="@color/register_content_color"/>
+
+</RelativeLayout>

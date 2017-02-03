@@ -21,7 +21,7 @@ public class BuyInModel extends ListviewItemModel {
     }
 
     @Override
-    public void showItem(BaseViewHolder viewHolder, Context context) {
+    public void showItem(BaseViewHolder viewHolder, Context context, int position) {
         BuyInViewHolder holder = (BuyInViewHolder) viewHolder;
         holder.mTvMark.setText(bean.getMark());
         holder.mTvPrice.setText(bean.getPrice());

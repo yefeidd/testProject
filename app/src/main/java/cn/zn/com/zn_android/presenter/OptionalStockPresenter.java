@@ -7,7 +7,6 @@ import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.presenter.requestType.StockRequestType;
 import cn.zn.com.zn_android.viewfeatures.OptionalStockView;
 
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -32,7 +31,7 @@ public class OptionalStockPresenter extends BasePresenter<OptionalStockView> {
      * @param id
      */
     public void delSelfStock(String sessionId, String id) {
-        AppObservable.bindActivity(_activity, _apiManager.getService().delSelfStock(sessionId, id))
+        _apiManager.getService().delSelfStock(sessionId, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(returnValue -> {
@@ -43,6 +42,18 @@ public class OptionalStockPresenter extends BasePresenter<OptionalStockView> {
                     Log.e(TAG, "delSelfStock: ", throwable);
                     optionalStockView.onError(StockRequestType.DEL_SELF_SELECT, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().delSelfStock(sessionId, id))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(returnValue -> {
+//                    if (null != returnValue) {
+//                        optionalStockView.onSuccess(StockRequestType.DEL_SELF_SELECT, returnValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "delSelfStock: ", throwable);
+//                    optionalStockView.onError(StockRequestType.DEL_SELF_SELECT, throwable);
+//                });
     }
 
 }

@@ -1,6 +1,7 @@
 package cn.zn.com.zn_android.uiclass.activity;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.Config;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+
+import org.eclipse.paho.client.mqttv3.MqttException;
+
+import butterknife.Bind;
 import cn.zn.com.zn_android.R;
 import cn.zn.com.zn_android.adapter.JoFragmentPagerAdapter;
 import cn.zn.com.zn_android.manage.Constants;
@@ -29,25 +41,13 @@ import cn.zn.com.zn_android.presenter.PresentScorePresenter;
 import cn.zn.com.zn_android.uiclass.customerview.JoDialog;
 import cn.zn.com.zn_android.uiclass.customerview.MarqueeText;
 import cn.zn.com.zn_android.uiclass.fragment.ChatVIPFragment;
-import cn.zn.com.zn_android.uiclass.fragment.TacticsFragment;
+import cn.zn.com.zn_android.uiclass.fragment.GoodAnswerFragment;
 import cn.zn.com.zn_android.uiclass.fragment.TeacherChatFragment;
 import cn.zn.com.zn_android.uiclass.fragment.WealthToolsFragment;
 import cn.zn.com.zn_android.utils.DMSUtils;
 import cn.zn.com.zn_android.utils.LogUtils;
 import cn.zn.com.zn_android.utils.UIUtil;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.socialize.Config;
-import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.media.UMImage;
-
-import org.eclipse.paho.client.mqttv3.MqttException;
-
-import butterknife.Bind;
 import de.greenrobot.event.EventBus;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -85,6 +85,10 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
     RelativeLayout mRlHead;
     @Bind(R.id.ll_head)
     LinearLayout mLlHead;
+    @Bind(R.id.iv_star)
+    ImageView mIvStar;
+    @Bind(R.id.ll_head_img)
+    LinearLayout mLlHeadImg;
 
     private HotLiveBean liveInfo;
     private StringBuilder roomName;
@@ -101,6 +105,7 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
     private String shareTitle = Constants.teacherShareTitle;
     private String mUrl = Constants.teacherShareUrl;
     UMImage image = new UMImage(TeacherLiveActivity.this, Constants.iconResourece);
+    private int currentItem = 0;
 
     /**
      * 分享的平台数组
@@ -189,6 +194,7 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
     public void onEventMainThread(AnyEventType event) {
         if (event.getObject() instanceof HotLiveBean) {
             liveInfo = (HotLiveBean) event.getObject();
+            currentItem = liveInfo.getCurrentItem();
         }
     }
 
@@ -252,14 +258,14 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
         mIbShare.setImageResource(R.drawable.article_share);
         mIbShare.setVisibility(View.VISIBLE);
         getVipState(liveInfo.getTid());
-        if (mVpChat != null) {
-            setupViewPager(mVpChat);
-        }
         mTlChat.setFocusable(true);
         mTlChat.setupWithViewPager(mVpChat);
         //获取关注该房间的状态
-        initData();
-
+//        initData();
+        if (mVpChat != null) {
+            setupViewPager(mVpChat);
+        }
+        queryTeacherInfo();
     }
 
     @Override
@@ -267,6 +273,7 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
         mIvLeftmenu.setOnClickListener(this);
         mRlFollow.setOnClickListener(this);
         mSdvHead.setOnClickListener(this);
+
 
         mVpChat.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -324,9 +331,11 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
         mChatVIPFragment = ChatVIPFragment.newInstance(liveInfo.getTid());
         adapter.addFragment(mChatVIPFragment, "VIP直播");
 //        adapter.addFragment(ChatVipListFragment.newInstance(liveInfo.getTid(), liveInfo.getVipurl()), "VIP直播");
-        adapter.addFragment(TacticsFragment.newInstance(liveInfo.getTid(), ""), "最新策略");
+//        adapter.addFragment(TacticsFragment.newInstance(liveInfo.getTid(), ""), "最新策略");
+        adapter.addFragment(GoodAnswerFragment.newInstance(liveInfo.getTid()), "精彩问答");
         adapter.addFragment(WealthToolsFragment.newInstance(liveInfo.getTid(), ""), "财富工具");
         mVpChat.setAdapter(adapter);
+        mVpChat.setCurrentItem(currentItem);
     }
 
     @Override
@@ -337,7 +346,11 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.rl_follow:
                 if (_mApplication.getUserInfo().getIsLogin() == Constants.IS_LOGIN) {
-                    addCollectRoom();
+                    if (!mCbFollow.isChecked()) {
+                        addCollectRoom();
+                    } else {
+                        cancelRoom(liveInfo.getTid());
+                    }
                 } else {
                     startActivity(new Intent(this, LoginActivity.class));
                 }
@@ -355,6 +368,13 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
      * 初始化数据
      */
     protected void initData() {
+        updateUi();
+    }
+
+    /**
+     * 拿到数据更行UI
+     */
+    private void updateUi() {
         if (liveInfo.getAvatars() != null) {
             mSdvHead.setImageURI(Uri.parse(liveInfo.getAvatars()));
         }
@@ -365,15 +385,20 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
                 .append(liveInfo.getRoom_number())
                 .append(")");
         mTvRoomName.setText(roomName);
-        fans = new StringBuilder("粉丝:  ");
+        fans = new StringBuilder("关注:  ");
         fans.append(liveInfo.getCollect());
         mTvFans.setText(fans.toString());
         hotClick = new StringBuilder("人气:  ");
         hotClick.append(liveInfo.getClick());
         mTvHot.setText(hotClick.toString());
         mTvNotice.setText(liveInfo.getPlacard());
-    }
 
+        String resName = "ic_teacher_star" + liveInfo.getStar_num();
+        mIvStar.setImageBitmap(BitmapFactory.decodeResource(getResources(),
+                getResources().getIdentifier(resName, "drawable", getPackageName())));
+
+
+    }
 
     /**
      * 获取是否关注过该房间
@@ -381,12 +406,19 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
      * @param tid
      */
     private void getCollectState(String tid) {
-        AppObservable.bindActivity(this, _apiManager.getService().isCollectRoom(_mApplication.getUserInfo().getSessionID(), tid))
+        _apiManager.getService().isCollectRoom(_mApplication.getUserInfo().getSessionID(), tid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultCollectState, Throwable -> {
                     Throwable.printStackTrace();
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().isCollectRoom(_mApplication.getUserInfo().getSessionID(), tid))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultCollectState, Throwable -> {
+//                    Throwable.printStackTrace();
+//                });
     }
 
     private void resultCollectState(ReturnValue<MessageBean> returnValue) {
@@ -403,12 +435,19 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
      * 关注该房间
      */
     private void addCollectRoom() {
-        AppObservable.bindActivity(this, _apiManager.getService().addRoomCollect(_mApplication.getUserInfo().getSessionID(), liveInfo.getTid()))
+        _apiManager.getService().addRoomCollect(_mApplication.getUserInfo().getSessionID(), liveInfo.getTid())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::resultCollectRoom, throwable -> {
                     Log.e(TAG, "addCollectRoom: ", throwable);
                 });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().addRoomCollect(_mApplication.getUserInfo().getSessionID(), liveInfo.getTid()))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::resultCollectRoom, throwable -> {
+//                    Log.e(TAG, "addCollectRoom: ", throwable);
+//                });
     }
 
     private void resultCollectRoom(ReturnValue<MessageBean> returnValue) {
@@ -421,18 +460,50 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+    private void cancelRoom(String tid) {
+        _apiManager.getService().cancelRoom(_mApplication.getUserInfo().getSessionID(), tid)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(ret -> {
+                    showFanDialog(ret.getData().getMessage());
+                    if (ret.getData().getMessage().contains("成功")) {
+                        mCbFollow.setChecked(false);
+                    }
+                }, throwable -> {
+                    Log.e(TAG, "cancelRoom: ", throwable);
+                });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().cancelRoom(_mApplication.getUserInfo().getSessionID(), tid))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(ret -> {
+//                    showFanDialog(ret.getData().getMessage());
+//                    if (ret.getData().getMessage().contains("成功")) {
+//                        mCbFollow.setChecked(false);
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "cancelRoom: ", throwable);
+//                });
+    }
+
     /**
      * 获取VIP状态
      *
      * @param tid
      */
     private void getVipState(String tid) {
-        AppObservable.bindActivity(this, _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), tid))
+        _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), tid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::resultVipState, Throwable -> {
                     Throwable.printStackTrace();
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().getVipState(_mApplication.getUserInfo().getSessionID(), tid))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(this::resultVipState, Throwable -> {
+//                    Throwable.printStackTrace();
+//                });
     }
 
     private void resultVipState(ReturnValue<VipStateBean> returnValue) {
@@ -472,6 +543,44 @@ public class TeacherLiveActivity extends BaseActivity implements View.OnClickLis
                     }
                 })
                 .show(true);
+    }
+
+    private void queryTeacherInfo() {
+        _apiManager.getService().queryTeacherInfo(liveInfo.getTid())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(retValue -> {
+                    HotLiveBean bean = retValue.getData();
+                    liveInfo.setAvatars(bean.getAvatars());
+                    liveInfo.setClick(bean.getClick());
+                    liveInfo.setCollect(bean.getCollect());
+                    liveInfo.setRoom_number(bean.getRoom_number());
+                    liveInfo.setTitle(bean.getTitle());
+                    liveInfo.setPlacard(bean.getPlacard());
+                    liveInfo.setNickname(bean.getNickname());
+                    liveInfo.setStar_num(bean.getStar_num());
+                    updateUi();
+                }, throwable -> {
+                    Log.e(TAG, "queryTeacherInfo: ", throwable);
+                });
+
+//        AppObservable.bindActivity(this, _apiManager.getService().queryTeacherInfo(liveInfo.getTid()))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    HotLiveBean bean = retValue.getData();
+//                    liveInfo.setAvatars(bean.getAvatars());
+//                    liveInfo.setClick(bean.getClick());
+//                    liveInfo.setCollect(bean.getCollect());
+//                    liveInfo.setRoom_number(bean.getRoom_number());
+//                    liveInfo.setTitle(bean.getTitle());
+//                    liveInfo.setPlacard(bean.getPlacard());
+//                    liveInfo.setNickname(bean.getNickname());
+//                    liveInfo.setStar_num(bean.getStar_num());
+//                    updateUi();
+//                }, throwable -> {
+//                    Log.e(TAG, "queryTeacherInfo: ", throwable);
+//                });
     }
 
 }

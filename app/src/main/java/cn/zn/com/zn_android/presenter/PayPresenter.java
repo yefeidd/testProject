@@ -4,6 +4,12 @@ import android.app.Activity;
 import android.os.Handler;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.manage.Constants;
 import cn.zn.com.zn_android.manage.Constants_api;
@@ -16,14 +22,6 @@ import cn.zn.com.zn_android.utils.BaseHelper;
 import cn.zn.com.zn_android.utils.Md5RSAAlgorithm;
 import cn.zn.com.zn_android.utils.MobileSecurePayer;
 import cn.zn.com.zn_android.viewfeatures.PayView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -52,7 +50,7 @@ public class PayPresenter extends BasePresenter<PayView> {
      * @param money
      */
     public void addRechargeOrder(String sessionId, String type, String money) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().addRechargeOrder(sessionId, type, money, "a"))
+        _apiManager.getService().addRechargeOrder(sessionId, type, money, "a")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -61,6 +59,16 @@ public class PayPresenter extends BasePresenter<PayView> {
                     Log.e(TAG, "addRechargeOrder: ", throwable);
                     mPayView.onError(PayView.LIAN_LIAN, throwable);
                 });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().addRechargeOrder(sessionId, type, money, "a"))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    mPayView.onSuccess(PayView.LIAN_LIAN, retValue);
+//                }, throwable -> {
+//                    Log.e(TAG, "addRechargeOrder: ", throwable);
+//                    mPayView.onError(PayView.LIAN_LIAN, throwable);
+//                });
     }
 
 
@@ -131,7 +139,7 @@ public class PayPresenter extends BasePresenter<PayView> {
     }
 
     public void queryWXPaySign(String sessionId, String money, String name) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().queryWXPaySign(sessionId, money, name))
+        _apiManager.getService().queryWXPaySign(sessionId, money, name)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -139,12 +147,22 @@ public class PayPresenter extends BasePresenter<PayView> {
                 }, throwable -> {
                     Log.e(TAG, "queryWXPaySign: ", throwable);
                     mPayView.onError(PayView.WEI_XIN, throwable);
-                }); // java.net.UnknownHostException: Unable to resolve host "tt.zhengniu.net": No address associated with hostname
+                });
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().queryWXPaySign(sessionId, money, name))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    mPayView.onSuccess(PayView.WEI_XIN, retValue.getData());
+//                }, throwable -> {
+//                    Log.e(TAG, "queryWXPaySign: ", throwable);
+//                    mPayView.onError(PayView.WEI_XIN, throwable);
+//                }); // java.net.UnknownHostException: Unable to resolve host "tt.zhengniu.net": No address associated with hostname
     }
 
 
     public void addDataToServer(String value1, String value2) {
-        AppObservable.bindActivity(mActivity, _apiManager.getService().addDateTo(RnApplication.getInstance().getUserInfo().getSessionID(), value1, value2))
+        _apiManager.getService().addDateTo(RnApplication.getInstance().getUserInfo().getSessionID(), value1, value2)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(retValue -> {
@@ -155,5 +173,17 @@ public class PayPresenter extends BasePresenter<PayView> {
                 }, throwable -> {
                     Log.e(TAG, "addDataToServer: ", throwable);
                 }); // java.net.
+
+//        AppObservable.bindActivity(mActivity, _apiManager.getService().addDateTo(RnApplication.getInstance().getUserInfo().getSessionID(), value1, value2))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        Log.i(TAG, "addDataToServer: " + retValue.getMsg() + "::" + retValue.getData().getMessage());
+//                    }
+//                    Log.i(TAG, "addDataToServer: " + "success");
+//                }, throwable -> {
+//                    Log.e(TAG, "addDataToServer: ", throwable);
+//                }); // java.net.
     }
 }

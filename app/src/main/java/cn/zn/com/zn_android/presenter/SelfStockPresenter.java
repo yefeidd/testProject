@@ -8,7 +8,6 @@ import cn.zn.com.zn_android.manage.ApiManager;
 import cn.zn.com.zn_android.presenter.requestType.StockRequestType;
 import cn.zn.com.zn_android.viewfeatures.SelfStockView;
 
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -28,7 +27,7 @@ public class SelfStockPresenter extends BasePresenter<SelfStockPresenter> {
     }
 
     public void querySelfStock(String sessionId) {
-        AppObservable.bindActivity(_activity, _apiManager.getService().querySelfStock(sessionId, ""))
+        _apiManager.getService().querySelfStock(sessionId, "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(returnValue -> {
@@ -39,5 +38,17 @@ public class SelfStockPresenter extends BasePresenter<SelfStockPresenter> {
                     Log.e(TAG, "querySelfStock: ", throwable);
                     selfStockView.onError(StockRequestType.QUERY_SELF_SELECT, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().querySelfStock(sessionId, ""))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(returnValue -> {
+//                    if (null != returnValue) {
+//                        selfStockView.onSuccess(StockRequestType.QUERY_SELF_SELECT, returnValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "querySelfStock: ", throwable);
+//                    selfStockView.onError(StockRequestType.QUERY_SELF_SELECT, throwable);
+//                });
     }
 }

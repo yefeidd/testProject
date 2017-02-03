@@ -19,7 +19,7 @@
             android:text="通过分享，可查看" />
 
         <TextView
-            style="@style/Txt15Redd83d21"
+            style="@style/Txt14Redd83d21"
             android:text="操作明细"
             android:textSize="16sp"/>
     </LinearLayout>

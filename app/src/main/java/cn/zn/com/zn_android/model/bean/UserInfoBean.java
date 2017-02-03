@@ -36,6 +36,21 @@ public class UserInfoBean extends MessageBean {
     private String fen;
     private int ticket;
 
+    /**
+     * 该账号是否是老师账号
+     * 1：是
+     * 0：不是，学生账号
+     */
+    private int is_teacher;
+
+    public int getIs_teacher() {
+        return is_teacher;
+    }
+
+    public void setIs_teacher(int is_teacher) {
+        this.is_teacher = is_teacher;
+    }
+
     public int getTicket() {
         return ticket;
     }

@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -152,13 +151,20 @@ public class LocationActivity extends BaseActivity implements View.OnClickListen
 
     private void modifyLocation(String cityID) {
         String provinceID = getIntent().getStringExtra(Constants.ID);
-        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberLocation(_mApplication.getUserInfo().getSessionID(), provinceID, cityID))
+        _apiManager.getService().modifyMemberLocation(_mApplication.getUserInfo().getSessionID(), provinceID, cityID)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::modifyResult, throwable -> {
                     Log.i(TAG, "modifyLocation: 异常");
                     ToastUtil.showShort(this, getString(R.string.modify_fail));
                 });
+//        AppObservable.bindActivity(this, _apiManager.getService().modifyMemberLocation(_mApplication.getUserInfo().getSessionID(), provinceID, cityID))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(this::modifyResult, throwable -> {
+//                    Log.i(TAG, "modifyLocation: 异常");
+//                    ToastUtil.showShort(this, getString(R.string.modify_fail));
+//                });
     }
 
     /**

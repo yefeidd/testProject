@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <include layout="@layout/layout_toolbar" />
+
+    <cn.zn.com.zn_android.uiclass.customerview.ObservableScrollView
+        android:id="@+id/xslv_dianosed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/register_content_color"/>
+
+    <cn.zn.com.zn_android.uiclass.SmartLinearLayout
+        android:id="@+id/sll_quick"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
+        <ImageButton
+            android:id="@+id/btn_quick_ask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Txt15White"
+            android:layout_marginBottom="@dimen/base20dp"
+            android:layout_marginRight="@dimen/base12dp"
+            android:background="@mipmap/ic_quick_ask"/>
+    </cn.zn.com.zn_android.uiclass.SmartLinearLayout>
+
+
+</RelativeLayout>

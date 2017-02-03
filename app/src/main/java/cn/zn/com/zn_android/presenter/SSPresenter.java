@@ -5,15 +5,9 @@ import android.content.Context;
 import android.util.Log;
 
 import cn.zn.com.zn_android.manage.ApiManager;
-import cn.zn.com.zn_android.manage.Constants;
-import cn.zn.com.zn_android.manage.StockApiManager;
-import cn.zn.com.zn_android.manage.StockConstansUrl;
 import cn.zn.com.zn_android.presenter.requestType.IndexRequestType;
 import cn.zn.com.zn_android.viewfeatures.SSView;
 
-import retrofit.http.Field;
-import retrofit.http.Header;
-import rx.android.app.AppObservable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -28,21 +22,19 @@ public class SSPresenter extends BasePresenter<SSView> {
     private Activity _activity;
     private ApiManager _apiManager;
 
-    private StockApiManager _stockManager;
 
     public SSPresenter(SSView SSView, Context context) {
         this.SSView = SSView;
         this.context = context;
         this._activity = (Activity) context;
         this._apiManager = ApiManager.getInstance();
-        this._stockManager = StockApiManager.getInstance();
     }
 
     /**
      * 查询沪深指数
      */
     public void queryShIndex() {
-        AppObservable.bindActivity(_activity, _apiManager.getService().queryShIndex(""))
+        _apiManager.getService().queryShIndex("")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(returnValue -> {
@@ -53,13 +45,25 @@ public class SSPresenter extends BasePresenter<SSView> {
                     Log.e(TAG, "queryShIndex: ", throwable);
                     SSView.onError(IndexRequestType.SH_INDEX, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryShIndex(""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(returnValue -> {
+//                    if (null != returnValue) {
+//                        SSView.onSuccess(IndexRequestType.SH_INDEX, returnValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "queryShIndex: ", throwable);
+//                    SSView.onError(IndexRequestType.SH_INDEX, throwable);
+//                });
     }
 
     /**
      * 查询深证指数
      */
     public void querySzIndex() {
-        AppObservable.bindActivity(_activity, _apiManager.getService().querySzIndex(""))
+        _apiManager.getService().querySzIndex("")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(returnValue -> {
@@ -70,13 +74,25 @@ public class SSPresenter extends BasePresenter<SSView> {
                     Log.e(TAG, "querySzIndex: ", throwable);
                     SSView.onError(IndexRequestType.SZ_INDEX, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().querySzIndex(""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(returnValue -> {
+//                    if (null != returnValue) {
+//                        SSView.onSuccess(IndexRequestType.SZ_INDEX, returnValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "querySzIndex: ", throwable);
+//                    SSView.onError(IndexRequestType.SZ_INDEX, throwable);
+//                });
     }
 
     /**
      * 查询创业板指
      */
     public void queryCyIndex() {
-        AppObservable.bindActivity(_activity, _apiManager.getService().queryCyIndex(""))
+        _apiManager.getService().queryCyIndex("")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(returnValue -> {
@@ -87,6 +103,18 @@ public class SSPresenter extends BasePresenter<SSView> {
                     Log.e(TAG, "queryCyIndex: ", throwable);
                     SSView.onError(IndexRequestType.CY_INDEX, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().queryCyIndex(""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(returnValue -> {
+//                    if (null != returnValue) {
+//                        SSView.onSuccess(IndexRequestType.CY_INDEX, returnValue.getData());
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "queryCyIndex: ", throwable);
+//                    SSView.onError(IndexRequestType.CY_INDEX, throwable);
+//                });
     }
 
 //    /**
@@ -125,7 +153,7 @@ public class SSPresenter extends BasePresenter<SSView> {
      * 行情首页各列表数据
      */
     public void querySS() {
-        AppObservable.bindActivity(_activity, _apiManager.getService().querySS(""))
+        _apiManager.getService().querySS("")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(retValue -> {
@@ -138,5 +166,19 @@ public class SSPresenter extends BasePresenter<SSView> {
                     Log.e(TAG, "querySS: ", throwable);
                     SSView.onError(IndexRequestType.SS_LIST, throwable);
                 });
+
+//        AppObservable.bindActivity(_activity, _apiManager.getService().querySS(""))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(retValue -> {
+//                    if (null != retValue) {
+//                        SSView.onSuccess(IndexRequestType.SS_LIST, retValue.getData());
+//                    } else {
+//                        Log.e(TAG, "querySS: null");
+//                    }
+//                }, throwable -> {
+//                    Log.e(TAG, "querySS: ", throwable);
+//                    SSView.onError(IndexRequestType.SS_LIST, throwable);
+//                });
     }
 }
